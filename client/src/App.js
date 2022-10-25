@@ -65,6 +65,12 @@ const Content = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
 
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+
   @media screen and (max-width: 640px) {
     width: 100%;
     border-left: 0;
