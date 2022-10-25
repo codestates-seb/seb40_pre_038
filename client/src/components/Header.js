@@ -19,7 +19,7 @@ const LogoContainer = styled.div`
   .logo-img {
     width: 150px;
     height: 30px;
-    background-image: url(https://cdn.sstatic.net/Img/unified/sprites.svg?v=fcc0ea44ba27);
+    background-image: url(images/sprites_img.svg);
     background-position-x: 0px;
     background-position-y: -500px;
     border-image-slice: 100%;
