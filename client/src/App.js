@@ -18,15 +18,17 @@ const App = () => {
       <GlobalStyle />
       {/* <Header /> */}
       <Container>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
-            />
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
-        </BrowserRouter>
+        <Content id="content" className="snippet-hidden">
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
+              />
+              <Route path="*" element={<NoMatch />} />
+            </Routes>
+          </BrowserRouter>
+        </Content>
       </Container>
     </>
   );
@@ -45,6 +47,31 @@ const Container = styled.div`
   position: relative;
   flex: 1 0 auto;
   text-align: left;
+`;
+
+const Content = styled.div`
+  max-width: 1100px;
+  width: calc(100% - 164px);
+  background-color: #ffffff;
+  border-radius: 0;
+  border: 1px solid #d6d9dc;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 1px;
+  border-right-width: 0;
+  padding: 24px;
+  box-sizing: border-box;
+  margin: 0 auto;
+
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    border-left: 0;
+    border-right: 0;
+  }
+  @media screen and (max-width: 980px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 `;
 
 const NoMatch = () => {
