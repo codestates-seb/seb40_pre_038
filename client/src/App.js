@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
@@ -13,7 +14,7 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <div>
+      <Container>
         <BrowserRouter>
           <Routes>
             <Route
@@ -23,12 +24,25 @@ const App = () => {
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </BrowserRouter>
-      </div>
+      </Container>
     </>
   );
 };
 
 export default App;
+
+const Container = styled.div`
+  margin-top: 0;
+  max-width: 1264px;
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  position: relative;
+  flex: 1 0 auto;
+  text-align: left;
+`;
 
 const NoMatch = () => {
   return (
