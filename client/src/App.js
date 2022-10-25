@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
+
+// import Header from './components/Header';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
 
@@ -14,6 +16,7 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
+      {/* <Header /> */}
       <Container>
         <BrowserRouter>
           <Routes>
