@@ -7,6 +7,9 @@ import GlobalStyle from './GlobalStyle';
 // import Nav from './components/Nav';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
+import QuestionsPage from './pages/QuestionsPage';
+import TagsPage from './pages/TagsPage';
+import UsersPage from './pages/UsersPage';
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -27,6 +30,9 @@ const App = () => {
                 path="/"
                 element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
               />
+              <Route path="/questions" element={<QuestionsPage />} />
+              <Route path="/tags" element={<TagsPage />} />
+              <Route path="/users" element={<UsersPage />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
           </Content>
