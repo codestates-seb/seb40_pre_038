@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import Searchbar from './Searchbar';
 
 const HeaderContinaer = styled.div`
     width: 100%;
-    height: 47px;
+    height: 50px;
     border-top: 3px solid #F48225;
     background-color: #F8F9F9;
     display: flex;
@@ -32,6 +33,7 @@ const LogoContainer = styled.div`
 const ProductsBtnContainer = styled.div`
     width: 82px;
     height: 33px;
+    margin: 0 2px;
 
     .product_btn {
         width: 78px;
@@ -41,6 +43,7 @@ const ProductsBtnContainer = styled.div`
         font-size: 13px;
         font-weight: 400;
         border: none;
+        border-radius: 20px;
 
         &:hover {
             background-color: #E3E5E8;
@@ -57,6 +60,7 @@ const Header = () => {
             <ProductsBtnContainer>
                 <button className='product_btn'>Products</button>
             </ProductsBtnContainer>
+            <Searchbar></Searchbar>
         </HeaderContinaer>
     )
 }
