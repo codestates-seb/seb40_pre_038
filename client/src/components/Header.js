@@ -8,6 +8,7 @@ const HeaderContinaer = styled.div`
     background-color: #F8F9F9;
     display: flex;
     align-items: center;
+
 `;
 
 const LogoContainer = styled.div`
@@ -60,7 +61,7 @@ const Header = () => {
             <ProductsBtnContainer>
                 <button className='product_btn'>Products</button>
             </ProductsBtnContainer>
-            <Searchbar></Searchbar>
+            <Searchbar placeholder={"Search..."}></Searchbar>
         </HeaderContinaer>
     )
 }

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-const SearchbarContainer = styled.div`
+const SearchbarContainer = styled.form`
     padding: 0 8px;
+    position : relative;
 `
 
 const SearchbarInput = styled.input`
@@ -10,6 +11,7 @@ const SearchbarInput = styled.input`
 
     border: 1px solid #BABFC4;
     border-radius: 3px;
+    padding-left: 30px;
 
     &:focus {
         outline: none;
@@ -18,10 +20,22 @@ const SearchbarInput = styled.input`
     }
 `
 
-const Searchbar = ({ width, height }) => {
+const SearchIcon = styled.div`
+    i {
+        position: absolute;
+        left: 15px;
+        top: 8px;
+        color: black;   
+        font-size: 20px;
+        color: #81878C;
+    }
+`
+
+const Searchbar = ({ width, height, placeholder }) => {
     return (
         <SearchbarContainer>
-            <SearchbarInput width={width} height={height}></SearchbarInput>
+            <SearchbarInput width={width} height={height} type="text" placeholder={placeholder}></SearchbarInput>
+            <SearchIcon><i className="fa-sharp fa-solid fa-magnifying-glass search_icon"></i></SearchIcon>
         </SearchbarContainer>
     )
 }   
