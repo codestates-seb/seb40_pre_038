@@ -8,5 +8,5 @@ spring:
     url: jdbc:h2:mem:StackOverFlow  # JDBC URL
   jpa:
     hibernate:
-      ddl-auto: create  # ??? ?? ??
-    show-sql: true  # SQL ?? ??
+      ddl-auto: create  # 스키마 자동 생성
+    show-sql: true  # SQL ㅋ쿼리 출
