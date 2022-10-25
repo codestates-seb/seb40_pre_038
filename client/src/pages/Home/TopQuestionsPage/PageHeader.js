@@ -1,14 +1,24 @@
+import styled from 'styled-components';
+import { Button } from '../../../components/Buttons';
+import { Headline } from '../../../components/Headline';
+
 const PageHeader = () => {
   return (
-    <div className="d-flex">
-      <h1 className="flex--item fl1 fs-headline1">Top Questions</h1>
-      <div className="ml12 aside-cta flex--item print:d-none">
-        <a href="/questions/ask" className="ws-nowrap s-btn s-btn__primary">
-          Ask Question
-        </a>
-      </div>
-    </div>
+    <PageHeaderWrapper>
+      <Headline>Top Questions</Headline>
+      <ButtonContainer>
+        <Button type="primary">Ask Question</Button>
+      </ButtonContainer>
+    </PageHeaderWrapper>
   );
 };
 
 export default PageHeader;
+
+const PageHeaderWrapper = styled.div`
+  display: flex !important;
+`;
+
+const ButtonContainer = styled.div`
+  margin-left: 12px !important;
+`;
