@@ -1,5 +1,4 @@
-import React from "react";
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Bluebutton = styled.button`
   background: #0995ff;
@@ -8,9 +7,9 @@ const Bluebutton = styled.button`
   border: 1px solid #0995ff;
   border-radius: 4px;
   box-shadow: inset 0 1px 0 0 #ffffff;
-  width: ${(props) => props.width || "100px"};
-  height: ${(props) => props.height || "40px"};
-  font-size: ${(props) => props.fontSize || "14px"};
+  width: ${(props) => props.width || '100px'};
+  height: ${(props) => props.height || '40px'};
+  font-size: ${(props) => props.fontSize || '14px'};
   :hover {
     background: #0063bf;
   }
@@ -21,10 +20,10 @@ const SkyblueButton = styled.button`
   color: #3a739d;
   font-weight: bold;
   border-radius: 4px;
-  border: ${(props) => props.border || "1px solid #3a739d"};
-  width: ${(props) => props.width || "100px"};
-  height: ${(props) => props.height || "40px"};
-  font-size: ${(props) => props.fontSize || "14px"};
+  border: ${(props) => props.border || '1px solid #3a739d'};
+  width: ${(props) => props.width || '100px'};
+  height: ${(props) => props.height || '40px'};
+  font-size: ${(props) => props.fontSize || '14px'};
   :hover {
     background: #b3d3ea;
   }
@@ -32,7 +31,12 @@ const SkyblueButton = styled.button`
 
 function ButtonBlue({ children, border, width, height, fontSize }) {
   return (
-    <Bluebutton border={border} width={width} height={height} fontSize={fontSize}>
+    <Bluebutton
+      border={border}
+      width={width}
+      height={height}
+      fontSize={fontSize}
+    >
       {children}
     </Bluebutton>
   );
