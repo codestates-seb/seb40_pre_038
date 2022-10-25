@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
 const SearchbarContainer = styled.form`
+  box-sizing: border-box;
   padding: 0 8px;
   position: relative;
 `;
 
 const SearchbarInput = styled.input`
+  box-sizing: border-box;
   width: ${(props) => props.width || '756px'};
   height: ${(props) => props.height || '30px'};
 
