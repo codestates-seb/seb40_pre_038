@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import GlobalStyle from './GlobalStyle';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
 
@@ -10,15 +11,20 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
-        />
-        <Route path="*" element={<NoMatch />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <GlobalStyle />
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
+            />
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </>
   );
 };
 
