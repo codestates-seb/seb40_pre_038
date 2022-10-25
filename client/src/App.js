@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import LandingPage from './pages/LandingPage/LandingPage';
+import LandingPage from './pages/Home/LandingPage/LandingPage';
+import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
-    setIsLogin(false);
+    setIsLogin(true);
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={isLogin ? null : <LandingPage />} />
+        <Route
+          path="/"
+          element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
+        />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </BrowserRouter>
