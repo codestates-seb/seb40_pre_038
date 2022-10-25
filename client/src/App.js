@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 
 // import Header from './components/Header';
+// import Nav from './components/Nav';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
 
@@ -18,8 +19,9 @@ const App = () => {
       <GlobalStyle />
       {/* <Header /> */}
       <Container>
-        <Content id="content" className="snippet-hidden">
-          <BrowserRouter>
+        <BrowserRouter>
+          {/* <Nav /> */}
+          <Content id="content" className="snippet-hidden">
             <Routes>
               <Route
                 path="/"
@@ -27,8 +29,8 @@ const App = () => {
               />
               <Route path="*" element={<NoMatch />} />
             </Routes>
-          </BrowserRouter>
-        </Content>
+          </Content>
+        </BrowserRouter>
       </Container>
     </>
   );
