@@ -1,10 +1,11 @@
 import PageHeader from './PageHeader';
 import SortTab from './SortTab';
 import QListWrapper from './QuestionList/QListWrapper';
+import styled from 'styled-components';
 
 const TopQuestionsPage = () => {
   return (
-    <div id="mainbar">
+    <Mainbar>
       <PageHeader />
       <SortTab />
       <QListWrapper />
@@ -15,8 +16,20 @@ const TopQuestionsPage = () => {
         <a href="/tags">popular tags</a>. Help us answer{' '}
         <a href="/unanswered">unanswered questions</a>.
       </h2>
-    </div>
+    </Mainbar>
   );
 };
 
 export default TopQuestionsPage;
+
+const Mainbar = styled.div`
+  width: calc(100% - 300px - 24px);
+  float: left;
+  margin: 0;
+  padding: 0;
+
+  @media screen and (max-width: 980px) {
+    width: 100%;
+    float: none;
+  }
+`;
