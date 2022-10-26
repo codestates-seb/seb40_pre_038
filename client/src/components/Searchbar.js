@@ -9,7 +9,7 @@ const SearchbarContainer = styled.form`
 
 const SearchbarInput = styled.input`
   box-sizing: border-box;
-  max-width: ${(props) => props.width || '756px'};
+  max-width: ${(props) => props.width || '800px'};
   height: ${(props) => props.height || '30px'};
 
   border: 1px solid #babfc4;
@@ -26,7 +26,7 @@ const SearchbarInput = styled.input`
 const SearchIcon = styled.div`
   position: absolute;
   left: 15px;
-  top: 5px;
+  top: 7px;
   svg {
     color: #81878c;
   }
@@ -42,6 +42,7 @@ const HeaderSearchbarContainer = styled(SearchbarContainer)`
 
 const HeaderSearchbarInput = styled(SearchbarInput)`
   width: 100%;
+  height: 33px;
   @media screen and (max-width: 640px) {
     display: none;
   }

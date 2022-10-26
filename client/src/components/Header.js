@@ -52,6 +52,10 @@ const MiniSearchBtnContainer = styled.button`
   padding: 0 10px;
   border: none;
   background-color: #f8f9f9;
+
+  @media screen and (min-width: 641px) {
+    display: none;
+  }
   &:hover {
     background-color: #e3e5e8;
     cursor: pointer;
