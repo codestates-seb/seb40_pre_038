@@ -2,11 +2,13 @@ package com.codestates.answer.controller;
 
 import com.codestates.answer.dto.AnswerPatchDto;
 import com.codestates.answer.dto.AnswerPostDto;
+import com.codestates.answer.dto.AnswerVoteDto;
 import com.codestates.answer.entity.Answer;
 import com.codestates.answer.mapper.AnswerMapper;
 import com.codestates.answer.service.AnswerService;
-import com.codestates.dto.MultiAnsResponseDto;
+import com.codestates.dto.MultiResponseDto;
 import com.codestates.dto.SingleResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +19,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/answer")
+@RequestMapping("/answers")
 @Validated
 public class AnswerController {
     private final AnswerService answerService;
@@ -28,7 +30,7 @@ public class AnswerController {
         this.mapper = mapper;
     }
 
-    @PostMapping
+    @PostMapping("/create") // Answer 생성
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) {
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
 
@@ -37,7 +39,7 @@ public class AnswerController {
                 HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{answer-id}")
+    @PatchMapping("/{answer-id}/edit") // Answer 편집
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
                                       @Valid @RequestBody AnswerPatchDto answerPatchDto) {
         answerPatchDto.setAnswerId(answerId);
@@ -49,9 +51,12 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{answer-id}")
-    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
+    @PatchMapping("/{answer-id}/vote") // Answer Vote
+    public ResponseEntity voteAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                     @Valid @RequestBody AnswerVoteDto answerVoteDto) {
+        answerVoteDto.setAnswerId(answerId);
+
+        Answer answer = answerService.updateVote(mapper.answerVoteDtoToAnswer(answerVoteDto));
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
@@ -59,17 +64,17 @@ public class AnswerController {
     }
 
     @GetMapping
-    public ResponseEntity getAnswers(@Positive @RequestParam int size) {
-        List<Answer> answers = answerService.findAnswers(size);
-
-        // TODO: Answer Service 완성
+    public ResponseEntity getAnswers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
+        List<Answer> answers = pageAnswers.getContent();
 
         return new ResponseEntity<>(
-                new MultiAnsResponseDto<>(mapper.answersToAnswerResponseDtos(answers)),
+                new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(answers), pageAnswers),
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("/{answer-id}")
+    @DeleteMapping("/{answer-id}/delete")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId) {
         answerService.deleteAnswer(answerId);
 

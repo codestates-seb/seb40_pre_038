@@ -35,13 +35,13 @@ public class Answer extends Auditable {
     private String contents;
 
     @Column(nullable = false, name = "votes")
-    private int voteCounts;
+    private int voteCounts = 0;
 
     /*public void addMember(Member member) {
         this.member = member;
-    }
+    }*/
 
-    public void addQuestion(Question question) {
+    /*public void addQuestion(Question question) {
         this.question = question;
     }*/
 
@@ -64,20 +64,4 @@ public class Answer extends Auditable {
             this.statusDescription = statusDescription;
         }
     }
-
-    /*public enum VoteStatus {
-        VOTE_PLUS(1, "up vote"),
-        VOTE_MINUS(-1, "down vote");
-
-        @Getter
-        private int voteCount;
-
-        @Getter
-        private String voteDescription;
-
-        VoteStatus(int voteCount, String voteDescription) {
-            this.voteCount = voteCount;
-            this.voteDescription = voteDescription;
-        }
-    }*/
 }

@@ -1,6 +1,7 @@
 package com.codestates.answer.repository;
 
 import com.codestates.answer.entity.Answer;
+import com.codestates.question.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
