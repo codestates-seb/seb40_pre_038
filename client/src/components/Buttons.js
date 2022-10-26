@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Bluebutton = styled.button`
@@ -51,38 +50,25 @@ function ButtonSblue({ children, width, height, fontSize }) {
   );
 }
 
-function Button({ children, type }) {
-  const [color, setColor] = useState('');
-  const [backgroundColor, setbackgroundColor] = useState('');
-
-  useEffect(() => {
-    switch (type) {
-      case 'primary':
-        setColor('#ffffff');
-        setbackgroundColor('#0A95FF');
-        break;
-      default:
-        setColor('#0074CC');
-        setbackgroundColor('transparent');
-        break;
-    }
-  }, [type]);
-
+function Button({ children, type, whiteSpace }) {
   return (
-    <ButtonComponent color={color} backgroundColor={backgroundColor}>
+    <ButtonComponent className={type} whiteSpace={whiteSpace}>
       {children}
     </ButtonComponent>
   );
 }
 
+/**
+ * 미완성 컴포넌트 입니다.
+ */
 const ButtonComponent = styled.button`
   position: relative;
   display: inline-block;
   padding: 0.8em;
-  color: ${(props) => props.color};
+  color: #0074cc;
   border: 1px solid transparent;
   border-radius: 3px;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: transparent;
   outline: none;
   font-family: inherit;
   font-size: 13px;
@@ -92,9 +78,14 @@ const ButtonComponent = styled.button`
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+  white-space: ${(props) =>
+    props.whiteSpace === 'nowrap' ? 'nowrap !important' : 'normal'};
 
-  white-space: nowrap !important;
+  &.primary {
+    color: #ffffff;
+    background-color: #0a95ff;
+    box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+  }
 
   :hover,
   :focus,

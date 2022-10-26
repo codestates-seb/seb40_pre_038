@@ -7,7 +7,9 @@ const PageHeader = () => {
     <PageHeaderWrapper>
       <Headline>Top Questions</Headline>
       <ButtonContainer>
-        <Button type="primary">Ask Question</Button>
+        <Button type="primary" whiteSpace="nowrap">
+          Ask Question
+        </Button>
       </ButtonContainer>
     </PageHeaderWrapper>
   );
