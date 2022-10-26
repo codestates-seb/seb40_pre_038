@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
 import UsersPage from './pages/UsersPage';
+import Footer from './components/Footer';
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -19,36 +20,35 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyle />
       <Header />
       <Container>
-        <BrowserRouter>
-          <Nav />
-          <Content id="content" className="snippet-hidden">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  isLogin ? (
-                    <>
-                      <TopQuestionsPage />
-                      <Sidebar />
-                    </>
-                  ) : (
-                    <LandingPage />
-                  )
-                }
-              />
-              <Route path="/questions" element={<QuestionsPage />} />
-              <Route path="/tags" element={<TagsPage />} />
-              <Route path="/users" element={<UsersPage />} />
-              <Route path="*" element={<NoMatch />} />
-            </Routes>
-          </Content>
-        </BrowserRouter>
+        <Nav />
+        <Content id="content" className="snippet-hidden">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                isLogin ? (
+                  <>
+                    <TopQuestionsPage />
+                    <Sidebar />
+                  </>
+                ) : (
+                  <LandingPage />
+                )
+              }
+            />
+            <Route path="/questions" element={<QuestionsPage />} />
+            <Route path="/tags" element={<TagsPage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
+        </Content>
       </Container>
-    </>
+      <Footer />
+    </BrowserRouter>
   );
 };
 
