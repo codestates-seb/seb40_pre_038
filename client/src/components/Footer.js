@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
   width: 100%;
-  //height: 322px;
   background-color: #232627;
-  position: fixed;
-  bottom: 0;
   display: flex;
 
   @media screen and (min-width: 500px) {
@@ -30,8 +27,12 @@ const FooterLogoAndSites = styled.div`
   display: flex;
 
   @media screen and (min-width: 641px) {
-    //641 ~ 980px
+    //641 ~ 832px
     flex-direction: row;
+  }
+  @media screen and (min-width: 833px) {
+    //833 ~ 980px
+    flex-direction: column;
   }
   @media screen and (min-width: 981px) {
     //981px ~
@@ -50,6 +51,10 @@ const FooterLogoContainer = styled.div`
     //641 ~ 980px
     display: block;
   }
+  @media screen and (min-width: 833px) {
+    //833 ~ 980px
+    height: 37px;
+  }
   @media screen and (min-width: 981px) {
     //981px ~
     display: block;
@@ -59,13 +64,6 @@ const FooterLogoContainer = styled.div`
 const SiteFooterContainer = styled.div`
   padding: 0 12px 24px 0;
   display: flex;
-
-  @media screen and (min-width: 641px) {
-    height: 66px;
-  }
-  @media screen and (min-width: 981px) {
-    height: 254px;
-  }
   flex-direction: column;
 `;
 
@@ -73,7 +71,6 @@ const SiteFooterTitleContainer = styled.div`
   font-size: 13px;
   color: #babfc4;
   font-weight: 700;
-  margin-bottom: 12px;
   &:hover {
     cursor: pointer;
   }
@@ -82,6 +79,7 @@ const SiteFooterTitleContainer = styled.div`
   }
   @media screen and (min-width: 641px) {
     font-size: 13px;
+    padding-top: 5px;
   }
 `;
 
@@ -123,11 +121,11 @@ const SiteFooterListContainer = styled.div`
 
   @media screen and (min-width: 500px) {
     font-size: 11px;
-    padding-right: 8px;
+    padding: 0 8px 4px 0;
   }
   @media screen and (min-width: 641px) {
     //641 ~ 980px
-    padding-right: 8px;
+    padding: 4px 8px 4px 0;
     font-size: 13px;
   }
   @media screen and (min-width: 981px) {
