@@ -19,7 +19,7 @@ public class Tag {
     private long tagId;
 
     @Column(nullable = false)
-    private String title;
+    private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "status")
