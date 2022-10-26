@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 
-// import Header from './components/Header';
-// import Nav from './components/Nav';
+import Header from './components/Header';
+import Nav from './components/Nav';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
 import QuestionsPage from './pages/QuestionsPage';
@@ -20,10 +20,10 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      {/* <Header /> */}
+      <Header />
       <Container>
         <BrowserRouter>
-          {/* <Nav /> */}
+          <Nav />
           <Content id="content" className="snippet-hidden">
             <Routes>
               <Route
