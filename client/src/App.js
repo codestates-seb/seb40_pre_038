@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Nav from './components/Nav';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
+import Sidebar from './components/Sidebar';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
 import UsersPage from './pages/UsersPage';
@@ -28,7 +29,16 @@ const App = () => {
             <Routes>
               <Route
                 path="/"
-                element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
+                element={
+                  isLogin ? (
+                    <>
+                      <TopQuestionsPage />
+                      <Sidebar />
+                    </>
+                  ) : (
+                    <LandingPage />
+                  )
+                }
               />
               <Route path="/questions" element={<QuestionsPage />} />
               <Route path="/tags" element={<TagsPage />} />
