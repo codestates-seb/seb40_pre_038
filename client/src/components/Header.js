@@ -101,7 +101,7 @@ const MiniLogoContainer = styled.div`
 const ProductsBtnContainer = styled.div`
   width: 82px;
   height: 33px;
-  margin: 0 2px;
+  margin: 0 0 3px 6px;
   padding-top: 3px;
 
   .product_btn {
