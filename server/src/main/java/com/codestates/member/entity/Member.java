@@ -1,15 +1,11 @@
-package com.codestates.member;
+package com.codestates.member.entity;
 
-import com.codestates.answer.entity.Answer;
-import com.codestates.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,12 +13,17 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long memberId;
+    private Long memberId;
+
     @Column
     private String nickName;
+
+    @Column
     private String email;
-    private List<Question> questions = new ArrayList<>();
-    private List<Answer> answers = new ArrayList<>();
+
+//    private List<Question> questions = new ArrayList<>();
+//    private List<Answer> answers = new ArrayList<>();
 }

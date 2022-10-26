@@ -18,6 +18,9 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long tagId;
 
+    @Column(nullable = false)
+    private String name;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "status")
     private TagStatus tagStatus = TagStatus.TAG_NOT_EXIST;
