@@ -50,6 +50,9 @@ function ButtonSblue({ children, width, height, fontSize }) {
   );
 }
 
+/**
+ * 미완성 컴포넌트 입니다.
+ */
 function Button({ children, type, whiteSpace }) {
   return (
     <ButtonComponent className={type} whiteSpace={whiteSpace}>
@@ -57,10 +60,6 @@ function Button({ children, type, whiteSpace }) {
     </ButtonComponent>
   );
 }
-
-/**
- * 미완성 컴포넌트 입니다.
- */
 const ButtonComponent = styled.button`
   position: relative;
   display: inline-block;
