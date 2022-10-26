@@ -10,6 +10,8 @@ const HeaderContinaer = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px,
+    rgba(0, 0, 0, 0.05) 0px 1px 4px 0px, rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
   position: fixed;
   top: 0;
   left: 0;
