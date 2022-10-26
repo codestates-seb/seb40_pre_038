@@ -234,7 +234,7 @@ const Header = () => {
           <i className="fa-regular fa-bars"></i>
         </MiniMenuBtnContainer>
         <LogoContainer>
-          <a href="https://stackoverflow.com/">
+          <a href="/">
             <div className="logo-img"></div>
           </a>
         </LogoContainer>
