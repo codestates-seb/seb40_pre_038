@@ -2,7 +2,7 @@ package com.codestates.reply.entity;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
-import com.codestates.member.Member;
+import com.codestates.member.entity.Member;
 import com.codestates.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,6 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 
 @Getter
 @Setter

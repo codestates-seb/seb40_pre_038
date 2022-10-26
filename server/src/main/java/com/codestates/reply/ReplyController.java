@@ -36,7 +36,7 @@ public class ReplyController {
         );
     }
 
-    @PatchMapping("/{reply_id")
+    @PatchMapping("/{reply_id}")
     public ResponseEntity patchReply(@Valid @RequestBody ReplyDto.Patch replyPatch,
                                      @PathVariable("reply_id") @Positive long replyId) {
         Reply reply = mapper.replyPatchToReply(replyPatch);
