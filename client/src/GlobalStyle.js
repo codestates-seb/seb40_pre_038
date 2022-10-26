@@ -186,6 +186,29 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.3;
     margin: 0 0 1em;
   }
+  ul,
+  ol,
+  li {
+    margin: 0;
+    padding: 0;
+  }
+  ul,
+  ol {
+    margin-left: 30px;
+    margin-bottom: 1em;
+  }
+  ul ul,
+  ol ul,
+  ul ol,
+  ol ol {
+    margin-bottom: 0;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
 `;
 
 export default GlobalStyle;
