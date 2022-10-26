@@ -1,6 +1,7 @@
 package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
+import com.codestates.question.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,11 +22,11 @@ public class Answer extends Auditable {
 
     /*@ManyToOne
     @JoinColumn(name = "member_id")
-    private Member member;
+    private Member member;*/
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;*/
+    private Question question;
 
     @Column(nullable = false, columnDefinition = "TEXT", name = "answer_contents")
     private String contents;
