@@ -4,6 +4,9 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.answer.repository.AnswerRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +26,7 @@ public class AnswerService {
     }
 
     public Answer createAnswer(Answer answer) {
-        verifyAnswer(answer);
         Answer savedAnswer = answerRepository.save(answer);
-
-        savedAnswer.setVoteCounts(0);
-
-        // TODO: 업데이트 해야되는 entity가 있는지 확인
         
         return savedAnswer;
     }
@@ -36,15 +34,13 @@ public class AnswerService {
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
+        // 내용 변경
         Optional.ofNullable(answer.getContents())
                 .ifPresent(contents -> findAnswer.setContents(contents));
         
-        // TODO: vote count 변경
-        Optional.ofNullable(answer.getVoteCounts())
-                        .ifPresent(voteCounts -> findAnswer.setVoteCounts(voteCounts));
+        // vote count 변경은 updateVote 메서드에서 진행
         
-        Optional.ofNullable(answer.getAnswerStatus())
-                .ifPresent(answerStatus -> findAnswer.setAnswerStatus(answerStatus));
+        // 답변 상태 변경은 updateStatus 메서드에서 진행
         
         return answerRepository.save(findAnswer);
     }
@@ -53,10 +49,10 @@ public class AnswerService {
         return findVerifiedAnswer(answerId);
     }
     
-    public List<Answer> findAnswers(int size) {
-        // TODO: findAllByQuestion <- 이걸로 바꾸기
-
-        return null;
+    public Page<Answer> findAnswers(int page, int size) {
+        // TODO: 삭제된 답변도 보이는지 확인
+        // 보인다면, findByAnswerStatus 구현해야 함
+        return answerRepository.findAll(PageRequest.of(page, size, Sort.by("answerId").ascending()));
     }
 
     public void deleteAnswer(long answerId) {
@@ -66,11 +62,23 @@ public class AnswerService {
         findAnswer.setAnswerStatus(Answer.AnswerStatus.ANSWER_DELETE);
         answerRepository.save(findAnswer);
     }
-    
-    private void verifyAnswer(Answer answer) {
-        // TODO: 회원이 존재하는지 확인
-        
-        // TODO: 문제가 존재하는지 확인
+
+    public Answer updateVote(Answer answer) { // Vote Count 값만 변경
+        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+
+        // vote Count 변경
+        findAnswer.setVoteCounts(answer.getVoteCounts());
+
+        return answerRepository.save(findAnswer);
+    }
+
+    public Answer updateStatus(Answer answer) { // Answer Status만 변경 (채택 or 일반)
+        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+
+        // Answer Status 변경
+        findAnswer.setAnswerStatus(answer.getAnswerStatus());
+
+        return answerRepository.save(findAnswer);
     }
 
     private Answer findVerifiedAnswer(long answerId) {

@@ -1,6 +1,7 @@
 package com.codestates.answer.dto;
 
 import com.codestates.answer.entity.Answer;
+import com.codestates.question.Question;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,9 +24,9 @@ public class AnswerResponseDto {
 
     /*public void setMember(Member member) {
         this.memberId = member.getMemberId();
-    }
+    }*/
 
-    public void setQuestion(Question question) {
+    /*public void setQuestion(Question question) {
         this.questionId = question.getQuestionId();
     }*/
 }
