@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Searchbar from './Searchbar';
-//import user_icon_img from '../icons/user_icon.png';
 
 const HeaderContinaer = styled.div`
   width: 100%;
