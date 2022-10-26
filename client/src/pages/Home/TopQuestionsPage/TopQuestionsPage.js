@@ -1,5 +1,5 @@
 import PageHeader from './PageHeader';
-import SortTab from './SortTab';
+import SortTabs from './SortTabs';
 import QListWrapper from './QuestionList/QListWrapper';
 import styled from 'styled-components';
 
@@ -7,7 +7,7 @@ const TopQuestionsPage = () => {
   return (
     <Mainbar>
       <PageHeader />
-      <SortTab />
+      <SortTabs />
       <QListWrapper />
       <br className="clear-both" />
       <h2 className="bottom-notice" data-loc={2}>
