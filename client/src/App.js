@@ -10,6 +10,7 @@ import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
 import UsersPage from './pages/UsersPage';
+import AskQuestionPage from './pages/AskQuestionPage';
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -31,6 +32,7 @@ const App = () => {
                 element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
               />
               <Route path="/questions" element={<QuestionsPage />} />
+              <Route path="/questions/ask" element={<AskQuestionPage />} />
               <Route path="/tags" element={<TagsPage />} />
               <Route path="/users" element={<UsersPage />} />
               <Route path="*" element={<NoMatch />} />

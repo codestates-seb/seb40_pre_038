@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../../components/Buttons';
 import { Headline } from '../../../components/Headline';
@@ -7,9 +8,11 @@ const PageHeader = () => {
     <PageHeaderWrapper>
       <Headline>Top Questions</Headline>
       <ButtonContainer>
-        <Button type="primary" whiteSpace="nowrap">
-          Ask Question
-        </Button>
+        <Link to="/questions/ask">
+          <Button type="primary" whiteSpace="nowrap">
+            Ask Question
+          </Button>
+        </Link>
       </ButtonContainer>
     </PageHeaderWrapper>
   );
