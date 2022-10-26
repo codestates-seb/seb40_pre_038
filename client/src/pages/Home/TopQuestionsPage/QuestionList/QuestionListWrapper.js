@@ -7,6 +7,27 @@ const QuestionListWrapper = () => {
       <QuestionMiniLists>
         <div>
           <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
+          <QuestionMiniList />
         </div>
       </QuestionMiniLists>
     </QlistWrapper>
