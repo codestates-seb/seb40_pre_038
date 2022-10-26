@@ -46,22 +46,12 @@ public class ReplyService {
         if (replyType == ReplyType.ANSWER) {
             Answer answer = answerService.findAnswer(postId);
             reply.setReplyType(ReplyType.ANSWER);
+            answer.getReplies().add(reply);
         }
             return replyRepository.save(reply);
     }
 
-    public Reply createReplyOnQuestion(Reply reply, long questionId) {
-        Question question = questionService.findQuestion(questionId);
-        reply.setReplyType(ReplyType.QUESTION);
-        return replyRepository.save(reply);
-    }
-
-    public Reply createReplyOnAnswer(Reply reply, long answerId) {
-        return replyRepository.save(reply);
-    }
-
-    public Reply updateReply(Reply reply, long questionId, long replyId) {
-        questionService.findVerifiedQuestion(questionId);
+    public Reply updateReply(Reply reply, long replyId) {
         Reply findReply = findVerifiedReply(replyId);
 
         Optional.ofNullable(reply.getBody())
@@ -74,9 +64,9 @@ public class ReplyService {
         return findVerifiedReply(replyId);
     }
 
-    public Page<Reply> findReplies(int page, int size) {
-        return replyRepository.findAll(PageRequest.of(page, size, Sort.by("replyId").descending()));
-    }
+//    public Page<Reply> findReplies(int page, int size) {
+//        return replyRepository.findAll(PageRequest.of(page, size, Sort.by("replyId").descending()));
+//    }
 
     public void deleteReply(long replyId) {
         Reply reply = findVerifiedReply(replyId);
