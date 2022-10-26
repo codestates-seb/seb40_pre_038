@@ -35,7 +35,8 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private int view;
 
-    private List<Answer> answers = new ArrayList<>();
+/*    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
+    private List<Answer> answers = new ArrayList<>();*/
 
 //    private Member memberId; // 회의 후 연동할 것!
 //    private List<Answer> answers; // 프론트랑 회의 후 연동!

@@ -9,4 +9,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create  # 스키마 자동 생성
-    show-sql: true  # SQL ㅋ쿼리 출
+    show-sql: true  # SQL 쿼리 출력

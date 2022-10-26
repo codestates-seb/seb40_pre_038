@@ -1,3 +1,4 @@
+/*
 package com.codestates.member;
 
 import com.codestates.exception.BusinessLogicException;
@@ -30,3 +31,4 @@ public class MemberService {
 
 
 }
+*/
