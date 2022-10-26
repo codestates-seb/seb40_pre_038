@@ -1,6 +1,8 @@
 package com.codestates.question;
 
 import com.codestates.answer.entity.Answer;
+import com.codestates.reply.entity.Reply;
+import com.codestates.tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -34,11 +36,15 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Response {
         private long questionId;
+        private long memberId;
         private String title;
         private String body;
+        private int vote;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private List<Answer> answers;
+        private List<Reply> replies;
+        private List<Tag> tags;
         /*멤버&답변&댓글 추가할 것!*/
     }
 }

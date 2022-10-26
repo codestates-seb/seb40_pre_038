@@ -2,11 +2,14 @@ package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
 import com.codestates.question.Question;
+import com.codestates.reply.entity.Reply;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -24,9 +27,9 @@ public class Answer extends Auditable {
     @JoinColumn(name = "member_id")
     private Member member;*/
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;*/
+    private Question question;
 
     @Column(nullable = false, columnDefinition = "TEXT", name = "answer_contents")
     private String contents;
@@ -41,6 +44,9 @@ public class Answer extends Auditable {
     /*public void addQuestion(Question question) {
         this.question = question;
     }*/
+
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
+    private List<Reply> replies = new ArrayList<>();
 
     public enum AnswerStatus {
         ANSWER_DELETE(0, "삭제된 답변"),

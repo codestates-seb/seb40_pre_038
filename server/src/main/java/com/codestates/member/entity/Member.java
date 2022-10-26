@@ -1,11 +1,12 @@
 package com.codestates.member.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.codestates.question.Question;
+import com.codestates.reply.entity.Reply;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,6 +25,17 @@ public class Member {
     @Column
     private String email;
 
-//    private List<Question> questions = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Reply> replies = new ArrayList<>();
 //    private List<Answer> answers = new ArrayList<>();
+
+
+    public Member(Long memberId, String nickName, String email) {
+        this.memberId = memberId;
+        this.nickName = nickName;
+        this.email = email;
+    }
 }

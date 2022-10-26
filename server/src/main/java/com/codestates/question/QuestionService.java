@@ -30,8 +30,10 @@ public class QuestionService {
                 .ifPresent(findQuestion::setTitle); // 제목
         Optional.ofNullable(question.getBody())
                 .ifPresent(findQuestion::setBody); // 내용
+//        Optional.ofNullable(question.getTag()) // 태그
+//                .ifPresent(findQuestion.getTag);
 
-        return question;
+        return questionRepository.save(question);
     }
 
     public Question findQuestion(long questionId) {
@@ -39,7 +41,9 @@ public class QuestionService {
     }
 
     public Page<Question> findQuestions(int page, int size) { // 페이징 처리 및 ID 내림차순 정렬
-        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending()));
+        return questionRepository.findAll(
+                PageRequest.of(page, size, Sort.by("questionId").descending())
+        );
     }
 
     public void deleteQuestion(long questionId) {
@@ -51,7 +55,7 @@ public class QuestionService {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question findQuestion = // 에러 핸들링 상의 해야 됨
                 optionalQuestion.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+                        new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return findQuestion;
     }
 }
