@@ -5,7 +5,8 @@ import com.codestates.answer.repository.AnswerRepository;
 import com.codestates.answer.service.AnswerService;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
-import com.codestates.member.MemberRepository;
+
+import com.codestates.member.repository.MemberRepository;
 import com.codestates.question.Question;
 import com.codestates.question.QuestionService;
 import com.codestates.reply.entity.Reply;
