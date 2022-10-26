@@ -4,12 +4,7 @@ import styled from 'styled-components';
 
 const QuestionMiniList = () => {
   return (
-    <QuestionSummary
-      id="question-summary-74189299"
-      className="s-post-summary    js-post-summary"
-      data-post-id={74189299}
-      data-post-type-id={1}
-    >
+    <QuestionSummary>
       <SummaryStats />
       <SummaryContent />
     </QuestionSummary>
@@ -18,4 +13,17 @@ const QuestionMiniList = () => {
 
 export default QuestionMiniList;
 
-const QuestionSummary = styled.div``;
+const QuestionSummary = styled.div`
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid #e3e6e8;
+  padding: 16px;
+
+  :last-child {
+    border-bottom-width: 0;
+  }
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+  }
+`;
