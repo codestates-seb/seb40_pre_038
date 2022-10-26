@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavWrapper = styled.nav`
-  position: fixed;
+  position: sticky;
   width: 164px;
   height: 100vh;
   padding: 24px 0px 0px 0px;
-  border-right: 1px solid #d6d9dc;
   background-color: white;
 `;
 const NavContainerBox = styled.ol`
