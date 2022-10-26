@@ -177,10 +177,7 @@ const GlobalStyle = createGlobalStyle`
   }
   select,
   input,
-  button,
-  .button,
-  a.button:link,
-  .btn {
+  button {
     font-size: 100%;
   }
   h1,
