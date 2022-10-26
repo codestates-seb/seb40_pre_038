@@ -1,9 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  body {
-    min-width: auto;
-  }
+  /* stack.css */
   html,
   body,
   div,
@@ -139,13 +137,8 @@ const GlobalStyle = createGlobalStyle`
   button {
     margin: 0;
   }
-  h1,
-  h2,
-  h3 {
-    line-height: 1.3;
-    margin: 0 0 1em;
-  }
 
+  /* primary.css */
   html,
   body {
     color: #232629;
@@ -153,12 +146,6 @@ const GlobalStyle = createGlobalStyle`
       'Segoe UI', 'Liberation Sans', sans-serif;
     font-size: 13px;
     line-height: calc((13 + 4) / 13);
-  }
-  @media (max-width: 640px) {
-    html,
-    html body {
-      font-size: 11px;
-    }
   }
   @media (max-width: 640px) {
     html,
@@ -175,6 +162,25 @@ const GlobalStyle = createGlobalStyle`
   body *:before,
   body *:after {
     box-sizing: inherit;
+  }
+  html,
+  html body {
+    min-width: auto;
+  }
+  body {
+    padding-top: 50px;
+  }
+  @media print {
+    body {
+      padding-top: 0px;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.3;
+    margin: 0 0 1em;
   }
 `;
 
