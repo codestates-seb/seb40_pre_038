@@ -1,9 +1,10 @@
 import SummaryStats from './SummaryStats';
 import SummaryContent from './SummaryContent';
+import styled from 'styled-components';
 
-const QuestionSummary = () => {
+const QuestionMiniList = () => {
   return (
-    <div
+    <QuestionSummary
       id="question-summary-74189299"
       className="s-post-summary    js-post-summary"
       data-post-id={74189299}
@@ -11,8 +12,10 @@ const QuestionSummary = () => {
     >
       <SummaryStats />
       <SummaryContent />
-    </div>
+    </QuestionSummary>
   );
 };
 
-export default QuestionSummary;
+export default QuestionMiniList;
+
+const QuestionSummary = styled.div``;
