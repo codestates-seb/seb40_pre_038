@@ -4,11 +4,8 @@ import com.codestates.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -33,14 +30,19 @@ public class Answer extends Auditable {
     @Column(nullable = false, columnDefinition = "TEXT", name = "answer_contents")
     private String contents;
 
-    @Column
-    private Long upVote;
+    @Column(nullable = false, name = "votes")
+    private int voteCounts;
 
-    @Column
-    private Long downVote;
+    /*public void addMember(Member member) {
+        this.member = member;
+    }
 
+    public void addQuestion(Question question) {
+        this.question = question;
+    }*/
 
     public enum AnswerStatus {
+        ANSWER_DELETE(0, "삭제된 답변"),
         ANSWER_BEST(1, "답변 채택"),
         ANSWER_NORMAL(2, "일반 답변");
 
@@ -55,4 +57,20 @@ public class Answer extends Auditable {
             this.statusDescription = statusDescription;
         }
     }
+
+    /*public enum VoteStatus {
+        VOTE_PLUS(1, "up vote"),
+        VOTE_MINUS(-1, "down vote");
+
+        @Getter
+        private int voteCount;
+
+        @Getter
+        private String voteDescription;
+
+        VoteStatus(int voteCount, String voteDescription) {
+            this.voteCount = voteCount;
+            this.voteDescription = voteDescription;
+        }
+    }*/
 }

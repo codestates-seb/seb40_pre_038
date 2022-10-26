@@ -7,9 +7,10 @@ public enum ExceptionCode {
     QUESTION_EXISTS(409, "Question Exists"),
     QUESTION_CANNOT_CHANGE(403,"Question Can Not Be Changed"),
 
-    COMMENT_NOT_FOUND(404,"Comment Not Found"),
-    COMMENT_EXISTS(409, "Comment Exists"),
-    COMMENT_CANNOT_CHANGE(403,"Comment Can Not Be Changed"),
+    ANSWER_NOT_FOUND(404,"Answer Not Found"),
+    ANSWER_EXISTS(409, "Answer Exists"),
+    ANSWER_CANNOT_CHANGE(403,"Answer Can Not Be Changed"),
+    ANSWER_DELETED(405, "Answer Already Deleted"),
 
     MEMBER_NOT_FOUND(404,"Member Not Found"),
     MEMBER_EXISTS(409, "Member Exists"),
