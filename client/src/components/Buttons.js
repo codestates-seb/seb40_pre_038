@@ -50,4 +50,52 @@ function ButtonSblue({ children, width, height, fontSize }) {
   );
 }
 
-export { ButtonBlue, ButtonSblue };
+/**
+ * 미완성 컴포넌트 입니다.
+ */
+function Button({ children, type, whiteSpace }) {
+  return (
+    <ButtonComponent className={type} whiteSpace={whiteSpace}>
+      {children}
+    </ButtonComponent>
+  );
+}
+const ButtonComponent = styled.button`
+  position: relative;
+  display: inline-block;
+  padding: 0.8em;
+  color: #0074cc;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background-color: transparent;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: calc((13 + 2) / 13);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: ${(props) =>
+    props.whiteSpace === 'nowrap' ? 'nowrap !important' : 'normal'};
+
+  &.primary {
+    color: #ffffff;
+    background-color: #0a95ff;
+    box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+  }
+
+  :hover,
+  :focus,
+  :active {
+    color: #ffffff;
+    background-color: #0074cc;
+  }
+  :active {
+    background-color: #0063bf;
+    box-shadow: none;
+  }
+`;
+
+export { ButtonBlue, ButtonSblue, Button };
