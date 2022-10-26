@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
+    @Column
     private String nickName;
     private String email;
     private List<Question> questions = new ArrayList<>();

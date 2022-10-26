@@ -1,5 +1,6 @@
 package com.codestates.reply;
 
+import com.codestates.reply.entity.ReplyType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ public class ReplyDto {
     public static class Post {
         @NotBlank(message = "공백이 아니어야 합니다.")
         private String body;
+        private ReplyType replyType;
     }
 
     @Getter
@@ -31,5 +33,7 @@ public class ReplyDto {
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private long memberId;
+        private ReplyType replyType;
+        private long postId;
     }
 }
