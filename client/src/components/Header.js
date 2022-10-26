@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Searchbar from './Searchbar';
-import user_icon_img from '../icons/user_icon.png';
+//import user_icon_img from '../icons/user_icon.png';
 
 const HeaderContinaer = styled.div`
   width: 100%;
@@ -9,6 +9,7 @@ const HeaderContinaer = styled.div`
   background-color: #f8f9f9;
   display: flex;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   position: fixed;
 `;
@@ -39,6 +40,7 @@ const ProductsBtnContainer = styled.div`
   width: 82px;
   height: 33px;
   margin: 0 2px;
+  padding-top: 5px;
 
   .product_btn {
     width: 78px;
@@ -52,6 +54,7 @@ const ProductsBtnContainer = styled.div`
 
     &:hover {
       background-color: #e3e5e8;
+      color: black;
     }
   }
 `;
@@ -106,7 +109,10 @@ const UserIconImg = styled.div`
 const UserProfileIcon = ({ width, height }) => {
   return (
     <UserIconImg width={width} height={height}>
-      <img src={user_icon_img} alt="user profile icon"></img>
+      <img
+        src={process.env.PUBLIC_URL + '/images/user_icon.png'}
+        alt="user profile icon"
+      ></img>
     </UserIconImg>
   );
 };
@@ -208,16 +214,18 @@ const Header = () => {
         </a>
       </HelpIconContainer>
       <CommunityIconContainer>
-        <svg
-          aria-hidden="true"
-          className="svg-icon iconStackExchange"
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="#525960"
-        >
-          <path d="M15 1H3a2 2 0 0 0-2 2v2h16V3a2 2 0 0 0-2-2ZM1 13c0 1.1.9 2 2 2h8v3l3-3h1a2 2 0 0 0 2-2v-2H1v2Zm16-7H1v4h16V6Z" />
-        </svg>
+        <a href="/">
+          <svg
+            aria-hidden="true"
+            className="svg-icon iconStackExchange"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="#525960"
+          >
+            <path d="M15 1H3a2 2 0 0 0-2 2v2h16V3a2 2 0 0 0-2-2ZM1 13c0 1.1.9 2 2 2h8v3l3-3h1a2 2 0 0 0 2-2v-2H1v2Zm16-7H1v4h16V6Z" />
+          </svg>
+        </a>
       </CommunityIconContainer>
     </HeaderContinaer>
   );
