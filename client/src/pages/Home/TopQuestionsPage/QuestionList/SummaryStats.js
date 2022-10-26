@@ -5,7 +5,9 @@ const SummaryStats = ({
   votes = 0,
   answers = 0,
   hasAccepted = false,
-  views = 10000,
+  views = 0,
+  hasBounty = false,
+  bounty = 0,
 }) => {
   const [viewsClassName, setViewsClassName] = useState('');
   const [viewsText, setViewsText] = useState(views);
@@ -68,6 +70,14 @@ const SummaryStats = ({
         <SummaryStatsItemNumber>{viewsText}</SummaryStatsItemNumber>
         <SummaryStatsItemUnit>views</SummaryStatsItemUnit>
       </SummaryStatsItem>
+      {hasBounty ? (
+        <SummaryStatsItem
+          className="has-bounty"
+          title="this question has an open bounty worth 50 reputation"
+        >
+          +{bounty}
+        </SummaryStatsItem>
+      ) : null}
     </SummaryStatsWrapper>
   );
 };
@@ -115,6 +125,10 @@ const SummaryStatsItem = styled.div`
   &.has-answers,
   &.has-accepted-answer {
     border: 1px solid #2f6f44;
+  }
+  &.has-answers,
+  &.has-accepted-answer,
+  &.has-bounty {
     border-radius: 3px;
     padding: 2px 4px;
   }
@@ -123,6 +137,10 @@ const SummaryStatsItem = styled.div`
   }
   &.is-hot {
     color: #a7510c;
+  }
+  &.has-bounty {
+    color: #fff;
+    background-color: #0074cc;
   }
 `;
 
