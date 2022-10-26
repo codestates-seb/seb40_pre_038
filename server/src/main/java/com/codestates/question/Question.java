@@ -2,6 +2,7 @@ package com.codestates.question;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
+import com.codestates.tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,8 +36,11 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private int view;
 
-/*    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
+    /*@OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Answer> answers = new ArrayList<>();*/
+
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST})
+    private List<Tag> tags = new ArrayList<>();
 
 //    private Member memberId; // 회의 후 연동할 것!
 //    private List<Answer> answers; // 프론트랑 회의 후 연동!
