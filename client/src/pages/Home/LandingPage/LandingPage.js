@@ -1,5 +1,5 @@
 const LandingPage = () => {
-  return <div>LandingPage</div>;
+  return <div>로그인하세요!</div>;
 };
 
 export default LandingPage;
