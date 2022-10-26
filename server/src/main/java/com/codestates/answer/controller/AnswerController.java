@@ -62,6 +62,8 @@ public class AnswerController {
     public ResponseEntity getAnswers(@Positive @RequestParam int size) {
         List<Answer> answers = answerService.findAnswers(size);
 
+        // TODO: Answer Service 완성
+
         return new ResponseEntity<>(
                 new MultiAnsResponseDto<>(mapper.answersToAnswerResponseDtos(answers)),
                 HttpStatus.OK);
