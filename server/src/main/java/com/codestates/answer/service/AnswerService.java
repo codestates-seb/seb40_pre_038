@@ -51,7 +51,7 @@ public class AnswerService {
     
     public Page<Answer> findAnswers(long questionId, int page, int size) {
         // 삭제된 답변은 보이지 않음
-        return answerRepository.findAllByStatus(PageRequest.of(page, size, Sort.by("status").ascending()));
+        return answerRepository.findAll(questionId, PageRequest.of(page, size, Sort.by("status").ascending()));
     }
 
     public void deleteAnswer(long answerId) {
