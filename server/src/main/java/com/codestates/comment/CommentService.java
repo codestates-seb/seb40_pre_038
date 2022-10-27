@@ -12,6 +12,9 @@ import com.codestates.member.repository.MemberRepository;
 import com.codestates.question.Question;
 import com.codestates.question.QuestionRepository;
 import com.codestates.question.QuestionService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,9 +70,9 @@ public class CommentService {
         return findVerifiedComment(CommentId);
     }
 
-//    public Page<Comment> findReplies(int page, int size) {
-//        return CommentRepository.findAll(PageRequest.of(page, size, Sort.by("CommentId").descending()));
-//    }
+    public Page<Comment> findComments(int page, int size) {
+        return commentRepository.findAll(PageRequest.of(page, size, Sort.by("CommentId").descending()));
+    }
 
     public void deleteComment(long CommentId) {
         Comment Comment = findVerifiedComment(CommentId);
