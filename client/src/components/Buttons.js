@@ -10,6 +10,7 @@ const Bluebutton = styled.button`
   width: ${(props) => props.width || '100px'};
   height: ${(props) => props.height || '40px'};
   font-size: ${(props) => props.fontSize || '14px'};
+  font-weight: ${(props) => props.fontWeight || '700'};
   :hover {
     background: #0063bf;
   }
@@ -18,18 +19,18 @@ const Bluebutton = styled.button`
 const SkyblueButton = styled.button`
   background: #e1ecf4;
   color: #3a739d;
-  font-weight: bold;
   border-radius: 4px;
   border: ${(props) => props.border || '1px solid #3a739d'};
   width: ${(props) => props.width || '100px'};
   height: ${(props) => props.height || '40px'};
   font-size: ${(props) => props.fontSize || '14px'};
+  font-weight: ${(props) => props.fontWeight || '700'};
   :hover {
     background: #b3d3ea;
   }
 `;
 
-function ButtonBlue({ children, border, width, height, fontSize }) {
+function ButtonBlue({ children, border, width, height, fontSize, fontWeight }) {
   return (
     <Bluebutton
       border={border}
@@ -42,7 +43,7 @@ function ButtonBlue({ children, border, width, height, fontSize }) {
   );
 }
 
-function ButtonSblue({ children, width, height, fontSize }) {
+function ButtonSblue({ children, width, height, fontSize, fontWeight }) {
   return (
     <SkyblueButton width={width} height={height} fontSize={fontSize}>
       {children}
