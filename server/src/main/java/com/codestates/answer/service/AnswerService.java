@@ -35,8 +35,8 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
         // 내용 변경
-        Optional.ofNullable(answer.getContents())
-                .ifPresent(contents -> findAnswer.setContents(contents));
+        Optional.ofNullable(answer.getBody())
+                .ifPresent(body -> findAnswer.setBody(body));
         
         // vote count 변경은 updateVote 메서드에서 진행
         
@@ -50,9 +50,8 @@ public class AnswerService {
     }
     
     public Page<Answer> findAnswers(int page, int size) {
-        // TODO: 삭제된 답변도 보이는지 확인
-        // 보인다면, findByAnswerStatus 구현해야 함
-        return answerRepository.findAll(PageRequest.of(page, size, Sort.by("answerId").ascending()));
+        // 삭제된 답변은 보이지 않음
+        return answerRepository.findAllByStatus(PageRequest.of(page, size, Sort.by("status").ascending()));
     }
 
     public void deleteAnswer(long answerId) {
@@ -67,7 +66,7 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
         // vote Count 변경
-        findAnswer.setVoteCounts(answer.getVoteCounts());
+        findAnswer.setVote(answer.getVote());
 
         return answerRepository.save(findAnswer);
     }
