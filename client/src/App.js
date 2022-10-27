@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
 import UsersPage from './pages/UsersPage';
+import AskQuestionPage from './pages/AskQuestionPage';
 import Footer from './components/Footer';
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
               }
             />
             <Route path="/questions" element={<QuestionsPage />} />
+            <Route path="/questions/ask" element={<AskQuestionPage />} />
             <Route path="/tags" element={<TagsPage />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="*" element={<NoMatch />} />
@@ -70,6 +72,8 @@ const Container = styled.div`
 const Content = styled.div`
   max-width: 1100px;
   width: calc(100% - 164px);
+  display: flex;
+  justify-content: flex-start;
   background-color: #ffffff;
   border-radius: 0;
   border: 1px solid #d6d9dc;
@@ -95,6 +99,7 @@ const Content = styled.div`
   @media screen and (max-width: 980px) {
     padding-left: 16px;
     padding-right: 16px;
+    display: block;
   }
 `;
 
