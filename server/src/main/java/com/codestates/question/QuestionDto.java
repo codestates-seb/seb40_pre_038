@@ -5,6 +5,7 @@ import com.codestates.comment.entity.Comment;
 import com.codestates.tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +15,7 @@ import java.util.List;
 public class QuestionDto {
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
@@ -24,6 +26,7 @@ public class QuestionDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch {
         private long questionId;
@@ -34,6 +37,7 @@ public class QuestionDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Response {
         private long questionId;
@@ -51,6 +55,7 @@ public class QuestionDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Vote{
         private long questionId;
@@ -59,6 +64,7 @@ public class QuestionDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class View{
         private long questionId;
