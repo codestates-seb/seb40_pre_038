@@ -50,6 +50,13 @@ public class QuestionService {
         return questionRepository.save(findQuestion);
     }
 
+    public Question updateView(Question question, long questionId) {
+        Question findQuestion = findVerifiedQuestion(questionId);
+        findQuestion.setView(findQuestion.getView() + 1);
+
+        return questionRepository.save(findQuestion);
+    }
+
     public Question findQuestion(long questionId) {
         return findVerifiedQuestion(questionId);
     }

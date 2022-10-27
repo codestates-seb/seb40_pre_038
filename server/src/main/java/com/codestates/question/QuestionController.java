@@ -5,6 +5,7 @@ import com.codestates.dto.SingleResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,8 @@ public class QuestionController {
         this.mapper = mapper;
     }
 
-    @PostMapping("/{add}")
+    @Secured("ROLE_USER")
+    @PostMapping("/add")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost) {
         Question question = mapper.questionPostToQuestion(questionPost);
         Question createQuestion = questionService.createQuestion(question);
@@ -35,6 +37,7 @@ public class QuestionController {
         );
     }
 
+    @Secured("ROLE_USER")
     @PatchMapping("/{question_id}/edit")
     public ResponseEntity patchQuestion(@Valid @RequestBody QuestionDto.Patch questionPatch,
                                         @PathVariable("question_id") @Positive long questionId) {
@@ -47,6 +50,7 @@ public class QuestionController {
         );
     }
 
+    @Secured("ROLE_USER")
     @PatchMapping("/{question_id}/upvote")
     public ResponseEntity upVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
                                        @PathVariable("question_id") @Positive long questionId) {
@@ -59,12 +63,26 @@ public class QuestionController {
         );
     }
 
+    @Secured("ROLE_USER")
     @PatchMapping("/{question_id}/downvote")
     public ResponseEntity downVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
                                          @PathVariable("question_id") @Positive long questionId) {
         Question question = mapper.questionVoteToQuestion(questionVote);
         Question votedQuestion = questionService.downVote(question, questionId);
         QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK
+        );
+    }
+
+    @Secured("ROLE_USER")
+    @PatchMapping("/{question_id}")
+    public ResponseEntity updateViewQuestion(@RequestBody QuestionDto.View questionView,
+                                             @PathVariable("question_id") @Positive long questionId) {
+        Question question = mapper.questionViewToQuestion(questionView);
+        Question viewedQuestion = questionService.updateView(question, questionId);
+        QuestionDto.Response response = mapper.questionToQuestionResponse(viewedQuestion);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK
@@ -93,6 +111,7 @@ public class QuestionController {
         );
     }
 
+    @Secured("ROLE_USER")
     @DeleteMapping("/{question_id}")
     public ResponseEntity deleteQuestion(@PathVariable("question_id") @Positive long questionId) {
         questionService.deleteQuestion(questionId);

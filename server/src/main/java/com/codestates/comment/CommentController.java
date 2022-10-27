@@ -1,32 +1,46 @@
 package com.codestates.comment;
 
+import com.codestates.dto.MultiResponseDto;
 import com.codestates.dto.SingleResponseDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.comment.entity.CommentType;
+import com.codestates.question.Question;
+import com.codestates.question.QuestionDto;
+import com.codestates.question.QuestionRepository;
+import com.codestates.question.QuestionService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/comments")
+@RequestMapping
 public class CommentController {
     private final CommentService commentService;
+    private final QuestionService questionService;
+    private final QuestionRepository questionRepository;
     private final CommentMapper mapper;
 
-    public CommentController(CommentService commentService, CommentMapper mapper) {
+    public CommentController(CommentService commentService, QuestionService questionService,
+                             QuestionRepository questionRepository, CommentMapper mapper) {
         this.commentService = commentService;
+        this.questionService = questionService;
+        this.questionRepository = questionRepository;
         this.mapper = mapper;
     }
 
-    @PostMapping
+    @Secured("ROLE_USER")
+    @PostMapping("/questions/{post_id}/comments/add")
     public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post commentPost,
                                     @RequestParam CommentType commentType,
-                                    @RequestParam long postId) {
+                                    @PathVariable("post_id")@RequestParam long postId) {
         Comment comment = mapper.commentPostToComment(commentPost);
         Comment createComment = commentService.createComment(comment, commentType, postId);
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
@@ -36,7 +50,8 @@ public class CommentController {
         );
     }
 
-    @PatchMapping("/{comment_id}")
+    @Secured("ROLE_USER")
+    @PatchMapping("/comments/{comment_id}/edit")
     public ResponseEntity patchComment(@Valid @RequestBody CommentDto.Patch commentPatch,
                                      @PathVariable("comment_id") @Positive long commentId) {
         Comment comment = mapper.commentPatchToComment(commentPatch);
@@ -47,13 +62,21 @@ public class CommentController {
         );
     }
 
-//    @GetMapping
-//    public ResponseEntity getReplies() {
-//        return null;
-//    }
+    @GetMapping("/comments") // 댓글 전부 조회하기
+    public ResponseEntity getComments(@Positive @RequestParam int page,
+                                       @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+        Page<Comment> pageQuestions = commentService.findComments(page - 1, size);
+        List<Comment> comments = pageQuestions.getContent();
+        List<CommentDto.Response> responses = mapper.commentsToCommentResponses(comments);
 
-    @DeleteMapping("/{Comment_id}")
-    public ResponseEntity deleteComment(@PathVariable("Comment_id") @Positive long commentId) {
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK
+        );
+    }
+
+    @Secured("ROLE_USER")
+    @DeleteMapping("/comments/{comment_id}/delete")
+    public ResponseEntity deleteComment(@PathVariable("comment_id") @Positive long commentId) {
         commentService.deleteComment(commentId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -39,6 +39,7 @@ public class QuestionDto {
         private long memberId;
         private String title;
         private String body;
+        private int view;
         private int vote;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
@@ -53,5 +54,12 @@ public class QuestionDto {
     public static class Vote{
         private long questionId;
         private int vote;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class View{
+        private long questionId;
+        private int view;
     }
 }
