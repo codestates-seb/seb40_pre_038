@@ -15,7 +15,7 @@ const HeaderContinaer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 5050;
 
   @media screen and (max-width: 640px) {
     justify-content: space-between;
