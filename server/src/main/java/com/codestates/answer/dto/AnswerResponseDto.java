@@ -2,7 +2,6 @@ package com.codestates.answer.dto;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.member.dto.MemberResponseDto;
-import com.codestates.question.Question;
 import lombok.Getter;
 import lombok.Setter;
 
