@@ -4,8 +4,8 @@ import com.codestates.dto.MultiResponseDto;
 import com.codestates.dto.SingleResponseDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.comment.entity.CommentType;
-import com.codestates.dto.question.QuestionRepository;
-import com.codestates.dto.question.QuestionService;
+import com.codestates.question.QuestionRepository;
+import com.codestates.question.QuestionService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping
+@RequestMapping("/comments")
 public class CommentController {
     private final CommentService commentService;
     private final QuestionService questionService;
@@ -35,7 +35,7 @@ public class CommentController {
     }
 
     @Secured("ROLE_USER")
-    @PostMapping("/questions/{post_id}/comments/add")
+    @PostMapping("/add")
     public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post commentPost,
                                     @RequestParam CommentType commentType,
                                     @PathVariable("post_id")@RequestParam long postId) {
@@ -49,7 +49,7 @@ public class CommentController {
     }
 
     @Secured("ROLE_USER")
-    @PatchMapping("/comments/{comment_id}/edit")
+    @PatchMapping("/{comment_id}/edit")
     public ResponseEntity patchComment(@Valid @RequestBody CommentDto.Patch commentPatch,
                                      @PathVariable("comment_id") @Positive long commentId) {
         Comment comment = mapper.commentPatchToComment(commentPatch);
@@ -60,7 +60,7 @@ public class CommentController {
         );
     }
 
-    @GetMapping("/comments") // 댓글 전부 조회하기
+    @GetMapping // 댓글 전부 조회하기
     public ResponseEntity getComments(@Positive @RequestParam int page,
                                        @Positive @RequestParam(required = false, defaultValue = "15") int size) {
         Page<Comment> pageQuestions = commentService.findComments(page - 1, size);
@@ -73,7 +73,7 @@ public class CommentController {
     }
 
     @Secured("ROLE_USER")
-    @DeleteMapping("/comments/{comment_id}/delete")
+    @DeleteMapping("/{comment_id}/delete")
     public ResponseEntity deleteComment(@PathVariable("comment_id") @Positive long commentId) {
         commentService.deleteComment(commentId);
 

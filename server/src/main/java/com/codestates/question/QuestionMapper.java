@@ -1,4 +1,4 @@
-package com.codestates.dto.question;
+package com.codestates.question;
 
 import org.mapstruct.Mapper;
 
