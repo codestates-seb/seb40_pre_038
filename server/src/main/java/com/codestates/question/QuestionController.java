@@ -24,7 +24,7 @@ public class QuestionController {
         this.mapper = mapper;
     }
 
-    @PostMapping
+    @PostMapping("/{add}")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost) {
         Question question = mapper.questionPostToQuestion(questionPost);
         Question createQuestion = questionService.createQuestion(question);
@@ -35,12 +35,36 @@ public class QuestionController {
         );
     }
 
-    @PatchMapping("/{question_id}")
+    @PatchMapping("/{question_id}/edit")
     public ResponseEntity patchQuestion(@Valid @RequestBody QuestionDto.Patch questionPatch,
                                         @PathVariable("question_id") @Positive long questionId) {
         Question question = mapper.questionPatchToQuestion(questionPatch); // 수정
         Question updateQuestion = questionService.updateQuestion(question, questionId); // DB 업데이트
         QuestionDto.Response response = mapper.questionToQuestionResponse(updateQuestion);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK
+        );
+    }
+
+    @PatchMapping("/{question_id}/upvote")
+    public ResponseEntity upVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
+                                       @PathVariable("question_id") @Positive long questionId) {
+        Question question = mapper.questionVoteToQuestion(questionVote);
+        Question votedQuestion = questionService.upVote(question, questionId);
+        QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK
+        );
+    }
+
+    @PatchMapping("/{question_id}/downvote")
+    public ResponseEntity downVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
+                                         @PathVariable("question_id") @Positive long questionId) {
+        Question question = mapper.questionVoteToQuestion(questionVote);
+        Question votedQuestion = questionService.downVote(question, questionId);
+        QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK

@@ -2,7 +2,7 @@ package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
 import com.codestates.question.Question;
-import com.codestates.reply.entity.Reply;
+import com.codestates.comment.entity.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,7 +46,7 @@ public class Answer extends Auditable {
     }*/
 
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
-    private List<Reply> replies = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     public enum AnswerStatus {
         ANSWER_DELETE(0, "삭제된 답변"),
