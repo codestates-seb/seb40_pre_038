@@ -439,7 +439,7 @@ const SidebarWrapper = styled.aside`
   @media screen and (min-width: 981px) {
     //981px ~
     width: 298px;
-    margin-left: 30px;
+    margin-left: 25px;
   }
 `;
 
