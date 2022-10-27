@@ -236,8 +236,6 @@ const Header_Right = styled.div`
   position: relative;
 `;
 
-const SearchDropdown = styled.div``;
-
 const MenuDropdown = styled.div`
   width: 375px;
   position: absolute;
@@ -321,6 +319,7 @@ const Header = () => {
   const handleClickMenu = (menu) => {
     if (menu === clickedMenu) setClickedMenu(null);
     else setClickedMenu(menu);
+    console.log(clickedMenu);
   };
 
   return (
@@ -349,9 +348,10 @@ const Header = () => {
           <button className="product_btn">Products</button>
         </ProductsBtnContainer>
         <HeaderSearchbar
-          onClick={() => handleClickMenu('search')}
+          onFocus={() => handleClickMenu('search')}
+          handleClickMenu={handleClickMenu}
+          clickedMenu={clickedMenu}
         ></HeaderSearchbar>
-        {clickedMenu === 'search' ? <SearchDropdown /> : null}
       </Header_Left>
       <Header_Right>
         <MiniSearchBtnContainer>
