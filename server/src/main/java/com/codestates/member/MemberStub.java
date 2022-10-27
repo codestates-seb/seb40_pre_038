@@ -17,8 +17,8 @@ public class MemberStub {
     CommandLineRunner MemberInit(MemberRepository memberRepository) {
 
         return args -> {
-            log.info("MEMBER STUB " + memberRepository.save(new Member(1L, "TalkingPotato", "abc@email.com")) );
-            log.info("MEMBER STUB " + memberRepository.save(new Member(2L, "SweetPotato", "def@email.com")));
+            log.info("MEMBER STUB " + memberRepository.save(new Member("TalkingPotato", "abc@email.com")) );
+            log.info("MEMBER STUB " + memberRepository.save(new Member("SweetPotato", "def@email.com")));
 
         };
 
