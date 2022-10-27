@@ -3,7 +3,7 @@ package com.codestates.comment.entity;
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.member.entity.Member;
-import com.codestates.dto.question.Question;
+import com.codestates.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

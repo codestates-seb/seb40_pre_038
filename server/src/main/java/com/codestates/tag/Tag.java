@@ -1,6 +1,6 @@
 package com.codestates.tag;
 
-import com.codestates.dto.question.Question;
+import com.codestates.question.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.codestates.dto.question;
+package com.codestates.question;
 
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;

@@ -1,4 +1,4 @@
-package com.codestates.dto.question;
+package com.codestates.question;
 
 import com.codestates.answer.dto.AnswerBestDto;
 import com.codestates.answer.entity.Answer;

@@ -1,4 +1,4 @@
-package com.codestates.dto.question;
+package com.codestates.question;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
