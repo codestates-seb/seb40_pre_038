@@ -7,7 +7,6 @@ const NavWrapper = styled.nav`
   position: sticky;
   top: 50px;
   width: 164px;
-  height: 100vh;
   padding: 24px 0px 0px 0px;
   background-color: white;
   @media screen and (min-width: 641px) {

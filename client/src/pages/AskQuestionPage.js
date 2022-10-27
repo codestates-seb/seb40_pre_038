@@ -236,6 +236,7 @@ const AskWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0px 24px;
   a {
     text-decoration: none;
     color: #0074cc;

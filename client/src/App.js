@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 
 import Header from './components/Header';
-import Nav from './components/Nav';
+import NavContainer from './components/NavContainer';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
 import Sidebar from './components/Sidebar';
@@ -25,29 +25,49 @@ const App = () => {
       <GlobalStyle />
       <Header />
       <Container>
-        <Nav />
-        <Content id="content" className="snippet-hidden">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                isLogin ? (
-                  <>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              isLogin ? (
+                <NavContainer>
+                  <Content id="content" className="snippet-hidden">
                     <TopQuestionsPage />
                     <Sidebar />
-                  </>
-                ) : (
-                  <LandingPage />
-                )
-              }
-            />
-            <Route path="/questions" element={<QuestionsPage />} />
-            <Route path="/questions/ask" element={<AskQuestionPage />} />
-            <Route path="/tags" element={<TagsPage />} />
-            <Route path="/users" element={<UsersPage />} />
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
-        </Content>
+                  </Content>
+                </NavContainer>
+              ) : (
+                <LandingPage />
+              )
+            }
+          />
+          <Route
+            path="/questions"
+            element={
+              <NavContainer>
+                <QuestionsPage />
+              </NavContainer>
+            }
+          />
+          <Route path="/questions/ask" element={<AskQuestionPage />} />
+          <Route
+            path="/tags"
+            element={
+              <NavContainer>
+                <TagsPage />
+              </NavContainer>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <NavContainer>
+                <UsersPage />
+              </NavContainer>
+            }
+          />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
       </Container>
       <Footer />
     </BrowserRouter>
@@ -70,8 +90,8 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  max-width: 1100px;
-  width: calc(100% - 164px);
+  /* max-width: 1100px; */
+  /* width: calc(100% - 164px); */
   display: flex;
   justify-content: flex-start;
   background-color: #ffffff;
@@ -83,7 +103,6 @@ const Content = styled.div`
   border-right-width: 0;
   padding: 24px;
   box-sizing: border-box;
-  margin: 0 auto;
 
   &:before,
   &:after {
