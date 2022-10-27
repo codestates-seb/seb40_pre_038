@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -79,6 +79,17 @@ const StyledLink = styled(Link)`
 
 const Nav = () => {
   const [curPage, setCurPage] = useState(0);
+  useEffect(() => {
+    if (window.location.pathname === '/') {
+      setCurPage(0);
+    } else if (window.location.pathname === '/questions') {
+      setCurPage(1);
+    } else if (window.location.pathname === '/tags') {
+      setCurPage(2);
+    } else if (window.location.pathname === '/users') {
+      setCurPage(3);
+    }
+  }, []);
   const handleClickHome = () => {
     setCurPage(0);
   };
