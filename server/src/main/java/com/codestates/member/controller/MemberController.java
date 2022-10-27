@@ -7,8 +7,10 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +19,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/members")
+@Validated
 public class MemberController {
 
     //DI WIP
@@ -29,15 +32,13 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<Member> getMember(@PathVariable Long id) {
-
+    public EntityModel<Member> getMember(@PathVariable long id) {
         Member member = memberService.findOne(id);
         return assembler.toModel(member);
     }
 
     @GetMapping
     public CollectionModel<EntityModel<Member>> getMembers() {
-
         List<EntityModel<Member>> members = memberService.findAll().stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -47,7 +48,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postMember(@RequestBody Member member) {
+    public ResponseEntity<?> postMember(@Valid @RequestBody Member member) {
         EntityModel<Member> entityModel = assembler.toModel(memberService.createOne(member));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -55,12 +56,16 @@ public class MemberController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> patchMember(@RequestBody Member member, @PathVariable Long id) {
-        return null;
+    public ResponseEntity<?> patchMember(@RequestBody Member member, @PathVariable long id) {
+        EntityModel<Member> entityModel = assembler.toModel(memberService.updateOne(member, id));
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMember(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<?> deleteMember(@PathVariable long id) {
+        memberService.deleteOne(id);
+        return ResponseEntity.noContent().build();
     }
 }

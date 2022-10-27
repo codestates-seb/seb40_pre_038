@@ -175,7 +175,14 @@ const GlobalStyle = createGlobalStyle`
       padding-top: 0px;
     }
   }
-
+  select,
+  input,
+  button,
+  .button,
+  a.button:link,
+  .btn {
+    font-size: 100%;
+  }
   h1,
   h2,
   h3 {

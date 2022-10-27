@@ -2,7 +2,9 @@ package com.codestates.member.entity;
 
 import com.codestates.question.Question;
 import com.codestates.comment.entity.Comment;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Member {
 
@@ -19,10 +20,10 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    @Column
+    @Column(length = 16, nullable = false, unique = true)
     private String nickName;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String email;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
@@ -30,6 +31,34 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> replies = new ArrayList<>();
+
+//    @Column(length = 100, nullable = false)
+//    private String password;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+    public Member(String nickName, String email) {
+        this.nickName = nickName;
+        this.email = email;
+    }
+
+    public enum MemberStatus {
+
+        MEMBER_ACTIVE("Active account"),
+        MEMBER_INACTIVE("Inactive account"),
+        MEMBER_QUIT("Deleted account");
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+    }
+
+//    private List<Question> questions = new ArrayList<>();
 //    private List<Answer> answers = new ArrayList<>();
 
 

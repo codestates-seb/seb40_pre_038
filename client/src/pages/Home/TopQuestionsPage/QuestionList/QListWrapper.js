@@ -6,6 +6,15 @@ const QListWrapper = () => {
       <div id="question-mini-list">
         <div>
           <QuestionSummary />
+          <QuestionSummary />
+          <QuestionSummary />
+          <QuestionSummary />
+          <QuestionSummary />
+          <QuestionSummary />
+          <QuestionSummary />
+          <QuestionSummary />
+          <QuestionSummary />
+          <QuestionSummary />
         </div>
       </div>
     </div>
