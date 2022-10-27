@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { HeaderSearchbar } from './Searchbar';
 
@@ -326,12 +327,12 @@ const Header = () => {
           <i className="fa-regular fa-bars"></i>
         </MiniMenuBtnContainer>
         <LogoContainer>
-          <a href="/">
+          <Link to="/">
             <div className="logo-img"></div>
-          </a>
+          </Link>
         </LogoContainer>
         <MiniLogoContainer>
-          <a href="/">
+          <Link to="/">
             <svg aria-hidden="true" width="25" height="30" viewBox="0 0 32 37">
               <path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#BCBBBB" />
               <path
@@ -339,7 +340,7 @@ const Header = () => {
                 fill="#F48024"
               />
             </svg>
-          </a>
+          </Link>
         </MiniLogoContainer>
         <ProductsBtnContainer>
           <button className="product_btn">Products</button>
