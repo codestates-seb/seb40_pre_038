@@ -74,17 +74,10 @@ const LogoContainer = styled.div`
   @media screen and (max-width: 640px) {
     display: none;
   }
-
-  .logo-img {
+  img {
     width: 150px;
     height: 30px;
-    padding-bottom: 3px;
-    background-image: url(images/sprites_img.svg);
-    background-position-x: 0px;
-    background-position-y: -500px;
-    border-image-slice: 100%;
   }
-
   &:hover {
     background-color: #e3e5e8;
   }
@@ -328,7 +321,10 @@ const Header = () => {
         </MiniMenuBtnContainer>
         <LogoContainer>
           <Link to="/">
-            <div className="logo-img"></div>
+            <img
+              src={process.env.PUBLIC_URL + '/images/main_logo.svg'}
+              alt="Stack Overflow logo"
+            ></img>
           </Link>
         </LogoContainer>
         <MiniLogoContainer>
