@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
 import UsersPage from './pages/UsersPage';
+import AskQuestionPage from './pages/AskQuestionPage';
 import Footer from './components/Footer';
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
               }
             />
             <Route path="/questions" element={<QuestionsPage />} />
+            <Route path="/questions/ask" element={<AskQuestionPage />} />
             <Route path="/tags" element={<TagsPage />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="*" element={<NoMatch />} />
