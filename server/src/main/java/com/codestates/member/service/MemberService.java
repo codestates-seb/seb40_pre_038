@@ -21,8 +21,7 @@ public class MemberService {
     }
 
     public Member findOne(long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findVerifiedMember(id);
     }
 
     public List<Member> findAll() {
@@ -36,14 +35,11 @@ public class MemberService {
         return member;
     }
 
-    public Member updateOne(Member newMember, long id) {
-        return repository.findById(id)
-                .map(member -> {
-                    member.setNickName(newMember.getNickName());
-                    member.setEmail(newMember.getEmail());
-                    return repository.save(member);
-                })
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    public Member updateOne(Member member, long id) {
+        Member verifiedMember = findVerifiedMember(id);
+        verifiedMember.setEmail(member.getEmail());
+        verifiedMember.setNickName(member.getNickName());
+        return repository.save(verifiedMember);
     }
 
     public void deleteOne(Long id) {
