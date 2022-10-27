@@ -50,6 +50,7 @@ public class QuestionController {
     @PatchMapping("/{question_id}/edit")
     public ResponseEntity patchQuestion(@Valid @RequestBody QuestionDto.Patch questionPatch,
                                         @PathVariable("question_id") @Positive long questionId) {
+        questionPatch.setQuestionId(questionId);
         Question question = mapper.questionPatchToQuestion(questionPatch); // 수정
         Question updateQuestion = questionService.updateQuestion(question, questionId); // DB 업데이트
         QuestionDto.Response response = mapper.questionToQuestionResponse(updateQuestion);
@@ -85,19 +86,6 @@ public class QuestionController {
         );
     }
 
-    @Secured("ROLE_USER")
-    @PatchMapping("/{question_id}")
-    public ResponseEntity updateViewQuestion(@RequestBody QuestionDto.View questionView,
-                                             @PathVariable("question_id") @Positive long questionId) {
-        Question question = mapper.questionViewToQuestion(questionView);
-        Question viewedQuestion = questionService.updateView(question, questionId);
-        QuestionDto.Response response = mapper.questionToQuestionResponse(viewedQuestion);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(response), HttpStatus.OK
-        );
-    }
-
     @GetMapping("/{question_id}")
     public ResponseEntity getQuestion(@PathVariable("question_id") @Positive long questionId) {
         Question question = questionService.findQuestion(questionId);
@@ -117,6 +105,19 @@ public class QuestionController {
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK
+        );
+    }
+
+    @Secured("ROLE_USER")
+    @PatchMapping("/{question_id}")
+    public ResponseEntity updateViewQuestion(@RequestBody QuestionDto.View questionView,
+                                             @PathVariable("question_id") @Positive long questionId) {
+        Question question = mapper.questionViewToQuestion(questionView);
+        Question viewedQuestion = questionService.updateView(question, questionId);
+        QuestionDto.Response response = mapper.questionToQuestionResponse(viewedQuestion);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK
         );
     }
 

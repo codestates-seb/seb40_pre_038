@@ -14,6 +14,7 @@ public class CommentDto {
     public static class Post {
         @NotBlank(message = "공백이 아니어야 합니다.")
         private long postId;
+        private long memberId;
         private String body;
 //        private CommentType commentType;
     }
