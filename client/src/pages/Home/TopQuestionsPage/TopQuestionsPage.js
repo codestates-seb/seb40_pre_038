@@ -1,21 +1,22 @@
+import { Link } from 'react-router-dom';
 import PageHeader from './PageHeader';
-import SortTab from './SortTab';
-import QListWrapper from './QuestionList/QListWrapper';
+import SortTabs from './SortTabs';
+import QuestionListWrapper from './QuestionList/QuestionListWrapper';
 import styled from 'styled-components';
 
 const TopQuestionsPage = () => {
   return (
     <Mainbar>
       <PageHeader />
-      <SortTab />
-      <QListWrapper />
-      <br className="clear-both" />
-      <h2 className="bottom-notice" data-loc={2}>
+      <SortTabs />
+      <QuestionListWrapper />
+      <ClearBr />
+      <BottomNotice>
         Looking for more? Browse the{' '}
-        <a href="/questions">complete list of questions</a>, or{' '}
-        <a href="/tags">popular tags</a>. Help us answer{' '}
-        <a href="/unanswered">unanswered questions</a>.
-      </h2>
+        <Link href="/questions">complete list of questions</Link>, or{' '}
+        <Link href="/tags">popular tags</Link>. Help us answer{' '}
+        <Link href="/unanswered">unanswered questions</Link>.
+      </BottomNotice>
     </Mainbar>
   );
 };
@@ -32,4 +33,16 @@ const Mainbar = styled.div`
     width: 100%;
     float: none;
   }
+`;
+
+const ClearBr = styled.br`
+  clear: both !important;
+`;
+
+const BottomNotice = styled.h2`
+  font-weight: 400;
+  margin-top: 15px;
+  padding: 0 10px 0 0;
+  line-height: 1.4;
+  font-size: 1.30769231rem; ;
 `;

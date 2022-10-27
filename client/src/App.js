@@ -7,10 +7,12 @@ import Header from './components/Header';
 import Nav from './components/Nav';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import TopQuestionsPage from './pages/Home/TopQuestionsPage/TopQuestionsPage';
+import Sidebar from './components/Sidebar';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
 import UsersPage from './pages/UsersPage';
 import AskQuestionPage from './pages/AskQuestionPage';
+import Footer from './components/Footer';
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -19,28 +21,36 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyle />
       <Header />
       <Container>
-        <BrowserRouter>
-          <Nav />
-          <Content id="content" className="snippet-hidden">
-            <Routes>
-              <Route
-                path="/"
-                element={isLogin ? <TopQuestionsPage /> : <LandingPage />}
-              />
-              <Route path="/questions" element={<QuestionsPage />} />
-              <Route path="/questions/ask" element={<AskQuestionPage />} />
-              <Route path="/tags" element={<TagsPage />} />
-              <Route path="/users" element={<UsersPage />} />
-              <Route path="*" element={<NoMatch />} />
-            </Routes>
-          </Content>
-        </BrowserRouter>
+        <Nav />
+        <Content id="content" className="snippet-hidden">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                isLogin ? (
+                  <>
+                    <TopQuestionsPage />
+                    <Sidebar />
+                  </>
+                ) : (
+                  <LandingPage />
+                )
+              }
+            />
+            <Route path="/questions" element={<QuestionsPage />} />
+            <Route path="/questions/ask" element={<AskQuestionPage />} />
+            <Route path="/tags" element={<TagsPage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
+        </Content>
       </Container>
-    </>
+      <Footer />
+    </BrowserRouter>
   );
 };
 
@@ -62,6 +72,8 @@ const Container = styled.div`
 const Content = styled.div`
   max-width: 1100px;
   width: calc(100% - 164px);
+  display: flex;
+  justify-content: flex-start;
   background-color: #ffffff;
   border-radius: 0;
   border: 1px solid #d6d9dc;
@@ -87,6 +99,7 @@ const Content = styled.div`
   @media screen and (max-width: 980px) {
     padding-left: 16px;
     padding-right: 16px;
+    display: block;
   }
 `;
 
