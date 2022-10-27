@@ -37,6 +37,7 @@ function ButtonBlue({ children, border, width, height, fontSize, fontWeight }) {
       width={width}
       height={height}
       fontSize={fontSize}
+      fontWeight={fontWeight}
     >
       {children}
     </Bluebutton>
@@ -45,7 +46,12 @@ function ButtonBlue({ children, border, width, height, fontSize, fontWeight }) {
 
 function ButtonSblue({ children, width, height, fontSize, fontWeight }) {
   return (
-    <SkyblueButton width={width} height={height} fontSize={fontSize}>
+    <SkyblueButton
+      width={width}
+      height={height}
+      fontSize={fontSize}
+      fontWeight={fontWeight}
+    >
       {children}
     </SkyblueButton>
   );
