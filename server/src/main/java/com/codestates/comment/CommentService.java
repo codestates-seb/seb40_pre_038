@@ -9,9 +9,9 @@ import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 
 import com.codestates.member.repository.MemberRepository;
-import com.codestates.question.Question;
-import com.codestates.question.QuestionRepository;
-import com.codestates.question.QuestionService;
+import com.codestates.dto.question.Question;
+import com.codestates.dto.question.QuestionRepository;
+import com.codestates.dto.question.QuestionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

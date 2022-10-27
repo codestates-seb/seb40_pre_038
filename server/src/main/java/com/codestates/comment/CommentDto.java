@@ -13,8 +13,9 @@ public class CommentDto {
     @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "공백이 아니어야 합니다.")
+        private long postId;
         private String body;
-        private CommentType commentType;
+//        private CommentType commentType;
     }
 
     @Getter
