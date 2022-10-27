@@ -1,6 +1,6 @@
 package com.codestates.member.entity;
 
-import com.codestates.question.Question;
+import com.codestates.dto.question.Question;
 import com.codestates.comment.entity.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
