@@ -1,7 +1,7 @@
 package com.codestates.member.entity;
 
 import com.codestates.question.Question;
-import com.codestates.reply.entity.Reply;
+import com.codestates.comment.entity.Comment;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,7 +29,7 @@ public class Member {
     private List<Question> questions = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Reply> replies = new ArrayList<>();
+    private List<Comment> replies = new ArrayList<>();
 //    private List<Answer> answers = new ArrayList<>();
 
 

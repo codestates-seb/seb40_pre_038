@@ -10,4 +10,6 @@ public interface QuestionMapper {
     Question questionPatchToQuestion(QuestionDto.Patch questionPatch);
     QuestionDto.Response questionToQuestionResponse(Question question);
     List<QuestionDto.Response> questionsToQuestionResponses(List<Question> questions);
+
+    Question questionVoteToQuestion(QuestionDto.Vote questionVote);
 }

@@ -1,4 +1,4 @@
-package com.codestates.reply.entity;
+package com.codestates.comment.entity;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
@@ -18,15 +18,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Reply extends Auditable {
+public class Comment extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long replyId;
+    private long commentId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReplyType replyType;
+    private CommentType commentType;
 
     @Column(nullable = false)
     private String body;
@@ -44,9 +44,9 @@ public class Reply extends Auditable {
     private Member member;
 
     public long getPostId() {
-        if(replyType == ReplyType.QUESTION) return question.getQuestionId();
-        if(replyType == ReplyType.ANSWER) return answer.getAnswerId();
+        if(commentType == CommentType.QUESTION) return question.getQuestionId();
+        if(commentType == CommentType.ANSWER) return answer.getAnswerId();
 
-        throw new UnsupportedOperationException("Unsupported ReplyType. replyType = " + replyType);
+        throw new UnsupportedOperationException("Unsupported CommentType. CommentType = " + commentType);
     }
 }

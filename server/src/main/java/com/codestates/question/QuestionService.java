@@ -36,6 +36,20 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
+    public Question upVote(Question question, long questionId) {
+        Question findQuestion = findVerifiedQuestion(questionId);
+        findQuestion.setVote(findQuestion.getVote() + 1);
+
+        return questionRepository.save(findQuestion);
+    }
+
+    public Question downVote(Question question, long questionId) {
+        Question findQuestion = findVerifiedQuestion(questionId);
+        findQuestion.setVote(findQuestion.getVote() - 1);
+
+        return questionRepository.save(findQuestion);
+    }
+
     public Question findQuestion(long questionId) {
         return findVerifiedQuestion(questionId);
     }

@@ -3,7 +3,7 @@ package com.codestates.question;
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.member.entity.Member;
-import com.codestates.reply.entity.Reply;
+import com.codestates.comment.entity.Comment;
 import com.codestates.tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +25,6 @@ public class Question extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long questionId;
 
-//    private long memberId; // 멤버 쪽과 연동할 것
-
     @Column(nullable = false)
     private String title;
 
@@ -34,13 +32,13 @@ public class Question extends Auditable {
     private String body;
 
     @Column(nullable = false)
-    private int view;
+    private int view = 0;
 
     @Column(nullable = false)
-    private int vote;
+    private int vote = 0;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Tag> tags; // 태그 구현 후 풀기
+    private List<Tag> tags;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -50,9 +48,9 @@ public class Question extends Auditable {
     private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Reply> replies = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
 //    private Member memberId; // 회의 후 연동할 것!
 //    private List<Answer> answers; // 프론트랑 회의 후 연동!
-//    private List<Comment> comments;
+//    private List<Comment> Comments;
 }
