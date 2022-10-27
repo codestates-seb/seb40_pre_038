@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { HeaderSearchbar } from './Searchbar';
 
@@ -312,9 +312,6 @@ const HelpDropdownSubContent = styled(DropdownSubContent)`
 const Header = () => {
   //search,inbox, achieve, help, community
   const [clickedMenu, setClickedMenu] = useState(null);
-  useEffect(() => {
-    //setClickedMenu('help');
-  });
 
   const handleClickMenu = (menu) => {
     if (menu === clickedMenu) setClickedMenu(null);
