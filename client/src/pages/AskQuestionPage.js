@@ -7,12 +7,26 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  h1 {
+    font-size: 22px;
+    font-weight: bold;
+    @media screen and (min-width: 641px) {
+      font-size: 27px;
+    }
+  }
+  img {
+    display: none;
+    width: 600px;
+    @media screen and (min-width: 1050px) {
+      display: block;
+    }
+  }
 `;
 
 const AskPageHeader = () => {
   return (
     <HeaderWrapper>
-      <h1>AskQuestionPage</h1>
+      <h1>Ask a public question</h1>
       <img
         src="https://cdn.sstatic.net/Img/ask/background.svg?v=c56910988bdf"
         alt="question mark robot"
@@ -99,6 +113,9 @@ const GoodQuestionGuideWrapper = styled.div`
     background-color: #f8f9f9;
     border-bottom: 1px solid #e3e6e8;
   }
+  @media screen and (min-width: 1101px) {
+    width: 290px;
+  }
 `;
 const RowBox = styled.div`
   display: flex;
@@ -115,6 +132,7 @@ const ColumnBox = styled.div`
   margin: 0px 10px;
   p {
     margin-bottom: 8px;
+    font-size: 12px;
   }
 `;
 const GoodQuestionGuide = ({ children, title }) => {
@@ -230,28 +248,41 @@ const AskWrapper = styled.div`
     cursor: pointer;
   }
 `;
-
+const BtnContainer = styled.div`
+  width: 100%;
+  margin: 15px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: flex-start;
+`;
+const ResponsiveContainer = styled.div`
+  @media screen and(min-width: 1101px) {
+  }
+`;
 const AskQuestionPage = () => {
   return (
     <AskWrapper>
       <AskPageHeader />
       <DecsGoodQuestion />
-      <GoodQuestionGuide title="Writing a good title">
-        <p>Your title should summarize the problem.</p>
-        <p>
-          You might find that you have a better idea of your title after writing
-          out the rest of the question.
-        </p>
-      </GoodQuestionGuide>
-      <InputContainer
-        title="Title"
-        desc="Be specific and imagine you’re asking a question to another person."
-      >
-        <StyledInputComponent
-          width="102%"
-          placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-        />
-      </InputContainer>
+      <ResponsiveContainer>
+        <GoodQuestionGuide title="Writing a good title">
+          <p>Your title should summarize the problem.</p>
+          <p>
+            You might find that you have a better idea of your title after
+            writing out the rest of the question.
+          </p>
+        </GoodQuestionGuide>
+        <InputContainer
+          title="Title"
+          desc="Be specific and imagine you’re asking a question to another person."
+        >
+          <StyledInputComponent
+            width="102%"
+            placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+          />
+        </InputContainer>
+      </ResponsiveContainer>
       <GoodQuestionGuide title="Introduce the problem">
         <p>
           Explain how you encountered the problem you’re trying to solve, and
@@ -332,12 +363,3 @@ const AskQuestionPage = () => {
   );
 };
 export default AskQuestionPage;
-
-const BtnContainer = styled.div`
-  width: 100%;
-  margin: 15px 0px;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: flex-start;
-`;
