@@ -12,7 +12,4 @@ public class AnswerPostDto {
 
     @Positive
     private long memberId;
-
-    @Positive
-    private long questionId;
 }

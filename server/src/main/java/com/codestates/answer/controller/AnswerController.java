@@ -20,7 +20,6 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/answers")
 @Validated
 public class AnswerController {
     private final AnswerService answerService;
@@ -31,16 +30,17 @@ public class AnswerController {
         this.mapper = mapper;
     }
 
-    @PostMapping("/create") // Answer 생성
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) {
-        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
+    @PostMapping("questions/{question-id}/answers/add") // Answer 생성
+    public ResponseEntity postAnswer(@PathVariable("question-id") @Positive long questionId,
+                                     @Valid @RequestBody AnswerPostDto answerPostDto) {
+        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(questionId, answerPostDto));
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
                 HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{answer-id}/edit") // Answer 편집
+    @PatchMapping("answers/{answer-id}/edit") // Answer 편집
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
                                       @Valid @RequestBody AnswerPatchDto answerPatchDto) {
         answerPatchDto.setAnswerId(answerId);
@@ -52,7 +52,7 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    @PatchMapping("/{answer-id}/vote") // Answer Vote
+    @PatchMapping("answers/{answer-id}/vote") // Answer Vote
     public ResponseEntity voteAnswer(@PathVariable("answer-id") @Positive long answerId,
                                      @Valid @RequestBody AnswerVoteDto answerVoteDto) {
         answerVoteDto.setAnswerId(answerId);
@@ -76,10 +76,11 @@ public class AnswerController {
                 HttpStatus.OK);
     }*/
 
-    @GetMapping
-    public ResponseEntity getAnswers(@Positive @RequestParam int page,
+    @GetMapping("questions/{question-id}/answers")
+    public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId,
+                                     @Positive @RequestParam int page,
                                      @Positive @RequestParam(required = false, defaultValue = "15") int size) {
-        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
+        Page<Answer> pageAnswers = answerService.findAnswers(questionId,page - 1, size);
         List<Answer> answers = pageAnswers.getContent();
 
         return new ResponseEntity<>(
@@ -87,7 +88,7 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("/{answer-id}/delete")
+    @DeleteMapping("answers/{answer-id}/delete")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId) {
         answerService.deleteAnswer(answerId);
 

@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    @Query(nativeQuery = true, value = "select * from answer where status > 0")
-    Page<Answer> findAllByStatus(Pageable pageable);
+    @Query(nativeQuery = true, value = "select * from Answer a where a.status > 0 and a.question_id = :questionId")
+    Page<Answer> findAll(long questionId, Pageable pageable);
 }
