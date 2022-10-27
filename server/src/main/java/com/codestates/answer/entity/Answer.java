@@ -1,6 +1,7 @@
 package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
+import com.codestates.member.entity.Member;
 import com.codestates.question.Question;
 import com.codestates.comment.entity.Comment;
 import lombok.Getter;
@@ -21,29 +22,30 @@ public class Answer extends Auditable {
     private Long answerId;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false, name = "status")
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_NORMAL;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "member_id")
-    private Member member;*/
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @Column(nullable = false, columnDefinition = "TEXT", name = "answer_contents")
-    private String contents;
+    @Column(nullable = false, columnDefinition = "TEXT", name = "body")
+    private String body;
 
-    @Column(nullable = false, name = "votes")
-    private int voteCounts = 0;
+    @Column(nullable = false, name = "vote")
+    private int vote = 0;
 
-    /*public void addMember(Member member) {
+    public void addMember(Member member) {
         this.member = member;
-    }*/
+    }
 
-    /*public void addQuestion(Question question) {
+    public void addQuestion(Question question) {
         this.question = question;
-    }*/
+    }
 
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Comment> comments = new ArrayList<>();

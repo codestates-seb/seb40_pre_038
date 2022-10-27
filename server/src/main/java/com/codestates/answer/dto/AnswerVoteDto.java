@@ -8,7 +8,7 @@ import javax.validation.constraints.Positive;
 public class AnswerVoteDto {
     private long answerId;
 
-    private int voteCounts;
+    private int vote;
 
     public void setAnswerId(long answerId) {
         this.answerId = answerId;

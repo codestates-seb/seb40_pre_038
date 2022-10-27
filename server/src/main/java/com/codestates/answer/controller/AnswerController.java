@@ -1,5 +1,6 @@
 package com.codestates.answer.controller;
 
+import com.codestates.answer.dto.AnswerBestDto;
 import com.codestates.answer.dto.AnswerPatchDto;
 import com.codestates.answer.dto.AnswerPostDto;
 import com.codestates.answer.dto.AnswerVoteDto;
@@ -62,6 +63,18 @@ public class AnswerController {
                 new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
                 HttpStatus.OK);
     }
+
+    /*@PatchMapping("/{answer-id}/best") // QuestionController에서 동작
+    public ResponseEntity patchStatus(@PathVariable("answer-id") @Positive long answerId,
+                                     @Valid @RequestBody AnswerBestDto answerBestDto) {
+        answerBestDto.setAnswerId(answerId);
+
+        Answer answer = answerService.updateStatus(mapper.answerBestDtoToAnswer(answerBestDto));
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
+                HttpStatus.OK);
+    }*/
 
     @GetMapping
     public ResponseEntity getAnswers(@Positive @RequestParam int page,

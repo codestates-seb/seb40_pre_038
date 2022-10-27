@@ -1,5 +1,9 @@
 package com.codestates.question;
 
+import com.codestates.answer.dto.AnswerBestDto;
+import com.codestates.answer.entity.Answer;
+import com.codestates.answer.mapper.AnswerMapper;
+import com.codestates.answer.service.AnswerService;
 import com.codestates.dto.MultiResponseDto;
 import com.codestates.dto.SingleResponseDto;
 import org.springframework.data.domain.Page;
@@ -18,10 +22,14 @@ import java.util.List;
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
+    private final AnswerService answerService; // 답변 채택 기능에서 필요
+    private final AnswerMapper answerMapper;
 
-    public QuestionController(QuestionService questionService, QuestionMapper mapper) {
+    public QuestionController(QuestionService questionService, QuestionMapper mapper, AnswerService answerService, AnswerMapper answerMapper) {
         this.questionService = questionService;
         this.mapper = mapper;
+        this.answerService = answerService;
+        this.answerMapper = answerMapper;
     }
 
     @PostMapping("/{add}")
@@ -98,5 +106,18 @@ public class QuestionController {
         questionService.deleteQuestion(questionId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // 답변 채택
+    @PatchMapping("/{question_id}/favorite/{answer-id}")
+    public ResponseEntity favoriteAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                         @Valid @RequestBody AnswerBestDto answerBestDto) {
+        answerBestDto.setAnswerId(answerId);
+
+        Answer answer = answerService.updateStatus(answerMapper.answerBestDtoToAnswer(answerBestDto));
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),
+                HttpStatus.OK);
     }
 }
