@@ -111,7 +111,7 @@ const SearchDropdownBottom = styled.div`
     width: 92.13px;
     height: 27.88px;
     color: #39739d;
-    background-color: #ececf4;
+    background-color: #e1ecf4;
     padding: 6.6px;
     border: 1px solid #39739d;
     border-radius: 3px;
