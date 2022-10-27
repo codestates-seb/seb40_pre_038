@@ -3,7 +3,7 @@ import { ButtonSblue } from './Buttons';
 
 const YellowBoxWrapper = styled.ul`
   box-sizing: border-box;
-  width: 298px;
+  width: 100%;
   margin: 0;
   padding: 0;
   display: flex;
@@ -23,7 +23,6 @@ const YellowBoxWrapper = styled.ul`
 const YellowBoxTitle = styled.li`
   list-style: none;
   box-sizing: border-box;
-  width: 298px;
   height: 41px;
   padding: 12px 15px;
   background-color: #fbf3d5;
@@ -38,7 +37,6 @@ const YellowBoxBody = styled.li`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: 298px;
   padding: 0px 16px;
   background-color: #fdf7e2;
   border-left: 1px solid #f1e5bc;
@@ -50,7 +48,6 @@ const YellowBoxBody = styled.li`
   }
   a {
     text-decoration: none;
-    width: 240px;
     color: #232629;
   }
 `;
@@ -79,17 +76,31 @@ const YellowSidebar = () => {
       <YellowBox borderTop="borderTop" title="The Overflow Blog">
         <div>
           <BodyWrapper>
-            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14">
-              <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-            </svg>
+            <div>
+              <svg
+                aria-hidden="true"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+              >
+                <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+              </svg>
+            </div>
             <a href="https://stackoverflow.blog/2022/10/24/how-hardware-and-software-can-maximize-your-flow-states/?cb=1&_ga=2.128384396.1876">
               How hardware and software can maximize your flow states
             </a>
           </BodyWrapper>
           <BodyWrapper>
-            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14">
-              <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-            </svg>
+            <div>
+              <svg
+                aria-hidden="true"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+              >
+                <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+              </svg>
+            </div>
             <a href="https://stackoverflow.blog/2022/10/25/a-flight-simulator-for-developers-to-practice-real-world-challenges-and-surprises-ep-500/?cb=1&_ga=2.63952175.1876088991.1666564010-646836467.1663513134">
               A flight simulator for developers to practice real world
               challenges and...
@@ -100,41 +111,97 @@ const YellowSidebar = () => {
       <YellowBox title="Featured on Meta">
         <div>
           <BodyWrapper>
-            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14">
-              <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-            </svg>
+            <div>
+              <svg
+                aria-hidden="true"
+                className="svg-icon iconStackExchange"
+                width="14"
+                height="14"
+                viewBox="0 0 18 18"
+                fill="#6a737c"
+              >
+                <path d="M15 1H3a2 2 0 0 0-2 2v2h16V3a2 2 0 0 0-2-2ZM1 13c0 1.1.9 2 2 2h8v3l3-3h1a2 2 0 0 0 2-2v-2H1v2Zm16-7H1v4h16V6Z" />
+              </svg>
+            </div>
             <a href="https://meta.stackexchange.com/questions/383022/the-2022-community-a-thon-has-begun?cb=1">
               The 2022 Community-a-thon has begun!
             </a>
           </BodyWrapper>
           <BodyWrapper>
-            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14">
-              <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-            </svg>
+            <div>
+              <svg
+                aria-hidden="true"
+                className="svg-icon iconStackExchange"
+                width="14"
+                height="14"
+                viewBox="0 0 18 18"
+                fill="#6a737c"
+              >
+                <path d="M15 1H3a2 2 0 0 0-2 2v2h16V3a2 2 0 0 0-2-2ZM1 13c0 1.1.9 2 2 2h8v3l3-3h1a2 2 0 0 0 2-2v-2H1v2Zm16-7H1v4h16V6Z" />
+              </svg>
+            </div>
+
             <a href="https://meta.stackexchange.com/questions/383026/mobile-app-infrastructure-being-decommissioned?cb=1">
               Mobile app infrastructure being decommissioned
             </a>
           </BodyWrapper>
           <BodyWrapper>
-            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14">
-              <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-            </svg>
+            <div>
+              <svg
+                aria-hidden="true"
+                className="native svg-icon iconLogoGlyphMd"
+                width="14"
+                height="14"
+                viewBox="0 0 32 37"
+              >
+                <path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#6a737c" />
+                <path
+                  d="m21.5 0-2.7 2 9.9 13.3 2.7-2L21.5 0ZM26 18.4 13.3 7.8l2.1-2.5 12.7 10.6-2.1 2.5ZM9.1 15.2l15 7 1.4-3-15-7-1.4 3Zm14 10.79.68-2.95-16.1-3.35L7 23l16.1 2.99ZM23 30H7v-3h16v3Z"
+                  fill="#6a737c"
+                />
+              </svg>
+            </div>
             <a href="https://meta.stackoverflow.com/questions/420897/staging-ground-workflow-canned-comments?cb=1">
               Staging Ground Workflow: Canned Comments
             </a>
           </BodyWrapper>
           <BodyWrapper>
-            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14">
-              <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-            </svg>
+            <div>
+              <svg
+                aria-hidden="true"
+                className="native svg-icon iconLogoGlyphMd"
+                width="14"
+                height="14"
+                viewBox="0 0 32 37"
+              >
+                <path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#6a737c" />
+                <path
+                  d="m21.5 0-2.7 2 9.9 13.3 2.7-2L21.5 0ZM26 18.4 13.3 7.8l2.1-2.5 12.7 10.6-2.1 2.5ZM9.1 15.2l15 7 1.4-3-15-7-1.4 3Zm14 10.79.68-2.95-16.1-3.35L7 23l16.1 2.99ZM23 30H7v-3h16v3Z"
+                  fill="#6a737c"
+                />
+              </svg>
+            </div>
             <a href="https://meta.stackoverflow.com/questions/406928/the-script-tag-is-being-burninated?cb=1">
               The [script] tag is being burninated
             </a>
           </BodyWrapper>
           <BodyWrapper>
-            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14">
-              <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
-            </svg>
+            <div>
+              <svg
+                aria-hidden="true"
+                className="native svg-icon iconLogoGlyphMd"
+                width="14"
+                height="14"
+                viewBox="0 0 32 37"
+              >
+                <path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#6a737c" />
+                <path
+                  d="m21.5 0-2.7 2 9.9 13.3 2.7-2L21.5 0ZM26 18.4 13.3 7.8l2.1-2.5 12.7 10.6-2.1 2.5ZM9.1 15.2l15 7 1.4-3-15-7-1.4 3Zm14 10.79.68-2.95-16.1-3.35L7 23l16.1 2.99ZM23 30H7v-3h16v3Z"
+                  fill="#6a737c"
+                />
+              </svg>
+            </div>
+
             <a href="https://meta.stackoverflow.com/questions/421038/the-ask-wizard-2022-has-graduated?cb=1">
               Ask Wizard Test Graduation
             </a>
@@ -157,7 +224,6 @@ const YellowSidebar = () => {
 
 const GreyBoxWrapper = styled.ul`
   box-sizing: border-box;
-  width: 298px;
   margin: 15px 0px;
   padding: 0;
   display: flex;
@@ -177,7 +243,6 @@ const GreyBoxWrapper = styled.ul`
 const GreyBoxTitle = styled.li`
   list-style: none;
   box-sizing: border-box;
-  width: 298px;
   height: 44.5px;
   padding: 12px 15px;
   background-color: #f8f9f9;
@@ -191,7 +256,6 @@ const GreyBoxBody = styled.li`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: 298px;
   padding: 4px 15px;
   border-left: 1px solid #e3e6e8;
   border-right: 1px solid #e3e6e8;
@@ -211,13 +275,8 @@ const ColumnWrapper = styled.div`
   }
   p {
     color: #6a737c;
-  }
-  a {
-    text-align: left;
-    text-decoration: none;
-    color: #0074cc;
-    font-size: 13px;
-    margin: 5px 0px 5px 10px;
+    margin: 5px 0px 15px 0px;
+    width: 190px;
   }
 `;
 const RowWrapper = styled.div`
@@ -320,18 +379,18 @@ const GreySidebar = () => {
   );
 };
 
-const SidebarWrapper = styled.aside`
-  .blueLink {
-    text-decoration: none;
-    color: #0074cc;
+const GoogleAds = styled.img`
+  display: none;
+  @media screen and (min-width: 981px) {
+    //981px ~
+    display: block;
+    width: 298px;
   }
 `;
 const HotNetworkQuestions = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  width: 298px;
-  margin: 15px 0px;
+  margin: 25px 0px 5px 0px;
   a.HNQTitle {
     text-align: left;
     text-decoration: none;
@@ -340,13 +399,55 @@ const HotNetworkQuestions = styled.div`
     font-weight: 500;
   }
 `;
+const HotNetworkLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 14px 0px;
+  a {
+    text-align: left;
+    text-decoration: none;
+    color: #0074cc;
+    font-size: 13px;
+    margin: 5px 0px 5px 10px;
+    &:hover {
+      color: #379fef;
+    }
+  }
+`;
+
+const RecentQuestionsFeed = styled.div`
+  display: flex;
+  span {
+    margin-left: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #0074cc;
+    &:hover {
+      color: #379fef;
+    }
+  }
+`;
+const SidebarWrapper = styled.aside`
+  .blueLink {
+    text-decoration: none;
+    color: #0074cc;
+    &:hover {
+      color: #379fef;
+    }
+  }
+  @media screen and (min-width: 981px) {
+    //981px ~
+    width: 298px;
+  }
+`;
 
 const Sidebar = () => {
   return (
     <SidebarWrapper>
       <YellowSidebar />
       <GreySidebar />
-      <img
+      <GoogleAds
         src="https://tpc.googlesyndication.com/simgad/3248856506927570682"
         alt="stack overflow ads"
       />
@@ -357,7 +458,7 @@ const Sidebar = () => {
         >
           Hot Network Questions
         </a>
-        <ColumnWrapper>
+        <HotNetworkLinks>
           <a href="https://travel.stackexchange.com/questions/177141/how-do-you-estimate-value-of-jewelry-for-travel-declaration">
             How do you estimate value of jewelry for travel declaration?
           </a>
@@ -444,8 +545,25 @@ const Sidebar = () => {
             How to leave only rows satisfying a particular condition from a
             table?
           </a>
-        </ColumnWrapper>
+        </HotNetworkLinks>
       </HotNetworkQuestions>
+      <RecentQuestionsFeed>
+        <div>
+          <svg
+            aria-hidden="true"
+            className="fc-orange-400 svg-icon iconRss"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+          >
+            <path
+              d="M3 1a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H3Zm0 1.5c6.9 0 12.5 5.6 12.5 12.5H13C13 9.55 8.45 5 3 5V2.5Zm0 5c4.08 0 7.5 3.41 7.5 7.5H8c0-2.72-2.28-5-5-5V7.5Zm0 5c1.36 0 2.5 1.14 2.5 2.5H3v-2.5Z"
+              fill="#F48024"
+            ></path>
+          </svg>
+        </div>
+        <span>Recent questions feed</span>
+      </RecentQuestionsFeed>
     </SidebarWrapper>
   );
 };
