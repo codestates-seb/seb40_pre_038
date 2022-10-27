@@ -26,7 +26,8 @@ public class QuestionController {
     private final AnswerService answerService; // 답변 채택 기능에서 필요
     private final AnswerMapper answerMapper;
 
-    public QuestionController(QuestionService questionService, QuestionMapper mapper, AnswerService answerService, AnswerMapper answerMapper) {
+    public QuestionController(QuestionService questionService, QuestionMapper mapper,
+                              AnswerService answerService, AnswerMapper answerMapper) {
         this.questionService = questionService;
         this.mapper = mapper;
         this.answerService = answerService;

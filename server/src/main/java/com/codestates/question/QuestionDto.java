@@ -20,6 +20,7 @@ public class QuestionDto {
         private String title;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String body;
+        private List<Tag> tags;
     }
 
     @Getter
@@ -44,7 +45,7 @@ public class QuestionDto {
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private List<Answer> answers;
-        private List<Comment> replies;
+        private List<Comment> comments;
         private List<Tag> tags;
         /*멤버&답변&댓글 추가할 것!*/
     }
@@ -54,6 +55,7 @@ public class QuestionDto {
     public static class Vote{
         private long questionId;
         private int vote;
+//        private String tag;
     }
 
     @Getter
