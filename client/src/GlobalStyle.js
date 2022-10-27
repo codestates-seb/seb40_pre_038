@@ -209,6 +209,16 @@ const GlobalStyle = createGlobalStyle`
   ol {
     list-style-type: decimal;
   }
+  a {
+    color: #0074CC;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: auto;
+  }
+  a:hover, a:active {
+    color: #0A95FF;
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;
