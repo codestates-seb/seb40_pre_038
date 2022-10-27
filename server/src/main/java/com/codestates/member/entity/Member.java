@@ -44,6 +44,12 @@ public class Member {
         this.email = email;
     }
 
+    public Member(Long memberId, String nickName, String email) {
+        this.memberId = memberId;
+        this.nickName = nickName;
+        this.email = email;
+    }
+
     public enum MemberStatus {
 
         MEMBER_ACTIVE("Active account"),
@@ -51,20 +57,10 @@ public class Member {
         MEMBER_QUIT("Deleted account");
 
         @Getter
-        private String status;
+        private final String status;
 
         MemberStatus(String status) {
             this.status = status;
         }
-    }
-
-//    private List<Question> questions = new ArrayList<>();
-//    private List<Answer> answers = new ArrayList<>();
-
-
-    public Member(Long memberId, String nickName, String email) {
-        this.memberId = memberId;
-        this.nickName = nickName;
-        this.email = email;
     }
 }
