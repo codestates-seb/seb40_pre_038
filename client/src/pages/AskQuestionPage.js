@@ -114,7 +114,7 @@ const GoodQuestionGuideWrapper = styled.div`
     border-bottom: 1px solid #e3e6e8;
   }
   @media screen and (min-width: 1101px) {
-    width: 290px;
+    width: 310px;
   }
 `;
 const RowBox = styled.div`
@@ -257,7 +257,10 @@ const BtnContainer = styled.div`
   align-items: flex-start;
 `;
 const ResponsiveContainer = styled.div`
+  width: 100%;
   @media screen and(min-width: 1101px) {
+    display: flex;
+    flex-direction: row-reverse;
   }
 `;
 const AskQuestionPage = () => {
@@ -283,77 +286,85 @@ const AskQuestionPage = () => {
           />
         </InputContainer>
       </ResponsiveContainer>
-      <GoodQuestionGuide title="Introduce the problem">
-        <p>
-          Explain how you encountered the problem you’re trying to solve, and
-          any difficulties that have prevented you from solving it yourself.
-        </p>
-      </GoodQuestionGuide>
-      <InputContainer
-        title="What are the details of your problem?"
-        desc="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
-      >
-        {/* 여기에 토스트 UI */}
-        <textarea></textarea>
-      </InputContainer>
-      <GoodQuestionGuide title="Expand on the problem">
-        <p>
-          Show what you’ve tried, tell us what happened, and why it didn’t meet
-          your needs.
-        </p>
-        <p>
-          Not all questions benefit from including code, but if your problem is
-          better understood with code you’ve written, you should include a{' '}
-          <a href="https://stackoverflow.com/help/minimal-reproducible-example">
-            minimal, reproducible example
-          </a>
-          .
-        </p>
-        <p>
-          Please make sure to post code and errors as text directly to the
-          question (and{' '}
-          <a href="https://meta.stackoverflow.com/questions/285551/why-should-i-not-upload-images-of-code-data-errors-when-asking-a-question">
-            not as images
-          </a>
-          ),{' '}
-          <a href="https://stackoverflow.com/help/formatting">
-            and format them appropriately
-          </a>
-          .
-        </p>
-      </GoodQuestionGuide>
-      <InputContainer
-        title="What did you try and what were you expecting?"
-        desc="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
-      >
-        {/* 여기에 토스트 UI */}
-        <textarea></textarea>
-      </InputContainer>
-      <GoodQuestionGuide title="Adding tags">
-        <p>
-          Tags help ensure that your question will get attention from the right
-          people.
-        </p>
-        <p>
-          Tag things in more than one way so people can find them more easily.
-          Add tags for product lines, projects, teams, and the specific
-          technologies or languages used.
-        </p>
-        <p>
-          <a href="https://stackoverflow.com/help/tagging">
-            Learn more about tagging
-          </a>
-        </p>
-      </GoodQuestionGuide>
-      <InputContainer
-        title="Tags"
-        desc="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
-      >
-        <StyledInputComponent
-          width="102%"
-          placeholder="e.g. (angularjs php jquery)"
-        />
-      </InputContainer>
+      <ResponsiveContainer>
+        <GoodQuestionGuide title="Introduce the problem">
+          <p>
+            Explain how you encountered the problem you’re trying to solve, and
+            any difficulties that have prevented you from solving it yourself.
+          </p>
+        </GoodQuestionGuide>
+        <InputContainer
+          title="What are the details of your problem?"
+          desc="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
+        >
+          {/* 여기에 토스트 UI */}
+          <textarea></textarea>
+        </InputContainer>
+      </ResponsiveContainer>
+      <ResponsiveContainer>
+        <GoodQuestionGuide title="Expand on the problem">
+          <p>
+            Show what you’ve tried, tell us what happened, and why it didn’t
+            meet your needs.
+          </p>
+          <p>
+            Not all questions benefit from including code, but if your problem
+            is better understood with code you’ve written, you should include a{' '}
+            <a href="https://stackoverflow.com/help/minimal-reproducible-example">
+              minimal, reproducible example
+            </a>
+            .
+          </p>
+          <p>
+            Please make sure to post code and errors as text directly to the
+            question (and{' '}
+            <a href="https://meta.stackoverflow.com/questions/285551/why-should-i-not-upload-images-of-code-data-errors-when-asking-a-question">
+              not as images
+            </a>
+            ),{' '}
+            <a href="https://stackoverflow.com/help/formatting">
+              and format them appropriately
+            </a>
+            .
+          </p>
+        </GoodQuestionGuide>
+      </ResponsiveContainer>
+      <ResponsiveContainer>
+        <InputContainer
+          title="What did you try and what were you expecting?"
+          desc="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
+        >
+          {/* 여기에 토스트 UI */}
+          <textarea></textarea>
+        </InputContainer>
+        <GoodQuestionGuide title="Adding tags">
+          <p>
+            Tags help ensure that your question will get attention from the
+            right people.
+          </p>
+          <p>
+            Tag things in more than one way so people can find them more easily.
+            Add tags for product lines, projects, teams, and the specific
+            technologies or languages used.
+          </p>
+          <p>
+            <a href="https://stackoverflow.com/help/tagging">
+              Learn more about tagging
+            </a>
+          </p>
+        </GoodQuestionGuide>
+      </ResponsiveContainer>
+      <ResponsiveContainer>
+        <InputContainer
+          title="Tags"
+          desc="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
+        >
+          <StyledInputComponent
+            width="102%"
+            placeholder="e.g. (angularjs php jquery)"
+          />
+        </InputContainer>
+      </ResponsiveContainer>
       <BtnContainer>
         <ButtonBlue width="150px" fontSize="13px">
           Review your question
