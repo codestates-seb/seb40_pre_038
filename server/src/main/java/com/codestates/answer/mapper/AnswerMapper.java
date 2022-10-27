@@ -21,7 +21,7 @@ public interface AnswerMapper {
 
     List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers);
 
-    default Answer answerPostDtoToAnswer(AnswerPostDto answerPostDto) {
+    default Answer answerPostDtoToAnswer(long questionId, AnswerPostDto answerPostDto) {
         Answer answer = new Answer();
         answer.setBody(answerPostDto.getBody());
 
@@ -30,7 +30,7 @@ public interface AnswerMapper {
         answer.setMember(member);
 
         Question question = new Question();
-        question.setQuestionId(answerPostDto.getQuestionId());
+        question.setQuestionId(questionId);
         answer.setQuestion(question);
 
         return answer;

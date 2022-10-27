@@ -49,7 +49,7 @@ public class AnswerService {
         return findVerifiedAnswer(answerId);
     }
     
-    public Page<Answer> findAnswers(int page, int size) {
+    public Page<Answer> findAnswers(long questionId, int page, int size) {
         // 삭제된 답변은 보이지 않음
         return answerRepository.findAllByStatus(PageRequest.of(page, size, Sort.by("status").ascending()));
     }
