@@ -4,7 +4,7 @@ import com.codestates.answer.dto.*;
 import com.codestates.answer.entity.Answer;
 import com.codestates.member.dto.MemberResponseDto;
 import com.codestates.member.entity.Member;
-import com.codestates.question.Question;
+import com.codestates.dto.question.Question;
 import org.mapstruct.Mapper;
 
 import java.util.List;
