@@ -37,21 +37,18 @@ public interface AnswerMapper {
     }
 
     default AnswerResponseDto answerToAnswerResponseDto(Answer answer) {
-        AnswerResponseDto answerResponseDto = new AnswerResponseDto();
-
-        answerResponseDto.setAnswerId(answer.getAnswerId());
-        answerResponseDto.setAnswerStatus(answer.getAnswerStatus());
-        answerResponseDto.setQuestionId(answer.getQuestion().getQuestionId());
-        answerResponseDto.setBody(answer.getBody());
-        answerResponseDto.setVote(answer.getVote());
-
-        answerResponseDto.setCreatedAt(answer.getCreatedAt());
-        answerResponseDto.setModifiedAt(answer.getModifiedAt());
-
         Member member = answer.getMember();
-        answerResponseDto.setMemberResponseDto(memberToMemberResponseDto(member));
 
-        return answerResponseDto;
+        return AnswerResponseDto.builder()
+                .answerId(answer.getAnswerId())
+                .answerStatus(answer.getAnswerStatus())
+                .questionId(answer.getQuestion().getQuestionId())
+                .body(answer.getBody())
+                .vote(answer.getVote())
+                .createdAt(answer.getCreatedAt())
+                .modifiedAt(answer.getModifiedAt())
+                .memberResponseDto(memberToMemberResponseDto(member))
+                .build();
     }
 
     MemberDto.Response memberToMemberResponseDto(Member member);
