@@ -11,6 +11,7 @@ import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
 import UsersPage from './pages/UsersPage';
 import AskQuestionPage from './pages/AskQuestionPage';
+import QuestionDetailPage from './pages/QuestionDetailPage';
 
 const App = () => {
   /**
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/questions" element={<QuestionsPage />} />
         <Route path="/questions/ask" element={<AskQuestionPage />} />
+        <Route path="/questions/0" element={<QuestionDetailPage />} />
         <Route path="/tags" element={<TagsPage />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="*" element={<NoMatch />} />
