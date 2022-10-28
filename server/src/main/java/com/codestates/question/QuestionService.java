@@ -43,7 +43,7 @@ public class QuestionService {
         return questionRepository.save(findQuestion);
     }
 
-    public Question upVote(Question question, long questionId) {
+    /*public Question upVote(Question question, long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
         findQuestion.setVote(findQuestion.getVote() + 1);
 
@@ -53,6 +53,15 @@ public class QuestionService {
     public Question downVote(Question question, long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
         findQuestion.setVote(findQuestion.getVote() - 1);
+
+        return questionRepository.save(findQuestion);
+    }*/
+
+    public Question updateVote(Question question, long questionId) { // Vote Count 값만 변경
+        Question findQuestion = findVerifiedQuestion(questionId);
+
+        // vote 변경
+        findQuestion.setVote(question.getVote());
 
         return questionRepository.save(findQuestion);
     }

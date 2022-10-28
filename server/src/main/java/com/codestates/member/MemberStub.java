@@ -17,11 +17,13 @@ public class MemberStub {
     CommandLineRunner MemberInit(MemberRepository memberRepository) {
 
         return args -> {
-            log.info("MEMBER STUB " + memberRepository.save(new Member("TalkingPotato", "abc@email.com")) );
-            log.info("MEMBER STUB " + memberRepository.save(new Member("SweetPotato", "def@email.com")));
 
+            log.info("MEMBER STUB " + memberRepository.save(new Member("mashed", "abc@email.com", "1234")));
+            log.info("MEMBER STUB " + memberRepository.save(new Member("potato", "admin@email.com", "1234")));
+
+            // wip
+            // member1 -> USER
+            // member2 -> ADMIN
         };
-
     }
-
 }
