@@ -1,7 +1,8 @@
 package com.codestates.member.entity;
 
-import com.codestates.question.Question;
+import com.codestates.audit.Auditable;
 import com.codestates.comment.entity.Comment;
+import com.codestates.question.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,17 +15,27 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Member {
+public class Member extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    @Column(length = 16, nullable = false, unique = true)
+    @Column(length = 16, unique = true)
     private String nickName;
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
@@ -32,16 +43,15 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> replies = new ArrayList<>();
 
-//    @Column(length = 100, nullable = false)
-//    private String password;
-
-    @Enumerated(value = EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
-
-    public Member(String nickName, String email) {
+    public Member(String nickName, String email, String password) {
         this.nickName = nickName;
         this.email = email;
+        this.password = password;
+    }
+
+    public Member(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public Member(Long memberId, String nickName, String email) {

@@ -2,7 +2,7 @@ package com.codestates.question;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.comment.entity.Comment;
-import com.codestates.member.dto.MemberResponseDto;
+import com.codestates.member.dto.MemberDto;
 import com.codestates.tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -57,7 +57,7 @@ public class QuestionDto {
         private List<Comment> comments;
         private List<Tag> tags;
         /*멤버&답변&댓글 추가할 것!*/
-        private MemberResponseDto memberResponseDto;
+        private MemberDto.Response memberResponseDto;
     }
 
     @Getter
