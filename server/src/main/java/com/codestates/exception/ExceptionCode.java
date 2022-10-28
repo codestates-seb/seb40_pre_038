@@ -18,6 +18,7 @@ public enum ExceptionCode {
 
     MEMBER_NOT_FOUND(404,"Member Not Found"),
     MEMBER_EXISTS(409, "Member Exists"),
+    MEMBER_NOT_ALLOWED(403, "Member Not Allowed"),
     MEMBER_CANNOT_CHANGE(403,"Member Can Not Be Changed");
 
     @Getter

@@ -14,7 +14,6 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Service
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -43,8 +42,23 @@ public class Comment extends Auditable {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public long getPostId() {
-        if(commentType == CommentType.QUESTION) return question.getQuestionId();
+    public void addQuestion(Question question) {
+        this.question = question;
+    }
+    public void addAnswer(Answer answer){
+        this.answer = answer;
+    }
+    public void addMember(Member member) {
+        this.member = member;
+    }
+
+
+
+    public Long getPostId() {
+        if(commentType == CommentType.QUESTION) {
+//            System.out.println(question.getCreatedAt());
+            return commentId;
+        }
         if(commentType == CommentType.ANSWER) return answer.getAnswerId();
 
         throw new UnsupportedOperationException("Unsupported CommentType. CommentType = " + commentType);

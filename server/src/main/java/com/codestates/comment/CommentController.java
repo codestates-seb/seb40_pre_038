@@ -19,7 +19,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/comments")
+@RequestMapping
 public class CommentController {
     private final CommentService commentService;
     private final QuestionService questionService;
@@ -35,12 +35,12 @@ public class CommentController {
     }
 
     @Secured("ROLE_USER")
-    @PostMapping("/add")
-    public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post commentPost,
-                                    @RequestParam CommentType commentType,
-                                    @PathVariable("post_id")@RequestParam long postId) {
+    @PostMapping("/questions/{question_id}/comments/add")
+    public ResponseEntity postQuestionComment(@Valid @RequestBody CommentDto.Post commentPost,
+//                                    @RequestParam CommentType commentType,
+                                    @PathVariable("question_id") @Positive long postId) {
         Comment comment = mapper.commentPostToComment(commentPost);
-        Comment createComment = commentService.createComment(comment, commentType, postId);
+        Comment createComment = commentService.createQuestionComment(comment, postId, commentPost.getMemberId());
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
 
         return new ResponseEntity<>(
@@ -49,18 +49,33 @@ public class CommentController {
     }
 
     @Secured("ROLE_USER")
-    @PatchMapping("/{comment_id}/edit")
+    @PostMapping("/questions/{question_id}/{answer_id}/comments/add")
+    public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post commentPost,
+//                                    @RequestParam CommentType commentType,
+                                      @PathVariable("question_id") @Positive long postId,
+                                      @PathVariable("answer_id") @Positive long answerId) {
+        Comment comment = mapper.commentPostToComment(commentPost);
+        Comment createComment = commentService.createAnswerComment(comment, answerId, postId, commentPost.getMemberId());
+        CommentDto.Response response = mapper.commentToCommentResponse(createComment);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.CREATED
+        );
+    }
+
+    @Secured("ROLE_USER")
+    @PatchMapping("/comments/{comment_id}/edit")
     public ResponseEntity patchComment(@Valid @RequestBody CommentDto.Patch commentPatch,
                                      @PathVariable("comment_id") @Positive long commentId) {
         Comment comment = mapper.commentPatchToComment(commentPatch);
-        Comment updateComment = commentService.updateComment(comment, commentId);
+        Comment updateComment = commentService.updateComment(comment, commentId, commentPatch.getMemberId());
         CommentDto.Response response = mapper.commentToCommentResponse(updateComment);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK
         );
     }
 
-    @GetMapping // 댓글 전부 조회하기
+    @GetMapping("/comments")// 댓글 전부 조회하기
     public ResponseEntity getComments(@Positive @RequestParam int page,
                                        @Positive @RequestParam(required = false, defaultValue = "15") int size) {
         Page<Comment> pageQuestions = commentService.findComments(page - 1, size);
@@ -73,7 +88,7 @@ public class CommentController {
     }
 
     @Secured("ROLE_USER")
-    @DeleteMapping("/{comment_id}/delete")
+    @DeleteMapping("/comments/{comment_id}/delete")
     public ResponseEntity deleteComment(@PathVariable("comment_id") @Positive long commentId) {
         commentService.deleteComment(commentId);
 

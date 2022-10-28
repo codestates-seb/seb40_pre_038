@@ -5,6 +5,7 @@ import com.codestates.member.entity.Member;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
@@ -27,18 +28,44 @@ public interface QuestionMapper {
         return question;
     }
 
+//    default List<QuestionDto.Response> questionsToQuestionResponses(List<Question> questions) {
+//        return questions.stream()
+//                .map(this::questionToQuestionResponse)
+//                .collect(Collectors.toList());
+//    }
+
     default QuestionDto.Response questionToQuestionResponse(Question question) {
         Member member = question.getMember();
 
-        QuestionDto.Response responseDto = new QuestionDto.Response(question.getQuestionId(),
-                question.getTitle(), question.getBody(),
-                question.getView(), question.getVote(),
-                question.getCreatedAt(), question.getModifiedAt(),
-                question.getAnswers(), question.getComments(), question.getTags(),
-                memberToMemberResponseDto(member));
-
-        return responseDto;
+        return QuestionDto.Response.builder()
+                .questionId(question.getQuestionId())
+                .title(question.getTitle())
+                .body(question.getBody())
+                .view(question.getView())
+                .vote(question.getVote())
+//                .memberId(question.getMember().getMemberId())
+//                .nickName(question.getMember().getNickName())
+                .createdAt(question.getCreatedAt())
+                .modifiedAt(question.getModifiedAt())
+//                .answers(question.getAnswers())
+//                .comments(question.getComments())
+                .tags(question.getTags())
+                .memberResponseDto(memberToMemberResponseDto(member))
+                .build();
     }
+
+//    default QuestionDto.Response questionToQuestionResponse(Question question) {
+//        Member member = question.getMember();
+//
+//        QuestionDto.Response responseDto = new QuestionDto.Response(question.getQuestionId(),
+//                question.getTitle(), question.getBody(),
+//                question.getView(), question.getVote(),
+//                question.getCreatedAt(), question.getModifiedAt(),
+//                question.getAnswers(), question.getComments(), question.getTags(),
+//                memberToMemberResponseDto(member));
+//
+//        return responseDto;
+//    }
 
     MemberResponseDto memberToMemberResponseDto(Member member);
 }

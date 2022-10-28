@@ -38,7 +38,7 @@ public class QuestionController {
     @PostMapping("/add")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost) {
         Question question = mapper.questionPostToQuestion(questionPost);
-        Question createQuestion = questionService.createQuestion(question);
+        Question createQuestion = questionService.createQuestion(question, questionPost.getMemberId());
         QuestionDto.Response response = mapper.questionToQuestionResponse(createQuestion);
 
         return new ResponseEntity<>(
@@ -52,7 +52,7 @@ public class QuestionController {
                                         @PathVariable("question_id") @Positive long questionId) {
         questionPatch.setQuestionId(questionId);
         Question question = mapper.questionPatchToQuestion(questionPatch); // 수정
-        Question updateQuestion = questionService.updateQuestion(question, questionId); // DB 업데이트
+        Question updateQuestion = questionService.updateQuestion(question, questionPatch.getMemberId()); // DB 업데이트
         QuestionDto.Response response = mapper.questionToQuestionResponse(updateQuestion);
 
         return new ResponseEntity<>(
@@ -63,7 +63,7 @@ public class QuestionController {
     @Secured("ROLE_USER")
     @PatchMapping("/{question_id}/upvote")
     public ResponseEntity upVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
-                                       @PathVariable("question_id") @Positive long questionId) {
+                                         @PathVariable("question_id") @Positive long questionId) {
         Question question = mapper.questionVoteToQuestion(questionVote);
         Question votedQuestion = questionService.upVote(question, questionId);
         QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
@@ -76,7 +76,7 @@ public class QuestionController {
     @Secured("ROLE_USER")
     @PatchMapping("/{question_id}/downvote")
     public ResponseEntity downVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
-                                         @PathVariable("question_id") @Positive long questionId) {
+                                           @PathVariable("question_id") @Positive long questionId) {
         Question question = mapper.questionVoteToQuestion(questionVote);
         Question votedQuestion = questionService.downVote(question, questionId);
         QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
