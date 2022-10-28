@@ -30,7 +30,14 @@ const SkyblueButton = styled.button`
   }
 `;
 
-function ButtonBlue({ children, border, width, height, fontSize, fontWeight }) {
+export function ButtonBlue({
+  children,
+  border,
+  width,
+  height,
+  fontSize,
+  fontWeight,
+}) {
   return (
     <Bluebutton
       border={border}
@@ -44,7 +51,7 @@ function ButtonBlue({ children, border, width, height, fontSize, fontWeight }) {
   );
 }
 
-function ButtonSblue({ children, width, height, fontSize, fontWeight }) {
+export function ButtonSblue({ children, width, height, fontSize, fontWeight }) {
   return (
     <SkyblueButton
       width={width}
@@ -58,15 +65,9 @@ function ButtonSblue({ children, width, height, fontSize, fontWeight }) {
 }
 
 /**
+ * Button
  * 미완성 컴포넌트 입니다.
  */
-function Button({ children, type, whiteSpace }) {
-  return (
-    <ButtonComponent className={type} whiteSpace={whiteSpace}>
-      {children}
-    </ButtonComponent>
-  );
-}
 const ButtonComponent = styled.button`
   position: relative;
   display: inline-block;
@@ -105,4 +106,10 @@ const ButtonComponent = styled.button`
   }
 `;
 
-export { ButtonBlue, ButtonSblue, Button };
+export const Button = ({ children, type, whiteSpace }) => {
+  return (
+    <ButtonComponent className={type} whiteSpace={whiteSpace}>
+      {children}
+    </ButtonComponent>
+  );
+};

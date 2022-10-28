@@ -3,24 +3,6 @@ import styled from 'styled-components';
 import SMetaTags from './SMetaTags';
 import SUserCard from './SUserCard';
 
-const SummaryContent = () => {
-  return (
-    <SummaryContentWrapper>
-      <SummaryContentTitle>
-        <SummaryContentTitleLink to="#">
-          Function not working correctly, x != (y or z)
-        </SummaryContentTitleLink>
-      </SummaryContentTitle>
-      <SummaryMeta>
-        <SMetaTags />
-        <SUserCard />
-      </SummaryMeta>
-    </SummaryContentWrapper>
-  );
-};
-
-export default SummaryContent;
-
 const SummaryContentWrapper = styled.div`
   flex-grow: 1;
   max-width: 100%;
@@ -70,3 +52,21 @@ const SummaryMeta = styled.div`
   column-gap: 6px;
   row-gap: 8px;
 `;
+
+const SummaryContent = () => {
+  return (
+    <SummaryContentWrapper>
+      <SummaryContentTitle>
+        <SummaryContentTitleLink to="#">
+          Function not working correctly, x != (y or z)
+        </SummaryContentTitleLink>
+      </SummaryContentTitle>
+      <SummaryMeta>
+        <SMetaTags />
+        <SUserCard />
+      </SummaryMeta>
+    </SummaryContentWrapper>
+  );
+};
+
+export default SummaryContent;

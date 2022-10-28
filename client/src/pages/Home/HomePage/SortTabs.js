@@ -1,51 +1,5 @@
 import styled from 'styled-components';
 
-const SortTabs = () => {
-  const handleClickTab = (e) => {
-    console.log(e.target.textContent);
-  };
-
-  return (
-    <FlexWrapper>
-      <Fl1 />
-      <div>
-        <Tabs>
-          <Tab
-            className="is-selected"
-            title="Questions that may be of interest to you based on your history and tag preference"
-            onClick={handleClickTab}
-          >
-            Interesting
-          </Tab>
-          <Tab title="Questions with an active bounty" onClick={handleClickTab}>
-            <BountyIndicatorSpan>297</BountyIndicatorSpan> Bountied
-          </Tab>
-          <Tab
-            title="Questions with the most views, most answers, and highest score over the last few days"
-            onClick={handleClickTab}
-          >
-            Hot
-          </Tab>
-          <Tab
-            title="Questions with the most views, most answers, and highest score this week"
-            onClick={handleClickTab}
-          >
-            Week
-          </Tab>
-          <Tab
-            title="Questions with the most views, most answers, and highest score this month"
-            onClick={handleClickTab}
-          >
-            Month
-          </Tab>
-        </Tabs>
-      </div>
-    </FlexWrapper>
-  );
-};
-
-export default SortTabs;
-
 const FlexWrapper = styled.div`
   display: flex !important;
   margin-bottom: 16px !important;
@@ -136,3 +90,49 @@ const BountyIndicatorSpan = styled.span`
   line-height: 1.3;
   border-radius: 2px;
 `;
+
+const SortTabs = () => {
+  const handleClickTab = (e) => {
+    console.log(e.target.textContent);
+  };
+
+  return (
+    <FlexWrapper>
+      <Fl1 />
+      <div>
+        <Tabs>
+          <Tab
+            className="is-selected"
+            title="Questions that may be of interest to you based on your history and tag preference"
+            onClick={handleClickTab}
+          >
+            Interesting
+          </Tab>
+          <Tab title="Questions with an active bounty" onClick={handleClickTab}>
+            <BountyIndicatorSpan>297</BountyIndicatorSpan> Bountied
+          </Tab>
+          <Tab
+            title="Questions with the most views, most answers, and highest score over the last few days"
+            onClick={handleClickTab}
+          >
+            Hot
+          </Tab>
+          <Tab
+            title="Questions with the most views, most answers, and highest score this week"
+            onClick={handleClickTab}
+          >
+            Week
+          </Tab>
+          <Tab
+            title="Questions with the most views, most answers, and highest score this month"
+            onClick={handleClickTab}
+          >
+            Month
+          </Tab>
+        </Tabs>
+      </div>
+    </FlexWrapper>
+  );
+};
+
+export default SortTabs;

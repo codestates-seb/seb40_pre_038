@@ -4,25 +4,6 @@ import SortTabs from './SortTabs';
 import QuestionListWrapper from './QuestionList/QuestionListWrapper';
 import styled from 'styled-components';
 
-const TopQuestionsPage = () => {
-  return (
-    <Mainbar>
-      <PageHeader />
-      <SortTabs />
-      <QuestionListWrapper />
-      <ClearBr />
-      <BottomNotice>
-        Looking for more? Browse the{' '}
-        <Link href="/questions">complete list of questions</Link>, or{' '}
-        <Link href="/tags">popular tags</Link>. Help us answer{' '}
-        <Link href="/unanswered">unanswered questions</Link>.
-      </BottomNotice>
-    </Mainbar>
-  );
-};
-
-export default TopQuestionsPage;
-
 const Mainbar = styled.div`
   width: calc(100% - 300px - 24px);
   float: left;
@@ -46,3 +27,22 @@ const BottomNotice = styled.h2`
   line-height: 1.4;
   font-size: 1.30769231rem; ;
 `;
+
+const TopQuestionsPage = () => {
+  return (
+    <Mainbar>
+      <PageHeader />
+      <SortTabs />
+      <QuestionListWrapper />
+      <ClearBr />
+      <BottomNotice>
+        Looking for more? Browse the{' '}
+        <Link href="/questions">complete list of questions</Link>, or{' '}
+        <Link href="/tags">popular tags</Link>. Help us answer{' '}
+        <Link href="/unanswered">unanswered questions</Link>.
+      </BottomNotice>
+    </Mainbar>
+  );
+};
+
+export default TopQuestionsPage;
