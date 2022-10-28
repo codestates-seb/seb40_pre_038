@@ -3,10 +3,6 @@ import styled from 'styled-components';
 import SMetaTags from './SMetaTags';
 import SUserCard from './SUserCard';
 
-
-
-export default SummaryContent;
-
 const SummaryContentWrapper = styled.div`
   flex-grow: 1;
   max-width: 100%;
@@ -72,6 +68,5 @@ const SummaryContent = () => {
     </SummaryContentWrapper>
   );
 };
-
 
 export default SummaryContent;
