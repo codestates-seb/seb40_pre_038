@@ -32,7 +32,7 @@ public interface CommentMapper {
 
         return CommentDto.Response.builder()
                 .commentId(comment.getCommentId())
-                .postId(comment.getPostId())
+//                .postId(comment.getPostId())
                 .memberResponseDto(memberToMemberResponseDto(member))
                 .body(comment.getBody())
                 .createdAt(comment.getCreatedAt())

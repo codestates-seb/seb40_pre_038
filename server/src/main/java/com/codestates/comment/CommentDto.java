@@ -39,7 +39,7 @@ public class CommentDto {
     @AllArgsConstructor
     public static class Response {
         private long commentId;
-        private long postId;
+//        private long postId;
         private MemberDto.Response memberResponseDto;
 //        private long memberId;
         private String body;
