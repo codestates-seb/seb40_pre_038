@@ -5,6 +5,7 @@ import com.codestates.audit.Auditable;
 import com.codestates.member.entity.Member;
 import com.codestates.comment.entity.Comment;
 import com.codestates.tag.Tag;
+import com.codestates.vote.QuestionVote.QuestionVote;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,6 +50,9 @@ public class Question extends Auditable {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private QuestionVote questionVote;
 
 //    private Member memberId; // 회의 후 연동할 것!
 //    private List<Answer> answers; // 프론트랑 회의 후 연동!

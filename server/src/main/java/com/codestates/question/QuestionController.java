@@ -6,6 +6,7 @@ import com.codestates.answer.mapper.AnswerMapper;
 import com.codestates.answer.service.AnswerService;
 import com.codestates.dto.MultiResponseDto;
 import com.codestates.dto.SingleResponseDto;
+import com.codestates.vote.QuestionVote.QuestionVoteService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +26,14 @@ public class QuestionController {
     private final QuestionMapper mapper;
     private final AnswerService answerService; // 답변 채택 기능에서 필요
     private final AnswerMapper answerMapper;
+    private final QuestionVoteService questionVoteService; // 질문 투표에서 필요
 
-    public QuestionController(QuestionService questionService, QuestionMapper mapper,
-                              AnswerService answerService, AnswerMapper answerMapper) {
+    public QuestionController(QuestionService questionService, QuestionMapper mapper, AnswerService answerService, AnswerMapper answerMapper, QuestionVoteService questionVoteService) {
         this.questionService = questionService;
         this.mapper = mapper;
         this.answerService = answerService;
         this.answerMapper = answerMapper;
+        this.questionVoteService = questionVoteService;
     }
 
     @Secured("ROLE_USER")
@@ -60,7 +62,7 @@ public class QuestionController {
         );
     }
 
-    @Secured("ROLE_USER")
+    /*@Secured("ROLE_USER")
     @PatchMapping("/{question_id}/upvote")
     public ResponseEntity upVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
                                        @PathVariable("question_id") @Positive long questionId) {
@@ -118,6 +120,18 @@ public class QuestionController {
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK
+        );
+    }*/
+
+    @PatchMapping("/{question-id}/vote") // Question Vote
+    public ResponseEntity voteQuestion(@PathVariable("question-id") @Positive long questionId,
+                                       @Valid @RequestBody QuestionDto.Vote questionVote) {
+        questionVoteService.postVote(questionId, questionVote.getMemberId());
+
+        Question question = questionService.updateVote(mapper.questionVoteToQuestion(questionVote), questionId);
+        
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.questionToQuestionResponse(question)), HttpStatus.OK
         );
     }
 
