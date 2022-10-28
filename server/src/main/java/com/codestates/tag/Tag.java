@@ -6,10 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+=======
+>>>>>>> dev
 
 @NoArgsConstructor
 @Getter
@@ -21,7 +24,11 @@ public class Tag {
     private long tagId;
 
     @Column(nullable = false)
+<<<<<<< HEAD
     private String body;
+=======
+    private String title;
+>>>>>>> dev
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "status")

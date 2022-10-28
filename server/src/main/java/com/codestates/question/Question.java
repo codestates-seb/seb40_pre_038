@@ -4,6 +4,10 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.member.entity.Member;
 import com.codestates.comment.entity.Comment;
+<<<<<<< HEAD
+=======
+import com.codestates.tag.Tag;
+>>>>>>> dev
 import com.codestates.vote.QuestionVote.QuestionVote;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,8 +44,13 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private int vote = 0;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "question")
     private Set<QuestionTag> questionTags = new HashSet<>();
+=======
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Tag> tags;
+>>>>>>> dev
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -56,8 +65,13 @@ public class Question extends Auditable {
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
+<<<<<<< HEAD
     public void addQuestionTags(QuestionTag questionTag) {
         this.questionTags.add(questionTag);
+=======
+    public void addTag(Tag tag) {
+        tags.add(tag);
+>>>>>>> dev
     }
     public void addMember(Member member) {
         this.member = member;

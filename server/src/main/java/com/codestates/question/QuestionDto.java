@@ -63,7 +63,11 @@ public class QuestionDto {
         private LocalDateTime modifiedAt;
         private List<Answer> answers;
         private List<Comment> comments;
+<<<<<<< HEAD
         private Set<QuestionTag> tags;
+=======
+        private List<Tag> tags;
+>>>>>>> dev
         /*멤버&답변&댓글 추가할 것!*/
         private MemberDto.Response memberResponseDto;
     }

@@ -177,10 +177,7 @@ const GlobalStyle = createGlobalStyle`
   }
   select,
   input,
-  button,
-  .button,
-  a.button:link,
-  .btn {
+  button {
     font-size: 100%;
   }
   h1,
@@ -188,6 +185,39 @@ const GlobalStyle = createGlobalStyle`
   h3 {
     line-height: 1.3;
     margin: 0 0 1em;
+  }
+  ul,
+  ol,
+  li {
+    margin: 0;
+    padding: 0;
+  }
+  ul,
+  ol {
+    margin-left: 30px;
+    margin-bottom: 1em;
+  }
+  ul ul,
+  ol ul,
+  ul ol,
+  ol ol {
+    margin-bottom: 0;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  a {
+    color: #0074CC;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: auto;
+  }
+  a:hover, a:active {
+    color: #0A95FF;
+    text-decoration: none;
   }
 `;
 

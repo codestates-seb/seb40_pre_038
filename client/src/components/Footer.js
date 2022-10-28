@@ -179,6 +179,8 @@ const CopyrightFooterContainer = styled.div`
 const SocialListContainer = styled.ul`
   list-style: none;
   display: flex;
+  align-items: flex-start;
+  margin: 0 0 10px 0;
   li {
     color: #9199a1;
     font-size: 11px;
