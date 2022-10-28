@@ -494,24 +494,28 @@ const Header = ({ isLogin, setIsLogin }) => {
         ) : (
           <AccountBtnsWrapper>
             <div className="login">
-              <LoginBtn
-                width="59.45px"
-                height="32px"
-                fontSize="13px"
-                fontWeight="400"
-              >
-                Log in
-              </LoginBtn>
+              <Link to="/login">
+                <LoginBtn
+                  width="59.45px"
+                  height="32px"
+                  fontSize="13px"
+                  fontWeight="400"
+                >
+                  Log in
+                </LoginBtn>
+              </Link>
             </div>
             <div className="signup">
-              <SignupBtn
-                width="64.44px"
-                height="32px"
-                fontSize="13px"
-                fontWeight="400"
-              >
-                Sign up
-              </SignupBtn>
+              <Link to="/signup">
+                <SignupBtn
+                  width="64.44px"
+                  height="32px"
+                  fontSize="13px"
+                  fontWeight="400"
+                >
+                  Sign up
+                </SignupBtn>
+              </Link>
             </div>
           </AccountBtnsWrapper>
         )}
