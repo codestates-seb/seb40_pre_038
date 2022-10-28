@@ -2,17 +2,6 @@ import SummaryStats from './SummaryStats';
 import SummaryContent from './SummaryContent';
 import styled from 'styled-components';
 
-const QuestionMiniList = () => {
-  return (
-    <QuestionSummary>
-      <SummaryStats />
-      <SummaryContent />
-    </QuestionSummary>
-  );
-};
-
-export default QuestionMiniList;
-
 const QuestionSummary = styled.div`
   position: relative;
   display: flex;
@@ -27,3 +16,14 @@ const QuestionSummary = styled.div`
     flex-direction: column;
   }
 `;
+
+const QuestionMiniList = () => {
+  return (
+    <QuestionSummary>
+      <SummaryStats />
+      <SummaryContent />
+    </QuestionSummary>
+  );
+};
+
+export default QuestionMiniList;

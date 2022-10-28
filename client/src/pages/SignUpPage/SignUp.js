@@ -3,7 +3,7 @@ import SignUpForm from './SignUpForm';
 
 const Content = styled.div`
   width: 100%;
-  max-width: 1264px;
+  height: calc(100vh - 50px);
   margin: 0;
   background-color: transparent;
   border-left: 0;
@@ -17,6 +17,7 @@ const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f1f2f3;
 
   @media screen and (max-width: 816px) {
     padding-left: 16;
@@ -95,6 +96,9 @@ const OauthDivWrapper = styled.div`
   flex-direction: column;
   flex: 1 auto;
   box-sizing: inherit;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 
   @media (max-width: 816px) {
     margin-left: 52.656;

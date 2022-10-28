@@ -1,24 +1,7 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../../components/Buttons';
 import { Headline } from '../../../components/Headline';
-
-const PageHeader = () => {
-  return (
-    <PageHeaderWrapper>
-      <Headline>Top Questions</Headline>
-      <ButtonContainer>
-        <Link to="/questions/ask">
-          <Button type="primary" whiteSpace="nowrap">
-            Ask Question
-          </Button>
-        </Link>
-      </ButtonContainer>
-    </PageHeaderWrapper>
-  );
-};
-
-export default PageHeader;
 
 const PageHeaderWrapper = styled.div`
   display: flex !important;
@@ -27,3 +10,28 @@ const PageHeaderWrapper = styled.div`
 const ButtonContainer = styled.div`
   margin-left: 12px !important;
 `;
+
+const PageHeader = () => {
+  const navigate = useNavigate();
+
+  const handleClickAskQuestionBtn = () => {
+    navigate('/questions/ask');
+  };
+
+  return (
+    <PageHeaderWrapper>
+      <Headline>Top Questions</Headline>
+      <ButtonContainer>
+        <Button
+          type="primary"
+          whiteSpace="nowrap"
+          onClick={handleClickAskQuestionBtn}
+        >
+          Ask Question
+        </Button>
+      </ButtonContainer>
+    </PageHeaderWrapper>
+  );
+};
+
+export default PageHeader;
