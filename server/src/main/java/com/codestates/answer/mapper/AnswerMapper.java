@@ -2,7 +2,7 @@ package com.codestates.answer.mapper;
 
 import com.codestates.answer.dto.*;
 import com.codestates.answer.entity.Answer;
-import com.codestates.member.dto.MemberResponseDto;
+import com.codestates.member.dto.MemberDto;
 import com.codestates.member.entity.Member;
 import com.codestates.question.Question;
 import org.mapstruct.Mapper;
@@ -54,5 +54,5 @@ public interface AnswerMapper {
         return answerResponseDto;
     }
 
-    MemberResponseDto memberToMemberResponseDto(Member member);
+    MemberDto.Response memberToMemberResponseDto(Member member);
 }
