@@ -8,11 +8,8 @@ import javax.validation.constraints.Positive;
 @Getter
 public class AnswerPostDto {
     @NotBlank
-    private String contents;
-
-    /*@Positive
-    private long memberId;
+    private String body;
 
     @Positive
-    private long questionId;*/
+    private long memberId;
 }

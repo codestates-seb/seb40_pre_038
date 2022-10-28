@@ -1,11 +1,18 @@
 package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
+import com.codestates.member.entity.Member;
+import com.codestates.question.Question;
+import com.codestates.comment.entity.Comment;
+import com.codestates.vote.AnswerVote.AnswerVote;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -17,29 +24,39 @@ public class Answer extends Auditable {
     private Long answerId;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false, name = "status")
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_NORMAL;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;*/
+    private Question question;
 
-    @Column(nullable = false, columnDefinition = "TEXT", name = "answer_contents")
-    private String contents;
+    @Column(nullable = false, columnDefinition = "TEXT", name = "body")
+    private String body;
 
-    @Column(nullable = false, name = "votes")
-    private int voteCounts;
+    @Column(nullable = false, name = "vote")
+    private int vote = 0;
 
-    /*public void addMember(Member member) {
+    @Column(nullable = false, name = "LAST_MODIFIED_AT")
+    private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    public void addMember(Member member) {
         this.member = member;
     }
 
     public void addQuestion(Question question) {
         this.question = question;
-    }*/
+    }
+
+    @OneToMany(mappedBy = "answer")
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private AnswerVote answerVote;
 
     public enum AnswerStatus {
         ANSWER_DELETE(0, "삭제된 답변"),
@@ -57,20 +74,4 @@ public class Answer extends Auditable {
             this.statusDescription = statusDescription;
         }
     }
-
-    /*public enum VoteStatus {
-        VOTE_PLUS(1, "up vote"),
-        VOTE_MINUS(-1, "down vote");
-
-        @Getter
-        private int voteCount;
-
-        @Getter
-        private String voteDescription;
-
-        VoteStatus(int voteCount, String voteDescription) {
-            this.voteCount = voteCount;
-            this.voteDescription = voteDescription;
-        }
-    }*/
 }
