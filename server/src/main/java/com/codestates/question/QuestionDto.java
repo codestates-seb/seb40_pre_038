@@ -7,6 +7,7 @@ import com.codestates.comment.entity.Comment;
 import com.codestates.member.entity.Member;
 import com.codestates.member.dto.MemberDto;
 import com.codestates.tag.Tag;
+import com.codestates.tag.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -63,12 +64,9 @@ public class QuestionDto {
         private LocalDateTime modifiedAt;
         private List<Answer> answers;
         private List<Comment> comments;
-<<<<<<< HEAD
-        private Set<QuestionTag> tags;
-=======
-        private List<Tag> tags;
->>>>>>> dev
+//        private Set<QuestionTag> tags;
         /*멤버&답변&댓글 추가할 것!*/
+        private TagDto.Response tagResponseDto;
         private MemberDto.Response memberResponseDto;
     }
 

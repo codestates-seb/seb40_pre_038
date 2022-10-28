@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Transactional
@@ -41,9 +40,7 @@ public class QuestionService {
 //        Optional.ofNullable(question.getTag()) // 태그
 //                .ifPresent(findQuestion.getTag);
 
-        findQuestion.setModifiedAt(LocalDateTime.now());
-
-        return questionRepository.save(findQuestion); // 수정 시간 업데이트
+        return questionRepository.save(findQuestion);
     }
 
     /*public Question upVote(Question question, long questionId) {
