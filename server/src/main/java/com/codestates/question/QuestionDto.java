@@ -17,6 +17,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class QuestionDto {
 
@@ -62,7 +63,7 @@ public class QuestionDto {
         private LocalDateTime modifiedAt;
         private List<Answer> answers;
         private List<Comment> comments;
-        private List<Tag> tags;
+        private Set<QuestionTag> tags;
         /*멤버&답변&댓글 추가할 것!*/
         private MemberDto.Response memberResponseDto;
     }
