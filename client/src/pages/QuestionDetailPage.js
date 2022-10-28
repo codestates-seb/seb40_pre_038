@@ -4,8 +4,7 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar.js';
 import QuestionTitle from './QuestionDetail/QuestionTitle';
-import QuestionContentBox from './QuestionDetail/QuestionContentBox';
-import QuestionVote from './QuestionDetail/QuestionVote';
+import MainQuestion from './QuestionDetail/MainQuestion/MainQuestion';
 
 const MainContent = styled.div`
   display: flex;
@@ -18,7 +17,7 @@ const QuestionDetailMainContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 1000px;
+  width: 1100px;
   padding: 24px 16px;
 `;
 const MainWrapper = styled.div`
@@ -27,10 +26,6 @@ const MainWrapper = styled.div`
     flex-direction: column;
   }
   flex-direction: row;
-  flex-grow: 1;
-`;
-const Wrapper = styled.div`
-  display: flex;
   flex-grow: 1;
 `;
 
@@ -42,10 +37,7 @@ const QuestionDetailPage = () => {
         <QuestionDetailMainContent>
           <QuestionTitle />
           <MainWrapper>
-            <Wrapper>
-              <QuestionVote />
-              <QuestionContentBox />
-            </Wrapper>
+            <MainQuestion />
             <Sidebar />
           </MainWrapper>
         </QuestionDetailMainContent>

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { ButtonBlue } from '../../components/Buttons';
 
@@ -19,6 +18,7 @@ const TitleInfo = styled.h1`
   margin: 0;
   div {
     margin-right: 12px;
+    white-space: normal;
   }
 `;
 
@@ -44,19 +44,21 @@ const StatInfo = styled.div`
 `;
 
 const QuestionTitle = () => {
-  const [title] = useState('Java 8, Streams to find the duplicate elements');
+  const title = 'Java 8, Streams to find the duplicate elements';
   return (
     <QuestionTitleContainer>
       <TitleInfo>
         <div>{title}</div>
-        <AskQustionBtn
-          width="100px"
-          height="37px"
-          fontSize="13px"
-          fontWeight="400"
-        >
-          Ask Question
-        </AskQustionBtn>
+        <div>
+          <AskQustionBtn
+            width="100px"
+            height="37px"
+            fontSize="13px"
+            fontWeight="400"
+          >
+            Ask Question
+          </AskQustionBtn>
+        </div>
       </TitleInfo>
       <StatInfo>
         <div className="name">Asked</div>
