@@ -9,14 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AnswerService {
-    //private final MemberService memberService;
-    //private final QuestionService questionService;
-
     private final AnswerRepository answerRepository;
 
     public AnswerService(AnswerRepository answerRepository) {

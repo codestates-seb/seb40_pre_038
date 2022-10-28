@@ -63,8 +63,10 @@ public class QuestionDto {
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class Vote{
+    public static class Vote {
         private long questionId;
+        @Positive
+        private long memberId;
         private int vote;
 //        private String tag;
     }
