@@ -1,7 +1,7 @@
 package com.codestates.comment;
 
 import com.codestates.comment.entity.CommentType;
-import com.codestates.member.dto.MemberResponseDto;
+import com.codestates.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,7 +40,7 @@ public class CommentDto {
     public static class Response {
         private long commentId;
         private long postId;
-        private MemberResponseDto memberResponseDto;
+        private MemberDto.Response memberResponseDto;
 //        private long memberId;
         private String body;
         private LocalDateTime createdAt;
