@@ -1,6 +1,6 @@
 package com.codestates.comment;
 
-import com.codestates.member.dto.MemberResponseDto;
+import com.codestates.member.dto.MemberDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.member.entity.Member;
 import com.codestates.question.Question;
@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
-    MemberResponseDto memberToMemberResponseDto(Member member);
+    MemberDto.Response memberToMemberResponseDto(Member member);
 //    Comment commentPostToComment(CommentDto.Post commentPost);
 
     default Comment commentPostToComment(CommentDto.Post commentPost) {
