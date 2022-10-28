@@ -11,7 +11,7 @@ import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
 import UsersPage from './pages/UsersPage';
 import AskQuestionPage from './pages/AskQuestionPage';
-import QuestionDetailPage from './pages/QuestionDetailPage';
+import QuestionDetailPage from './pages/QuestionDetail/QuestionDetailPage';
 
 const App = () => {
   /**
