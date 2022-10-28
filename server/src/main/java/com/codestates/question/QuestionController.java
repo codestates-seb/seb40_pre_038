@@ -62,32 +62,6 @@ public class QuestionController {
         );
     }
 
-    /*@Secured("ROLE_USER")
-    @PatchMapping("/{question_id}/upvote")
-    public ResponseEntity upVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
-                                         @PathVariable("question_id") @Positive long questionId) {
-        Question question = mapper.questionVoteToQuestion(questionVote);
-        Question votedQuestion = questionService.upVote(question, questionId);
-        QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(response), HttpStatus.OK
-        );
-    }
-
-    @Secured("ROLE_USER")
-    @PatchMapping("/{question_id}/downvote")
-    public ResponseEntity downVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
-                                           @PathVariable("question_id") @Positive long questionId) {
-        Question question = mapper.questionVoteToQuestion(questionVote);
-        Question votedQuestion = questionService.downVote(question, questionId);
-        QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(response), HttpStatus.OK
-        );
-    }
-
     @GetMapping("/{question_id}")
     public ResponseEntity getQuestion(@PathVariable("question_id") @Positive long questionId) {
         Question question = questionService.findQuestion(questionId);
@@ -121,7 +95,7 @@ public class QuestionController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK
         );
-    }*/
+    }
 
     @PatchMapping("/{question-id}/vote") // Question Vote
     public ResponseEntity voteQuestion(@PathVariable("question-id") @Positive long questionId,
@@ -155,4 +129,31 @@ public class QuestionController {
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),
                 HttpStatus.OK);
     }
+
+    /*@Secured("ROLE_USER")
+    @PatchMapping("/{question_id}/upvote")
+    public ResponseEntity upVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
+                                         @PathVariable("question_id") @Positive long questionId) {
+        Question question = mapper.questionVoteToQuestion(questionVote);
+        Question votedQuestion = questionService.upVote(question, questionId);
+        QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK
+        );
+    }
+
+    @Secured("ROLE_USER")
+    @PatchMapping("/{question_id}/downvote")
+    public ResponseEntity downVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
+                                           @PathVariable("question_id") @Positive long questionId) {
+        Question question = mapper.questionVoteToQuestion(questionVote);
+        Question votedQuestion = questionService.downVote(question, questionId);
+        QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK
+        );
+    }
+    */
 }

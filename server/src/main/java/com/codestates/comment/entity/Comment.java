@@ -54,13 +54,12 @@ public class Comment extends Auditable {
 
 
 
-    public Long getPostId() {
-        if(commentType == CommentType.QUESTION) {
-//            System.out.println(question.getCreatedAt());
-            return commentId;
-        }
-        if(commentType == CommentType.ANSWER) return answer.getAnswerId();
-
-        throw new UnsupportedOperationException("Unsupported CommentType. CommentType = " + commentType);
-    }
+//    public Long getPostId() {
+//        if(commentType == CommentType.QUESTION) {
+//            return question.getQuestionId();
+//        }
+//        if(commentType == CommentType.ANSWER) return answer.getAnswerId();
+//
+//        throw new UnsupportedOperationException("Unsupported CommentType. CommentType = " + commentType);
+//    }
 }
