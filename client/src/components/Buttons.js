@@ -106,9 +106,17 @@ const ButtonComponent = styled.button`
   }
 `;
 
-export const Button = ({ children, type, whiteSpace }) => {
+export const Button = ({ children, type, whiteSpace, onClick }) => {
+  const handleClickButton = (e) => {
+    onClick(e);
+  };
+
   return (
-    <ButtonComponent className={type} whiteSpace={whiteSpace}>
+    <ButtonComponent
+      className={type}
+      whiteSpace={whiteSpace}
+      onClick={handleClickButton}
+    >
       {children}
     </ButtonComponent>
   );
