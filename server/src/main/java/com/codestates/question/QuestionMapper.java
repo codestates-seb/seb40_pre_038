@@ -2,6 +2,11 @@ package com.codestates.question;
 
 import com.codestates.member.dto.MemberDto;
 import com.codestates.member.entity.Member;
+<<<<<<< HEAD
+import com.codestates.tag.Tag;
+import com.codestates.tag.TagDto;
+=======
+>>>>>>> dev
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -49,7 +54,11 @@ public interface QuestionMapper {
                 .modifiedAt(question.getModifiedAt())
 //                .answers(question.getAnswers())
 //                .comments(question.getComments())
+<<<<<<< HEAD
+                .tags(question.getQuestionTags())
+=======
                 .tags(question.getTags())
+>>>>>>> dev
                 .memberResponseDto(memberToMemberResponseDto(member))
                 .build();
     }
@@ -68,5 +77,9 @@ public interface QuestionMapper {
 //    }
 
     MemberDto.Response memberToMemberResponseDto(Member member);
+<<<<<<< HEAD
+    TagDto.Response tagToTagResponseDto(Tag tag);
+=======
+>>>>>>> dev
 
 }
