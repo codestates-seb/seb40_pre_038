@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../../components/Buttons';
 import { Headline } from '../../../components/Headline';
@@ -12,15 +12,23 @@ const ButtonContainer = styled.div`
 `;
 
 const PageHeader = () => {
+  const navigate = useNavigate();
+
+  const handleClickAskQuestionBtn = () => {
+    navigate('/questions/ask');
+  };
+
   return (
     <PageHeaderWrapper>
       <Headline>Top Questions</Headline>
       <ButtonContainer>
-        <Link to="/questions/ask">
-          <Button type="primary" whiteSpace="nowrap">
-            Ask Question
-          </Button>
-        </Link>
+        <Button
+          type="primary"
+          whiteSpace="nowrap"
+          onClick={handleClickAskQuestionBtn}
+        >
+          Ask Question
+        </Button>
       </ButtonContainer>
     </PageHeaderWrapper>
   );
