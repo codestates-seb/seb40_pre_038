@@ -1,41 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const SMetaTags = () => {
-  return (
-    <SummaryMetaTagsWrapper>
-      <TagList>
-        <TagListsItem>
-          <TagListsItemLink
-            to="/questions/tagged/python"
-            className="js-tagname-python"
-            title="show questions tagged 'python'"
-            aria-label="show questions tagged 'python'"
-            rel="tag"
-            aria-labelledby="python-container"
-          >
-            python
-          </TagListsItemLink>
-        </TagListsItem>
-        <TagListsItem>
-          <TagListsItemLink
-            to="/questions/tagged/variables"
-            className="js-tagname-variables"
-            title="show questions tagged 'variables'"
-            aria-label="show questions tagged 'variables'"
-            rel="tag"
-            aria-labelledby="variables-container"
-          >
-            variables
-          </TagListsItemLink>
-        </TagListsItem>
-      </TagList>
-    </SummaryMetaTagsWrapper>
-  );
-};
-
-export default SMetaTags;
-
 const SummaryMetaTagsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -81,3 +46,38 @@ const TagListsItemLink = styled(Link)`
     border-color: transparent;
   }
 `;
+
+const SMetaTags = () => {
+  return (
+    <SummaryMetaTagsWrapper>
+      <TagList>
+        <TagListsItem>
+          <TagListsItemLink
+            to="/questions/tagged/python"
+            className="js-tagname-python"
+            title="show questions tagged 'python'"
+            aria-label="show questions tagged 'python'"
+            rel="tag"
+            aria-labelledby="python-container"
+          >
+            python
+          </TagListsItemLink>
+        </TagListsItem>
+        <TagListsItem>
+          <TagListsItemLink
+            to="/questions/tagged/variables"
+            className="js-tagname-variables"
+            title="show questions tagged 'variables'"
+            aria-label="show questions tagged 'variables'"
+            rel="tag"
+            aria-labelledby="variables-container"
+          >
+            variables
+          </TagListsItemLink>
+        </TagListsItem>
+      </TagList>
+    </SummaryMetaTagsWrapper>
+  );
+};
+
+export default SMetaTags;

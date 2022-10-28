@@ -1,47 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const SUserCard = () => {
-  return (
-    <SUserCardMinimal>
-      <div aria-live="polite">
-        <Link to="/users/#">
-          <SUserCardAvatar>
-            <img
-              src="https://lh3.googleusercontent.com/a-/AOh14GiFVj1Ia9lDp-sMV9Fd7h4-cBNQrfQHhN_zuh-LaQ=k-s32"
-              alt="Ryan Avery's user avatar"
-            />
-          </SUserCardAvatar>
-        </Link>
-      </div>
-
-      <SUserCardInfo>
-        <SUserCardLinkWrapper>
-          <SUserCardLink to="/users/#">Ryan Avery</SUserCardLink>
-        </SUserCardLinkWrapper>
-        <SUserCardAwards>
-          <SUserCardRep>
-            <span title="reputation score " dir="ltr">
-              15
-            </span>
-          </SUserCardRep>
-        </SUserCardAwards>
-      </SUserCardInfo>
-
-      <SUserCardIime>
-        <SLinkMuted to="/questions/#">
-          asked
-          <RelativetimeSpan title="2022-10-25 05:04:43Z">
-            24 secs ago
-          </RelativetimeSpan>
-        </SLinkMuted>
-      </SUserCardIime>
-    </SUserCardMinimal>
-  );
-};
-
-export default SUserCard;
-
 const SUserCardMinimal = styled.div`
   display: flex;
   align-items: center;
@@ -132,3 +91,44 @@ const SLinkMuted = styled(Link)`
 const RelativetimeSpan = styled.span`
   text-decoration: none;
 `;
+
+const SUserCard = () => {
+  return (
+    <SUserCardMinimal>
+      <div aria-live="polite">
+        <Link to="/users/#">
+          <SUserCardAvatar>
+            <img
+              src="https://lh3.googleusercontent.com/a-/AOh14GiFVj1Ia9lDp-sMV9Fd7h4-cBNQrfQHhN_zuh-LaQ=k-s32"
+              alt="Ryan Avery's user avatar"
+            />
+          </SUserCardAvatar>
+        </Link>
+      </div>
+
+      <SUserCardInfo>
+        <SUserCardLinkWrapper>
+          <SUserCardLink to="/users/#">Ryan Avery</SUserCardLink>
+        </SUserCardLinkWrapper>
+        <SUserCardAwards>
+          <SUserCardRep>
+            <span title="reputation score " dir="ltr">
+              15
+            </span>
+          </SUserCardRep>
+        </SUserCardAwards>
+      </SUserCardInfo>
+
+      <SUserCardIime>
+        <SLinkMuted to="/questions/#">
+          asked
+          <RelativetimeSpan title="2022-10-25 05:04:43Z">
+            24 secs ago
+          </RelativetimeSpan>
+        </SLinkMuted>
+      </SUserCardIime>
+    </SUserCardMinimal>
+  );
+};
+
+export default SUserCard;
