@@ -4,6 +4,7 @@ import com.codestates.audit.Auditable;
 import com.codestates.member.entity.Member;
 import com.codestates.question.Question;
 import com.codestates.comment.entity.Comment;
+import com.codestates.vote.AnswerVote.AnswerVote;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,16 +40,11 @@ public class Answer extends Auditable {
     @Column(nullable = false, name = "vote")
     private int vote = 0;
 
-    public void addMember(Member member) {
-        this.member = member;
-    }
-
-    public void addQuestion(Question question) {
-        this.question = question;
-    }
-
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private AnswerVote answerVote;
 
     public enum AnswerStatus {
         ANSWER_DELETE(0, "삭제된 답변"),
