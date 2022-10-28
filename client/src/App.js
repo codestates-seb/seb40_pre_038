@@ -23,7 +23,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <Header />
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <Container>
         <Nav />
         <Content id="content" className="snippet-hidden">
