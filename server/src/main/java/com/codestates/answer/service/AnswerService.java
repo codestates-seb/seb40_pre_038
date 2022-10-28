@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,8 @@ public class AnswerService {
         // 내용 변경
         Optional.ofNullable(answer.getBody())
                 .ifPresent(body -> findAnswer.setBody(body));
+
+        answer.setModifiedAt(LocalDateTime.now()); // 수정 시간 업데이트
         
         // vote count 변경은 updateVote 메서드에서 진행
         

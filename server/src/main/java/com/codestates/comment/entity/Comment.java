@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -52,7 +53,8 @@ public class Comment extends Auditable {
         this.member = member;
     }
 
-
+    @Column(nullable = false, name = "LAST_MODIFIED_AT")
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 
 //    public Long getPostId() {
 //        if(commentType == CommentType.QUESTION) {
