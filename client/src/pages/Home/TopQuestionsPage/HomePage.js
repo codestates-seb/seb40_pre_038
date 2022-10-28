@@ -52,7 +52,7 @@ const Content = styled.div`
   }
 `;
 
-const Comtainer = () => {
+const HomePage = () => {
   return (
     <>
       <Container>
@@ -67,4 +67,4 @@ const Comtainer = () => {
   );
 };
 
-export default Comtainer;
+export default HomePage;

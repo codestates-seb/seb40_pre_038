@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
 
 import Header from './components/Header';
-import Comtainer from './pages/Home/TopQuestionsPage/Comtainer';
+import HomePage from './pages/Home/TopQuestionsPage/HomePage';
+import Login from './pages/LoginPage/Login';
+import Signup from './pages/SignUpPage/SignUp';
 import LandingPage from './pages/Home/LandingPage/LandingPage';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPage from './pages/TagsPage';
@@ -25,7 +27,9 @@ const App = () => {
       <GlobalStyle />
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <Routes>
-        <Route path="/" element={isLogin ? <Comtainer /> : <LandingPage />} />
+        <Route path="/" element={isLogin ? <HomePage /> : <LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/questions" element={<QuestionsPage />} />
         <Route path="/questions/ask" element={<AskQuestionPage />} />
         <Route path="/tags" element={<TagsPage />} />
