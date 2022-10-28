@@ -7,9 +7,9 @@ import HomePage from './pages/HomePage/HomePage/HomePage';
 import Login from './pages/LoginPage/Login';
 import Signup from './pages/SignUpPage/SignUp';
 import LandingPage from './pages/HomePage/LandingPage/LandingPage';
-import QuestionsPage from './pages/QuestionsPage';
-import TagsPage from './pages/TagsPage';
-import UsersPage from './pages/UsersPage';
+import QuestionsPage from './pages/QuestionsPage/QuestionsPage';
+import TagsPage from './pages/TagsPage/TagsPage';
+import UsersPage from './pages/UsersPage/UsersPage';
 import AskQuestionPage from './pages/AskQuestionPage';
 
 const App = () => {
