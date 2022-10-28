@@ -40,7 +40,16 @@ public class Answer extends Auditable {
     @Column(nullable = false, name = "vote")
     private int vote = 0;
 
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
+
+    public void addMember(Member member) {
+        this.member = member;
+    }
+
+    public void addQuestion(Question question) {
+        this.question = question;
+    }
+
+    @OneToMany(mappedBy = "answer")
     private List<Comment> comments = new ArrayList<>();
 
     @OneToOne(cascade = {CascadeType.ALL})

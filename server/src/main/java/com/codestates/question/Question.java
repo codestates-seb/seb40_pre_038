@@ -48,8 +48,23 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question")
     private List<Comment> comments = new ArrayList<>();
+
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+    public void addMember(Member member) {
+        this.member = member;
+    }
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+    }
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
 
     @OneToOne(cascade = {CascadeType.ALL})
     private QuestionVote questionVote;
@@ -57,4 +72,5 @@ public class Question extends Auditable {
 //    private Member memberId; // 회의 후 연동할 것!
 //    private List<Answer> answers; // 프론트랑 회의 후 연동!
 //    private List<Comment> Comments;
+
 }
