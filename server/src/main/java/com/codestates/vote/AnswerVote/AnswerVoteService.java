@@ -1,6 +1,5 @@
 package com.codestates.vote.AnswerVote;
 
-import com.codestates.answer.dto.AnswerVoteDto;
 import com.codestates.answer.entity.Answer;
 import com.codestates.answer.repository.AnswerRepository;
 import com.codestates.exception.BusinessLogicException;

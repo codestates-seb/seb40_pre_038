@@ -30,6 +30,7 @@ public class QuestionVoteService {
             findQuestionVote = new QuestionVote();
             findQuestionVote.setQuestion(findQuestion);
             findQuestionVote.setMemberId(questionId);
+            questionVoteRepository.save(findQuestionVote);
         } else { // 이미 투표함
             throw new BusinessLogicException(ExceptionCode.VOTED);
         }
