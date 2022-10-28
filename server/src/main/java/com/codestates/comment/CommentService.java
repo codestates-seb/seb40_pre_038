@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Transactional
@@ -95,6 +96,8 @@ public class CommentService {
 
         Optional.ofNullable(Comment.getBody())
                 .ifPresent(findComment::setBody); // 댓글 수정
+
+        findComment.setModifiedAt(LocalDateTime.now()); // 수정 시간 업데이트
 
         return commentRepository.save(findComment);
     }
