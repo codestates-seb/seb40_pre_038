@@ -37,6 +37,17 @@ const Content = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
 
+  &.d-flex {
+    display: flex !important;
+  }
+  &.flex__center {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  &.pt0 {
+    padding-top: 0 !important;
+  }
+
   &:before,
   &:after {
     content: '';
