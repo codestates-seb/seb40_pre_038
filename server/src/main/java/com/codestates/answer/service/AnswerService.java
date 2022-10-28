@@ -4,6 +4,8 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.answer.repository.AnswerRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
+import com.codestates.member.entity.Member;
+import com.codestates.member.service.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,17 +16,18 @@ import java.util.Optional;
 @Service
 public class AnswerService {
     private final AnswerRepository answerRepository;
+    private final MemberService memberService;
 
-    public AnswerService(AnswerRepository answerRepository) {
+    public AnswerService(AnswerRepository answerRepository, MemberService memberService) {
         this.answerRepository = answerRepository;
-
-        // TODO: memberservice, questionservice DI
+        this.memberService = memberService;
     }
 
     public Answer createAnswer(Answer answer) {
-        Answer savedAnswer = answerRepository.save(answer);
-        
-        return savedAnswer;
+        Member findMember = memberService.findVerifiedMember(answer.getMember().getMemberId());
+        answer.setMember(findMember);
+
+        return answerRepository.save(answer);
     }
 
     public Answer updateAnswer(Answer answer) {
