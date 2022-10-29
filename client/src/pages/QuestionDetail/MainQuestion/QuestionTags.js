@@ -8,7 +8,7 @@ const QuestionTagsContainer = styled.div`
 
 const Tag = styled.button`
   height: 24px;
-  margin: 2px;
+  margin: 2px 4px 2px 0;
   padding: 4px 6px;
   text-align: center;
   font-size: 12px;
