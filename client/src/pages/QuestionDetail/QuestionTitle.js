@@ -17,7 +17,6 @@ const TitleInfo = styled.h1`
   color: #3b4045;
   margin: 0;
   div {
-    margin-right: 12px;
     white-space: normal;
   }
 `;

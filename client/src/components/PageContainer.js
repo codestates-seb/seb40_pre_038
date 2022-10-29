@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-import Nav from '../../../components/Nav';
-import TopQuestionsPage from './TopQuestionsPage';
-import Sidebar from '../../../components/Sidebar';
-import Footer from '../../../components/Footer';
+import Nav from './Nav';
+import Sidebar from './Sidebar';
+import Footer from './Footer';
 
 const Container = styled.div`
   margin-top: 0;
@@ -16,6 +15,10 @@ const Container = styled.div`
   position: relative;
   flex: 1 0 auto;
   text-align: left;
+
+  &.bg-black-025 {
+    background-color: #f8f9f9 !important;
+  }
 `;
 
 const Content = styled.div`
@@ -33,6 +36,17 @@ const Content = styled.div`
   padding: 24px;
   box-sizing: border-box;
   margin: 0 auto;
+
+  &.d-flex {
+    display: flex !important;
+  }
+  &.flex__center {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  &.pt0 {
+    padding-top: 0 !important;
+  }
 
   &:before,
   &:after {
@@ -52,19 +66,26 @@ const Content = styled.div`
   }
 `;
 
-const HomePage = () => {
+const PageContainer = ({
+  children,
+  nav,
+  sidebar,
+  footer,
+  containerClassName,
+  contentClassName,
+}) => {
   return (
     <>
-      <Container>
-        <Nav />
-        <Content>
-          <TopQuestionsPage />
-          <Sidebar />
+      <Container className={containerClassName}>
+        {nav ? <Nav /> : null}
+        <Content className={contentClassName}>
+          {children}
+          {sidebar ? <Sidebar /> : null}
         </Content>
       </Container>
-      <Footer />
+      {footer ? <Footer /> : null}
     </>
   );
 };
 
-export default HomePage;
+export default PageContainer;
