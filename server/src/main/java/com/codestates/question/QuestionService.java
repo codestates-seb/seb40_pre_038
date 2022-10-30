@@ -4,23 +4,29 @@ import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.member.entity.Member;
 import com.codestates.member.service.MemberService;
+import com.codestates.tag.TagRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Transactional
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final MemberService memberService;
+    private final TagRepository tagRepository;
 
-    public QuestionService(QuestionRepository questionRepository, MemberService memberService) {
+    public QuestionService(QuestionRepository questionRepository, MemberService memberService,
+                           TagRepository tagRepository) {
         this.questionRepository = questionRepository;
         this.memberService = memberService;
+        this.tagRepository = tagRepository;
     }
 
     public Question createQuestion(Question question, long memberId) {
@@ -87,6 +93,14 @@ public class QuestionService {
         Question question = findVerifiedQuestion(questionId);
         questionRepository.delete(question);
     }
+
+//    public void addQuestionTagConnection(QuestionDto.Post questionPost, Question question) {
+//        Question findQuestion = findVerifiedQuestion(question.getQuestionId());
+//        Set<QuestionTag> questionTags = new HashSet<>();
+//
+//        questionPost.getTagIds().stream()
+//                .map(tag -> findQuestion.getQuestionTags().add(tag));
+//    }
 
     public void verifyMember(long memberId, Question question) {
         Long thisId = question.getMember().getMemberId();

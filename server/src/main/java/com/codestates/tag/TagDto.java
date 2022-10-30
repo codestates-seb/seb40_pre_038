@@ -1,40 +1,46 @@
 package com.codestates.tag;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.Set;
 
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class TagDto {
 
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class POST {
-        @Positive
-        private long tagId;
-        @NotBlank
+    @NoArgsConstructor
+    public static class Post {
+//        @Positive
+//        private long tagId;
         private String body;
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class PATCH{}
+    @NoArgsConstructor
+    public static class Patch{
+        private long tagId;
+        private String body;
+    }
 
+    @Builder
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response{
         private long tagId;
-        private String body;
+//        private String body;
+//        private Set<String> tagSet;
+        private List<String> tagList;
     }
 }

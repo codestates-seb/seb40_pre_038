@@ -7,15 +7,19 @@ import com.codestates.tag.TagDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
     //Question questionPostToQuestion(QuestionDto.Post questionPost);
     Question questionPatchToQuestion(QuestionDto.Patch questionPatch);
+
     //QuestionDto.Response questionToQuestionResponse(Question question);
     List<QuestionDto.Response> questionsToQuestionResponses(List<Question> questions);
+
     Question questionVoteToQuestion(QuestionDto.Vote questionVote);
+
     Question questionViewToQuestion(QuestionDto.View questionView);
 
     default Question questionPostToQuestion(QuestionDto.Post questionPost) {
@@ -52,6 +56,7 @@ public interface QuestionMapper {
                 .modifiedAt(question.getModifiedAt())
 //                .answers(question.getAnswers())
 //                .comments(question.getComments())
+//                .tags(tagToTagResponseDto())
 //                .tags(question.getQuestionTags())
 //                .tagResponseDto(tagToTagResponseDto(tag))
                 .memberResponseDto(memberToMemberResponseDto(member))
@@ -72,6 +77,20 @@ public interface QuestionMapper {
 //    }
 
     MemberDto.Response memberToMemberResponseDto(Member member);
+
     TagDto.Response tagToTagResponseDto(Tag tag);
+
+
+
+//    default List<TagDto.Response> tagsToTagResponseDtos(Set<QuestionTag> questionTags)
+//    {
+//        return questionTags
+//                .stream()
+//                .map(questionTag -> TagDto.Response
+//                        .builder()
+//                        .
+//                        .build())
+//                .collect(Collectors.toList());
+//    }
 
 }

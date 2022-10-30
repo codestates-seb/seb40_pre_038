@@ -5,10 +5,7 @@ import com.codestates.audit.Auditable;
 import com.codestates.member.entity.Member;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.QuestionVote.QuestionVote;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,7 +39,7 @@ public class Question extends Auditable {
     private int vote = 0;
 
     @OneToMany(mappedBy = "question")
-    private Set<QuestionTag> questionTags = new HashSet<>();
+    private List<QuestionTag> questionTags = new ArrayList<>(); // Question : QuestionTag = 1 : N
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -54,9 +52,9 @@ public class Question extends Auditable {
     private List<Comment> comments = new ArrayList<>();
 
 
-    public void addQuestionTags(QuestionTag questionTag) {
-        this.questionTags.add(questionTag);
-    }
+//    public void addQuestionTags(QuestionTag questionTag) {
+//        this.questionTags.add(questionTag);
+//    }
     public void addMember(Member member) {
         this.member = member;
     }
@@ -73,8 +71,10 @@ public class Question extends Auditable {
     @OneToOne(cascade = {CascadeType.ALL})
     private QuestionVote questionVote;
 
-//    private Member memberId; // 회의 후 연동할 것!
-//    private List<Answer> answers; // 프론트랑 회의 후 연동!
-//    private List<Comment> Comments;
+    public void update(String title, String body, List<QuestionTag> questionTags){
+        this.title = title;
+        this.body = body;
+        this.questionTags = questionTags;
+    }
 
 }
