@@ -39,6 +39,7 @@ public class QuestionController {
     @Secured("ROLE_USER")
     @PostMapping("/add")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost) {
+
         Question question = mapper.questionPostToQuestion(questionPost);
         Question createQuestion = questionService.createQuestion(question, questionPost.getMemberId());
         QuestionDto.Response response = mapper.questionToQuestionResponse(createQuestion);

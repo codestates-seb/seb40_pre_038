@@ -33,6 +33,7 @@ public class QuestionDto {
         private String title;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String body;
+        private String tagBody;
         private List<String> tags;
 
     }
@@ -47,6 +48,7 @@ public class QuestionDto {
         private String title;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String body;
+        private String tagBody;
     }
 
     @Builder
