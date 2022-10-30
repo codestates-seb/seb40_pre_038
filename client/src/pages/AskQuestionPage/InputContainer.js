@@ -39,7 +39,7 @@ export const InputContainer = ({ title, desc, children }) => {
   );
 };
 
-const StyledInputContainer = styled.form`
+const StyledInputContainer = styled.div`
   box-sizing: border-box;
   padding: 0 8px;
   position: relative;
@@ -60,7 +60,7 @@ const StyledInput = styled.input`
     box-shadow: 0px 0px 0px 4px #d8e5f2;
   }
 `;
-export const StyledInputComponent = ({ width, height, placeholder }) => {
+export const StyledInputComponent = ({ width, height, placeholder, value }) => {
   return (
     <StyledInputContainer>
       <StyledInput
@@ -68,6 +68,7 @@ export const StyledInputComponent = ({ width, height, placeholder }) => {
         height={height}
         type="text"
         placeholder={placeholder}
+        {...value}
       ></StyledInput>
     </StyledInputContainer>
   );
