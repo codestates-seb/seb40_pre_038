@@ -4,34 +4,54 @@ import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.member.entity.Member;
 import com.codestates.member.service.MemberService;
-import com.codestates.tag.TagRepository;
+import com.codestates.tag.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Transactional
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final MemberService memberService;
+    private final TagController tagController;
+    private final TagDto.Post tagDtoPost;
+    private final TagService tagService;
     private final TagRepository tagRepository;
 
-    public QuestionService(QuestionRepository questionRepository, MemberService memberService,
-                           TagRepository tagRepository) {
+    public QuestionService(QuestionRepository questionRepository, MemberService memberService, TagController tagController, TagDto.Post tagDtoPost, TagService tagService, TagRepository tagRepository) {
         this.questionRepository = questionRepository;
         this.memberService = memberService;
+        this.tagController = tagController;
+        this.tagDtoPost = tagDtoPost;
+        this.tagService = tagService;
         this.tagRepository = tagRepository;
     }
 
     public Question createQuestion(Question question, long memberId) {
+
         Member findMember = memberService.findVerifiedMember(memberId);
         question.setMember(findMember);
+
+        String tagBody = question.getTagBody(); // 태그 생성 부분
+        List<String> list = new ArrayList<>();
+        System.out.println(tagBody);
+
+        Arrays.stream(tagBody.split(","))
+                .map(a -> Arrays.stream(a.trim()
+                                .split(" "))
+                        .flatMap(b -> Arrays.stream(b.split(", "))))
+                .flatMap(a -> a)
+                .distinct()
+                .map(String::toLowerCase)
+                .forEach(list::add);
+
+        System.out.println(list);
+        question.setTagList(list);
         return questionRepository.save(question);
     }
 
@@ -43,8 +63,21 @@ public class QuestionService {
                 .ifPresent(findQuestion::setTitle); // 제목
         Optional.ofNullable(question.getBody())
                 .ifPresent(findQuestion::setBody); // 내용
-//        Optional.ofNullable(question.getTag()) // 태그
-//                .ifPresent(findQuestion.getTag);
+
+        String tagBody = question.getTagBody();
+        List<String> list = new ArrayList<>(); // 태그 수정 부분
+
+        Arrays.stream(tagBody.split(","))
+                .map(a -> Arrays.stream(a.trim()
+                                .split(" "))
+                        .flatMap(b -> Arrays.stream(b.split(", "))))
+                .flatMap(a -> a)
+                .distinct()
+                .map(String::toLowerCase)
+                .forEach(list::add);
+
+        findQuestion.setTagBody(question.getBody());
+        findQuestion.setTagList(list);
 
         return questionRepository.save(findQuestion);
     }
@@ -108,6 +141,7 @@ public class QuestionService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_ALLOWED);
         }
     }
+
     public Question findVerifiedQuestion(long questionId) { // questionId로 쿼리
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question findQuestion = // 에러 핸들링 상의 해야 됨

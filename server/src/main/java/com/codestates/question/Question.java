@@ -32,6 +32,14 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private String body;
 
+    @Column
+    private String tagBody;
+
+    @ElementCollection
+    @CollectionTable(name = "TAG_LIST", joinColumns = @JoinColumn(name = "TAG_ID"))
+    @Column(name = "TAGS")
+    private List<String> tagList;
+
     @Column(nullable = false)
     private int view = 0;
 

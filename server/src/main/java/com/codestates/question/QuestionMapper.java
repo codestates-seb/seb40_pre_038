@@ -26,6 +26,7 @@ public interface QuestionMapper {
         Question question = new Question();
         question.setTitle(questionPost.getTitle());
         question.setBody(questionPost.getBody());
+        question.setTagBody(questionPost.getTagBody());
 
         Member member = new Member();
         member.setMemberId(questionPost.getMemberId());
@@ -50,6 +51,7 @@ public interface QuestionMapper {
                 .body(question.getBody())
                 .view(question.getView())
                 .vote(question.getVote())
+                .tagList(question.getTagList())
 //                .memberId(question.getMember().getMemberId())
 //                .nickName(question.getMember().getNickName())
                 .createdAt(question.getCreatedAt())

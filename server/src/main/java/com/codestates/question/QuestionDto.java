@@ -59,6 +59,7 @@ public class QuestionDto {
         private long questionId;
         private String title;
         private String body;
+        private List<String> tagList;
         private int view;
         private int vote;
 //        private long memberId;
@@ -70,7 +71,7 @@ public class QuestionDto {
 //        private Set<QuestionTag> tags;
         /*멤버&답변&댓글 추가할 것!*/
 //        private TagDto.Response tagResponseDto;
-        private List<TagDto.Response> tags;
+//        private List<TagDto.Response> tags;
         private MemberDto.Response memberResponseDto;
     }
 

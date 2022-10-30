@@ -1,6 +1,8 @@
 package com.codestates.tag;
 
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -17,6 +19,7 @@ public class TagDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
+    @Component
     public static class Post {
 //        @Positive
 //        private long tagId;
