@@ -21,13 +21,11 @@ public class SearchService {
     }
 
     public Page<Question> findContent(String content, int page, int size) {
-        if(content.charAt(0) == '[' && content.charAt(content.length() - 1) == ']') {
+        if(content.length() >= 3 && content.charAt(0) == '[' && content.charAt(content.length() - 1) == ']') {
             return findTag(content.substring(1, content.length() - 1), page, size);
-        } else if(content.substring(0,4).equals("user")) {
-            System.out.println("substring : " + content.substring(5));
+        } else if(content.length() >= 6 && content.substring(0,5).equals("user:")) {
             return findUser(Long.parseLong(content.substring(5)), page, size);
         }
-
         return findBody(content, page, size);
     }
 
