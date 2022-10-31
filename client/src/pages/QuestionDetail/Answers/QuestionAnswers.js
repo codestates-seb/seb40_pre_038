@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import AnswersInfo from './AnswersInfo';
 import Answer from '../MainQuestion/MainQuestion';
+import PostAnswerBox from './PostAnswerBox';
 
 const QuestionAnswersContainer = styled.div``;
 const AnswerConatiner = styled.div`
@@ -23,6 +24,7 @@ const QuestionAnswers = () => {
           </AnswerConatiner>
         );
       })}
+      <PostAnswerBox />
     </QuestionAnswersContainer>
   );
 };
