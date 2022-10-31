@@ -6,8 +6,8 @@ import com.codestates.comment.entity.Comment;
 
 import com.codestates.member.entity.Member;
 import com.codestates.member.dto.MemberDto;
-import com.codestates.tag.Tag;
-import com.codestates.tag.TagDto;
+//import com.codestates.tag.Tag;
+//import com.codestates.tag.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,8 +31,12 @@ public class QuestionDto {
         private long memberId;
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
+//        @NotEmpty(message = "내용을 입력하셔야 합니다.")
+//        private String body;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
-        private String body;
+        private String problem;
+        @NotEmpty(message = "내용을 입력하셔야 합니다.")
+        private String expect;
         private String tagBody;
         private List<String> tags;
 
@@ -46,8 +50,12 @@ public class QuestionDto {
         private long memberId;
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
+//        @NotEmpty(message = "내용을 입력하셔야 합니다.")
+//        private String body;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
-        private String body;
+        private String problem;
+        @NotEmpty(message = "내용을 입력하셔야 합니다.")
+        private String expect;
         private String tagBody;
         private List<String> tags;
     }
@@ -59,7 +67,9 @@ public class QuestionDto {
     public static class Response {
         private long questionId;
         private String title;
-        private String body;
+//        private String body;
+        private String problem;
+        private String expect;
         private List<String> tagList;
         private int view;
         private int vote;
