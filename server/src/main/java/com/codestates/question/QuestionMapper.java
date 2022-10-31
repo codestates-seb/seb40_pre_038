@@ -59,7 +59,7 @@ public interface QuestionMapper {
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
 //                .answers(question.getAnswers())
-//                .comments(question.getComments())
+                .comments(question.getComments())
 //                .tags(tagToTagResponseDto())
 //                .tags(question.getQuestionTags())
 //                .tagResponseDto(tagToTagResponseDto(tag))

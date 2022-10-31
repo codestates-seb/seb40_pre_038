@@ -70,7 +70,7 @@ public class QuestionDto {
 //        private String nickName;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private List<Answer> answers;
+//        private List<Answer> answers;
         private List<Comment> comments;
         //        private Set<QuestionTag> tags;
         /*멤버&답변&댓글 추가할 것!*/

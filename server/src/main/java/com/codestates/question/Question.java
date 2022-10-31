@@ -6,6 +6,7 @@ import com.codestates.user.entity.User;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.QuestionVote.QuestionVote;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -59,9 +60,11 @@ public class Question extends Auditable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "question")
     private List<Comment> comments = new ArrayList<>();
 
