@@ -22,15 +22,20 @@ public class SearchService {
 
     public Page<Question> findContent(String content, int page, int size) {
         if(content.length() >= 3 && content.charAt(0) == '[' && content.charAt(content.length() - 1) == ']') {
-            return findTag(content.substring(1, content.length() - 1), page, size);
+
+            String substring = content.substring(1, content.length() - 1).replaceAll(" ", ""); // 검색어 공백 제거
+
+            return findTag(substring, page, size);
+
         } else if(content.length() >= 6 && content.substring(0,5).equals("user:")) {
+
             return findUser(Long.parseLong(content.substring(5)), page, size);
         }
         return findBody(content, page, size);
     }
 
-    private Page<Question> findTag(String tagName, int page, int size) { // 태그로 검색
-        return null;
+    private Page<Question> findTag(String tagBody, int page, int size) { // 태그로 검색
+        return searchRepository.findAllByTagBodyContaining(tagBody, PageRequest.of(page, size, Sort.by("vote").descending()));
     }
 
     private Page<Question> findUser(long userId, int page, int size) { // 유저로 검색
@@ -39,6 +44,6 @@ public class SearchService {
     }
 
     private Page<Question> findBody(String content, int page, int size) { // 질문 내용 검색
-        return searchRepository.findAllByBodyContaining(content, PageRequest.of(page, size, Sort.by("vote").descending()));
+        return searchRepository.findAllByProblemContaining(content, PageRequest.of(page, size, Sort.by("vote").descending()));
     }
 }

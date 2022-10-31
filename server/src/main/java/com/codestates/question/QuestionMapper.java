@@ -2,8 +2,8 @@ package com.codestates.question;
 
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
-import com.codestates.tag.Tag;
-import com.codestates.tag.TagDto;
+//import com.codestates.tag.Tag;
+//import com.codestates.tag.TagDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -23,7 +23,9 @@ public interface QuestionMapper {
     default Question questionPostToQuestion(QuestionDto.Post questionPost) {
         Question question = new Question();
         question.setTitle(questionPost.getTitle());
-        question.setBody(questionPost.getBody());
+//        question.setBody(questionPost.getBody());
+        question.setProblem(questionPost.getProblem());
+        question.setExpect(questionPost.getExpect());
         question.setTagBody(questionPost.getTagBody());
 
         User user = new User();
@@ -46,7 +48,9 @@ public interface QuestionMapper {
         return QuestionDto.Response.builder()
                 .questionId(question.getQuestionId())
                 .title(question.getTitle())
-                .body(question.getBody())
+//                .body(question.getBody())
+                .problem(question.getProblem())
+                .expect(question.getExpect())
                 .view(question.getView())
                 .vote(question.getVote())
                 .tagList(question.getTagList())
@@ -78,8 +82,7 @@ public interface QuestionMapper {
 
     UserDto.Response userToUserResponseDto(User user);
 
-    TagDto.Response tagToTagResponseDto(Tag tag);
-
+//    TagDto.Response tagToTagResponseDto(Tag tag);
 
 
 //    default List<TagDto.Response> tagsToTagResponseDtos(Set<QuestionTag> questionTags)
