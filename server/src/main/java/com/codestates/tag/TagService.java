@@ -21,10 +21,6 @@ public class TagService {
         this.questionRepository = questionRepository;
     }
 
-//    public Tag createTag(Tag tag) {
-//        return tagRepository.save(tag);
-//    }
-
     public Tag createTag(Tag tag) {
 
 //        Set<String> list = new LinkedHashSet<>();
@@ -44,6 +40,26 @@ public class TagService {
 
         return tagRepository.save(tag);
     }
+
+//    public Tag createTag(Tag tag) {
+//
+////        Set<String> list = new LinkedHashSet<>();
+//        List<String> list = new ArrayList<>();
+//
+//        Arrays.stream(tag.getBody().split(","))
+//                .map(a -> Arrays.stream(a.trim()
+//                                .split(" "))
+//                        .flatMap(b -> Arrays.stream(b.split(", "))))
+//                .flatMap(a -> a)
+//                .distinct()
+//                .map(String::toLowerCase)
+//                .forEach(list::add);
+//
+////        tag.setTagSet(list);
+//        tag.setTagList(list);
+//
+//        return tagRepository.save(tag);
+//    }
 
     public Tag updateTag(Tag tag, long tagId) {
         Tag findTag = findVerifiedTag(tagId);
