@@ -16,11 +16,11 @@ public enum ExceptionCode {
     ANSWER_CANNOT_CHANGE(403,"Answer Can Not Be Changed"),
     ANSWER_DELETED(405, "Answer Already Deleted"),
 
-    MEMBER_NOT_FOUND(404,"Member Not Found"),
-    MEMBER_EXISTS(409, "Member Exists"),
+    USER_NOT_FOUND(404,"User Not Found"),
+    USER_EXISTS(409, "User Exists"),
 
-    MEMBER_NOT_ALLOWED(403, "Member Not Allowed"),
-    MEMBER_CANNOT_CHANGE(403,"Member Can Not Be Changed"),
+    USER_NOT_ALLOWED(403, "User Not Allowed"),
+    USER_CANNOT_CHANGE(403,"User Can Not Be Changed"),
 
     VOTED(409, "Already Voted");
 

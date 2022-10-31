@@ -2,7 +2,7 @@ package com.codestates.configuration;
 
 import com.codestates.auth.filter.JwtAuthenticationFilter;
 import com.codestates.auth.filter.JwtVerificationFilter;
-import com.codestates.auth.handler.MemberAuthenticationSuccessHandler;
+import com.codestates.auth.handler.UserAuthenticationSuccessHandler;
 import com.codestates.auth.jwt.JwtTokenizer;
 import com.codestates.auth.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
@@ -54,11 +54,11 @@ public class SecurityConfiguration{
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/members").permitAll()  // Anyone can register
-//                        .antMatchers(HttpMethod.GET, "/members").hasRole("ADMIN")
-//                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
-//                        .antMatchers(HttpMethod.DELETE, "/members/**").hasAnyRole("USER", "ADMIN")  // Commented out for tests
-                        .antMatchers(HttpMethod.PATCH, "/members/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.POST, "/users").permitAll()  // Anyone can register
+//                        .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+//                        .antMatchers(HttpMethod.GET, "/users/**").hasAnyRole("USER", "ADMIN")
+//                        .antMatchers(HttpMethod.DELETE, "/users/**").hasAnyRole("USER", "ADMIN")  // Commented out for tests
+                        .antMatchers(HttpMethod.PATCH, "/users/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll());
         return http.build();
     }
@@ -85,7 +85,7 @@ public class SecurityConfiguration{
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 //            jwtAuthenticationFilter.setFilterProcessesUrl("user/login");  // wip
 

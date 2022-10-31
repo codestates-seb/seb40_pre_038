@@ -1,7 +1,7 @@
 package com.codestates.search;
 
-import com.codestates.member.entity.Member;
-import com.codestates.member.service.MemberService;
+import com.codestates.user.entity.User;
+import com.codestates.user.service.UserService;
 import com.codestates.question.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SearchService {
     private final SearchRepository searchRepository;
-    private final MemberService memberService;
+    private final UserService userService;
 
-    public SearchService(SearchRepository searchRepository, MemberService memberService) {
+    public SearchService(SearchRepository searchRepository, UserService userService) {
         this.searchRepository = searchRepository;
-        this.memberService = memberService;
+        this.userService = userService;
     }
 
     public Page<Question> findContent(String content, int page, int size) {
@@ -33,9 +33,9 @@ public class SearchService {
         return null;
     }
 
-    private Page<Question> findUser(long memberId, int page, int size) { // 유저로 검색
-        Member findMember = memberService.findVerifiedMember(memberId);
-        return searchRepository.findAllByMember(findMember, PageRequest.of(page, size, Sort.by("vote").descending()));
+    private Page<Question> findUser(long userId, int page, int size) { // 유저로 검색
+        User findUser = userService.findVerifiedUser(userId);
+        return searchRepository.findAllByUser(findUser, PageRequest.of(page, size, Sort.by("vote").descending()));
     }
 
     private Page<Question> findBody(String content, int page, int size) { // 질문 내용 검색

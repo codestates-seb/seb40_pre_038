@@ -2,7 +2,7 @@ package com.codestates.question;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
-import com.codestates.member.entity.Member;
+import com.codestates.user.entity.User;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.QuestionVote.QuestionVote;
 import lombok.*;
@@ -10,9 +10,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Builder
 @Getter
@@ -50,8 +48,8 @@ public class Question extends Auditable {
     private List<QuestionTag> questionTags = new ArrayList<>(); // Question : QuestionTag = 1 : N
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
@@ -63,8 +61,8 @@ public class Question extends Auditable {
 //    public void addQuestionTags(QuestionTag questionTag) {
 //        this.questionTags.add(questionTag);
 //    }
-    public void addMember(Member member) {
-        this.member = member;
+    public void addUser(User user) {
+        this.user = user;
     }
     public void addAnswer(Answer answer) {
         answers.add(answer);

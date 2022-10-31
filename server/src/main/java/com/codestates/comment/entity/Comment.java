@@ -2,13 +2,12 @@ package com.codestates.comment.entity;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
-import com.codestates.member.entity.Member;
+import com.codestates.user.entity.User;
 import com.codestates.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -40,8 +39,8 @@ public class Comment extends Auditable {
     private Answer answer;
 
     @ManyToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public void addQuestion(Question question) {
         this.question = question;
@@ -49,8 +48,8 @@ public class Comment extends Auditable {
     public void addAnswer(Answer answer){
         this.answer = answer;
     }
-    public void addMember(Member member) {
-        this.member = member;
+    public void addUser(User user) {
+        this.user = user;
     }
 
     @Column(nullable = false, name = "LAST_MODIFIED_AT")

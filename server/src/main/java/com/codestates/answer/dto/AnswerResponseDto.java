@@ -1,7 +1,7 @@
 package com.codestates.answer.dto;
 
 import com.codestates.answer.entity.Answer;
-import com.codestates.member.dto.MemberDto;
+import com.codestates.user.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +23,5 @@ public class AnswerResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    private MemberDto.Response memberResponseDto;
+    private UserDto.Response userResponseDto;
 }
