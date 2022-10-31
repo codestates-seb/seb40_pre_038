@@ -7,6 +7,8 @@ import GoodQuestionGuide from './GoodQuestionGuide';
 import useInput from '../../util/useInput';
 import axios from 'axios';
 
+const BASE_URL = 'http://localhost:3000/';
+
 const AskWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,23 +65,21 @@ const AskQuestionPage = () => {
   const [expectValue, expectBind, expectReset] = useInput('');
   const [tagsValue, tagsBind, tagsReset] = useInput('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const postBody = JSON.stringify({
+    const postBody = {
       memberId: 2,
       title: titleValue,
       body: problemValue + ' ' + expectValue,
       tagBody: tagsValue,
-    });
-    console.log('post:', postBody);
-    axios
-      .post('http://localhost:8080/questions/add', postBody)
+    };
+    await axios
+      .post('/questions/add', postBody)
       .then(function (response) {
         console.log(response);
-        console.log(postBody);
+        window.location.href = BASE_URL;
       })
       .catch(function (error) {
-        console.log(postBody);
         console.log(error);
       });
     titleReset();
