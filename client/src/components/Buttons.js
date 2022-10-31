@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Bluebutton = styled.button`
+export const Bluebutton = styled.button`
   background: #0995ff;
   color: #ffffff;
   font-weight: bold;

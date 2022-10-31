@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import MyEditor from './Toastinput';
 
 const PostAnswerBoxContainer = styled.div`
   width: 100%;
@@ -14,6 +15,7 @@ const PostAnswerBox = () => {
   return (
     <PostAnswerBoxContainer>
       <PostAnswerInfo>Your Answer</PostAnswerInfo>
+      <MyEditor />
     </PostAnswerBoxContainer>
   );
 };
