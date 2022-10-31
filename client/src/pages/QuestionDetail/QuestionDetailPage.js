@@ -1,10 +1,11 @@
 //import { Container } from '../pages/Home/HomePage/HomePage';
 import styled from 'styled-components';
-import Nav from '../components/Nav';
-import Footer from '../components/Footer';
-import Sidebar from '../components/Sidebar.js';
-import QuestionTitle from './QuestionDetail/QuestionTitle';
-import MainQuestion from './QuestionDetail/MainQuestion/MainQuestion';
+import Nav from '../../components/Nav';
+import Footer from '../../components/Footer';
+import Sidebar from '../../components/Sidebar.js';
+import QuestionTitle from './QuestionTitle';
+import MainQuestion from './MainQuestion/MainQuestion';
+import QuestionAnswers from './Answers/QuestionAnswers';
 
 const MainContent = styled.div`
   display: flex;
@@ -37,7 +38,10 @@ const QuestionDetailPage = () => {
         <QuestionDetailMainContent>
           <QuestionTitle />
           <MainWrapper>
-            <MainQuestion />
+            <div>
+              <MainQuestion />
+              <QuestionAnswers />
+            </div>
             <Sidebar />
           </MainWrapper>
         </QuestionDetailMainContent>

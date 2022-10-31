@@ -4,15 +4,8 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.member.entity.Member;
 import com.codestates.comment.entity.Comment;
-<<<<<<< HEAD
-=======
-import com.codestates.tag.Tag;
->>>>>>> dev
 import com.codestates.vote.QuestionVote.QuestionVote;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -38,19 +32,22 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private String body;
 
+    @Column
+    private String tagBody;
+
+    @ElementCollection
+    @CollectionTable(name = "TAG_LIST", joinColumns = @JoinColumn(name = "TAG_ID"))
+    @Column(name = "TAG_BODY")
+    private List<String> tagList;
+
     @Column(nullable = false)
     private int view = 0;
 
     @Column(nullable = false)
     private int vote = 0;
 
-<<<<<<< HEAD
     @OneToMany(mappedBy = "question")
-    private Set<QuestionTag> questionTags = new HashSet<>();
-=======
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Tag> tags;
->>>>>>> dev
+    private List<QuestionTag> questionTags = new ArrayList<>(); // Question : QuestionTag = 1 : N
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -62,17 +59,10 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question")
     private List<Comment> comments = new ArrayList<>();
 
-    @Column(nullable = false, name = "LAST_MODIFIED_AT")
-    private LocalDateTime modifiedAt = LocalDateTime.now();
 
-<<<<<<< HEAD
-    public void addQuestionTags(QuestionTag questionTag) {
-        this.questionTags.add(questionTag);
-=======
-    public void addTag(Tag tag) {
-        tags.add(tag);
->>>>>>> dev
-    }
+//    public void addQuestionTags(QuestionTag questionTag) {
+//        this.questionTags.add(questionTag);
+//    }
     public void addMember(Member member) {
         this.member = member;
     }
@@ -83,12 +73,16 @@ public class Question extends Auditable {
         comments.add(comment);
     }
 
+    @Column(nullable = false, name = "LAST_MODIFIED_AT")
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @OneToOne(cascade = {CascadeType.ALL})
     private QuestionVote questionVote;
 
-//    private Member memberId; // 회의 후 연동할 것!
-//    private List<Answer> answers; // 프론트랑 회의 후 연동!
-//    private List<Comment> Comments;
+    public void update(String title, String body, List<QuestionTag> questionTags){
+        this.title = title;
+        this.body = body;
+        this.questionTags = questionTags;
+    }
 
 }

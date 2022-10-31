@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Nav from './Nav';
@@ -74,10 +75,12 @@ const PageContainer = ({
   containerClassName,
   contentClassName,
 }) => {
+  const location = useLocation();
+
   return (
     <>
       <Container className={containerClassName}>
-        {nav ? <Nav /> : null}
+        {nav ? <Nav pathname={location.pathname} /> : null}
         <Content className={contentClassName}>
           {children}
           {sidebar ? <Sidebar /> : null}

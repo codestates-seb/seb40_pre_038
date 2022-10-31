@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
 
 import Header from './components/Header';
@@ -10,8 +10,8 @@ import LandingPage from './pages/HomePage/LandingPage/LandingPage';
 import QuestionsPage from './pages/QuestionsPage/QuestionsPage';
 import TagsPage from './pages/TagsPage/TagsPage';
 import UsersPage from './pages/UsersPage/UsersPage';
-import AskQuestionPage from './pages/AskQuestionPage';
-import QuestionDetailPage from './pages/QuestionDetailPage';
+import AskQuestionPage from './pages/AskQuestionPage/AskQuestionPage';
+import QuestionDetailPage from './pages/QuestionDetail/QuestionDetailPage';
 
 const App = () => {
   /**
@@ -24,7 +24,7 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <GlobalStyle />
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <Routes>
@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/users" element={<UsersPage />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
