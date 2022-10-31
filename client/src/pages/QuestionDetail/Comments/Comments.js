@@ -24,7 +24,6 @@ const Comments = ({ data }) => {
     <CommentsContainer>
       {commentData.map((comment) => {
         const date = createDate(comment.createdAt);
-        console.log(date);
         return (
           <Comment
             key={comment.commentId}
