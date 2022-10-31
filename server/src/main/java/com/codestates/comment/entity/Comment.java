@@ -4,6 +4,7 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.user.entity.User;
 import com.codestates.question.Question;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,14 +31,17 @@ public class Comment extends Auditable {
     @Column(nullable = false)
     private String body;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "answer_id")
     private Answer answer;
 
+    @JsonBackReference
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

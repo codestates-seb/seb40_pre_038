@@ -47,6 +47,7 @@ public interface AnswerMapper {
                 .vote(answer.getVote())
                 .createdAt(answer.getCreatedAt())
                 .modifiedAt(answer.getModifiedAt())
+                .comments(answer.getComments())
                 .userResponseDto(userToUserResponseDto(user))
                 .build();
     }

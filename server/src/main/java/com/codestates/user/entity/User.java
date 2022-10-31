@@ -1,5 +1,6 @@
 package com.codestates.user.entity;
 
+import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.comment.entity.Comment;
 import com.codestates.question.Question;
@@ -46,8 +47,13 @@ public class User extends Auditable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Comment> replies = new ArrayList<>();
+    private List<Answer> answers = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     public User(String nickName, String email, String password) {
         this.nickName = nickName;
