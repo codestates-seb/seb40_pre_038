@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,11 @@ public class Member extends Auditable {
     private String nickName;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "Email cannot be empty.")
     private String email;
 
     @Column(length = 100, nullable = false)
+    @NotBlank(message = "Password cannot be empty.")
     private String password;
 
     @Enumerated(value = EnumType.STRING)
