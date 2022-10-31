@@ -57,7 +57,7 @@ public class AnswerController {
     @PatchMapping("answers/{answer-id}/vote") // Answer Vote
     public ResponseEntity voteAnswer(@PathVariable("answer-id") @Positive long answerId,
                                      @Valid @RequestBody AnswerVoteDto answerVoteDto) {
-        answerVoteService.postVote(answerId, answerVoteDto.getMemberId());
+        answerVoteService.postVote(answerId, answerVoteDto.getUserId());
 
         answerVoteDto.setAnswerId(answerId);
         Answer answer = answerService.updateVote(mapper.answerVoteDtoToAnswer(answerVoteDto));

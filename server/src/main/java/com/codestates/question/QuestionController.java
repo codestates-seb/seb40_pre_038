@@ -41,7 +41,7 @@ public class QuestionController {
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost) {
 
         Question question = mapper.questionPostToQuestion(questionPost);
-        Question createQuestion = questionService.createQuestion(question, questionPost.getMemberId());
+        Question createQuestion = questionService.createQuestion(question, questionPost.getUserId());
         QuestionDto.Response response = mapper.questionToQuestionResponse(createQuestion);
 
         return new ResponseEntity<>(
@@ -55,7 +55,7 @@ public class QuestionController {
                                         @PathVariable("question_id") @Positive long questionId) {
         questionPatch.setQuestionId(questionId);
         Question question = mapper.questionPatchToQuestion(questionPatch); // 수정
-        Question updateQuestion = questionService.updateQuestion(question, questionPatch.getMemberId()); // DB 업데이트
+        Question updateQuestion = questionService.updateQuestion(question, questionPatch.getUserId()); // DB 업데이트
         QuestionDto.Response response = mapper.questionToQuestionResponse(updateQuestion);
 
         return new ResponseEntity<>(
@@ -114,7 +114,7 @@ public class QuestionController {
     @PatchMapping("/{question-id}/vote") // Question Vote
     public ResponseEntity voteQuestion(@PathVariable("question-id") @Positive long questionId,
                                        @Valid @RequestBody QuestionDto.Vote questionVote) {
-        questionVoteService.postVote(questionId, questionVote.getMemberId());
+        questionVoteService.postVote(questionId, questionVote.getUserId());
 
         Question question = questionService.updateVote(mapper.questionVoteToQuestion(questionVote), questionId);
         

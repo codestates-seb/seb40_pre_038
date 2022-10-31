@@ -1,10 +1,9 @@
 package com.codestates.question;
 
-import com.codestates.answer.entity.Answer;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
-import com.codestates.member.entity.Member;
-import com.codestates.member.service.MemberService;
+import com.codestates.user.entity.User;
+import com.codestates.user.service.UserService;
 import com.codestates.tag.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,25 +17,25 @@ import java.util.*;
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
-    private final MemberService memberService;
+    private final UserService userService;
     private final TagController tagController;
     private final TagDto.Post tagDtoPost;
     private final TagService tagService;
     private final TagRepository tagRepository;
 
-    public QuestionService(QuestionRepository questionRepository, MemberService memberService, TagController tagController, TagDto.Post tagDtoPost, TagService tagService, TagRepository tagRepository) {
+    public QuestionService(QuestionRepository questionRepository, UserService userService, TagController tagController, TagDto.Post tagDtoPost, TagService tagService, TagRepository tagRepository) {
         this.questionRepository = questionRepository;
-        this.memberService = memberService;
+        this.userService = userService;
         this.tagController = tagController;
         this.tagDtoPost = tagDtoPost;
         this.tagService = tagService;
         this.tagRepository = tagRepository;
     }
 
-    public Question createQuestion(Question question, long memberId) {
+    public Question createQuestion(Question question, long userId) {
 
-        Member findMember = memberService.findVerifiedMember(memberId);
-        question.setMember(findMember);
+        User findUser = userService.findVerifiedUser(userId);
+        question.setUser(findUser);
 
         String tagBody = question.getTagBody(); // 태그 생성 부분
         List<String> list = new ArrayList<>();
@@ -57,9 +56,9 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public Question updateQuestion(Question question, long memberId) {
+    public Question updateQuestion(Question question, long userId) {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId()); // 수정할 질문 찾아오기
-        verifyMember(memberId, findQuestion);
+        verifyUser(userId, findQuestion);
 
         Optional.ofNullable(question.getTitle())
                 .ifPresent(findQuestion::setTitle); // 제목
@@ -138,10 +137,10 @@ public class QuestionService {
 //                .map(tag -> findQuestion.getQuestionTags().add(tag));
 //    }
 
-    public void verifyMember(long memberId, Question question) {
-        Long thisId = question.getMember().getMemberId();
-        if (thisId != memberId) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_ALLOWED);
+    public void verifyUser(long userId, Question question) {
+        Long thisId = question.getUser().getUserId();
+        if (thisId != userId) {
+            throw new BusinessLogicException(ExceptionCode.USER_NOT_ALLOWED);
         }
     }
 

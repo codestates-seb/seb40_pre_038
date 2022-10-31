@@ -1,14 +1,12 @@
 package com.codestates.question;
 
-import com.codestates.member.dto.MemberDto;
-import com.codestates.member.entity.Member;
+import com.codestates.user.dto.UserDto;
+import com.codestates.user.entity.User;
 import com.codestates.tag.Tag;
 import com.codestates.tag.TagDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
@@ -28,9 +26,9 @@ public interface QuestionMapper {
         question.setBody(questionPost.getBody());
         question.setTagBody(questionPost.getTagBody());
 
-        Member member = new Member();
-        member.setMemberId(questionPost.getMemberId());
-        question.setMember(member);
+        User user = new User();
+        user.setUserId(questionPost.getUserId());
+        question.setUser(user);
 
         return question;
     }
@@ -42,7 +40,7 @@ public interface QuestionMapper {
 //    }
 
     default QuestionDto.Response questionToQuestionResponse(Question question) {
-        Member member = question.getMember();
+        User user = question.getUser();
 //        Tag tag = questionTag.getTag();
 
         return QuestionDto.Response.builder()
@@ -52,8 +50,8 @@ public interface QuestionMapper {
                 .view(question.getView())
                 .vote(question.getVote())
                 .tagList(question.getTagList())
-//                .memberId(question.getMember().getMemberId())
-//                .nickName(question.getMember().getNickName())
+//                .userId(question.getUser().getUserId())
+//                .nickName(question.getUser().getNickName())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
 //                .answers(question.getAnswers())
@@ -61,24 +59,24 @@ public interface QuestionMapper {
 //                .tags(tagToTagResponseDto())
 //                .tags(question.getQuestionTags())
 //                .tagResponseDto(tagToTagResponseDto(tag))
-                .memberResponseDto(memberToMemberResponseDto(member))
+                .userResponseDto(userToUserResponseDto(user))
                 .build();
     }
 
 //    default QuestionDto.Response questionToQuestionResponse(Question question) {
-//        Member member = question.getMember();
+//        User user = question.getUser();
 //
 //        QuestionDto.Response responseDto = new QuestionDto.Response(question.getQuestionId(),
 //                question.getTitle(), question.getBody(),
 //                question.getView(), question.getVote(),
 //                question.getCreatedAt(), question.getModifiedAt(),
 //                question.getAnswers(), question.getComments(), question.getTags(),
-//                memberToMemberResponseDto(member));
+//                userToUserResponseDto(user));
 //
 //        return responseDto;
 //    }
 
-    MemberDto.Response memberToMemberResponseDto(Member member);
+    UserDto.Response userToUserResponseDto(User user);
 
     TagDto.Response tagToTagResponseDto(Tag tag);
 

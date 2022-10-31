@@ -1,7 +1,7 @@
 package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
-import com.codestates.member.entity.Member;
+import com.codestates.user.entity.User;
 import com.codestates.question.Question;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.AnswerVote.AnswerVote;
@@ -28,8 +28,8 @@ public class Answer extends Auditable {
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_NORMAL;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
@@ -44,8 +44,8 @@ public class Answer extends Auditable {
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    public void addMember(Member member) {
-        this.member = member;
+    public void addUser(User user) {
+        this.user = user;
     }
 
     public void addQuestion(Question question) {

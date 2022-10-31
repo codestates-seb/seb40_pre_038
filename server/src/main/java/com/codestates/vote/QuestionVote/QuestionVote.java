@@ -20,6 +20,6 @@ public class QuestionVote {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @Column(name = "member_id")
-    private long memberId;
+    @Column(name = "user_id")
+    private long userId;
 }
