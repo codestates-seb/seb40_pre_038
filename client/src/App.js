@@ -10,7 +10,7 @@ import LandingPage from './pages/HomePage/LandingPage/LandingPage';
 import QuestionsPage from './pages/QuestionsPage/QuestionsPage';
 import TagsPage from './pages/TagsPage/TagsPage';
 import UsersPage from './pages/UsersPage/UsersPage';
-import AskQuestionPage from './pages/AskQuestionPage';
+import AskQuestionPage from './pages/AskQuestionPage/AskQuestionPage';
 import QuestionDetailPage from './pages/QuestionDetail/QuestionDetailPage';
 
 const App = () => {
