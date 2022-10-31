@@ -19,7 +19,7 @@ public class MemberStub {
         return args -> {
 
             log.info("MEMBER STUB " + memberRepository.save(new Member("mashed", "abc@email.com", "1234")));
-            log.info("MEMBER STUB " + memberRepository.save(new Member("potato", "admin@email.com", "1234")));
+            log.info("MEMBER STUB " + memberRepository.save(new Member("potato", "def@email.com", "1234")));
 
             // wip
             // member1 -> USER

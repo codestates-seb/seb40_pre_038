@@ -1,7 +1,7 @@
 package com.codestates.member.service;
 
 import com.codestates.auth.utils.CustomAuthorityUtils;
-import com.codestates.event.MemberRegistrationApplicationEvent;
+import com.codestates.auth.utils.MemberRegistrationApplicationEvent;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.member.entity.Member;
@@ -33,6 +33,7 @@ public class MemberService {
         this.publisher = publisher;
     }
 
+    @Transactional(readOnly = true)
     public Member findOne(long id) {
         return findVerifiedMember(id);
     }
