@@ -2,29 +2,31 @@ package com.codestates.question;
 
 import com.codestates.member.dto.MemberDto;
 import com.codestates.member.entity.Member;
-<<<<<<< HEAD
 import com.codestates.tag.Tag;
 import com.codestates.tag.TagDto;
-=======
->>>>>>> dev
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
     //Question questionPostToQuestion(QuestionDto.Post questionPost);
     Question questionPatchToQuestion(QuestionDto.Patch questionPatch);
+
     //QuestionDto.Response questionToQuestionResponse(Question question);
     List<QuestionDto.Response> questionsToQuestionResponses(List<Question> questions);
+
     Question questionVoteToQuestion(QuestionDto.Vote questionVote);
+
     Question questionViewToQuestion(QuestionDto.View questionView);
 
     default Question questionPostToQuestion(QuestionDto.Post questionPost) {
         Question question = new Question();
         question.setTitle(questionPost.getTitle());
         question.setBody(questionPost.getBody());
+        question.setTagBody(questionPost.getTagBody());
 
         Member member = new Member();
         member.setMemberId(questionPost.getMemberId());
@@ -41,6 +43,7 @@ public interface QuestionMapper {
 
     default QuestionDto.Response questionToQuestionResponse(Question question) {
         Member member = question.getMember();
+//        Tag tag = questionTag.getTag();
 
         return QuestionDto.Response.builder()
                 .questionId(question.getQuestionId())
@@ -48,17 +51,16 @@ public interface QuestionMapper {
                 .body(question.getBody())
                 .view(question.getView())
                 .vote(question.getVote())
+                .tagList(question.getTagList())
 //                .memberId(question.getMember().getMemberId())
 //                .nickName(question.getMember().getNickName())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
 //                .answers(question.getAnswers())
 //                .comments(question.getComments())
-<<<<<<< HEAD
-                .tags(question.getQuestionTags())
-=======
-                .tags(question.getTags())
->>>>>>> dev
+//                .tags(tagToTagResponseDto())
+//                .tags(question.getQuestionTags())
+//                .tagResponseDto(tagToTagResponseDto(tag))
                 .memberResponseDto(memberToMemberResponseDto(member))
                 .build();
     }
@@ -77,9 +79,20 @@ public interface QuestionMapper {
 //    }
 
     MemberDto.Response memberToMemberResponseDto(Member member);
-<<<<<<< HEAD
+
     TagDto.Response tagToTagResponseDto(Tag tag);
-=======
->>>>>>> dev
+
+
+
+//    default List<TagDto.Response> tagsToTagResponseDtos(Set<QuestionTag> questionTags)
+//    {
+//        return questionTags
+//                .stream()
+//                .map(questionTag -> TagDto.Response
+//                        .builder()
+//                        .
+//                        .build())
+//                .collect(Collectors.toList());
+//    }
 
 }

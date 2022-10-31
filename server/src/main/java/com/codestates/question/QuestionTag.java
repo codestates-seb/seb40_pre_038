@@ -22,22 +22,22 @@ public class QuestionTag {
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;
+    private Question question; // QuestionTag : Question = N : 1
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
-    private Tag tag;
-
-    public QuestionTag(Question question, Tag tag) {
-        this.question = question;
-        this.tag = tag;
-    }
+    private Tag tag; // Question : Tag = N : 1
 
     public void addQuestion(Question question) {
         this.question = question;
     }
 
     public void addTag(Tag tag) {
+        this.tag = tag;
+    }
+
+    public QuestionTag(Question question, Tag tag) {
+        this.question = question;
         this.tag = tag;
     }
 }
