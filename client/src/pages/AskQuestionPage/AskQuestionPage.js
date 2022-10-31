@@ -5,7 +5,7 @@ import { InputContainer, StyledInputComponent } from './InputContainer';
 import DecsGoodQuestion from './DecsGoodQuestion';
 import GoodQuestionGuide from './GoodQuestionGuide';
 import useInput from '../../util/useInput';
-import { useState } from 'react';
+import axios from 'axios';
 
 const AskWrapper = styled.div`
   display: flex;
@@ -62,16 +62,26 @@ const AskQuestionPage = () => {
   const [problemValue, problemBind, problemReset] = useInput('');
   const [expectValue, expectBind, expectReset] = useInput('');
   const [tagsValue, tagsBind, tagsReset] = useInput('');
-  const [postBody, setPostBody] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPostBody({
+    const postBody = JSON.stringify({
+      memberId: 2,
       title: titleValue,
       body: problemValue + ' ' + expectValue,
-      tags: tagsValue,
+      tagBody: tagsValue,
     });
-    console.log('Body:', postBody);
+    console.log('post:', postBody);
+    axios
+      .post('http://localhost:8080/questions/add', postBody)
+      .then(function (response) {
+        console.log(response);
+        console.log(postBody);
+      })
+      .catch(function (error) {
+        console.log(postBody);
+        console.log(error);
+      });
     titleReset();
     problemReset();
     expectReset();
