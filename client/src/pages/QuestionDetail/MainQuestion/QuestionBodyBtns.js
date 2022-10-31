@@ -10,14 +10,15 @@ const QuestionBtn = styled.button`
   font-size: 13px;
   color: #6a737c;
   height: 15px;
-  margin: 2px;
   border: none;
   &:hover {
     cursor: pointer;
     color: #838c95;
   }
 `;
-const ShareBtn = styled(QuestionBtn)``;
+const ShareBtn = styled(QuestionBtn)`
+  padding-left: 0;
+`;
 const EditBtn = styled(QuestionBtn)``;
 const FollowBtn = styled(QuestionBtn)``;
 
