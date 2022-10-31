@@ -37,7 +37,7 @@ public class Question extends Auditable {
 
     @ElementCollection
     @CollectionTable(name = "TAG_LIST", joinColumns = @JoinColumn(name = "TAG_ID"))
-    @Column(name = "TAGS")
+    @Column(name = "TAG_BODY")
     private List<String> tagList;
 
     @Column(nullable = false)

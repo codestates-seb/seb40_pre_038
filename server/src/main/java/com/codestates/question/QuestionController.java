@@ -85,6 +85,19 @@ public class QuestionController {
         );
     }
 
+    @GetMapping("/search")
+    public ResponseEntity getQuestionsByTag(@RequestParam String tagBody,
+                                            @Positive @RequestParam int page,
+                                            @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+        Page<Question> pageQuestions = questionService.findQuestionsByTagBody(tagBody,page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+        List<QuestionDto.Response> responses = mapper.questionsToQuestionResponses(questions);
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK
+        );
+    }
+
     @Secured("ROLE_USER")
     @PatchMapping("/{question_id}")
     public ResponseEntity updateViewQuestion(@RequestBody QuestionDto.View questionView,
@@ -111,7 +124,7 @@ public class QuestionController {
     }
 
     @Secured("ROLE_USER")
-    @DeleteMapping("/{question_id}")
+    @DeleteMapping("/{question_id}/delete")
     public ResponseEntity deleteQuestion(@PathVariable("question_id") @Positive long questionId) {
         questionService.deleteQuestion(questionId);
 

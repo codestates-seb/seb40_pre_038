@@ -1,5 +1,6 @@
 package com.codestates.question;
 
+import com.codestates.answer.entity.Answer;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.member.entity.Member;
@@ -148,5 +149,10 @@ public class QuestionService {
                 optionalQuestion.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return findQuestion;
+    }
+
+    public Page<Question> findQuestionsByTagBody(String tagBody, int page, int size) {
+        return questionRepository.findQuestionsByTagBody(
+                tagBody, PageRequest.of(page, size, Sort.by("question_id").ascending()));
     }
 }
