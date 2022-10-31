@@ -1,10 +1,10 @@
 package com.codestates.question;
 
+import com.codestates.answer.entity.Answer;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.user.entity.User;
 import com.codestates.user.service.UserService;
-import com.codestates.tag.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,18 +18,15 @@ import java.util.*;
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final UserService userService;
-    private final TagController tagController;
-    private final TagDto.Post tagDtoPost;
-    private final TagService tagService;
-    private final TagRepository tagRepository;
+//    private final TagController tagController;
+//    private final TagDto.Post tagDtoPost;
+//    private final TagService tagService;
+//    private final TagRepository tagRepository;
 
-    public QuestionService(QuestionRepository questionRepository, UserService userService, TagController tagController, TagDto.Post tagDtoPost, TagService tagService, TagRepository tagRepository) {
+
+    public QuestionService(QuestionRepository questionRepository, UserService userService) {
         this.questionRepository = questionRepository;
         this.userService = userService;
-        this.tagController = tagController;
-        this.tagDtoPost = tagDtoPost;
-        this.tagService = tagService;
-        this.tagRepository = tagRepository;
     }
 
     public Question createQuestion(Question question, long userId) {
@@ -38,50 +35,65 @@ public class QuestionService {
         question.setUser(findUser);
 
         String tagBody = question.getTagBody(); // 태그 생성 부분
-        List<String> list = new ArrayList<>();
-        System.out.println(tagBody);
 
-        Arrays.stream(tagBody.split(","))
-                .map(a -> Arrays.stream(a.trim()
-                                .split(" "))
-                        .flatMap(b -> Arrays.stream(b.split(", "))))
-                .flatMap(a -> a)
-                .distinct()
-                .filter(a -> !Objects.equals(a, ""))
-                .map(String::toLowerCase)
-                .forEach(list::add);
+//        Arrays.stream(tagBody.split(","))
+//                .map(a -> Arrays.stream(a.trim()
+//                                .split(" "))
+//                        .flatMap(b -> Arrays.stream(b.split(", "))))
+//                .flatMap(a -> a)
+//                .distinct()
+//                .filter(a -> !Objects.equals(a, ""))
+//                .map(String::toLowerCase)
+//                .forEach(list::add);
+        List<String> list = new ArrayList<>(Arrays.asList(tagBody.split(", ")));
 
-        System.out.println(list);
         question.setTagList(list);
-        return questionRepository.save(question);
+
+        Question savedQuestion = questionRepository.save(question);
+
+        System.out.printf("\n회원 번호: " + userId + '\n' +
+                "사용자 이름: " + findUser.getNickName() + '\n' +
+                question.getQuestionId() + "번 질문 등록 완료.\n\n");
+
+        return savedQuestion;
     }
 
     public Question updateQuestion(Question question, long userId) {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId()); // 수정할 질문 찾아오기
-        verifyUser(userId, findQuestion);
+        User findUser = userService.findVerifiedUser(userId);
+        verifyuser(userId, findQuestion);
 
         Optional.ofNullable(question.getTitle())
                 .ifPresent(findQuestion::setTitle); // 제목
-        Optional.ofNullable(question.getBody())
-                .ifPresent(findQuestion::setBody); // 내용
+        Optional.ofNullable(question.getProblem())
+                .ifPresent(findQuestion::setProblem); // 문제
+        Optional.ofNullable(question.getExpect())
+                .ifPresent(findQuestion::setExpect); // 기대
 
         String tagBody = question.getTagBody();
-        List<String> list = new ArrayList<>(); // 태그 수정 부분
+//        List<String> list = new ArrayList<>(); // 태그 수정 부분
 
-        Arrays.stream(tagBody.split(","))
-                .map(a -> Arrays.stream(a.trim()
-                                .split(" "))
-                        .flatMap(b -> Arrays.stream(b.split(", "))))
-                .flatMap(a -> a)
-                .distinct()
-                .filter(a -> !Objects.equals(a, ""))
-                .map(String::toLowerCase)
-                .forEach(list::add);
+//        Arrays.stream(tagBody.split(","))
+//                .map(a -> Arrays.stream(a.trim()
+//                                .split(" "))
+//                        .flatMap(b -> Arrays.stream(b.split(", "))))
+//                .flatMap(a -> a)
+//                .distinct()
+//                .filter(a -> !Objects.equals(a, ""))
+//                .map(String::toLowerCase)
+//                .forEach(list::add);
+        List<String> list = new ArrayList<>(Arrays.asList(tagBody.split(", ")));
 
-        findQuestion.setTagBody(question.getBody());
+        findQuestion.setTagBody(question.getTagBody());
         findQuestion.setTagList(list);
 
-        return questionRepository.save(findQuestion);
+        Question updatedQuestion = questionRepository.save(findQuestion);
+
+        System.out.printf("\n회원 번호: " + userId + '\n' +
+                "사용자 이름: " + findUser.getNickName() + '\n' +
+                question.getQuestionId() + "번 질문 수정 완료.\n\n");
+
+        return updatedQuestion;
     }
 
     /*public Question upVote(Question question, long questionId) {
@@ -119,14 +131,18 @@ public class QuestionService {
     }
 
     public Page<Question> findQuestions(int page, int size) { // 페이징 처리 및 ID 내림차순 정렬
+
         return questionRepository.findAll(
-                PageRequest.of(page, size, Sort.by("questionId").descending())
-        );
+                PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
 
     public void deleteQuestion(long questionId) {
         Question question = findVerifiedQuestion(questionId);
         questionRepository.delete(question);
+
+        System.out.printf("\n회원 번호: " + question.getUser().getUserId() + '\n' +
+                "사용자 이름: " + question.getUser().getNickName() + '\n' +
+                question.getQuestionId() + "번 질문 삭제 완료.\n\n");
     }
 
 //    public void addQuestionTagConnection(QuestionDto.Post questionPost, Question question) {
@@ -137,7 +153,7 @@ public class QuestionService {
 //                .map(tag -> findQuestion.getQuestionTags().add(tag));
 //    }
 
-    public void verifyUser(long userId, Question question) {
+    public void verifyuser(long userId, Question question) {
         Long thisId = question.getUser().getUserId();
         if (thisId != userId) {
             throw new BusinessLogicException(ExceptionCode.USER_NOT_ALLOWED);
@@ -146,14 +162,38 @@ public class QuestionService {
 
     public Question findVerifiedQuestion(long questionId) { // questionId로 쿼리
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
-        Question findQuestion = // 에러 핸들링 상의 해야 됨
-                optionalQuestion.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
-        return findQuestion;
+        return optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+
+//        Question findQuestion = // 에러 핸들링 상의 해야 됨
+//                optionalQuestion.orElseThrow(() ->
+//                        new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+//        return findQuestion;
     }
 
-    public Page<Question> findQuestionsByTagBody(String tagBody, int page, int size) {
-        return questionRepository.findQuestionsByTagBody(
-                tagBody, PageRequest.of(page, size, Sort.by("question_id").ascending()));
+//    public Page<Question> findQuestionsByTagBody(int page, int size) {
+//        return questionRepository.findAll(
+//                PageRequest.of(page, size, Sort.by("questionId").descending()));
+////        return questionRepository.findAllByBodyContaining(
+////                tagBody, PageRequest.of(page, size, Sort.by("tag_id").ascending()));
+//    }
+//    public Page<Question> findQuestionsByTagBody(String tagBody, int page, int size) {
+////        return questionRepository.findAll(
+////                PageRequest.of(page, size, Sort.by("questionId").descending()));
+//        return questionRepository.findQuestionsByTagBody(
+//                tagBody, PageRequest.of(page, size, Sort.by("tag_id").ascending()));
+//    }
+
+//    public List<Integer> findListByTagBody(String tagBody) {
+////        return questionRepository.findAll(
+////                PageRequest.of(page, size, Sort.by("questionId").descending()));
+//        return questionRepository.findListByTagBody(
+//                tagBody);
+//    }
+
+    public Page<Question> findAllByTagBody(String tagBody, int page, int size) { // 질문 내용 검색
+        return questionRepository.findAllByTagBodyContaining(tagBody,
+                PageRequest.of(page, size, Sort.by("vote").descending()));
     }
+
 }

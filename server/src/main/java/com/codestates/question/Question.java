@@ -28,25 +28,31 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private String title;
 
+//    @Column(nullable = false)
+//    private String body;
+
     @Column(nullable = false)
-    private String body;
+    private String problem;
+
+    @Column(nullable = false)
+    private String expect;
 
     @Column
     private String tagBody;
 
     @ElementCollection
-    @CollectionTable(name = "TAG_LIST", joinColumns = @JoinColumn(name = "TAG_ID"))
+    @CollectionTable(name = "QUESTION_TAG_LIST", joinColumns = @JoinColumn(name = "QUESTION_ID"))
     @Column(name = "TAG_BODY")
     private List<String> tagList;
 
     @Column(nullable = false)
-    private int view = 0;
+    private int view;
 
     @Column(nullable = false)
-    private int vote = 0;
+    private int vote;
 
-    @OneToMany(mappedBy = "question")
-    private List<QuestionTag> questionTags = new ArrayList<>(); // Question : QuestionTag = 1 : N
+//    @OneToMany(mappedBy = "question")
+//    private List<QuestionTag> questionTags = new ArrayList<>(); // Question : QuestionTag = 1 : N
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,16 +66,18 @@ public class Question extends Auditable {
     private List<Comment> comments = new ArrayList<>();
 
 
-//    public void addQuestionTags(QuestionTag questionTag) {
+    //    public void addQuestionTags(QuestionTag questionTag) {
 //        this.questionTags.add(questionTag);
 //    }
     public void addUser(User user) {
         this.user = user;
     }
+
     public void addAnswer(Answer answer) {
         answer.setQuestion(this);
         answers.add(answer);
     }
+
     public void addComment(Comment comment) {
         comments.add(comment);
     }
@@ -80,10 +88,15 @@ public class Question extends Auditable {
     @OneToOne(cascade = {CascadeType.ALL})
     private QuestionVote questionVote;
 
-    public void update(String title, String body, List<QuestionTag> questionTags){
+    public void update(String title, String problem, String expect) {
         this.title = title;
-        this.body = body;
-        this.questionTags = questionTags;
+        this.problem = problem;
+        this.expect = expect;
     }
+//    public void update(String title, String body, List<QuestionTag> questionTags){
+//        this.title = title;
+//        this.body = body;
+//        this.questionTags = questionTags;
+//    }
 
 }

@@ -24,8 +24,12 @@ public class QuestionDto {
         private long userId;
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
+        //        @NotEmpty(message = "내용을 입력하셔야 합니다.")
+//        private String body;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
-        private String body;
+        private String problem;
+        @NotEmpty(message = "내용을 입력하셔야 합니다.")
+        private String expect;
         private String tagBody;
         private List<String> tags;
 
@@ -39,8 +43,12 @@ public class QuestionDto {
         private long userId;
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
+        //        @NotEmpty(message = "내용을 입력하셔야 합니다.")
+//        private String body;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
-        private String body;
+        private String problem;
+        @NotEmpty(message = "내용을 입력하셔야 합니다.")
+        private String expect;
         private String tagBody;
         private List<String> tags;
     }
@@ -52,17 +60,19 @@ public class QuestionDto {
     public static class Response {
         private long questionId;
         private String title;
-        private String body;
+        //        private String body;
+        private String problem;
+        private String expect;
         private List<String> tagList;
         private int view;
         private int vote;
-//        private long userId;
+        //        private long userId;
 //        private String nickName;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private List<Answer> answers;
         private List<Comment> comments;
-//        private Set<QuestionTag> tags;
+        //        private Set<QuestionTag> tags;
         /*멤버&답변&댓글 추가할 것!*/
 //        private TagDto.Response tagResponseDto;
 //        private List<TagDto.Response> tags;
@@ -83,7 +93,7 @@ public class QuestionDto {
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class View{
+    public static class View {
         private long questionId;
         private int view;
     }
