@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
 
 import Header from './components/Header';
@@ -24,7 +24,7 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <GlobalStyle />
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <Routes>
@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/users" element={<UsersPage />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
