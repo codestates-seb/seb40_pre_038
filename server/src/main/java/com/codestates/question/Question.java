@@ -5,6 +5,7 @@ import com.codestates.audit.Auditable;
 import com.codestates.user.entity.User;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.QuestionVote.QuestionVote;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -47,6 +48,7 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question")
     private List<QuestionTag> questionTags = new ArrayList<>(); // Question : QuestionTag = 1 : N
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -65,6 +67,7 @@ public class Question extends Auditable {
         this.user = user;
     }
     public void addAnswer(Answer answer) {
+        answer.setQuestion(this);
         answers.add(answer);
     }
     public void addComment(Comment comment) {
