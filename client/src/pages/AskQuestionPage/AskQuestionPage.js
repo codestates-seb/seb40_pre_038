@@ -64,12 +64,6 @@ const AskQuestionPage = () => {
   const [tagsValue, tagsBind, tagsReset] = useInput('');
   const [postBody, setPostBody] = useState({});
 
-  // console.log('title:', titleValue);
-  // console.log('problem:', problemValue);
-  // console.log('expect:', expectValue);
-  // console.log('tags:', tagsValue);
-  // console.log('Body:', postBody);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setPostBody({
@@ -77,11 +71,11 @@ const AskQuestionPage = () => {
       body: problemValue + ' ' + expectValue,
       tags: tagsValue,
     });
+    console.log('Body:', postBody);
     titleReset();
     problemReset();
     expectReset();
     tagsReset();
-    console.log('Body:', postBody);
   };
 
   return (
@@ -129,6 +123,7 @@ const AskQuestionPage = () => {
               <textarea
                 value={problemValue}
                 onChange={problemBind.onChange}
+                disabled={titleValue === '' ? true : false}
               ></textarea>
             </InputContainer>
           </ResponsiveContainer>
@@ -168,6 +163,7 @@ const AskQuestionPage = () => {
               <textarea
                 value={expectValue}
                 onChange={expectBind.onChange}
+                disabled={problemValue === '' ? true : false}
               ></textarea>
             </InputContainer>
           </ResponsiveContainer>
@@ -196,6 +192,7 @@ const AskQuestionPage = () => {
                 width="102%"
                 value={tagsBind}
                 placeholder="e.g. (angularjs php jquery)"
+                disabled={expectValue === '' ? true : false}
               />
             </InputContainer>
           </ResponsiveContainer>
