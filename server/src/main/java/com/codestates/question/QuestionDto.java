@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +33,8 @@ public class QuestionDto {
         private String title;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String body;
-        private List<Tag> tags;
+        private String tagBody;
+        private List<String> tags;
 
     }
 
@@ -46,6 +48,7 @@ public class QuestionDto {
         private String title;
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String body;
+        private String tagBody;
     }
 
     @Builder
@@ -56,6 +59,7 @@ public class QuestionDto {
         private long questionId;
         private String title;
         private String body;
+        private List<String> tagList;
         private int view;
         private int vote;
 //        private long memberId;
@@ -66,7 +70,8 @@ public class QuestionDto {
         private List<Comment> comments;
 //        private Set<QuestionTag> tags;
         /*멤버&답변&댓글 추가할 것!*/
-        private TagDto.Response tagResponseDto;
+//        private TagDto.Response tagResponseDto;
+//        private List<TagDto.Response> tags;
         private MemberDto.Response memberResponseDto;
     }
 
