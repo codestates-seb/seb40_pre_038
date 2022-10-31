@@ -48,6 +48,7 @@ public class QuestionService {
                         .flatMap(b -> Arrays.stream(b.split(", "))))
                 .flatMap(a -> a)
                 .distinct()
+                .filter(a -> !Objects.equals(a, ""))
                 .map(String::toLowerCase)
                 .forEach(list::add);
 
@@ -74,6 +75,7 @@ public class QuestionService {
                         .flatMap(b -> Arrays.stream(b.split(", "))))
                 .flatMap(a -> a)
                 .distinct()
+                .filter(a -> !Objects.equals(a, ""))
                 .map(String::toLowerCase)
                 .forEach(list::add);
 
