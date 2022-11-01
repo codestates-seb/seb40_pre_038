@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../_actions/user_action';
+import { getAllUsers } from '../../_actions/users_action';
 import PageContainer from '../../components/PageContainer';
 
 const UsersPage = () => {
