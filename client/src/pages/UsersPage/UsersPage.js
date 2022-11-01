@@ -10,12 +10,12 @@ const UsersPage = () => {
   useEffect(() => {
     dispatch(getAllUsers()).then((response) => {
       if (response.payload.userList) {
-        console.log(response);
+        // response로 어떤 처리 필요한 경우
       }
     });
   }, [dispatch]);
 
-  const { userList } = users?.data || [];
+  const { userList } = users || [];
 
   return (
     <PageContainer nav sidebar footer>
