@@ -10,9 +10,9 @@ import DecsGoodQuestion from './DecsGoodQuestion';
 import GoodQuestionGuide from './GoodQuestionGuide';
 import useInput from '../../util/useInput';
 import useEditor from '../../util/useEditor';
-import axios from 'axios';
-
-const BASE_URL = 'http://localhost:3000/';
+import { useDispatch } from 'react-redux';
+import { postQuestion } from '../../_actions/questions_action';
+// import axios from 'axios';
 
 const AskWrapper = styled.div`
   display: flex;
@@ -71,7 +71,9 @@ const AskQuestionPage = () => {
   const [expectValue, expectBind, expectReset] = useEditor(' ');
   const [tagsValue, tagsBind, tagsReset] = useInput('');
 
-  const handleSubmit = async (e) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const postBody = {
       userId: 2,
@@ -80,15 +82,8 @@ const AskQuestionPage = () => {
       expect: expectValue,
       tagBody: tagsValue,
     };
-    await axios
-      .post('/api/questions/add', postBody)
-      .then(function (response) {
-        console.log(response);
-        window.location.href = BASE_URL;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    console.log(postBody);
+    dispatch(postQuestion(postBody));
     titleReset();
     problemReset();
     expectReset();
