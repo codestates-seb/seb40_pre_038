@@ -22,13 +22,12 @@ const Tag = styled.button`
   }
 `;
 
-const QuestionTags = () => {
+const QuestionTags = ({ tagList }) => {
   return (
     <QuestionTagsContainer>
-      <Tag>java</Tag>
-      <Tag>javascript</Tag>
-      <Tag>MySQL</Tag>
-      <Tag>React</Tag>
+      {tagList.map((tag, idx) => {
+        return <Tag key={idx}>{tag}</Tag>;
+      })}
     </QuestionTagsContainer>
   );
 };

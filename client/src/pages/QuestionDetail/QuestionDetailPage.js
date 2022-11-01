@@ -1,4 +1,6 @@
-//import { Container } from '../pages/Home/HomePage/HomePage';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setQuestionId, getQuestion } from '../../_actions/question_action';
 import styled from 'styled-components';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
@@ -6,6 +8,7 @@ import Sidebar from '../../components/Sidebar.js';
 import QuestionTitle from './QuestionTitle';
 import MainQuestion from './MainQuestion/MainQuestion';
 import QuestionAnswers from './Answers/QuestionAnswers';
+import { useEffect } from 'react';
 
 const MainContent = styled.div`
   display: flex;
@@ -31,6 +34,17 @@ const MainWrapper = styled.div`
 `;
 
 const QuestionDetailPage = () => {
+  const dispatch = useDispatch();
+  const { question_id } = useParams();
+
+  const state = useSelector((state) => state.questionReducer);
+  const { data } = state.data;
+
+  useEffect(() => {
+    dispatch(setQuestionId(question_id));
+    dispatch(getQuestion(question_id));
+  }, [dispatch]);
+
   return (
     <>
       <MainContent>
@@ -39,7 +53,7 @@ const QuestionDetailPage = () => {
           <QuestionTitle />
           <MainWrapper>
             <div>
-              <MainQuestion />
+              <MainQuestion data={data} />
               <QuestionAnswers />
             </div>
             <Sidebar />

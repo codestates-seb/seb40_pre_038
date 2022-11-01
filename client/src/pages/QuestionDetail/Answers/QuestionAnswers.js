@@ -9,8 +9,6 @@ const AnswerConatiner = styled.div`
   border-bottom: 1px solid #e3e6e8;
 `;
 
-//GET 요청: '/questions/{question-id}/answers?page=1
-
 const answersData = [0, 0, 0, 0, 0, 0, 0];
 
 const QuestionAnswers = () => {

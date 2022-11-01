@@ -7,11 +7,11 @@ const MainQuestionContainer = styled.div`
   flex-grow: 1;
 `;
 
-const MainQuestion = () => {
+const MainQuestion = ({ data }) => {
   return (
     <MainQuestionContainer>
-      <QuestionVote />
-      <QuestionContentBox />
+      <QuestionVote data={data} />
+      <QuestionContentBox data={data} />
     </MainQuestionContainer>
   );
 };

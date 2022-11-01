@@ -33,7 +33,10 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/questions" element={<QuestionsPage />} />
         <Route path="/questions/ask" element={<AskQuestionPage />} />
-        <Route path="/questions/0" element={<QuestionDetailPage />} />
+        <Route
+          path="/questions/:question_id"
+          element={<QuestionDetailPage />}
+        />
         <Route path="/tags" element={<TagsPage />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="*" element={<NoMatch />} />

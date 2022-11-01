@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { ButtonBlue } from '../../components/Buttons';
 
@@ -43,7 +44,11 @@ const StatInfo = styled.div`
 `;
 
 const QuestionTitle = () => {
-  const title = 'Java 8, Streams to find the duplicate elements';
+  const state = useSelector((state) => state.questionReducer);
+  const { data } = state.data;
+  const title = data === undefined ? '' : data.title;
+  const views = data === undefined ? 0 : data.view;
+
   return (
     <QuestionTitleContainer>
       <TitleInfo>
@@ -65,7 +70,7 @@ const QuestionTitle = () => {
         <div className="name">Modified</div>
         <div className="stat">today</div>
         <div className="name">Viewd</div>
-        <div className="stat">213K times</div>
+        <div className="stat">{views} times</div>
       </StatInfo>
     </QuestionTitleContainer>
   );
