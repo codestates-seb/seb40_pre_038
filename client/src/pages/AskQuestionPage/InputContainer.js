@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+import '@toast-ui/editor/dist/toastui-editor.css';
 import { ButtonBlue } from '../../components/Buttons';
+import { Editor } from '@toast-ui/react-editor';
 
 const InputWrapper = styled.div`
   width: 100%;
@@ -71,5 +73,22 @@ export const StyledInputComponent = ({ width, height, placeholder, value }) => {
         {...value}
       ></StyledInput>
     </StyledInputContainer>
+  );
+};
+
+export const EditorInput = ({ value }) => {
+  return (
+    <Editor
+      {...value}
+      initialValue=" "
+      height="350px"
+      initialEditType="wysiwyg"
+      toolbarItems={[
+        ['heading', 'bold', 'italic', 'strike'],
+        ['hr', 'quote'],
+        ['ul', 'ol', 'task', 'indent', 'outdent'],
+        ['code', 'codeblock'],
+      ]}
+    />
   );
 };

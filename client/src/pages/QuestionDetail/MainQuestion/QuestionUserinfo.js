@@ -42,14 +42,20 @@ const UserStats = styled.div`
   }
 `;
 
-//이것도 axios로 요청??? Question created_time 사용
-const AskedDate = ' Dec 28, 2014 at 14:19';
-const UserName = 'jwo0o0';
+const AskedDate = (str) => {
+  if (str === '') return '';
+  const date = new Date(str.slice(0, 19));
+  const arr = date.toDateString().split(' ');
 
-const QuestionUserinfo = () => {
+  return `${arr[1]} ${arr[2]}, ${
+    arr[3]
+  } at ${date.getHours()}:${date.getMinutes()}`;
+};
+
+const QuestionUserinfo = ({ userName, createdAt }) => {
   return (
     <QuestionUserinfoContainer>
-      <QuestionDate>asked {AskedDate}</QuestionDate>
+      <QuestionDate>asked {AskedDate(createdAt)}</QuestionDate>
       <UserInfoWrapper>
         <UserIcon>
           <img
@@ -58,7 +64,7 @@ const QuestionUserinfo = () => {
           ></img>
         </UserIcon>
         <UserStats>
-          <div className="username">{UserName}</div>
+          <div className="username">{userName}</div>
           <div className="stats">1,201 •2 •9 •6</div>
         </UserStats>
       </UserInfoWrapper>

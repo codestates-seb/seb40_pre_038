@@ -10,8 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
-    UserDto.Response userToUserResponseDto(User user);
-//    Comment commentPostToComment(CommentDto.Post commentPost);
+
 
     default Comment commentPostToComment(CommentDto.Post commentPost) {
         Comment comment = new Comment();
@@ -24,14 +23,12 @@ public interface CommentMapper {
         return comment;
     }
     Comment commentPatchToComment(CommentDto.Patch commentPatch);
-//    CommentDto.Response commentToCommentResponse(Comment comment);
 
     default CommentDto.Response commentToCommentResponse(Comment comment) {
         User user = comment.getUser();
 
         return CommentDto.Response.builder()
                 .commentId(comment.getCommentId())
-//                .postId(comment.getPostId())
                 .userResponseDto(userToUserResponseDto(user))
                 .body(comment.getBody())
                 .createdAt(comment.getCreatedAt())
@@ -40,4 +37,5 @@ public interface CommentMapper {
                 .build();
     }
     List<CommentDto.Response> commentsToCommentResponses(List<Comment> comments);
+    UserDto.Response userToUserResponseDto(User user);
 }
