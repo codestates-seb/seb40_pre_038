@@ -52,9 +52,6 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private int vote;
 
-//    @OneToMany(mappedBy = "question")
-//    private List<QuestionTag> questionTags = new ArrayList<>(); // Question : QuestionTag = 1 : N
-
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -68,10 +65,6 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question")
     private List<Comment> comments = new ArrayList<>();
 
-
-    //    public void addQuestionTags(QuestionTag questionTag) {
-//        this.questionTags.add(questionTag);
-//    }
     public void addUser(User user) {
         this.user = user;
     }
@@ -96,10 +89,5 @@ public class Question extends Auditable {
         this.problem = problem;
         this.expect = expect;
     }
-//    public void update(String title, String body, List<QuestionTag> questionTags){
-//        this.title = title;
-//        this.body = body;
-//        this.questionTags = questionTags;
-//    }
 
 }
