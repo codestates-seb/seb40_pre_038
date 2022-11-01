@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PageHeader from './PageHeader';
 import SortTabs from './SortTabs';
-import QuestionListWrapper from './QuestionList/QuestionListWrapper';
+import QuestionListWrapper from '../../../components/QuestionList/QuestionListWrapper';
 import { Mainbar } from '../../../components/Mainbar';
 
 const ClearBr = styled.br`
@@ -22,7 +22,7 @@ const TopQuestionsPage = () => {
     <Mainbar>
       <PageHeader />
       <SortTabs />
-      <QuestionListWrapper />
+      <QuestionListWrapper className="question-mini-list" />
       <ClearBr />
       <BottomNotice>
         Looking for more? Browse the{' '}
