@@ -37,150 +37,103 @@ const SeUql = ({ questionsCnt = 0 }) => {
 
 export default SeUql;
 
+const UqlNavWrapper = styled.div`
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+`;
+
+const UqlNavigation = styled.div`
+  margin-right: 16px !important;
+  flex-flow: row nowrap !important;
+  display: flex;
+  margin-bottom: 1px;
+`;
+
+const UqlNavigationButton = styled.button`
+  position: relative;
+  display: inline-block;
+  padding: 0.8em;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background-color: transparent;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: calc((13 + 2) / 13);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  border-color: #9fa6ad;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  color: #6a737c;
+
+  :first-child:not(:only-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  :not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+  :not(:last-child) {
+    margin-right: -1px;
+  }
+  :last-child:not(:only-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  :hover,
+  :focus,
+  :active {
+    text-decoration: none;
+    color: #525960;
+    background-color: #f8f9f9;
+  }
+  :active {
+    z-index: 30;
+    background: #f1f2f3;
+  }
+  :focus {
+    box-shadow: 0 0 0 4px #1a232629;
+    outline: none;
+  }
+  &.is-selected {
+    border-color: #838c95;
+    z-index: 25;
+    color: #3b4045;
+    background-color: #e3e6e8;
+    box-shadow: none;
+  }
+  &.is-selected:focus {
+    box-shadow: 0 0 0 4px #1a232629;
+    outline: none;
+  }
+`;
+
 const UqlNav = () => {
+  const handleClickButton = (e) => {
+    console.log(e.target.textContent);
+  };
+
   return (
-    <div
-      className="uql-nav flex--item"
-      data-action="se-uql-list:edit-current-requested@document->se-uql#toggleEditor"
-    >
-      <div className="d-flex ai-center jc-space-between">
-        <div className="js-uql-navigation s-btn-group flex--item mr16 ff-row-nowrap">
-          <a
-            className="s-btn s-btn__muted s-btn__outlined s-btn__sm d-flex"
-            data-nav-value="Newest"
-            href="/questions?tab=Newest"
-            data-shortcut="N"
-          >
-            <div className="flex--item">Newest</div>
-          </a>
-          <a
-            className="s-btn s-btn__muted s-btn__outlined s-btn__sm d-flex"
-            data-nav-value="Active"
-            href="/questions?tab=Active"
-            data-shortcut="A"
-          >
-            <div className="flex--item">Active</div>
-          </a>
-          <a
-            className="s-btn s-btn__muted s-btn__outlined s-btn__sm d-flex is-selected uql-nav--expanded-item"
-            data-nav-value="Bounties"
-            href="/questions?tab=Bounties"
-            data-shortcut="E"
-            aria-current="page"
-          >
-            <div className="flex--item">Bountied</div>
-            <div className="s-badge s-badge__bounty s-badge__bounty s-badge__sm lh-xs ml4 px4 flex--item">
-              276
-            </div>
-          </a>
-          <a
-            className="s-btn s-btn__muted s-btn__outlined s-btn__sm d-flex uql-nav--expanded-item"
-            data-nav-value="Unanswered"
-            href="/questions?tab=Unanswered"
-            data-shortcut="U"
-          >
-            <div className="flex--item">Unanswered</div>
-          </a>
-          <button
-            className="s-btn s-btn__muted s-btn__outlined s-btn__sm s-btn__dropdown"
-            // role="button"
-            data-controller="s-popover"
-            data-action="s-popover#toggle"
-            data-se-uql-target="toggleMoreButton"
-            aria-haspopup="true"
-            aria-expanded="false"
-            aria-controls="uql-more-popover"
-          >
-            More
-          </button>
-        </div>
-        <div
-          className="s-popover z-dropdown ws2 px0 py4"
-          id="uql-more-popover"
-          data-se-uql-target="morePopover"
+    <UqlNavWrapper>
+      <UqlNavigation>
+        <UqlNavigationButton
+          className="is-selected"
+          onClick={handleClickButton}
         >
-          <div className="s-popover--arrow" />
-          <ul className="s-menu js-uql-navigation" role="menu">
-            <li className=" uql-nav--collapsed-item" role="menuitem">
-              <a
-                href="/questions?tab=Bounties"
-                className="s-block-link s-block-link__left is-selected"
-                aria-current="page"
-                data-shortcut=""
-              >
-                Bountied
-                <span className="s-badge s-badge__bounty s-badge__bounty s-badge__sm lh-xs px4">
-                  276
-                </span>
-              </a>
-            </li>
-            <li className=" uql-nav--collapsed-item" role="menuitem">
-              <a
-                href="/questions?tab=Unanswered"
-                className="s-block-link s-block-link__left"
-                data-shortcut=""
-              >
-                Unanswered
-              </a>
-            </li>
-            <li role="menuitem">
-              <a
-                href="/questions?tab=Frequent"
-                className="s-block-link s-block-link__left"
-                data-shortcut="F"
-              >
-                Frequent
-              </a>
-            </li>
-            <li role="menuitem">
-              <a
-                href="/questions?tab=Votes"
-                className="s-block-link s-block-link__left"
-                data-shortcut="V"
-              >
-                Score
-              </a>
-            </li>
-            <li className="s-menu--divider" role="separator" />
-            <li role="menuitem">
-              <span className="s-block-link c-default fc-black-350">
-                Unanswered (my tags)
-              </span>
-            </li>
-            <li className="s-menu--divider" role="separator" />
-            <li className="s-menu--title" role="separator">
-              Custom filters
-            </li>
-            <li role="menuitem">
-              <div className="py16 px24 ta-center fs-fine fc-black-500">
-                Save custom sorting &amp; filtering for easy access.
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div className="flex--item">
-          <button
-            className="s-btn s-btn__filled s-btn__sm s-btn__icon ws-nowrap"
-            // role="button"
-            data-controller="s-expandable-control"
-            data-s-expandable-control-toggle-class="is-selected"
-            data-se-uql-target="toggleFormButton"
-            aria-expanded="false"
-            aria-controls="uql-form"
-          >
-            <svg
-              aria-hidden="true"
-              className="svg-icon iconFilter"
-              width={18}
-              height={18}
-              viewBox="0 0 18 18"
-            >
-              <path d="M2 4h14v2H2V4Zm2 4h10v2H4V8Zm8 4H6v2h6v-2Z" />
-            </svg>{' '}
-            Filter
-          </button>
-        </div>
-      </div>
-    </div>
+          Newest
+        </UqlNavigationButton>
+        <UqlNavigationButton onClick={handleClickButton}>
+          Unanswered
+        </UqlNavigationButton>
+        <UqlNavigationButton onClick={handleClickButton}>
+          Score
+        </UqlNavigationButton>
+      </UqlNavigation>
+    </UqlNavWrapper>
   );
 };

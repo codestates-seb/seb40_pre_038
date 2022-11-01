@@ -80,16 +80,16 @@ const Tab = styled.button`
   }
 `;
 
-const BountyIndicatorSpan = styled.span`
-  color: #fff;
-  display: inline;
-  background-color: #0074cc;
-  padding: 0.2em 0.5em 0.25em;
-  margin-right: 5px;
-  font-size: 11px;
-  line-height: 1.3;
-  border-radius: 2px;
-`;
+// const BountyIndicatorSpan = styled.span`
+//   color: #fff;
+//   display: inline;
+//   background-color: #0074cc;
+//   padding: 0.2em 0.5em 0.25em;
+//   margin-right: 5px;
+//   font-size: 11px;
+//   line-height: 1.3;
+//   border-radius: 2px;
+// `;
 
 const SortTabs = () => {
   const handleClickTab = (e) => {
@@ -101,17 +101,17 @@ const SortTabs = () => {
       <Fl1 />
       <div>
         <Tabs>
-          <Tab
-            className="is-selected"
+          {/* <Tab
             title="Questions that may be of interest to you based on your history and tag preference"
             onClick={handleClickTab}
           >
             Interesting
-          </Tab>
-          <Tab title="Questions with an active bounty" onClick={handleClickTab}>
+          </Tab> */}
+          {/* <Tab title="Questions with an active bounty" onClick={handleClickTab}>
             <BountyIndicatorSpan>297</BountyIndicatorSpan> Bountied
-          </Tab>
+          </Tab> */}
           <Tab
+            className="is-selected"
             title="Questions with the most views, most answers, and highest score over the last few days"
             onClick={handleClickTab}
           >
