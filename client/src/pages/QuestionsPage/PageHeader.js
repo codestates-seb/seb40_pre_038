@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Headline } from '../../components/Headline';
 
 const PageHeaderWrapper = styled.div`
   display: flex !important;
@@ -9,7 +10,7 @@ const PageHeaderWrapper = styled.div`
 const PageHeader = () => {
   return (
     <PageHeaderWrapper>
-      <h1 className="flex--item fl1 fs-headline1 mr12 mb12">All Questions</h1>
+      <Headline className="mr12 mb12">All Questions</Headline>
       <div className="aside-cta flex--item mb12 print:d-none">
         <a href="/questions/ask" className="ws-nowrap s-btn s-btn__primary">
           Ask Question
