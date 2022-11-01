@@ -2,16 +2,19 @@ package com.codestates.answer.dto;
 
 import lombok.Getter;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Getter
 public class AnswerPatchDto {
     private long answerId;
 
-    @NotBlank(message = "공백이 아니어야 합니다.")
+    @NotEmpty(message = "내용을 입력하셔야 합니다.")
+    @Size(min = 30, message = "30자 이상 입력하셔야 합니다.")
     private String body;
 
     public void setAnswerId(long answerId) {
         this.answerId = answerId;
     }
 }
+
