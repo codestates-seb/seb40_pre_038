@@ -2,8 +2,8 @@ package com.codestates.answer.mapper;
 
 import com.codestates.answer.dto.*;
 import com.codestates.answer.entity.Answer;
-import com.codestates.user.dto.UserDto;
-import com.codestates.user.entity.User;
+import com.codestates.exception.user.dto.UserDto;
+import com.codestates.exception.user.entity.User;
 import com.codestates.question.Question;
 import org.mapstruct.Mapper;
 

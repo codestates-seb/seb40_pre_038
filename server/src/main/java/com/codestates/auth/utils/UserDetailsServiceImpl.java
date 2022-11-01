@@ -2,8 +2,8 @@ package com.codestates.auth.utils;
 
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
-import com.codestates.user.entity.User;
-import com.codestates.user.repository.UserRepository;
+import com.codestates.exception.user.entity.User;
+import com.codestates.exception.user.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

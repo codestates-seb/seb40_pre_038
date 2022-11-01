@@ -1,8 +1,8 @@
 package com.codestates.question;
 
-import com.codestates.answer.entity.Answer;
+import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
-import com.codestates.user.dto.UserDto;
+import com.codestates.exception.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -73,24 +73,18 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Response {
         private long questionId;
+        private UserDto.Response userInformation;
         private String title;
-        //        private String body;
         private String problem;
         private String expect;
         private List<String> tagList;
         private int view;
         private int vote;
-        //        private long userId;
-//        private String nickName;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-//        private List<Answer> answers;
+//        private CommentDto.Response commentUserInformation;
         private List<Comment> comments;
-        //        private Set<QuestionTag> tags;
-        /*멤버&답변&댓글 추가할 것!*/
-//        private TagDto.Response tagResponseDto;
-//        private List<TagDto.Response> tags;
-        private UserDto.Response userResponseDto;
+
     }
 
     @Getter
