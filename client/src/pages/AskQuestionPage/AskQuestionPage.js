@@ -11,8 +11,8 @@ import GoodQuestionGuide from './GoodQuestionGuide';
 import useInput from '../../util/useInput';
 import useEditor from '../../util/useEditor';
 import { useDispatch } from 'react-redux';
-import { postQuestion } from '../../_actions/questions_action';
-// import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { postNewQuestion } from '../../_actions/questions_action';
 
 const AskWrapper = styled.div`
   display: flex;
@@ -72,6 +72,7 @@ const AskQuestionPage = () => {
   const [tagsValue, tagsBind, tagsReset] = useInput('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,8 +83,8 @@ const AskQuestionPage = () => {
       expect: expectValue,
       tagBody: tagsValue,
     };
-    console.log(postBody);
-    dispatch(postQuestion(postBody));
+    dispatch(postNewQuestion(postBody));
+    navigate('/', { replace: true });
     titleReset();
     problemReset();
     expectReset();
