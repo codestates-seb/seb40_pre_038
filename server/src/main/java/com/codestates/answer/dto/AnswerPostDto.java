@@ -11,5 +11,5 @@ public class AnswerPostDto {
     private String body;
 
     @Positive
-    private long memberId;
+    private long userId;
 }

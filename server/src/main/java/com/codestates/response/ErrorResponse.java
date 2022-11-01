@@ -17,6 +17,8 @@ public class ErrorResponse {
     private List<FieldError> fieldErrors;
     private List<ConstraintViolationError> violationErrors;
 
+
+
     private ErrorResponse(int status, String message) {
         this.status = status;
         this.message = message;
@@ -28,12 +30,20 @@ public class ErrorResponse {
         this.violationErrors = violationErrors;
     }
 
-    public static ErrorResponse of(BindingResult bindingResult) {
-        return new ErrorResponse(FieldError.of(bindingResult), null);
+    public ErrorResponse(int status, String message, List<FieldError> fieldErrors,
+                         List<ConstraintViolationError> violationErrors) {
+        this.status = status;
+        this.message = message;
+        this.fieldErrors = fieldErrors;
+        this.violationErrors = violationErrors;
     }
 
-    public static ErrorResponse of(Set<ConstraintViolation<?>> violations) {
-        return new ErrorResponse(null, ConstraintViolationError.of(violations));
+    public static ErrorResponse of(BindingResult bindingResult, int status, String message) {
+        return new ErrorResponse(status, message, FieldError.of(bindingResult), null);
+    }
+
+    public static ErrorResponse of(Set<ConstraintViolation<?>> violations, int status, String message) {
+        return new ErrorResponse(status, message,null, ConstraintViolationError.of(violations));
     }
 
     public static ErrorResponse of(ExceptionCode exceptionCode) {
@@ -54,7 +64,7 @@ public class ErrorResponse {
         private Object rejectedValue;
         private String reason;
 
-        private FieldError(String field, Object rejectedValue, String reason) {
+        public FieldError(String field, Object rejectedValue, String reason) {
             this.field = field;
             this.rejectedValue = rejectedValue;
             this.reason = reason;

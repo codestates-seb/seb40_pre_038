@@ -18,18 +18,18 @@ public class QuestionVoteService {
         this.questionVoteRepository = questionVoteRepository;
     }
     
-    public void postVote(long questionId, long memberId) {
+    public void postVote(long questionId, long userId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         
         Question findQuestion = optionalQuestion.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         
-        QuestionVote findQuestionVote = questionVoteRepository.findByQuestionAndMemberId(findQuestion, memberId);
+        QuestionVote findQuestionVote = questionVoteRepository.findByQuestionAndUserId(findQuestion, userId);
         
         if(findQuestionVote == null) { // 투표한 적 없음
             findQuestionVote = new QuestionVote();
             findQuestionVote.setQuestion(findQuestion);
-            findQuestionVote.setMemberId(questionId);
+            findQuestionVote.setUserId(questionId);
             questionVoteRepository.save(findQuestionVote);
         } else { // 이미 투표함
             throw new BusinessLogicException(ExceptionCode.VOTED);

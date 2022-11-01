@@ -20,6 +20,6 @@ public class AnswerVote {
     @JoinColumn(name = "answer_id")
     private Answer answer;
 
-    @Column(name = "member_id")
-    private long memberId;
+    @Column(name = "user_id")
+    private long userId;
 }

@@ -9,7 +9,7 @@ public class AnswerVoteDto {
     private long answerId;
 
     @Positive
-    private long memberId;
+    private long userId;
 
     private int vote;
 
