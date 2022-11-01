@@ -2,7 +2,7 @@ package com.codestates.search;
 
 //import com.codestates.user.entity.user;
 import com.codestates.question.Question;
-import com.codestates.exception.user.entity.User;
+import com.codestates.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
