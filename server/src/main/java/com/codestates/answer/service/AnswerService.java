@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -53,9 +54,10 @@ public class AnswerService {
         return findVerifiedAnswer(answerId);
     }
     
-    public Page<Answer> findAnswers(long questionId, int page, int size) {
+    public List<Answer> findAnswers(long questionId) {
         // 삭제된 답변은 보이지 않음
-        return answerRepository.findAll(questionId, PageRequest.of(page, size, Sort.by("status").ascending()));
+
+        return answerRepository.findAll(questionId);
     }
 
     public void deleteAnswer(long answerId) {
