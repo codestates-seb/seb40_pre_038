@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AnswersInfo from './AnswersInfo';
 import Answer from '../MainQuestion/MainQuestion';
@@ -9,11 +10,12 @@ const AnswerConatiner = styled.div`
   border-bottom: 1px solid #e3e6e8;
 `;
 
-//GET 요청: '/questions/{question-id}/answers?page=1
-
 const answersData = [0, 0, 0, 0, 0, 0, 0];
 
 const QuestionAnswers = () => {
+  const state = useSelector((state) => state.questionReducer);
+  const { question_id, data } = state;
+  console.log(question_id, data);
   return (
     <QuestionAnswersContainer>
       <AnswersInfo answersCnt={17} />

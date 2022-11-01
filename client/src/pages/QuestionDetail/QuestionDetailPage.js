@@ -1,4 +1,6 @@
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setQuestionId } from '../../_actions/question_action';
 import styled from 'styled-components';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
@@ -6,6 +8,7 @@ import Sidebar from '../../components/Sidebar.js';
 import QuestionTitle from './QuestionTitle';
 import MainQuestion from './MainQuestion/MainQuestion';
 import QuestionAnswers from './Answers/QuestionAnswers';
+import { useEffect } from 'react';
 
 const MainContent = styled.div`
   display: flex;
@@ -31,8 +34,13 @@ const MainWrapper = styled.div`
 `;
 
 const QuestionDetailPage = () => {
+  const dispatch = useDispatch();
   const { question_id } = useParams();
-  console.log(question_id);
+
+  useEffect(() => {
+    dispatch(setQuestionId(question_id));
+  });
+
   return (
     <>
       <MainContent>
