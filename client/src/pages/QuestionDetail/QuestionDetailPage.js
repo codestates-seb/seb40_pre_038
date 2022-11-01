@@ -1,4 +1,4 @@
-//import { Container } from '../pages/Home/HomePage/HomePage';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
@@ -31,6 +31,8 @@ const MainWrapper = styled.div`
 `;
 
 const QuestionDetailPage = () => {
+  const { question_id } = useParams();
+  console.log(question_id);
   return (
     <>
       <MainContent>
