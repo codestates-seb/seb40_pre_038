@@ -18,7 +18,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 public class CommentController {
     private final CommentService commentService;
     private final QuestionService questionService;

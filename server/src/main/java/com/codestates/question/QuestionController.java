@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Validated
 @RestController
-@RequestMapping("/questions")
+@RequestMapping("/api/questions")
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
