@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { USERS_URL } from '../api/requests';
 
-export const GET_USERS = 'GET_USERS';
+export const GET_All_USERS = 'GET_All_USERS';
 
 export const getAllUsers = () => {
   const request = axios.get(`${USERS_URL}`).then((response) => {
@@ -11,7 +11,7 @@ export const getAllUsers = () => {
   });
 
   return {
-    type: GET_USERS,
+    type: GET_All_USERS,
     payload: request,
   };
 };

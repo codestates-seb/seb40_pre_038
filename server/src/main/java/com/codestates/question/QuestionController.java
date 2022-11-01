@@ -15,12 +15,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Validated
 @RestController
-@RequestMapping("/questions")
+@RequestMapping("/api/questions")
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
@@ -40,8 +44,18 @@ public class QuestionController {
     @PostMapping("/add")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost) {
 
+        questionPost.setTagBody(Arrays.stream(questionPost.getTagBody().split(","))
+                .map(a -> Arrays.stream(a.trim()
+                                .split(" "))
+                        .flatMap(b -> Arrays.stream(b.split(", "))))
+                .flatMap(a -> a)
+                .distinct()
+                .filter(a -> !Objects.equals(a, ""))
+                .map(String::toLowerCase)
+                .collect(Collectors.joining(", ")));
+
         Question question = mapper.questionPostToQuestion(questionPost);
-        Question createQuestion = questionService.createQuestion(question, questionPost.getMemberId());
+        Question createQuestion = questionService.createQuestion(question, questionPost.getUserId());
         QuestionDto.Response response = mapper.questionToQuestionResponse(createQuestion);
 
         return new ResponseEntity<>(
@@ -54,8 +68,19 @@ public class QuestionController {
     public ResponseEntity patchQuestion(@Valid @RequestBody QuestionDto.Patch questionPatch,
                                         @PathVariable("question_id") @Positive long questionId) {
         questionPatch.setQuestionId(questionId);
+
+        questionPatch.setTagBody(Arrays.stream(questionPatch.getTagBody().split(","))
+                .map(a -> Arrays.stream(a.trim()
+                                .split(" "))
+                        .flatMap(b -> Arrays.stream(b.split(", "))))
+                .flatMap(a -> a)
+                .distinct()
+                .filter(a -> !Objects.equals(a, ""))
+                .map(String::toLowerCase)
+                .collect(Collectors.joining(", ")));
+
         Question question = mapper.questionPatchToQuestion(questionPatch); // 수정
-        Question updateQuestion = questionService.updateQuestion(question, questionPatch.getMemberId()); // DB 업데이트
+        Question updateQuestion = questionService.updateQuestion(question, questionPatch.getUserId()); // DB 업데이트
         QuestionDto.Response response = mapper.questionToQuestionResponse(updateQuestion);
 
         return new ResponseEntity<>(
@@ -85,18 +110,51 @@ public class QuestionController {
         );
     }
 
-    @GetMapping("/search")
-    public ResponseEntity getQuestionsByTag(@RequestParam String tagBody,
-                                            @Positive @RequestParam int page,
-                                            @Positive @RequestParam(required = false, defaultValue = "15") int size) {
-        Page<Question> pageQuestions = questionService.findQuestionsByTagBody(tagBody,page - 1, size);
+//    @GetMapping("/search")
+//    public ResponseEntity getQuestionsByTag(@Positive @RequestParam int page,
+//                                            @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+//        Page<Question> pageQuestions = questionService.findQuestionsByTagBody(page - 1, size);
+//        List<Question> questions = pageQuestions.getContent();
+//        List<QuestionDto.Response> responses = mapper.questionsToQuestionResponses(questions);
+//
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK
+//        );
+//    }
+
+//    @GetMapping("/search/{tagBody}")
+//    public ResponseEntity getListsByTag(@PathVariable("tagBody") String tagBody) {
+//        List<Integer> pageQuestions = questionService.findListByTagBody(tagBody);
+//
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(pageQuestions), HttpStatus.OK
+//        );
+//    }
+
+    @GetMapping("/search/{tagBody}")
+    public ResponseEntity getQuestionByTagBody(@PathVariable("tagBody") @NotBlank String tagBody,
+                                               @Positive @RequestParam int page,
+                                               @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+        Page<Question> pageQuestions = questionService.findAllByTagBody(tagBody, page - 1, size);
         List<Question> questions = pageQuestions.getContent();
-        List<QuestionDto.Response> responses = mapper.questionsToQuestionResponses(questions);
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK
-        );
+                new MultiResponseDto<>(mapper.questionsToQuestionResponses(questions), pageQuestions),
+                HttpStatus.OK);
     }
+
+//    @GetMapping("/search/{tagBody}")
+//    public ResponseEntity getQuestionsByTag(@PathVariable("tagBody") String tagBody,
+//                                            @Positive @RequestParam int page,
+//                                            @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+//        Page<Question> pageQuestions = questionService.findQuestionsByTagBody(tagBody,page - 1, size);
+//        List<Question> questions = pageQuestions.getContent();
+//        List<QuestionDto.Response> responses = mapper.questionsToQuestionResponses(questions);
+//
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK
+//        );
+//    }
 
     @Secured("ROLE_USER")
     @PatchMapping("/{question_id}")
@@ -114,10 +172,10 @@ public class QuestionController {
     @PatchMapping("/{question-id}/vote") // Question Vote
     public ResponseEntity voteQuestion(@PathVariable("question-id") @Positive long questionId,
                                        @Valid @RequestBody QuestionDto.Vote questionVote) {
-        questionVoteService.postVote(questionId, questionVote.getMemberId());
+        questionVoteService.postVote(questionId, questionVote.getUserId());
 
         Question question = questionService.updateVote(mapper.questionVoteToQuestion(questionVote), questionId);
-        
+
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToQuestionResponse(question)), HttpStatus.OK
         );

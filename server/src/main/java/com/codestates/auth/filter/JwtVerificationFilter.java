@@ -25,7 +25,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     public JwtVerificationFilter(JwtTokenizer jwtTokenizer,
                                  CustomAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;  // Get Claims
-        this.authorityUtils = authorityUtils;  // Member role
+        this.authorityUtils = authorityUtils;  // User role
     }
 
     @Override

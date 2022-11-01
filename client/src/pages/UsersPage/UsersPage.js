@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../_actions/user_action';
+import { getAllUsers } from '../../_actions/users_action';
 import PageContainer from '../../components/PageContainer';
 
 const UsersPage = () => {
@@ -9,21 +9,21 @@ const UsersPage = () => {
 
   useEffect(() => {
     dispatch(getAllUsers()).then((response) => {
-      if (response.payload.memberList) {
+      if (response.payload.userList) {
         console.log(response);
       }
     });
   }, [dispatch]);
 
-  const { memberList } = users?.data || [];
+  const { userList } = users?.data || [];
 
   return (
     <PageContainer nav sidebar footer>
       <h1>UsersPage</h1>
       <ul>
-        {memberList?.map((user) => (
-          <li key={user.memberId}>
-            {user.nickName}: {user.email}
+        {userList?.map((user) => (
+          <li key={user.userId}>
+            {user.userId} {user.nickName}: {user.email}
           </li>
         ))}
       </ul>

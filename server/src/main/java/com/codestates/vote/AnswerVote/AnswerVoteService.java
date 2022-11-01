@@ -18,18 +18,18 @@ public class AnswerVoteService {
         this.answerVoteRepository = answerVoteRepository;
     }
 
-    public void postVote(long answerId, long memberId) {
+    public void postVote(long answerId, long userId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
 
         Answer findAnswer = optionalAnswer.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
 
-        AnswerVote findAnswerVote = answerVoteRepository.findByAnswerAndMemberId(findAnswer, memberId);
+        AnswerVote findAnswerVote = answerVoteRepository.findByAnswerAndUserId(findAnswer, userId);
 
         if(findAnswerVote == null) { // 투표한 적 없음
             findAnswerVote = new AnswerVote();
             findAnswerVote.setAnswer(findAnswer);
-            findAnswerVote.setMemberId(memberId);
+            findAnswerVote.setUserId(userId);
             answerVoteRepository.save(findAnswerVote);
         } else { // 이미 투표함
             throw new BusinessLogicException(ExceptionCode.VOTED);

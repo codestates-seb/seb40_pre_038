@@ -1,10 +1,12 @@
 package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
-import com.codestates.member.entity.Member;
+import com.codestates.user.entity.User;
 import com.codestates.question.Question;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.AnswerVote.AnswerVote;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,11 +29,13 @@ public class Answer extends Auditable {
     @Column(nullable = false, name = "status")
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_NORMAL;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 
@@ -44,14 +48,7 @@ public class Answer extends Auditable {
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    public void addMember(Member member) {
-        this.member = member;
-    }
-
-    public void addQuestion(Question question) {
-        this.question = question;
-    }
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "answer")
     private List<Comment> comments = new ArrayList<>();
 
