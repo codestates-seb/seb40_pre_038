@@ -9,19 +9,19 @@ const UsersPage = () => {
 
   useEffect(() => {
     dispatch(getAllUsers()).then((response) => {
-      if (response.payload.memberList) {
+      if (response.payload.userList) {
         console.log(response);
       }
     });
   }, [dispatch]);
 
-  const { memberList } = users?.data || [];
+  const { userList } = users?.data || [];
 
   return (
     <PageContainer nav sidebar footer>
       <h1>UsersPage</h1>
       <ul>
-        {memberList?.map((user) => (
+        {userList?.map((user) => (
           <li key={user.memberId}>
             {user.nickName}: {user.email}
           </li>
