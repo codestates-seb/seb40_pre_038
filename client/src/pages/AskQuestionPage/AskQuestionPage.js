@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import AskPageHeader from './AskPageHeader';
 import { ButtonBlue } from '../../components/Buttons';
-import { InputContainer, StyledInputComponent } from './InputContainer';
+import {
+  InputContainer,
+  StyledInputComponent,
+  EditorInput,
+} from './InputContainer';
 import DecsGoodQuestion from './DecsGoodQuestion';
 import GoodQuestionGuide from './GoodQuestionGuide';
 import useInput from '../../util/useInput';
+import useEditor from '../../util/useEditor';
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3000/';
@@ -41,6 +46,7 @@ const DescWrapper = styled.div`
 `;
 const ResponsiveContainer = styled.div`
   width: 100%;
+  margin-top: 15px;
   @media screen and (min-width: 1101px) {
     display: flex;
     flex-direction: row-reverse;
@@ -61,20 +67,21 @@ const BtnContainer = styled.div`
 `;
 const AskQuestionPage = () => {
   const [titleValue, titleBind, titleReset] = useInput('');
-  const [problemValue, problemBind, problemReset] = useInput('');
-  const [expectValue, expectBind, expectReset] = useInput('');
+  const [problemValue, problemBind, problemReset] = useEditor(' ');
+  const [expectValue, expectBind, expectReset] = useEditor(' ');
   const [tagsValue, tagsBind, tagsReset] = useInput('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const postBody = {
-      memberId: 2,
+      userId: 2,
       title: titleValue,
-      body: problemValue + ' ' + expectValue,
+      problem: problemValue,
+      expect: expectValue,
       tagBody: tagsValue,
     };
     await axios
-      .post('/questions/add', postBody)
+      .post('/api/questions/add', postBody)
       .then(function (response) {
         console.log(response);
         window.location.href = BASE_URL;
@@ -129,12 +136,7 @@ const AskQuestionPage = () => {
               title="What are the details of your problem?"
               desc="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
             >
-              {/* 여기에 토스트 UI */}
-              <textarea
-                value={problemValue}
-                onChange={problemBind.onChange}
-                disabled={titleValue === '' ? true : false}
-              ></textarea>
+              <EditorInput value={problemBind}></EditorInput>
             </InputContainer>
           </ResponsiveContainer>
           <ResponsiveContainer>
@@ -169,12 +171,7 @@ const AskQuestionPage = () => {
               title="What did you try and what were you expecting?"
               desc="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
             >
-              {/* 여기에 토스트 UI */}
-              <textarea
-                value={expectValue}
-                onChange={expectBind.onChange}
-                disabled={problemValue === '' ? true : false}
-              ></textarea>
+              <EditorInput value={expectBind}></EditorInput>
             </InputContainer>
           </ResponsiveContainer>
           <ResponsiveContainer>
@@ -202,7 +199,6 @@ const AskQuestionPage = () => {
                 width="102%"
                 value={tagsBind}
                 placeholder="e.g. (angularjs php jquery)"
-                disabled={expectValue === '' ? true : false}
               />
             </InputContainer>
           </ResponsiveContainer>
