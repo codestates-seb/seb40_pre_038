@@ -48,11 +48,9 @@ public interface QuestionMapper {
                 .tagList(question.getTagList())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
-//                .commentUserInformation(commentToCommentResponseDto())
                 .comments(question.getComments())
                 .build();
     }
 
     UserDto.Response userToUserResponseDto(User user);
-    CommentDto.Response commentToCommentResponseDto(Comment comment);
 }
