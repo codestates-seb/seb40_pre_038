@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Headline } from '../../components/Headline';
+import { Button } from '../../components/Buttons';
 
 const PageHeaderWrapper = styled.div`
   display: flex !important;
@@ -7,15 +9,28 @@ const PageHeaderWrapper = styled.div`
   flex-wrap: wrap !important;
 `;
 
+const ButtonContainer = styled.div`
+  margin-bottom: 12px !important;
+`;
+
 const PageHeader = () => {
+  const navigate = useNavigate();
+
+  const handleClickAskQuestionBtn = () => {
+    navigate('/questions/ask');
+  };
   return (
     <PageHeaderWrapper>
       <Headline className="mr12 mb12">All Questions</Headline>
-      <div className="aside-cta flex--item mb12 print:d-none">
-        <a href="/questions/ask" className="ws-nowrap s-btn s-btn__primary">
+      <ButtonContainer>
+        <Button
+          type="primary"
+          whiteSpace="nowrap"
+          onClick={handleClickAskQuestionBtn}
+        >
           Ask Question
-        </a>
-      </div>
+        </Button>
+      </ButtonContainer>
     </PageHeaderWrapper>
   );
 };
