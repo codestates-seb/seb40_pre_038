@@ -1,7 +1,7 @@
 package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
-import com.codestates.user.entity.User;
+import com.codestates.exception.user.entity.User;
 import com.codestates.question.Question;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.AnswerVote.AnswerVote;
@@ -39,7 +39,7 @@ public class Answer extends Auditable {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @Column(nullable = false, columnDefinition = "TEXT", name = "body")
+    @Column(nullable = false, columnDefinition = "TEXT", name = "body", length = 1000000000)
     private String body;
 
     @Column(nullable = false, name = "vote")
@@ -70,5 +70,20 @@ public class Answer extends Auditable {
             this.statusNumber = statusNumber;
             this.statusDescription = statusDescription;
         }
+    }
+
+    public Answer(AnswerStatus answerStatus, String body, List<Comment> comments) {
+//        this.question = question;
+        this.answerStatus = answerStatus;
+        this.body = body;
+        this.comments = comments;
+    }
+
+    public Answer(AnswerStatus answerStatus, User user, Question question, String body, List<Comment> comments) {
+        this.user = user;
+        this.answerStatus = answerStatus;
+        this.question = question;
+        this.body = body;
+        this.comments = comments;
     }
 }

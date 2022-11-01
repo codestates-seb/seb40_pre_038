@@ -1,7 +1,7 @@
-package com.codestates.user.assembler;
+package com.codestates.exception.user.assembler;
 
-import com.codestates.user.controller.UserController;
-import com.codestates.user.entity.User;
+import com.codestates.exception.user.entity.User;
+import com.codestates.exception.user.controller.UserController;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
