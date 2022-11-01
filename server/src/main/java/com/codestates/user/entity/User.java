@@ -1,4 +1,4 @@
-package com.codestates.exception.user.entity;
+package com.codestates.user.entity;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;

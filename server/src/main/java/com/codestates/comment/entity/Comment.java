@@ -2,7 +2,7 @@ package com.codestates.comment.entity;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
-import com.codestates.exception.user.entity.User;
+import com.codestates.user.entity.User;
 import com.codestates.question.Question;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;

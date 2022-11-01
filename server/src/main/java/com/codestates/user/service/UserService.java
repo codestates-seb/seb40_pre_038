@@ -1,11 +1,11 @@
-package com.codestates.exception.user.service;
+package com.codestates.user.service;
 
 import com.codestates.auth.utils.CustomAuthorityUtils;
 import com.codestates.auth.utils.UserRegistrationApplicationEvent;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
-import com.codestates.exception.user.entity.User;
-import com.codestates.exception.user.repository.UserRepository;
+import com.codestates.user.entity.User;
+import com.codestates.user.repository.UserRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

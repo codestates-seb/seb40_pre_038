@@ -1,7 +1,7 @@
 package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
-import com.codestates.exception.user.entity.User;
+import com.codestates.user.entity.User;
 import com.codestates.question.Question;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.AnswerVote.AnswerVote;

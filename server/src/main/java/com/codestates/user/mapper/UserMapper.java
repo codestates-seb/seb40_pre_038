@@ -1,7 +1,7 @@
-package com.codestates.exception.user.mapper;
+package com.codestates.user.mapper;
 
-import com.codestates.exception.user.dto.UserDto;
-import com.codestates.exception.user.entity.User;
+import com.codestates.user.dto.UserDto;
+import com.codestates.user.entity.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
