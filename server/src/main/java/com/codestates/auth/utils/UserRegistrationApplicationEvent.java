@@ -1,6 +1,6 @@
 package com.codestates.auth.utils;
 
-import com.codestates.user.entity.User;
+import com.codestates.exception.user.entity.User;
 import lombok.Getter;
 
 @Getter

@@ -2,7 +2,7 @@ package com.codestates.auth.filter;
 
 import com.codestates.auth.dto.LoginDto;
 import com.codestates.auth.jwt.JwtTokenizer;
-import com.codestates.user.entity.User;
+import com.codestates.exception.user.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;

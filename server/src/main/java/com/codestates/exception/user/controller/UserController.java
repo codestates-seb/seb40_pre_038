@@ -1,8 +1,8 @@
-package com.codestates.user.controller;
+package com.codestates.exception.user.controller;
 
-import com.codestates.user.assembler.UserAssembler;
-import com.codestates.user.entity.User;
-import com.codestates.user.service.UserService;
+import com.codestates.exception.user.assembler.UserAssembler;
+import com.codestates.exception.user.entity.User;
+import com.codestates.exception.user.service.UserService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;

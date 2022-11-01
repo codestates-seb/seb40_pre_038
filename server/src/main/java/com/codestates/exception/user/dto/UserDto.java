@@ -1,4 +1,4 @@
-package com.codestates.user.dto;
+package com.codestates.exception.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

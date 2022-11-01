@@ -143,19 +143,6 @@ public class QuestionController {
                 HttpStatus.OK);
     }
 
-//    @GetMapping("/search/{tagBody}")
-//    public ResponseEntity getQuestionsByTag(@PathVariable("tagBody") String tagBody,
-//                                            @Positive @RequestParam int page,
-//                                            @Positive @RequestParam(required = false, defaultValue = "15") int size) {
-//        Page<Question> pageQuestions = questionService.findQuestionsByTagBody(tagBody,page - 1, size);
-//        List<Question> questions = pageQuestions.getContent();
-//        List<QuestionDto.Response> responses = mapper.questionsToQuestionResponses(questions);
-//
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK
-//        );
-//    }
-
     @Secured("ROLE_USER")
     @PatchMapping("/{question_id}")
     public ResponseEntity updateViewQuestion(@RequestBody QuestionDto.View questionView,
@@ -201,31 +188,4 @@ public class QuestionController {
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),
                 HttpStatus.OK);
     }
-
-    /*@Secured("ROLE_USER")
-    @PatchMapping("/{question_id}/upvote")
-    public ResponseEntity upVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
-                                         @PathVariable("question_id") @Positive long questionId) {
-        Question question = mapper.questionVoteToQuestion(questionVote);
-        Question votedQuestion = questionService.upVote(question, questionId);
-        QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(response), HttpStatus.OK
-        );
-    }
-
-    @Secured("ROLE_USER")
-    @PatchMapping("/{question_id}/downvote")
-    public ResponseEntity downVoteQuestion(@RequestBody QuestionDto.Vote questionVote,
-                                           @PathVariable("question_id") @Positive long questionId) {
-        Question question = mapper.questionVoteToQuestion(questionVote);
-        Question votedQuestion = questionService.downVote(question, questionId);
-        QuestionDto.Response response = mapper.questionToQuestionResponse(votedQuestion);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(response), HttpStatus.OK
-        );
-    }
-    */
 }

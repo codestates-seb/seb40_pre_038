@@ -2,7 +2,7 @@ package com.codestates.question;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
-import com.codestates.user.entity.User;
+import com.codestates.exception.user.entity.User;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.QuestionVote.QuestionVote;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -29,13 +29,10 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private String title;
 
-//    @Column(nullable = false)
-//    private String body;
-
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000000000)
     private String problem;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000000000)
     private String expect;
 
     @Column
@@ -90,4 +87,20 @@ public class Question extends Auditable {
         this.expect = expect;
     }
 
+    public Question(String title, String problem, String expect, String tagBody, List<String> tagList,
+                    int view, int vote, User user, List<Answer> answers, List<Comment> comments,
+                    LocalDateTime modifiedAt, QuestionVote questionVote) {
+        this.title = title;
+        this.problem = problem;
+        this.expect = expect;
+        this.tagBody = tagBody;
+        this.tagList = tagList;
+        this.view = view;
+        this.vote = vote;
+        this.user = user;
+        this.answers = answers;
+        this.comments = comments;
+        this.modifiedAt = modifiedAt;
+        this.questionVote = questionVote;
+    }
 }

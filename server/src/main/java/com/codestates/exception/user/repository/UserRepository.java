@@ -1,6 +1,6 @@
-package com.codestates.user.repository;
+package com.codestates.exception.user.repository;
 
-import com.codestates.user.entity.User;
+import com.codestates.exception.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
