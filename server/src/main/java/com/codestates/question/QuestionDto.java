@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,17 +21,24 @@ public class QuestionDto {
     @Setter
     @AllArgsConstructor
     public static class Post {
+
         @Positive
         private long userId;
+
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
-        //        @NotEmpty(message = "내용을 입력하셔야 합니다.")
-//        private String body;
+
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
+        @Size(min = 20, message = "20자 이상 입력하셔야 합니다.")
         private String problem;
+
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
+        @Size(min = 20, message = "20자 이상 입력하셔야 합니다.")
         private String expect;
+
+        @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String tagBody;
+
         private List<String> tags;
 
     }
@@ -41,15 +49,21 @@ public class QuestionDto {
     public static class Patch {
         private long questionId;
         private long userId;
+
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
-        //        @NotEmpty(message = "내용을 입력하셔야 합니다.")
-//        private String body;
+
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
+        @Size(min = 20, message = "20자 이상 입력하셔야 합니다.")
         private String problem;
+
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
+        @Size(min = 20, message = "20자 이상 입력하셔야 합니다.")
         private String expect;
+
+        @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String tagBody;
+
         private List<String> tags;
     }
 

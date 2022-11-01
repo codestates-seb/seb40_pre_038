@@ -44,6 +44,6 @@ public class SearchService {
     }
 
     private Page<Question> findBody(String content, int page, int size) { // 질문 내용 검색
-        return searchRepository.findAllByProblemContaining(content, PageRequest.of(page, size, Sort.by("vote").descending()));
+        return searchRepository.findAllByBody(content, PageRequest.of(page, size, Sort.by("vote").descending()));
     }
 }
