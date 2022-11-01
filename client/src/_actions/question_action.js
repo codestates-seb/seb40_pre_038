@@ -11,16 +11,13 @@ export const setQuestionId = (question_id) => {
   };
 };
 
-export const getQuestion = (question_id) => {
-  const request = axios
+export const getQuestion = async (question_id) => {
+  const payload = await axios
     .get(`${QUESTIONS_URL}/${question_id}`)
-    .then((response) => {
-      const episodes = response.data._embedded;
-      return episodes;
-    });
+    .catch((error) => console.error(error));
 
   return {
     type: GET_QUESTION,
-    payload: request,
+    payload: payload.data,
   };
 };

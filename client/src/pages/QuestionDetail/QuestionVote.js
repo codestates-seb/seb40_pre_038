@@ -44,7 +44,9 @@ const ActivityIcon = styled(SideIcon)`
   margin: 8px 0;
 `;
 
-const QuestionVote = () => {
+const QuestionVote = ({ data }) => {
+  const vote = data === undefined ? 0 : data.vote;
+
   return (
     <QuestionVoteContainer>
       <UpVoteBtn>
@@ -52,7 +54,7 @@ const QuestionVote = () => {
           <path d="M2 25h32L18 9 2 25Z" />
         </svg>
       </UpVoteBtn>
-      <VoteStat>114</VoteStat>
+      <VoteStat>{vote}</VoteStat>
       <DownVoteBtn>
         <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 11h32L18 27 2 11Z" />

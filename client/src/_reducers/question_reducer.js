@@ -2,6 +2,7 @@ import { GET_QUESTION, SET_QUESTION_ID } from '../_actions/question_action';
 
 const initialState = {
   question_id: 1,
+  data: {},
 };
 
 export const questionReducer = (state = initialState, action) => {

@@ -16,14 +16,21 @@ const QuestionBodyBottom = styled.div`
   justify-content: space-between;
 `;
 
-const QuestionBody = () => {
+const QuestionBody = ({ data }) => {
+  const problem = data === undefined ? '' : data.problem;
+  const expect = data === undefined ? '' : data.expect;
+  const tagList = data === undefined ? [] : data.tagList;
+  const userName = data === undefined ? '' : data.userResponseDto.nickName;
+  const createdDate = data === undefined ? '' : data.createdAt;
+
   return (
     <QuestionBodyContainer>
-      <QuestionBodyTxt />
-      <QuestionTags />
+      <QuestionBodyTxt text={problem} />
+      <QuestionBodyTxt text={expect} />
+      <QuestionTags tagList={tagList} />
       <QuestionBodyBottom>
         <QuestionBodyBtns />
-        <QuestionUserinfo />
+        <QuestionUserinfo userName={userName} createdAt={createdDate} />
       </QuestionBodyBottom>
     </QuestionBodyContainer>
   );
