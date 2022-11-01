@@ -1,1 +1,1 @@
-export const USERS_URL = '/members';
+export const USERS_URL = '/users';
