@@ -1,8 +1,8 @@
 package com.codestates.comment;
 
-import com.codestates.exception.user.dto.UserDto;
+import com.codestates.user.dto.UserDto;
 import com.codestates.comment.entity.Comment;
-import com.codestates.exception.user.entity.User;
+import com.codestates.user.entity.User;
 import org.mapstruct.Mapper;
 
 import java.util.List;

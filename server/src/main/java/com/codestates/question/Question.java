@@ -2,7 +2,7 @@ package com.codestates.question;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
-import com.codestates.exception.user.entity.User;
+import com.codestates.user.entity.User;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.QuestionVote.QuestionVote;
 import com.fasterxml.jackson.annotation.JsonBackReference;

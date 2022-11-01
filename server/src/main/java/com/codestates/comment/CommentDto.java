@@ -1,7 +1,7 @@
 package com.codestates.comment;
 
 import com.codestates.comment.entity.CommentType;
-import com.codestates.exception.user.dto.UserDto;
+import com.codestates.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
