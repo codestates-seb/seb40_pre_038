@@ -81,9 +81,7 @@ public class QuestionDto {
         private int vote;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-//        private CommentDto.Response commentUserInformation;
         private List<Comment> comments;
-
     }
 
     @Getter

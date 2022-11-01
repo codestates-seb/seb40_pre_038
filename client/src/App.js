@@ -3,14 +3,15 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
 
 import Header from './components/Header';
-import HomePage from './pages/Home/HomePage/HomePage';
+import HomePage from './pages/HomePage/HomePage/HomePage';
 import Login from './pages/LoginPage/Login';
 import Signup from './pages/SignUpPage/SignUp';
-import LandingPage from './pages/Home/LandingPage/LandingPage';
-import QuestionsPage from './pages/QuestionsPage';
-import TagsPage from './pages/TagsPage';
-import UsersPage from './pages/UsersPage';
-import AskQuestionPage from './pages/AskQuestionPage';
+import LandingPage from './pages/HomePage/LandingPage/LandingPage';
+import QuestionsPage from './pages/QuestionsPage/QuestionsPage';
+import TagsPage from './pages/TagsPage/TagsPage';
+import UsersPage from './pages/UsersPage/UsersPage';
+import AskQuestionPage from './pages/AskQuestionPage/AskQuestionPage';
+import QuestionDetailPage from './pages/QuestionDetail/QuestionDetailPage';
 
 const App = () => {
   /**
@@ -32,6 +33,10 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/questions" element={<QuestionsPage />} />
         <Route path="/questions/ask" element={<AskQuestionPage />} />
+        <Route
+          path="/questions/:question_id"
+          element={<QuestionDetailPage />}
+        />
         <Route path="/tags" element={<TagsPage />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="*" element={<NoMatch />} />

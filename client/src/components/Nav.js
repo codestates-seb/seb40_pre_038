@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -78,27 +77,20 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Nav = () => {
-  const [curPage, setCurPage] = useState(0);
-  const handleClickHome = () => {
-    setCurPage(0);
-  };
-  const handleClickQuestions = () => {
-    setCurPage(1);
-  };
-  const handleClickTags = () => {
-    setCurPage(2);
-  };
-  const handleClickUsers = () => {
-    setCurPage(3);
-  };
+const navObj = {
+  home: '/',
+  questions: '/questions',
+  tags: '/tags',
+  users: '/users',
+};
+
+const Nav = ({ pathname = navObj.home }) => {
   return (
     <NavWrapper>
       <NavContainerBox>
-        <StyledLink to="/">
+        <StyledLink to={`${navObj.home}`}>
           <NavContainer
-            className={curPage === 0 ? 'selected' : ''}
-            onClick={handleClickHome}
+            className={pathname === `${navObj.home}` ? 'selected' : ''}
           >
             Home
           </NavContainer>
@@ -106,10 +98,11 @@ const Nav = () => {
       </NavContainerBox>
       <NavContainerBox>
         <Public>PUBLIC</Public>
-        <StyledLink to="/questions">
+        <StyledLink to={`${navObj.questions}`}>
           <NavContainer
-            className={curPage === 1 ? 'selected' : ''}
-            onClick={handleClickQuestions}
+            className={
+              pathname.startsWith(`${navObj.questions}`) ? 'selected' : ''
+            }
           >
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18">
               <path d="M9 1C4.64 1 1 4.64 1 9c0 4.36 3.64 8 8 8 4.36 0 8-3.64 8-8 0-4.36-3.64-8-8-8ZM8 15.32a6.46 6.46 0 0 1-4.3-2.74 6.46 6.46 0 0 1-.93-5.01L7 11.68v.8c0 .88.12 1.32 1 1.32v1.52Zm5.72-2c-.2-.66-1-1.32-1.72-1.32h-1v-2c0-.44-.56-1-1-1H6V7h1c.44 0 1-.56 1-1V5h2c.88 0 1.4-.72 1.4-1.6v-.33a6.45 6.45 0 0 1 3.83 4.51 6.45 6.45 0 0 1-1.51 5.73v.01Z"></path>
@@ -117,18 +110,16 @@ const Nav = () => {
             <span>Questions</span>
           </NavContainer>
         </StyledLink>
-        <StyledLink to="/tags">
+        <StyledLink to={`${navObj.tags}`}>
           <NavContainer
-            className={curPage === 2 ? 'selected blank' : 'blank'}
-            onClick={handleClickTags}
+            className={pathname.startsWith(`${navObj.tags}`) ? 'selected' : ''}
           >
             Tags
           </NavContainer>
         </StyledLink>
-        <StyledLink to="/users">
+        <StyledLink to={`${navObj.users}`}>
           <NavContainer
-            className={curPage === 3 ? 'selected blank' : 'blank'}
-            onClick={handleClickUsers}
+            className={pathname.startsWith(`${navObj.users}`) ? 'selected' : ''}
           >
             Users
           </NavContainer>

@@ -57,7 +57,7 @@ const SummaryContent = () => {
   return (
     <SummaryContentWrapper>
       <SummaryContentTitle>
-        <SummaryContentTitleLink to="#">
+        <SummaryContentTitleLink to="/questions/1">
           Function not working correctly, x != (y or z)
         </SummaryContentTitleLink>
       </SummaryContentTitle>
