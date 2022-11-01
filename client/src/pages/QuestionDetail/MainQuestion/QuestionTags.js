@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const QuestionTagsContainer = styled.div`
   width: 100%;
   display: flex;
-  margin: 24px 0 12px 0;
+  margin-top: 24px;
 `;
 
 const Tag = styled.button`

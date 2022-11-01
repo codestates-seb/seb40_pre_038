@@ -53,8 +53,8 @@ const QuestionDetailPage = () => {
           <QuestionTitle />
           <MainWrapper>
             <div>
-              <MainQuestion data={data} />
-              <QuestionAnswers />
+              <MainQuestion data={data} type="question" />
+              <QuestionAnswers questionId={question_id} />
             </div>
             <Sidebar />
           </MainWrapper>
