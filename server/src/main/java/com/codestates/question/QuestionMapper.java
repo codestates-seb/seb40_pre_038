@@ -2,8 +2,8 @@ package com.codestates.question;
 
 import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
-import com.codestates.exception.user.dto.UserDto;
-import com.codestates.exception.user.entity.User;
+import com.codestates.user.dto.UserDto;
+import com.codestates.user.entity.User;
 //import com.codestates.tag.Tag;
 //import com.codestates.tag.TagDto;
 import org.mapstruct.Mapper;

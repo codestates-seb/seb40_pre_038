@@ -1,9 +1,10 @@
-package com.codestates.exception.user.assembler;
+package com.codestates.user.assembler;
 
-import com.codestates.exception.user.entity.User;
-import com.codestates.exception.user.controller.UserController;
+import com.codestates.user.entity.User;
+import com.codestates.user.controller.UserController;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -15,7 +16,7 @@ public class UserAssembler implements RepresentationModelAssembler <User, Entity
     @Override
     public EntityModel<User> toModel(User user) {
         return EntityModel.of(user,
-                linkTo(methodOn(UserController.class).getUser(user.getUserId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(methodOn(UserController.class).getUser(user.getUserId())).withSelfRel(),
                 linkTo(methodOn(UserController.class).getUsers()).withRel("users"));
     }
 

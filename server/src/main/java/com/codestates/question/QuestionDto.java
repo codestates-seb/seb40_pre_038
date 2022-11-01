@@ -1,8 +1,7 @@
 package com.codestates.question;
 
-import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
-import com.codestates.exception.user.dto.UserDto;
+import com.codestates.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

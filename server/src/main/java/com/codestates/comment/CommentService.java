@@ -8,9 +8,9 @@ import com.codestates.comment.entity.CommentType;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 
-import com.codestates.exception.user.entity.User;
-import com.codestates.exception.user.repository.UserRepository;
-import com.codestates.exception.user.service.UserService;
+import com.codestates.user.entity.User;
+import com.codestates.user.repository.UserRepository;
+import com.codestates.user.service.UserService;
 import com.codestates.question.Question;
 import com.codestates.question.QuestionRepository;
 import com.codestates.question.QuestionService;
