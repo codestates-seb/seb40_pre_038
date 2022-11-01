@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @Validated
-@RequestMapping("/search")
+@RequestMapping("/api/search")
 public class SearchController {
     private final SearchService searchService;
     private final QuestionMapper mapper;

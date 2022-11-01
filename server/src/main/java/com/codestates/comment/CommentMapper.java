@@ -1,9 +1,8 @@
 package com.codestates.comment;
 
-import com.codestates.member.dto.MemberDto;
+import com.codestates.user.dto.UserDto;
 import com.codestates.comment.entity.Comment;
-import com.codestates.member.entity.Member;
-import com.codestates.question.Question;
+import com.codestates.user.entity.User;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -11,16 +10,16 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
-    MemberDto.Response memberToMemberResponseDto(Member member);
+    UserDto.Response userToUserResponseDto(User user);
 //    Comment commentPostToComment(CommentDto.Post commentPost);
 
     default Comment commentPostToComment(CommentDto.Post commentPost) {
         Comment comment = new Comment();
         comment.setBody(commentPost.getBody());
 
-        Member member = new Member();
-        member.setMemberId(commentPost.getMemberId());
-        comment.setMember(member);
+        User user = new User();
+        user.setUserId(commentPost.getUserId());
+        comment.setUser(user);
 
         return comment;
     }
@@ -28,12 +27,12 @@ public interface CommentMapper {
 //    CommentDto.Response commentToCommentResponse(Comment comment);
 
     default CommentDto.Response commentToCommentResponse(Comment comment) {
-        Member member = comment.getMember();
+        User user = comment.getUser();
 
         return CommentDto.Response.builder()
                 .commentId(comment.getCommentId())
 //                .postId(comment.getPostId())
-                .memberResponseDto(memberToMemberResponseDto(member))
+                .userResponseDto(userToUserResponseDto(user))
                 .body(comment.getBody())
                 .createdAt(comment.getCreatedAt())
                 .modifiedAt(comment.getModifiedAt())

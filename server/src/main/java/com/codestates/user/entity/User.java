@@ -1,8 +1,10 @@
-package com.codestates.member.entity;
+package com.codestates.user.entity;
 
+import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.comment.entity.Comment;
 import com.codestates.question.Question;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,11 +18,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Member extends Auditable {
+@Table(name = "USERS")
+public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long memberId;
+    private Long userId;
 
     @Column(length = 16, unique = true)
     private String nickName;
@@ -35,44 +38,50 @@ public class Member extends Auditable {
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
-    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+    private UserStatus userStatus = UserStatus.USER_ACTIVE;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Comment> replies = new ArrayList<>();
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Answer> answers = new ArrayList<>();
 
-    public Member(String nickName, String email, String password) {
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
+    public User(String nickName, String email, String password) {
         this.nickName = nickName;
         this.email = email;
         this.password = password;
     }
 
-    public Member(String email, String password) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public Member(Long memberId, String nickName, String email) {
-        this.memberId = memberId;
+    public User(Long userId, String nickName, String email) {
+        this.userId = userId;
         this.nickName = nickName;
         this.email = email;
     }
 
-    public enum MemberStatus {
+    public enum UserStatus {
 
-        MEMBER_ACTIVE("Active account"),
-        MEMBER_INACTIVE("Inactive account"),
-        MEMBER_QUIT("Deleted account");
+        USER_ACTIVE("Active account"),
+        USER_INACTIVE("Inactive account"),
+        USER_QUIT("Deleted account");
 
         @Getter
         private final String status;
 
-        MemberStatus(String status) {
+        UserStatus(String status) {
             this.status = status;
         }
     }

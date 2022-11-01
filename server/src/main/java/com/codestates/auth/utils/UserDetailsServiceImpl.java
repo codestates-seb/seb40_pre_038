@@ -2,8 +2,8 @@ package com.codestates.auth.utils;
 
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
-import com.codestates.member.entity.Member;
-import com.codestates.member.repository.MemberRepository;
+import com.codestates.user.entity.User;
+import com.codestates.user.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,30 +14,30 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Component
-public class MemberDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final MemberRepository repository;
+    private final UserRepository repository;
     private final CustomAuthorityUtils authorityUtils;
 
-    public MemberDetailsService(MemberRepository repository, CustomAuthorityUtils authorityUtils) {
+    public UserDetailsServiceImpl(UserRepository repository, CustomAuthorityUtils authorityUtils) {
         this.repository = repository;
         this.authorityUtils = authorityUtils;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Member> optionalMember = repository.findByEmail(username);
-        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Optional<User> optionalUser = repository.findByEmail(username);
+        User user = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
 
-        return new MemberDetails(member);
+        return new UserDetailsImpl(user);
     }
 
-    private final class MemberDetails extends Member implements UserDetails {
-        MemberDetails(Member member) {
-            setMemberId(member.getMemberId());
-            setEmail(member.getEmail());
-            setPassword(member.getPassword());
-            setRoles(member.getRoles());
+    private final class UserDetailsImpl extends User implements UserDetails {
+        UserDetailsImpl(User user) {
+            setUserId(user.getUserId());
+            setEmail(user.getEmail());
+            setPassword(user.getPassword());
+            setRoles(user.getRoles());
         }
 
         @Override

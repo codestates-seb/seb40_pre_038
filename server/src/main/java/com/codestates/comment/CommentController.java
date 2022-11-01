@@ -1,9 +1,8 @@
 package com.codestates.comment;
 
+import com.codestates.comment.entity.Comment;
 import com.codestates.dto.MultiResponseDto;
 import com.codestates.dto.SingleResponseDto;
-import com.codestates.comment.entity.Comment;
-import com.codestates.comment.entity.CommentType;
 import com.codestates.question.QuestionRepository;
 import com.codestates.question.QuestionService;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 public class CommentController {
     private final CommentService commentService;
     private final QuestionService questionService;
@@ -40,7 +39,7 @@ public class CommentController {
 //                                    @RequestParam CommentType commentType,
                                     @PathVariable("question_id") @Positive long postId) {
         Comment comment = mapper.commentPostToComment(commentPost);
-        Comment createComment = commentService.createQuestionComment(comment, postId, commentPost.getMemberId());
+        Comment createComment = commentService.createQuestionComment(comment, postId, commentPost.getUserId());
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
 
         return new ResponseEntity<>(
@@ -55,7 +54,7 @@ public class CommentController {
                                       @PathVariable("question_id") @Positive long postId,
                                       @PathVariable("answer_id") @Positive long answerId) {
         Comment comment = mapper.commentPostToComment(commentPost);
-        Comment createComment = commentService.createAnswerComment(comment, answerId, postId, commentPost.getMemberId());
+        Comment createComment = commentService.createAnswerComment(comment, answerId, postId, commentPost.getUserId());
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
 
         return new ResponseEntity<>(
@@ -68,7 +67,7 @@ public class CommentController {
     public ResponseEntity patchComment(@Valid @RequestBody CommentDto.Patch commentPatch,
                                      @PathVariable("comment_id") @Positive long commentId) {
         Comment comment = mapper.commentPatchToComment(commentPatch);
-        Comment updateComment = commentService.updateComment(comment, commentId, commentPatch.getMemberId());
+        Comment updateComment = commentService.updateComment(comment, commentId, commentPatch.getUserId());
         CommentDto.Response response = mapper.commentToCommentResponse(updateComment);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK

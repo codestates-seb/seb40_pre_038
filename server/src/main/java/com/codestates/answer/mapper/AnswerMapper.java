@@ -2,8 +2,8 @@ package com.codestates.answer.mapper;
 
 import com.codestates.answer.dto.*;
 import com.codestates.answer.entity.Answer;
-import com.codestates.member.dto.MemberDto;
-import com.codestates.member.entity.Member;
+import com.codestates.user.dto.UserDto;
+import com.codestates.user.entity.User;
 import com.codestates.question.Question;
 import org.mapstruct.Mapper;
 
@@ -25,9 +25,9 @@ public interface AnswerMapper {
         Answer answer = new Answer();
         answer.setBody(answerPostDto.getBody());
 
-        Member member = new Member();
-        member.setMemberId(answerPostDto.getMemberId());
-        answer.setMember(member);
+        User user = new User();
+        user.setUserId(answerPostDto.getUserId());
+        answer.setUser(user);
 
         Question question = new Question();
         question.setQuestionId(questionId);
@@ -37,7 +37,7 @@ public interface AnswerMapper {
     }
 
     default AnswerResponseDto answerToAnswerResponseDto(Answer answer) {
-        Member member = answer.getMember();
+        User user = answer.getUser();
 
         return AnswerResponseDto.builder()
                 .answerId(answer.getAnswerId())
@@ -47,9 +47,10 @@ public interface AnswerMapper {
                 .vote(answer.getVote())
                 .createdAt(answer.getCreatedAt())
                 .modifiedAt(answer.getModifiedAt())
-                .memberResponseDto(memberToMemberResponseDto(member))
+                .comments(answer.getComments())
+                .userResponseDto(userToUserResponseDto(user))
                 .build();
     }
 
-    MemberDto.Response memberToMemberResponseDto(Member member);
+    UserDto.Response userToUserResponseDto(User user);
 }

@@ -1,4 +1,4 @@
-package com.codestates.member.dto;
+package com.codestates.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 
 // Not used yet
 
-public class MemberDto {
+public class UserDto {
 
     @Getter
     @AllArgsConstructor
@@ -30,7 +30,7 @@ public class MemberDto {
     @Getter
     @Setter
     public static class Response {
-        private long memberId;
+        private long userId;
         private String nickName;
         private String email;
     }

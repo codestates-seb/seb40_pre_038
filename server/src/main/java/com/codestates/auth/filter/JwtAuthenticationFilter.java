@@ -2,7 +2,7 @@ package com.codestates.auth.filter;
 
 import com.codestates.auth.dto.LoginDto;
 import com.codestates.auth.jwt.JwtTokenizer;
-import com.codestates.member.entity.Member;
+import com.codestates.user.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,10 +44,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws ServletException, IOException {
-        Member member = (Member) authResult.getPrincipal();
+        User user = (User) authResult.getPrincipal();
 
-        String accessToken = delegateAccessToken(member);
-        String refreshToken = delegateRefreshToken(member);
+        String accessToken = delegateAccessToken(user);
+        String refreshToken = delegateRefreshToken(user);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
@@ -55,20 +55,20 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
-    private String delegateAccessToken(Member member) {
+    private String delegateAccessToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("email", member.getEmail());
-        claims.put("roles", member.getRoles());
+        claims.put("email", user.getEmail());
+        claims.put("roles", user.getRoles());
 
-        String subject = member.getEmail();
+        String subject = user.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
         return jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
     }
 
-    private String delegateRefreshToken(Member member) {
-        String subject = member.getEmail();
+    private String delegateRefreshToken(User user) {
+        String subject = user.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
