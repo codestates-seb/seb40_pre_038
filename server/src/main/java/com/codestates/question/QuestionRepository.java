@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -21,4 +22,9 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Page<Question> findAllByTagBodyContaining(String tagBody, Pageable pageable);
 
+    @Query(nativeQuery = true, value = "select * from Question order by " +
+            "view + vote" + " desc")
+    Page<Question> findAllByQuestionID(Pageable pageable);
+
+    Page<Question> findAllByModifiedAtBetween(LocalDateTime start, LocalDateTime end, Pageable pageable);
 }

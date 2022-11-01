@@ -10,7 +10,7 @@ public class AnswerPatchDto {
     private long answerId;
 
     @NotEmpty(message = "내용을 입력하셔야 합니다.")
-    @Size(min = 30, message = "30자 이상 입력하셔야 합니다.")
+    @Size(min = 20, message = "30자 이상 입력하셔야 합니다.")
     private String body;
 
     public void setAnswerId(long answerId) {
