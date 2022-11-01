@@ -7,8 +7,7 @@ const BASE_URL = 'http://localhost:3000/';
 export const postQuestion = (postBody) => {
   const request = axios
     .post(QUESTIONS_ADD_URL, postBody)
-    .then(function (response) {
-      console.log(response);
+    .then(function () {
       window.location.href = BASE_URL;
     })
     .catch(function (error) {
