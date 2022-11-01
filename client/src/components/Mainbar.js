@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Mainbar = styled.div`
+const Mainbar = styled.div`
   width: calc(100% - 300px - 24px);
   float: left;
   margin: 0;
@@ -11,3 +11,5 @@ export const Mainbar = styled.div`
     float: none;
   }
 `;
+
+export default Mainbar;

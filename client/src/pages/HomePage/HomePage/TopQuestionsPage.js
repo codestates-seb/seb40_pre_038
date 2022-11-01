@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PageHeader from './PageHeader';
 import SortTabs from './SortTabs';
 import QuestionListWrapper from '../../../components/QuestionList/QuestionListWrapper';
-import { Mainbar } from '../../../components/Mainbar';
+import Mainbar from '../../../components/Mainbar';
 
 const ClearBr = styled.br`
   clear: both !important;

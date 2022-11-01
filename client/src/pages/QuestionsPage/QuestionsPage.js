@@ -1,9 +1,14 @@
-import PageContainer from '../../components/PageContainer';
-import { Mainbar } from '../../components/Mainbar';
+import styled from 'styled-components';
 import PageHeader from './PageHeader';
 import SeUql from './SeUql';
+import PageContainer from '../../components/PageContainer';
+import Mainbar from '../../components/Mainbar';
 import QuestionListWrapper from '../../components/QuestionList/QuestionListWrapper';
-import Pagination from './Pagination';
+import { Pagination } from '../../components/Pagination';
+
+const ClearBr = styled.br`
+  clear: both !important;
+`;
 
 const QuestionsPage = () => {
   return (
@@ -12,7 +17,7 @@ const QuestionsPage = () => {
         <PageHeader />
         <SeUql />
         <QuestionListWrapper className="questions" />
-        <br className="clear-both" />
+        <ClearBr />
         <Pagination />
       </Mainbar>
     </PageContainer>
