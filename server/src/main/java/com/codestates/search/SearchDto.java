@@ -8,6 +8,5 @@ import javax.persistence.Enumerated;
 
 @Getter
 public class SearchDto {
-    @Enumerated(EnumType.ORDINAL)
-    private SearchStatus status;
+    private String content;
 }
