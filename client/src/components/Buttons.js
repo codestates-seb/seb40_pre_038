@@ -37,9 +37,11 @@ export function ButtonBlue({
   height,
   fontSize,
   fontWeight,
+  type,
 }) {
   return (
     <Bluebutton
+      type={type ? type : 'submit'}
       border={border}
       width={width}
       height={height}
