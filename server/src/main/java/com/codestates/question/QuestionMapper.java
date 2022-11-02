@@ -38,6 +38,7 @@ public interface QuestionMapper {
 
     default QuestionDto.Response questionToQuestionResponse(Question question) {
         User user = question.getUser();
+        List<Comment> comments = question.getComments();
 
         return QuestionDto.Response.builder()
                 .questionId(question.getQuestionId())
@@ -50,10 +51,23 @@ public interface QuestionMapper {
                 .tagList(question.getTagList())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
+
+                .commentInformation(comments.stream()
+                        .peek(a -> System.out.println(a.getUser().getUserId()))
+                        .peek(a -> System.out.println(a.getUser().getNickName()))
+                        .peek(a -> System.out.println(a.getUser().getEmail()))
+                        .peek(a -> System.out.println(userToUserResponseDto(a.getUser())))
+                        .map(this::commentToCommentResponse)
+                        .peek(a -> System.out.println(a.getBody()))
+                        .peek(a -> System.out.println(a.getUserResponseDto()))
+                        .collect(Collectors.toList()))
+
                 .comments(question.getComments())
+
                 .answerCount(question.getAnswers().size())
                 .build();
     }
 
     UserDto.Response userToUserResponseDto(User user);
+    CommentDto.Response commentToCommentResponse(Comment comment);
 }

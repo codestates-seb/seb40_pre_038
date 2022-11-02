@@ -1,5 +1,6 @@
 package com.codestates.question;
 
+import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import lombok.AllArgsConstructor;
@@ -81,6 +82,7 @@ public class QuestionDto {
         private int vote;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private List<CommentDto.Response> commentInformation;
         private List<Comment> comments;
         private int answerCount;
     }
