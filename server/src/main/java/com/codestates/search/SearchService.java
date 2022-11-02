@@ -20,31 +20,31 @@ public class SearchService {
         this.userService = userService;
     }
 
-    public Page<Question> findContent(String content, int status, int page, int size) {
+    public Page<Question> findContent(String content, String tab, int page, int size) {
         if(content.length() >= 3 && content.charAt(0) == '[' && content.charAt(content.length() - 1) == ']') {
             String substring = content.substring(1, content.length() - 1).replaceAll(" ", ""); // 검색어 공백 제거
-            return findTag(substring, status, page, size);
+            return findTag(substring.toLowerCase(), tab, page, size);
         } else if(content.length() >= 6 && content.substring(0,5).equals("user:")) {
-            return findUser(Long.parseLong(content.substring(5)), status, page, size);
+            return findUser(Long.parseLong(content.substring(5)), tab, page, size);
         }
 
-        return findBody(content, status, page, size);
+        return findBody(content, tab, page, size);
     }
 
-    private Page<Question> findTag(String tagBody, int status, int page, int size) { // 태그로 검색
-        if(status == 1)
-            return searchRepository.findAllByTagBodyContaining(tagBody, PageRequest.of(page, size, Sort.by("vote").descending()));
-        return searchRepository.findAllByTagBodyContaining(tagBody, PageRequest.of(page, size, Sort.by("questionId").descending()));
+    private Page<Question> findTag(String tagBody, String tab, int page, int size) { // 태그로 검색
+        if(tab.equals("score"))
+            return searchRepository.findAllByTagList(tagBody, PageRequest.of(page, size, Sort.by("vote").descending()));
+        return searchRepository.findAllByTagList(tagBody, PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
 
-    private Page<Question> findUser(long userId, int status, int page, int size) { // 유저로 검색
+    private Page<Question> findUser(long userId, String tab, int page, int size) { // 유저로 검색
         User findUser = userService.findVerifiedUser(userId);
-        if(status == 1) return searchRepository.findAllByUser(findUser, PageRequest.of(page, size, Sort.by("vote").descending()));
+        if(tab.equals("score")) return searchRepository.findAllByUser(findUser, PageRequest.of(page, size, Sort.by("vote").descending()));
         return searchRepository.findAllByUser(findUser, PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
 
-    private Page<Question> findBody(String content, int status, int page, int size) { // 질문 내용 검색
-        if(status == 1) return searchRepository.findAllByBody(content, PageRequest.of(page, size, Sort.by("vote").descending()));
+    private Page<Question> findBody(String content, String tab, int page, int size) { // 질문 내용 검색
+        if(tab.equals("score")) return searchRepository.findAllByBody(content, PageRequest.of(page, size, Sort.by("vote").descending()));
         return searchRepository.findAllByBody(content, PageRequest.of(page, size, Sort.by("question_id").descending()));
     }
 }

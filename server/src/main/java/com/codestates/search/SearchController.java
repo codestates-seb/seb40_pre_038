@@ -26,12 +26,15 @@ public class SearchController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/{content}")
-    public ResponseEntity getSearchResult(@PathVariable("content") @NotBlank String content,
+    @GetMapping(value = {"", "/{tab}"})
+    public ResponseEntity getSearchResult(@PathVariable(required = false, value = "tab") String tab,
                                           @Valid @RequestBody SearchDto searchDto,
-                                          @Positive @RequestParam int page,
+                                          @Positive @RequestParam(required = false, defaultValue = "1") int page,
                                           @Positive @RequestParam(required = false, defaultValue = "15") int size) {
-        Page<Question> pageQuestions = searchService.findContent(content, searchDto.getStatus().getStatusNumber(),page - 1, size);
+        if(tab == null) tab = "newest";
+        if(!tab.equals("newest") && !tab.equals("score"))
+            return new ResponseEntity<>("잘못된 tab 요청입니다", HttpStatus.BAD_REQUEST);
+        Page<Question> pageQuestions = searchService.findContent(searchDto.getContent(), tab,page - 1, size);
         List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(
