@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -59,11 +60,14 @@ public class SecurityConfiguration{
 //                        .antMatchers(HttpMethod.GET, "/users/**").hasAnyRole("USER", "ADMIN")
 //                        .antMatchers(HttpMethod.DELETE, "/users/**").hasAnyRole("USER", "ADMIN")  // Commented out for tests
                         .antMatchers(HttpMethod.PATCH, "/users/**").hasAnyRole("USER", "ADMIN")
-                        .anyRequest().permitAll());
+                        .anyRequest().permitAll())
+                .logout(l -> l.logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                        .logoutSuccessUrl("/").invalidateHttpSession(true).permitAll());  // Redirected to the main page (NEEDS A TEST WITH FRONT)
         return http.build();
     }
 
     // sessionCreationPolicy -> STATELESS, ALWAYS, NEVER, IF_REQUIRED
+    // .invalidateHttpSession(true) X ?
 
     @Bean
     public PasswordEncoder passwordEncoder() {
