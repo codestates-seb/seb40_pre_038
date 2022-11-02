@@ -40,6 +40,11 @@ public interface QuestionMapper {
         User user = question.getUser();
         List<Comment> comments = question.getComments();
 
+        List<CommentDto.Response> commentResponse
+                = comments.stream().map(comment -> new CommentDto.Response(
+                        comment.getCommentId(), userToUserResponseDto(comment.getUser()),
+                comment.getBody(), comment.getCreatedAt(), comment.getModifiedAt(), comment.getCommentType())).collect(Collectors.toList());
+
         return QuestionDto.Response.builder()
                 .questionId(question.getQuestionId())
                 .userInformation(userToUserResponseDto(user))
@@ -51,23 +56,15 @@ public interface QuestionMapper {
                 .tagList(question.getTagList())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
-
-                .commentInformation(comments.stream()
-                        .peek(a -> System.out.println(a.getUser().getUserId()))
-                        .peek(a -> System.out.println(a.getUser().getNickName()))
-                        .peek(a -> System.out.println(a.getUser().getEmail()))
-                        .peek(a -> System.out.println(userToUserResponseDto(a.getUser())))
-                        .map(this::commentToCommentResponse)
-                        .peek(a -> System.out.println(a.getBody()))
-                        .peek(a -> System.out.println(a.getUserResponseDto()))
-                        .collect(Collectors.toList()))
-
-                .comments(question.getComments())
-
+                //.commentInformation(usersToUserResponseDtos(commentUsers))
+                //.comments(question.getComments())
                 .answerCount(question.getAnswers().size())
+
+                .commentsWithUser(commentResponse)
+
                 .build();
     }
 
     UserDto.Response userToUserResponseDto(User user);
-    CommentDto.Response commentToCommentResponse(Comment comment);
+    //CommentDto.Response commentToCommentResponse(Comment comment);
 }
