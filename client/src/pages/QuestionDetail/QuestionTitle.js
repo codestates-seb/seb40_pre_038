@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const QuestionTitleContainer = styled.div`
@@ -71,7 +72,11 @@ const QuestionTitle = () => {
       <TitleInfo>
         <div>{title}</div>
         <div>
-          <AskQustionBtn onClick={handleOnClickAsk}>Ask Question</AskQustionBtn>
+          <Link to="/questions/ask">
+            <AskQustionBtn onClick={handleOnClickAsk}>
+              Ask Question
+            </AskQustionBtn>
+          </Link>
         </div>
       </TitleInfo>
       <StatInfo>
