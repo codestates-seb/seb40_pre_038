@@ -6,10 +6,9 @@ import com.codestates.answer.dto.AnswerVoteDto;
 import com.codestates.answer.entity.Answer;
 import com.codestates.answer.mapper.AnswerMapper;
 import com.codestates.answer.service.AnswerService;
-import com.codestates.dto.MultiResponseDto;
+import com.codestates.dto.MultiAnsResponseDto;
 import com.codestates.dto.SingleResponseDto;
 import com.codestates.vote.AnswerVote.AnswerVoteService;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -81,14 +80,11 @@ public class AnswerController {
     }*/
 
     @GetMapping("questions/{question-id}/answers")
-    public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId,
-                                     @Positive @RequestParam int page,
-                                     @Positive @RequestParam(required = false, defaultValue = "15") int size) {
-        Page<Answer> pageAnswers = answerService.findAnswers(questionId,page - 1, size);
-        List<Answer> answers = pageAnswers.getContent();
+    public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId) {
+        List<Answer> answers = answerService.findAnswers(questionId);
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(answers), pageAnswers),
+                new MultiAnsResponseDto<>(mapper.answersToAnswerResponseDtos(answers)),
                 HttpStatus.OK);
     }
 

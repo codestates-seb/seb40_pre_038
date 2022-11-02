@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ButtonBlue } from '../../components/Buttons';
 
 const QuestionTitleContainer = styled.div`
   display: flex;
@@ -22,7 +22,21 @@ const TitleInfo = styled.h1`
   }
 `;
 
-const AskQustionBtn = styled(ButtonBlue)``;
+const AskQustionBtn = styled.button`
+  background: #0995ff;
+  color: #ffffff;
+  font-weight: 400;
+  border: 1px solid #0995ff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 0 #ffffff;
+  width: 100px;
+  height: 37px;
+  font-size: 13px;
+  &:hover {
+    cursor: pointer;
+    background-color: #0063bf;
+  }
+`;
 
 const StatInfo = styled.div`
   display: flex;
@@ -49,19 +63,20 @@ const QuestionTitle = () => {
   const title = data === undefined ? '' : data.title;
   const views = data === undefined ? 0 : data.view;
 
+  const handleOnClickAsk = () => {
+    console.log('click!');
+  };
+
   return (
     <QuestionTitleContainer>
       <TitleInfo>
         <div>{title}</div>
         <div>
-          <AskQustionBtn
-            width="100px"
-            height="37px"
-            fontSize="13px"
-            fontWeight="400"
-          >
-            Ask Question
-          </AskQustionBtn>
+          <Link to="/questions/ask">
+            <AskQustionBtn onClick={handleOnClickAsk}>
+              Ask Question
+            </AskQustionBtn>
+          </Link>
         </div>
       </TitleInfo>
       <StatInfo>

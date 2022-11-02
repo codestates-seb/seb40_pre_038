@@ -1,7 +1,10 @@
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AnswersInfo from './AnswersInfo';
 import Answer from '../MainQuestion/MainQuestion';
 import PostAnswerBox from './PostAnswerBox';
+import { useEffect } from 'react';
+import { getAnswers } from '../../../_actions/answer_action';
 
 const QuestionAnswersContainer = styled.div``;
 const AnswerConatiner = styled.div`
@@ -9,16 +12,26 @@ const AnswerConatiner = styled.div`
   border-bottom: 1px solid #e3e6e8;
 `;
 
-const answersData = [0, 0, 0, 0, 0, 0, 0];
+const QuestionAnswers = ({ questionId }) => {
+  const answersState = useSelector((state) => state.answerReducer);
+  const { data } = answersState.data;
 
-const QuestionAnswers = () => {
+  const dispatch = useDispatch();
+
+  const answersLen = data === undefined ? '0' : data.length;
+  const answersData = data === undefined ? [] : data;
+
+  useEffect(() => {
+    dispatch(getAnswers(questionId));
+  }, [dispatch]);
+
   return (
     <QuestionAnswersContainer>
-      <AnswersInfo answersCnt={17} />
-      {answersData.map((el, idx) => {
+      <AnswersInfo answersCnt={answersLen} />
+      {answersData.map((el) => {
         return (
-          <AnswerConatiner key={idx}>
-            <Answer />
+          <AnswerConatiner key={el.answerId}>
+            <Answer data={el} type="answer" />
           </AnswerConatiner>
         );
       })}

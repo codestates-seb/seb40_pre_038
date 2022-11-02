@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Comment from './Comment';
 import AddComment from './AddComment';
 
@@ -17,8 +17,13 @@ const createDate = (str) => {
   } at ${date.getHours()}:${date.getMinutes()}`;
 };
 
-const Comments = ({ data }) => {
-  const [commentData] = useState(data);
+const Comments = ({ data, type }) => {
+  const [commentData, setcommentData] = useState(data);
+  console.log(type);
+
+  useEffect(() => {
+    setcommentData(data);
+  }, [data]);
 
   return (
     <CommentsContainer>
@@ -28,7 +33,7 @@ const Comments = ({ data }) => {
           <Comment
             key={comment.commentId}
             body={comment.body}
-            nickname={comment.memberResponseDto.nickName}
+            // nickname={comment.memberResponseDto.nickName}
             date={date}
           ></Comment>
         );

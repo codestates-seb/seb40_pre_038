@@ -113,6 +113,7 @@ const SUserCard = () => {
         <SUserCardAwards>
           <SUserCardRep>
             <span title="reputation score " dir="ltr">
+              {/* 숫자 k,m,b */}
               15
             </span>
           </SUserCardRep>

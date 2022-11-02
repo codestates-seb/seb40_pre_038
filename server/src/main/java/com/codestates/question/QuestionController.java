@@ -188,4 +188,35 @@ public class QuestionController {
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),
                 HttpStatus.OK);
     }
+
+    @GetMapping("/topquestions/{tab}")
+    public ResponseEntity getTopQuestions(@PathVariable("tab") @NotBlank String tab,
+                                          @Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                          @Positive @RequestParam(required = false, defaultValue = "100") int size) {
+        if(!tab.equals("hot") && !tab.equals("week") && !tab.equals("month"))
+            return new ResponseEntity<>("잘못된 tab 요청입니다", HttpStatus.BAD_REQUEST);
+
+        Page<Question> pageQuestions = questionService.findTopQuestions(tab, page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.questionsToQuestionResponses(questions), pageQuestions),
+                HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/allquestions", "/allquestions/{tab}"})
+    public ResponseEntity getAllQuestions(@PathVariable(required = false, value = "tab") String tab,
+                                          @Positive @RequestParam int page,
+                                          @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+        if(tab == null) tab = "newest";
+        if(!tab.equals("newest") && !tab.equals("score") && !tab.equals("unanswered"))
+            return new ResponseEntity<>("잘못된 tab 요청입니다", HttpStatus.BAD_REQUEST);
+
+        Page<Question> pageQuestions = questionService.findAllQuestions(tab, page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.questionsToQuestionResponses(questions), pageQuestions),
+                HttpStatus.OK);
+    }
 }
