@@ -192,7 +192,7 @@ public class QuestionController {
     @GetMapping("/topquestions/{tab}")
     public ResponseEntity getTopQuestions(@PathVariable("tab") @NotBlank String tab,
                                           @Positive @RequestParam(required = false, defaultValue = "1") int page,
-                                          @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+                                          @Positive @RequestParam(required = false, defaultValue = "100") int size) {
         if(!tab.equals("hot") && !tab.equals("week") && !tab.equals("month"))
             return new ResponseEntity<>("잘못된 tab 요청입니다", HttpStatus.BAD_REQUEST);
 
@@ -209,10 +209,8 @@ public class QuestionController {
                                           @Positive @RequestParam int page,
                                           @Positive @RequestParam(required = false, defaultValue = "15") int size) {
         if(tab == null) tab = "newest";
-        if(!tab.equals("newest") && !tab.equals("score"))
+        if(!tab.equals("newest") && !tab.equals("score") && !tab.equals("unanswered"))
             return new ResponseEntity<>("잘못된 tab 요청입니다", HttpStatus.BAD_REQUEST);
-
-        System.out.println("CHECK:"+tab);
 
         Page<Question> pageQuestions = questionService.findAllQuestions(tab, page - 1, size);
         List<Question> questions = pageQuestions.getContent();

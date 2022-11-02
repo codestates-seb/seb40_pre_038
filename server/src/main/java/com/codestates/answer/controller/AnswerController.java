@@ -80,9 +80,7 @@ public class AnswerController {
     }*/
 
     @GetMapping("questions/{question-id}/answers")
-    public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId,
-                                     @Positive @RequestParam int page,
-                                     @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+    public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId) {
         List<Answer> answers = answerService.findAnswers(questionId);
 
         return new ResponseEntity<>(

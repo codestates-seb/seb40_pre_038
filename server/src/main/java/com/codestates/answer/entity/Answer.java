@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -45,6 +47,11 @@ public class Answer extends Auditable {
     @Column(nullable = false, name = "vote")
     private int vote = 0;
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false, name = "CREATED_AT")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @LastModifiedDate
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 

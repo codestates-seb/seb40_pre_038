@@ -82,6 +82,7 @@ public class QuestionDto {
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private List<Comment> comments;
+        private int answerCount;
     }
 
     @Getter
