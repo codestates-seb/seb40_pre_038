@@ -41,9 +41,14 @@ public interface QuestionMapper {
         List<Comment> comments = question.getComments();
 
         List<CommentDto.Response> commentResponse
-                = comments.stream().map(comment -> new CommentDto.Response(
-                        comment.getCommentId(), userToUserResponseDto(comment.getUser()),
-                comment.getBody(), comment.getCreatedAt(), comment.getModifiedAt(), comment.getCommentType())).collect(Collectors.toList());
+                = comments.stream().map(comment ->
+                new CommentDto.Response(comment.getCommentId(),
+                        userToUserResponseDto(comment.getUser()),
+                        comment.getBody(),
+                        comment.getCreatedAt(),
+                        comment.getModifiedAt(),
+                        comment.getCommentType()))
+                .collect(Collectors.toList());
 
         return QuestionDto.Response.builder()
                 .questionId(question.getQuestionId())
@@ -56,15 +61,10 @@ public interface QuestionMapper {
                 .tagList(question.getTagList())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
-                //.commentInformation(usersToUserResponseDtos(commentUsers))
-                //.comments(question.getComments())
                 .answerCount(question.getAnswers().size())
-
                 .commentsWithUser(commentResponse)
-
                 .build();
     }
 
     UserDto.Response userToUserResponseDto(User user);
-    //CommentDto.Response commentToCommentResponse(Comment comment);
 }
