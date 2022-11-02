@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -56,6 +58,11 @@ public class Comment extends Auditable {
         this.user = user;
     }
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false, name = "CREATED_AT")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @LastModifiedDate
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
