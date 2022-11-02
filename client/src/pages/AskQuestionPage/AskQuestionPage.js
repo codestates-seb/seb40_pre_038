@@ -65,11 +65,35 @@ const BtnContainer = styled.div`
     max-width: 1150px;
   }
 `;
+const ErrorMessageP = styled.p`
+  margin-left: 0;
+  margin-right: 0;
+  margin: 2px;
+  color: #de4f54;
+  padding: 2px;
+  font-size: 12px;
+`;
 const AskQuestionPage = () => {
-  const [titleValue, titleBind, titleReset] = useInput('');
-  const [problemValue, problemBind, problemReset] = useEditor(' ');
-  const [expectValue, expectBind, expectReset] = useEditor(' ');
-  const [tagsValue, tagsBind, tagsReset] = useInput('');
+  const [titleValue, titleBind, titleReset, titleError] = useInput(
+    '',
+    null,
+    'Title'
+  );
+  const [problemValue, problemBind, problemReset, problemError] = useEditor(
+    ' ',
+    null,
+    'Problem'
+  );
+  const [expectValue, expectBind, expectReset, expectError] = useEditor(
+    ' ',
+    null,
+    'Expect'
+  );
+  const [tagsValue, tagsBind, tagsReset, tagsError] = useInput(
+    '',
+    null,
+    'Tags'
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -118,6 +142,7 @@ const AskQuestionPage = () => {
                 value={titleBind}
                 placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
               />
+              {titleError && <ErrorMessageP>{titleError}</ErrorMessageP>}
             </InputContainer>
           </ResponsiveContainer>
           <ResponsiveContainer>
@@ -133,6 +158,7 @@ const AskQuestionPage = () => {
               desc="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
             >
               <EditorInput value={problemBind}></EditorInput>
+              {problemError && <ErrorMessageP>{problemError}</ErrorMessageP>}
             </InputContainer>
           </ResponsiveContainer>
           <ResponsiveContainer>
@@ -168,6 +194,7 @@ const AskQuestionPage = () => {
               desc="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
             >
               <EditorInput value={expectBind}></EditorInput>
+              {expectError && <ErrorMessageP>{expectError}</ErrorMessageP>}
             </InputContainer>
           </ResponsiveContainer>
           <ResponsiveContainer>
@@ -196,6 +223,7 @@ const AskQuestionPage = () => {
                 value={tagsBind}
                 placeholder="e.g. (angularjs php jquery)"
               />
+              {tagsError && <ErrorMessageP>{tagsError}</ErrorMessageP>}
             </InputContainer>
           </ResponsiveContainer>
           <Container>
