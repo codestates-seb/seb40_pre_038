@@ -27,12 +27,6 @@ const ValidateInfoBox = styled.div`
   height: 20px;
 `;
 
-//글자수 바이트 계산 함수
-const getByteLength = (s, b, i, c) => {
-  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
-  return b;
-};
-
 const MyEditor = () => {
   const dispatch = useDispatch();
 
@@ -46,7 +40,7 @@ const MyEditor = () => {
   //input에 있는 값이 30byte 이상인지 체크
   const handleOnChange = () => {
     const input = editorRef.current.getInstance().getMarkdown();
-    if (getByteLength(input) >= 30) {
+    if (input.length >= 20) {
       setValidate(true);
     } else {
       setValidate(false);
@@ -55,7 +49,7 @@ const MyEditor = () => {
 
   const handlePostBtnClick = () => {
     const answerBody = editorRef.current.getInstance().getMarkdown();
-    if (getByteLength(answerBody) >= 30) {
+    if (answerBody.length >= 20) {
       setValidate(true);
       dispatch(addAnswer(questionIdState, answerBody));
       location.reload(); //새로고침
@@ -79,7 +73,7 @@ const MyEditor = () => {
         onChange={handleOnChange}
       />
       {validate ? null : (
-        <ValidateInfoBox>Must be longer than 30 characters.</ValidateInfoBox>
+        <ValidateInfoBox>Must be longer than 20 characters.</ValidateInfoBox>
       )}
       <PostBtnContainer>
         <PostAnswerBtn
