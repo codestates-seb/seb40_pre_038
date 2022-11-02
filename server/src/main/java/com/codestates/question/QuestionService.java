@@ -141,6 +141,8 @@ public class QuestionService {
     public Page<Question> findAllQuestions(String tab, int page, int size) { // All Questions
         if(tab.equals("score"))
             return questionRepository.findAll(PageRequest.of(page, size, Sort.by("vote").descending()));
+        else if(tab.equals("unanswered"))
+            return questionRepository.findAllByAnswersNull(PageRequest.of(page, size, Sort.by("questionId").descending()));
 
         return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
