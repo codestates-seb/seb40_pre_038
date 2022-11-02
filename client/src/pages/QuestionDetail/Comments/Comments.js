@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Comment from './Comment';
 import AddComment from './AddComment';
-import { useEffect } from 'react';
 
 const CommentsContainer = styled.div`
   width: 100%;
