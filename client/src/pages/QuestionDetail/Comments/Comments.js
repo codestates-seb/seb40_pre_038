@@ -19,7 +19,7 @@ const createDate = (str) => {
 
 const Comments = ({ data, type }) => {
   const [commentData, setcommentData] = useState(data);
-  console.log(type);
+  //console.log(type);
 
   useEffect(() => {
     setcommentData(data);

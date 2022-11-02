@@ -14,12 +14,12 @@ const AnswerConatiner = styled.div`
 
 const QuestionAnswers = ({ questionId }) => {
   const answersState = useSelector((state) => state.answerReducer);
-  const { data } = answersState.data;
+  const data = answersState.data;
 
   const dispatch = useDispatch();
 
-  const answersLen = data === undefined ? '0' : data.length;
-  const answersData = data === undefined ? [] : data;
+  const answersLen = Object.keys(data).length === 0 ? '0' : data.length;
+  const answersData = Object.keys(data).length === 0 ? [] : data;
 
   useEffect(() => {
     dispatch(getAnswers(questionId));
