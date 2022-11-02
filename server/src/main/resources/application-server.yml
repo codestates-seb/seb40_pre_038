@@ -1,14 +1,10 @@
 
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2  # Context path
   datasource: # AWS RDS 연동
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://seb40-pre-038.cpw41kqdm29i.ap-northeast-2.rds.amazonaws.com/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC  # JDBC URL
-    username: pre_038
-    password: FvciyWnNX4P6jTyAyVBz
+    url: jdbc:mysql://seb40-pre-038.cpw41kqdm29i.ap-northeast-2.rds.amazonaws.com:53306/test?serverTimezone=Asia/Seoul&characterEncoding=UTF-8  # JDBC URL
+    username:
+    password:
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
