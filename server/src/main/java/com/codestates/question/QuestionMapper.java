@@ -1,14 +1,14 @@
 package com.codestates.question;
 
-import com.codestates.answer.service.AnswerService;
 import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
-//import com.codestates.tag.Tag;
-//import com.codestates.tag.TagDto;
 import org.mapstruct.Mapper;
+import org.springframework.data.util.Pair;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,6 +65,33 @@ public interface QuestionMapper {
                 .commentsWithUser(commentResponse)
                 .build();
     }
+
+    // Top Questions, All Questions에서 Get Question 대한 Mapper
+    default QuestionDto.ResponseTopAll questionToQuestionResponseTopAll(Question question) {
+        Pair<User, LocalDateTime> findActionUser = question.getAnswers().stream()
+                .max((answer1, answer2) -> answer1.getModifiedAt().compareTo(answer2.getModifiedAt()))
+                .map(answer -> Pair.of(answer.getUser(), answer.getModifiedAt()))
+                .get();
+
+        return QuestionDto.ResponseTopAll.builder()
+                .questionId(question.getQuestionId())
+                .title(question.getTitle())
+                .problem(question.getProblem())
+                .expect(question.getExpect())
+                .tagList(question.getTagList())
+                .view(question.getView())
+                .vote(question.getVote())
+                .answerCount(question.getAnswers().size())
+                .actionUser(userToUserResponseDto(findActionUser.getFirst()))
+                .accepted(
+                        question.getAnswers().stream()
+                                .filter(answer -> answer.getAnswerStatus().getStatusNumber() == 1)
+                                .count() > 0
+                )
+                .build();
+    }
+
+    List<QuestionDto.ResponseTopAll> questionsToQuestionResponsesTopAll(List<Question> questions);
 
     UserDto.Response userToUserResponseDto(User user);
 }

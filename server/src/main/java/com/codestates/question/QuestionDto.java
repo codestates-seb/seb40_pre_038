@@ -104,4 +104,25 @@ public class QuestionDto {
         private long questionId;
         private int view;
     }
+
+    @Builder
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class ResponseTopAll { // Top Questions와 All Questions에서 사용되는 Response
+        private long questionId;
+        //private UserDto.Response userInformation;
+        private String title;
+        private String problem;
+        private String expect;
+        private List<String> tagList;
+        private int view;
+        private int vote;
+        //private LocalDateTime createdAt;
+        //private LocalDateTime modifiedAt;
+        private int answerCount;
+        //private List<CommentDto.Response> commentsWithUser;
+        private UserDto.Response actionUser;
+        private boolean accepted; // 채택된 답변 여부
+    }
 }
