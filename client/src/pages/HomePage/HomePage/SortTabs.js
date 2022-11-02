@@ -74,7 +74,7 @@ const Tab = styled.button`
     background-color: #e3e6e8;
     box-shadow: none;
   }
-  &.is-selected:focus {
+  &.is-selected:active {
     box-shadow: 0 0 0 4px #1a232629;
     outline: none;
   }
