@@ -13,6 +13,7 @@ import useEditor from '../../util/useEditor';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { postNewQuestion } from '../../_actions/questions_action';
+import { useState, useEffect } from 'react';
 
 const AskWrapper = styled.div`
   display: flex;
@@ -95,6 +96,12 @@ const AskQuestionPage = () => {
     'Tags'
   );
 
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    handleIsValid();
+  }, [titleError, problemError, expectError, tagsError, isValid]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -115,6 +122,23 @@ const AskQuestionPage = () => {
     tagsReset();
   };
 
+  const handleIsValid = () => {
+    if (
+      titleError ||
+      problemError ||
+      expectError ||
+      tagsError ||
+      titleValue === '' ||
+      tagsValue === '' ||
+      problemValue.length < 20 ||
+      expectValue.length < 20
+    ) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  };
+
   return (
     <AskWrapper>
       <Container>
@@ -124,7 +148,15 @@ const AskQuestionPage = () => {
         <DescWrapper>
           <DecsGoodQuestion />
         </DescWrapper>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={
+            isValid
+              ? handleSubmit
+              : (e) => {
+                  e.preventDefault();
+                }
+          }
+        >
           <ResponsiveContainer>
             <GoodQuestionGuide title="Writing a good title">
               <p>Your title should summarize the problem.</p>
@@ -228,7 +260,11 @@ const AskQuestionPage = () => {
           </ResponsiveContainer>
           <Container>
             <BtnContainer>
-              <ButtonBlue width="150px" fontSize="13px">
+              <ButtonBlue
+                width="150px"
+                fontSize="13px"
+                disabled={isValid ? false : 'disabled'}
+              >
                 Review your question
               </ButtonBlue>
             </BtnContainer>

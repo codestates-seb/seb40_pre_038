@@ -14,6 +14,13 @@ const Bluebutton = styled.button`
   :hover {
     background: #0063bf;
   }
+  &:disabled {
+    opacity: 50%;
+    cursor: not-allowed;
+    :hover {
+      background-color: #0995ff;
+    }
+  }
 `;
 
 const SkyblueButton = styled.button`
@@ -38,6 +45,7 @@ export function ButtonBlue({
   fontSize,
   fontWeight,
   type,
+  disabled,
 }) {
   return (
     <Bluebutton
@@ -47,6 +55,7 @@ export function ButtonBlue({
       height={height}
       fontSize={fontSize}
       fontWeight={fontWeight}
+      disabled={disabled}
     >
       {children}
     </Bluebutton>
