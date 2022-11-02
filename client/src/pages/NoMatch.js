@@ -159,7 +159,8 @@ const NoMatch = () => {
             </SubHeading>
             <Body>
               <p>
-                Try <Link to="/search">searching for similar questions</Link>
+                Try <Link to="#">searching for similar questions</Link>
+                {/* Try <Link to="/search">searching for similar questions</Link> */}
               </p>
               <p>
                 Browse our <Link to="/questions">recent questions</Link>
