@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
 import 'antd/dist/antd.css';
 
+import ScrollTop from './components/ScrollTop';
 import Header from './components/Header';
 import HomePage from './pages/HomePage/HomePage/HomePage';
 import Login from './pages/LoginPage/Login';
@@ -27,6 +28,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />
+      <ScrollTop />
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <Routes>
         <Route path="/" element={isLogin ? <HomePage /> : <LandingPage />} />
