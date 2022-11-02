@@ -129,7 +129,6 @@ const AskQuestionPage = () => {
       expectError ||
       tagsError ||
       titleValue === '' ||
-      tagsValue === '' ||
       problemValue.length < 20 ||
       expectValue.length < 20
     ) {
