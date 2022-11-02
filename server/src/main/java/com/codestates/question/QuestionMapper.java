@@ -1,5 +1,6 @@
 package com.codestates.question;
 
+import com.codestates.answer.service.AnswerService;
 import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
@@ -9,6 +10,7 @@ import com.codestates.user.entity.User;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
@@ -49,6 +51,7 @@ public interface QuestionMapper {
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
                 .comments(question.getComments())
+                .answerCount(question.getAnswers().size())
                 .build();
     }
 
