@@ -44,6 +44,20 @@ const SummaryContentTitleLink = styled(Link)`
   }
 `;
 
+const SummaryContentExcerpt = styled.div`
+  margin-top: calc(var(--su2) * -1);
+  margin-bottom: var(--su8);
+  font-family: var(--theme-post-body-font-family);
+  color: var(--fc-medium);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+`;
+
 const SummaryMeta = styled.div`
   display: flex;
   align-items: center;
@@ -53,7 +67,7 @@ const SummaryMeta = styled.div`
   row-gap: 8px;
 `;
 
-const SummaryContent = () => {
+const SummaryContent = ({ className }) => {
   return (
     <SummaryContentWrapper>
       <SummaryContentTitle>
@@ -61,6 +75,11 @@ const SummaryContent = () => {
           Function not working correctly, x != (y or z)
         </SummaryContentTitleLink>
       </SummaryContentTitle>
+      {className !== 'questions' ? null : (
+        <SummaryContentExcerpt>
+          abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
+        </SummaryContentExcerpt>
+      )}
       <SummaryMeta>
         <SMetaTags />
         <SUserCard />

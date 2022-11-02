@@ -44,10 +44,21 @@ const SummaryStatsItem = styled.div`
     border: 1px solid #2f6f44;
   }
   &.has-answers,
-  &.has-accepted-answer,
-  &.has-bounty {
+  &.has-bounty,
+  &.is-deleted,
+  &.is-published,
+  &.is-draft,
+  &.is-review,
+  &.is-closed,
+  &.is-archived,
+  &.is-pinned,
+  &.has-accepted-answer {
     border-radius: 3px;
     padding: 2px 4px;
+  }
+  &.has-bounty {
+    color: #fff;
+    background-color: #0074cc;
   }
   &.is-warm {
     color: #83690b;
@@ -55,9 +66,8 @@ const SummaryStatsItem = styled.div`
   &.is-hot {
     color: #a7510c;
   }
-  &.has-bounty {
-    color: #fff;
-    background-color: #0074cc;
+  &.is-supernova {
+    color: #922024;
   }
 `;
 
@@ -89,6 +99,10 @@ const SummaryStats = ({
   const [viewsText, setViewsText] = useState(views);
 
   useEffect(() => {
+    setViewsStats();
+  }, [views]);
+
+  const setViewsStats = () => {
     if (views < 1000) {
       setViewsClassName('');
       setViewsText(views);
@@ -102,12 +116,13 @@ const SummaryStats = ({
       return;
     }
 
-    setViewsClassName('is-hot');
     if (views < 1000000) {
+      setViewsClassName('is-hot');
       setViewsText(`${k}k`);
       return;
     }
 
+    setViewsClassName('is-supernova');
     const m = Math.floor(k / 1000);
     if (views < 1000000000) {
       setViewsText(`${m}m`);
@@ -116,7 +131,7 @@ const SummaryStats = ({
 
     const b = Math.floor(m / 1000);
     setViewsText(`${b}b`);
-  }, [views]);
+  };
 
   return (
     <SummaryStatsWrapper>
