@@ -48,13 +48,13 @@ public class CommentController {
     }
 
     @Secured("ROLE_USER")
-    @PostMapping("/questions/{question_id}/{answer_id}/comments/add")
-    public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post commentPost,
+    @PostMapping("/answers/{answer_id}/comments/add")
+    public ResponseEntity postAnswerComment(@Valid @RequestBody CommentDto.Post commentPost,
 //                                    @RequestParam CommentType commentType,
-                                      @PathVariable("question_id") @Positive long postId,
+//                                      @PathVariable("question_id") @Positive long postId,
                                       @PathVariable("answer_id") @Positive long answerId) {
         Comment comment = mapper.commentPostToComment(commentPost);
-        Comment createComment = commentService.createAnswerComment(comment, answerId, postId, commentPost.getUserId());
+        Comment createComment = commentService.createAnswerComment(comment, answerId, commentPost.getUserId());
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
 
         return new ResponseEntity<>(
