@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getRandomUserImgUrl } from '../../util/util';
+import { getRandomUserImgUrl, numberFormatter } from '../../util/util';
 
 const SUserCardMinimal = styled.div`
   display: flex;
@@ -96,9 +96,10 @@ const RelativetimeSpan = styled.span`
 
 const SUserCard = ({ question }) => {
   const {
-    actionUser: { nickName, email },
+    actionUser: { nickName, email, reputation },
     questionId,
     actionTime,
+    status,
   } = question;
 
   const [userImgUrl, setUserImgUrl] = useState('');
@@ -125,7 +126,7 @@ const SUserCard = ({ question }) => {
           <SUserCardRep>
             <span title="reputation score" dir="ltr">
               {/* 숫자 k,m,b */}
-              15
+              {numberFormatter(reputation)}
             </span>
           </SUserCardRep>
         </SUserCardAwards>
@@ -133,10 +134,15 @@ const SUserCard = ({ question }) => {
 
       <SUserCardIime>
         <SLinkMuted to={`/questions/${questionId}`}>
-          asked{' '}
+          {status}{' '}
           <RelativetimeSpan title="2022-10-25 05:04:43Z">
-            {new Date(actionTime).toISOString()}
-            {/* 24 secs ago */}
+            {new Date(actionTime).toLocaleDateString('en-us', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })}
           </RelativetimeSpan>
         </SLinkMuted>
       </SUserCardIime>
