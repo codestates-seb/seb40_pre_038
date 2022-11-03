@@ -7,7 +7,7 @@ import PageContainer from '../../components/PageContainer';
 import Mainbar from '../../components/Mainbar';
 import QuestionListWrapper from '../../components/QuestionList/QuestionListWrapper';
 import { Pagination } from '../../components/Pagination';
-import { getAllQuestions } from '../../_actions/questions_action';
+import { getAllQuestions } from '../../_actions/question_list_action';
 
 const ClearBr = styled.br`
   clear: both !important;
@@ -15,7 +15,7 @@ const ClearBr = styled.br`
 
 const QuestionsPage = () => {
   const dispatch = useDispatch();
-  const allQuestions = useSelector((state) => state.allQuestions);
+  const allQuestions = useSelector((state) => state.questionList.allQuestions);
   const {
     sortTabValue,
     pageSizerValue,

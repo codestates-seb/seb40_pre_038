@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getAllQuestions } from '../../_actions/questions_action';
+import { getAllQuestions } from '../../_actions/question_list_action';
 
 const Wrapper = styled.div`
   display: flex !important;
@@ -28,7 +28,7 @@ const QuestionsCount = styled.div`
 
 const SeUql = () => {
   const totalElements = useSelector(
-    (state) => state.allQuestions.totalElements
+    (state) => state.questionList.allQuestions.totalElements
   );
 
   return (
@@ -127,7 +127,7 @@ export const AllQuestionsSortTabObj = {
 
 const UqlNav = () => {
   const dispatch = useDispatch();
-  const allQuestions = useSelector((state) => state.allQuestions);
+  const allQuestions = useSelector((state) => state.questionList.allQuestions);
   const { sortTabValue, pageSizerValue } = allQuestions;
 
   const handleClickButton = (e) => {

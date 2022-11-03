@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getTopQuestions } from '../../../_actions/questions_action';
+import { getTopQuestions } from '../../../_actions/question_list_action';
 
 const FlexWrapper = styled.div`
   display: flex !important;
@@ -101,7 +101,9 @@ export const TopQuestionsSortTabObj = {
 
 const SortTabs = () => {
   const dispatch = useDispatch();
-  const sortTabValue = useSelector((state) => state.topQuestions.sortTabValue);
+  const sortTabValue = useSelector(
+    (state) => state.questionList.topQuestions.sortTabValue
+  );
 
   const handleClickTab = (e) => {
     dispatch(getTopQuestions(e.target.textContent.toLowerCase()));

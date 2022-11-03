@@ -6,7 +6,7 @@ import PageHeader from './PageHeader';
 import SortTabs from './SortTabs';
 import QuestionListWrapper from '../../../components/QuestionList/QuestionListWrapper';
 import Mainbar from '../../../components/Mainbar';
-import { getTopQuestions } from '../../../_actions/questions_action';
+import { getTopQuestions } from '../../../_actions/question_list_action';
 
 const ClearBr = styled.br`
   clear: both !important;
@@ -22,17 +22,21 @@ const BottomNotice = styled.h2`
 
 const TopQuestionsPage = () => {
   const dispatch = useDispatch();
-  const topQuestions = useSelector((state) => state.topQuestions);
+  const topQuestions = useSelector((state) => state.questionList.topQuestions);
+  const { questionsList, sortTabValue } = topQuestions;
 
   useEffect(() => {
-    dispatch(getTopQuestions(topQuestions.sortTabValue));
+    dispatch(getTopQuestions(sortTabValue));
   }, [dispatch]);
 
   return (
     <Mainbar>
       <PageHeader />
       <SortTabs />
-      <QuestionListWrapper className="question-mini-list" />
+      <QuestionListWrapper
+        className="question-mini-list"
+        questionsList={questionsList}
+      />
       <ClearBr />
       <BottomNotice>
         Looking for more? Browse the{' '}
