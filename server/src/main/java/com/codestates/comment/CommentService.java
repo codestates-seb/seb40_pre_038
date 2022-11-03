@@ -60,11 +60,11 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public Comment createAnswerComment(Comment comment, long questionId, long answerId, long userId) {
-        Question question = questionService.findQuestion(questionId);
+    public Comment createAnswerComment(Comment comment, long answerId, long userId) {
+//        Question question = questionService.findQuestion(questionId);
         Answer answer = answerService.findAnswer(answerId);
         User findUser = userService.findVerifiedUser(userId);
-        comment.setQuestion(question);
+        comment.setQuestion(answer.getQuestion());
         comment.setAnswer(answer);
         comment.setUser(findUser);
         comment.setCommentType(CommentType.ANSWER);
