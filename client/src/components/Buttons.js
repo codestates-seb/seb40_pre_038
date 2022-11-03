@@ -10,56 +10,75 @@ const Bluebutton = styled.button`
   width: ${(props) => props.width || '100px'};
   height: ${(props) => props.height || '40px'};
   font-size: ${(props) => props.fontSize || '14px'};
+  font-weight: ${(props) => props.fontWeight || '700'};
   :hover {
     background: #0063bf;
+  }
+  &:disabled {
+    opacity: 50%;
+    cursor: not-allowed;
+    :hover {
+      background-color: #0995ff;
+    }
   }
 `;
 
 const SkyblueButton = styled.button`
   background: #e1ecf4;
   color: #3a739d;
-  font-weight: bold;
   border-radius: 4px;
   border: ${(props) => props.border || '1px solid #3a739d'};
   width: ${(props) => props.width || '100px'};
   height: ${(props) => props.height || '40px'};
   font-size: ${(props) => props.fontSize || '14px'};
+  font-weight: ${(props) => props.fontWeight || '700'};
   :hover {
     background: #b3d3ea;
   }
 `;
 
-function ButtonBlue({ children, border, width, height, fontSize }) {
+export function ButtonBlue({
+  children,
+  border,
+  width,
+  height,
+  fontSize,
+  fontWeight,
+  type,
+  disabled,
+}) {
   return (
     <Bluebutton
+      type={type ? type : 'submit'}
       border={border}
       width={width}
       height={height}
       fontSize={fontSize}
+      fontWeight={fontWeight}
+      disabled={disabled}
     >
       {children}
     </Bluebutton>
   );
 }
 
-function ButtonSblue({ children, width, height, fontSize }) {
+export function ButtonSblue({ children, width, height, fontSize, fontWeight }) {
   return (
-    <SkyblueButton width={width} height={height} fontSize={fontSize}>
+    <SkyblueButton
+      width={width}
+      height={height}
+      fontSize={fontSize}
+      fontWeight={fontWeight}
+    >
       {children}
     </SkyblueButton>
   );
 }
 
 /**
+ * Button
  * 미완성 컴포넌트 입니다.
  */
-function Button({ children, type, whiteSpace }) {
-  return (
-    <ButtonComponent className={type} whiteSpace={whiteSpace}>
-      {children}
-    </ButtonComponent>
-  );
-}
 const ButtonComponent = styled.button`
   position: relative;
   display: inline-block;
@@ -98,4 +117,18 @@ const ButtonComponent = styled.button`
   }
 `;
 
-export { ButtonBlue, ButtonSblue, Button };
+export const Button = ({ children, type, whiteSpace, onClick }) => {
+  const handleClickButton = (e) => {
+    onClick(e);
+  };
+
+  return (
+    <ButtonComponent
+      className={type}
+      whiteSpace={whiteSpace}
+      onClick={handleClickButton}
+    >
+      {children}
+    </ButtonComponent>
+  );
+};

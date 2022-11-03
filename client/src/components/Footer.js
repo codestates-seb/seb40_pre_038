@@ -62,7 +62,7 @@ const FooterLogoContainer = styled.div`
 `;
 
 const SiteFooterContainer = styled.div`
-  padding: 0 12px 24px 0;
+  padding: 0 30px 24px 0;
   display: flex;
   flex-direction: column;
 `;
@@ -80,6 +80,9 @@ const SiteFooterTitleContainer = styled.div`
   @media screen and (min-width: 641px) {
     font-size: 13px;
     padding-top: 5px;
+  }
+  @media screen and (min-width: 981px) {
+    margin-bottom: 12px;
   }
 `;
 
@@ -117,7 +120,7 @@ const SiteFooterLists = styled.div`
 const SiteFooterListContainer = styled.div`
   font-size: 13px;
   color: #9199a1;
-  font-weight: 600;
+  font-weight: 400;
 
   @media screen and (min-width: 500px) {
     font-size: 11px;
@@ -130,7 +133,7 @@ const SiteFooterListContainer = styled.div`
   }
   @media screen and (min-width: 981px) {
     //981px ~
-    padding: 4px;
+    padding: 4px 4px 4px 0;
   }
   &:hover {
     cursor: pointer;
@@ -173,15 +176,19 @@ const CopyrightFooterContainer = styled.div`
   @media screen and (min-width: 981px) {
     //981px ~
     width: 313.094px;
+    margin: 0;
   }
 `;
 
 const SocialListContainer = styled.ul`
   list-style: none;
   display: flex;
+  align-items: flex-start;
+  margin: 0 0 10px 0;
   li {
     color: #9199a1;
     font-size: 11px;
+    font-weight: 400;
     padding: 4px 8px 4px 0px;
     &:hover {
       cursor: pointer;
@@ -192,9 +199,13 @@ const SocialListContainer = styled.ul`
 
 const CopyrightInfoContainer = styled.p`
   font-size: 11px;
+  font-weight: 400;
   color: #9199a1;
   a {
     color: #9199a1;
+    &:hover {
+      color: #9199a1;
+    }
   }
   @media screen and (min-width: 500px) {
     width: 100%;

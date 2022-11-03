@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const SearchbarContainer = styled.form`
   box-sizing: border-box;
@@ -131,8 +132,12 @@ const SearchDropdownBottom = styled.div`
 `;
 
 const HeaderSearchbar = ({ handleClickMenu, clickedMenu }) => {
+  const navigate = useNavigate();
+  const handleSubmitQuestionForm = () => {
+    navigate('/questions');
+  };
   return (
-    <HeaderSearchbarContainer>
+    <HeaderSearchbarContainer id="search" onSubmit={handleSubmitQuestionForm}>
       <HeaderSearchbarInput
         type="text"
         placeholder="Search..."

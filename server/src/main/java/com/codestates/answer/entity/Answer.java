@@ -1,11 +1,22 @@
 package com.codestates.answer.entity;
 
 import com.codestates.audit.Auditable;
+import com.codestates.user.entity.User;
+import com.codestates.question.Question;
+import com.codestates.comment.entity.Comment;
+import com.codestates.vote.AnswerVote.AnswerVote;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -17,29 +28,39 @@ public class Answer extends Auditable {
     private Long answerId;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false, name = "status")
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_NORMAL;
 
-    /*@ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
-
+    @JsonBackReference
     @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
-    private Question question;*/
+    private Question question;
 
-    @Column(nullable = false, columnDefinition = "TEXT", name = "answer_contents")
-    private String contents;
+    @Column(nullable = false, columnDefinition = "TEXT", name = "body", length = 1000000000)
+    private String body;
 
-    @Column(nullable = false, name = "votes")
-    private int voteCounts;
+    @Column(nullable = false, name = "vote")
+    private int vote = 0;
 
-    /*public void addMember(Member member) {
-        this.member = member;
-    }
+    @CreatedDate
+    @Column(nullable = false, updatable = false, name = "CREATED_AT")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    public void addQuestion(Question question) {
-        this.question = question;
-    }*/
+    @LastModifiedDate
+    @Column(nullable = false, name = "LAST_MODIFIED_AT")
+    private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "answer")
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private AnswerVote answerVote;
 
     public enum AnswerStatus {
         ANSWER_DELETE(0, "삭제된 답변"),
@@ -58,19 +79,18 @@ public class Answer extends Auditable {
         }
     }
 
-    /*public enum VoteStatus {
-        VOTE_PLUS(1, "up vote"),
-        VOTE_MINUS(-1, "down vote");
+    public Answer(AnswerStatus answerStatus, String body, List<Comment> comments) {
+//        this.question = question;
+        this.answerStatus = answerStatus;
+        this.body = body;
+        this.comments = comments;
+    }
 
-        @Getter
-        private int voteCount;
-
-        @Getter
-        private String voteDescription;
-
-        VoteStatus(int voteCount, String voteDescription) {
-            this.voteCount = voteCount;
-            this.voteDescription = voteDescription;
-        }
-    }*/
+    public Answer(AnswerStatus answerStatus, User user, Question question, String body, List<Comment> comments) {
+        this.user = user;
+        this.answerStatus = answerStatus;
+        this.question = question;
+        this.body = body;
+        this.comments = comments;
+    }
 }
