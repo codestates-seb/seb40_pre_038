@@ -45,7 +45,11 @@ const QuestionBody = ({ data, type }) => {
 
       <QuestionBodyBottom>
         <QuestionBodyBtns />
-        <QuestionUserinfo userName={userName} createdAt={createdDate} />
+        <QuestionUserinfo
+          type={type}
+          userName={userName}
+          createdAt={createdDate}
+        />
       </QuestionBodyBottom>
     </QuestionBodyContainer>
   );
