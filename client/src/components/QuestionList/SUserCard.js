@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getRandomNumber } from '../../util/util';
+import { getRandomUserImgUrl } from '../../util/util';
 
 const SUserCardMinimal = styled.div`
   display: flex;
@@ -95,20 +96,23 @@ const RelativetimeSpan = styled.span`
 
 const SUserCard = ({ question }) => {
   const {
-    userInformation: { nickName },
+    actionUser: { nickName, email },
     questionId,
-    createdAt,
+    actionTime,
   } = question;
+
+  const [userImgUrl, setUserImgUrl] = useState('');
+
+  useEffect(() => {
+    setUserImgUrl(getRandomUserImgUrl(email));
+  }, [question]);
 
   return (
     <SUserCardMinimal>
       <div aria-live="polite">
         <Link to="#">
           <SUserCardAvatar>
-            <img
-              src={`https://randomuser.me/api/portraits/women/${getRandomNumber()}.jpg`}
-              alt={`${nickName}'s user avatar`}
-            />
+            <img src={userImgUrl} alt={`${nickName}'s user avatar`} />
           </SUserCardAvatar>
         </Link>
       </div>
@@ -131,7 +135,7 @@ const SUserCard = ({ question }) => {
         <SLinkMuted to={`/questions/${questionId}`}>
           asked{' '}
           <RelativetimeSpan title="2022-10-25 05:04:43Z">
-            {new Date(createdAt).toISOString()}
+            {new Date(actionTime).toISOString()}
             {/* 24 secs ago */}
           </RelativetimeSpan>
         </SLinkMuted>
