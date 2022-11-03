@@ -40,7 +40,8 @@ public class Stub {
             log.info("USER STUB " +
                     userRepository.save(new User("Stub_Potato" + i,
                             "stub_email_" + i + "@user.com",
-                            (char) ((Math.random() * 26) + 97) + String.valueOf((int) (Math.random() * 1000000000)))));
+                            (char) ((Math.random() * 26) + 97) + String.valueOf((int) (Math.random() * 1000000000)),
+                            (int)(Math.random() * 1000000) + 0)));
         }
 
         return args -> {
