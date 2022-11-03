@@ -219,6 +219,11 @@ const GlobalStyle = createGlobalStyle`
     color: #0A95FF;
     text-decoration: none;
   }
+  p {
+    clear: both;
+    margin-bottom: 1em;
+    margin-top: 0;
+  }
 `;
 
 export default GlobalStyle;
