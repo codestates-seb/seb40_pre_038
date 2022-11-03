@@ -3,10 +3,10 @@ package com.codestates;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class Pre038ApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 

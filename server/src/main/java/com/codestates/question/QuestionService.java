@@ -62,6 +62,8 @@ public class QuestionService {
 
         findQuestion.setTagBody(question.getTagBody());
         findQuestion.setTagList(list);
+        
+        findQuestion.setActionStatus(Question.ActionStatus.ACTION_MODIFIED); // actionStatus 변경
 
         Question updatedQuestion = questionRepository.save(findQuestion);
 
