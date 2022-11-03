@@ -47,9 +47,10 @@ const AskedDate = (str) => {
   const date = new Date(str.slice(0, 19));
   const arr = date.toDateString().split(' ');
 
-  return `${arr[1]} ${arr[2]}, ${
-    arr[3]
-  } at ${date.getHours()}:${date.getMinutes()}`;
+  return `${arr[1]} ${arr[2]}, ${arr[3]} at ${String(date.getHours()).padStart(
+    2,
+    '0'
+  )}:${String(date.getMinutes()).padStart(2, '0')}`;
 };
 
 const QuestionUserinfo = ({ userName, createdAt }) => {
