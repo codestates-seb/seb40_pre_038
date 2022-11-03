@@ -128,12 +128,12 @@ export const AllQuestionsSortTabObj = {
 const UqlNav = () => {
   const dispatch = useDispatch();
   const allQuestions = useSelector((state) => state.allQuestions);
-  const { sortTabValue, pagerValue, pageSizerValue } = allQuestions;
+  const { sortTabValue, pageSizerValue } = allQuestions;
 
   const handleClickButton = (e) => {
     const params = {
       sortTabValue: e.target.textContent.toLowerCase(),
-      pagerValue,
+      pagerValue: 1,
       pageSizerValue,
     };
     dispatch(getAllQuestions(params));

@@ -34,7 +34,7 @@ const QuestionsPage = () => {
       pagerValue: 1,
       pageSizerValue: size,
     };
-    allQuestions.sortTabValue = dispatch(getAllQuestions(params));
+    dispatch(getAllQuestions(params));
   };
 
   const onChangePager = (page) => {
@@ -43,7 +43,7 @@ const QuestionsPage = () => {
       pagerValue: page,
       pageSizerValue,
     };
-    allQuestions.sortTabValue = dispatch(getAllQuestions(params));
+    dispatch(getAllQuestions(params));
   };
 
   return (
