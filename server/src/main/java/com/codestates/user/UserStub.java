@@ -18,8 +18,8 @@
 //
 //        return args -> {
 //
-//            log.info("USER STUB " + userRepository.save(new User("mashed", "abc@email.com", "1234")));
-//            log.info("USER STUB " + userRepository.save(new User("potato", "def@email.com", "1234")));
+//            log.info("USER STUB " + userRepository.save(new User(1L, "mashed", "abc@email.com")));
+//            log.info("USER STUB " + userRepository.save(new User(2L, "potato", "def@email.com")));
 //
 //            // wip
 //            // user1 -> USER

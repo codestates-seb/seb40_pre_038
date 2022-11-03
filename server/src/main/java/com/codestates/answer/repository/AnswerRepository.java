@@ -10,6 +10,7 @@ import java.util.List;
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
     @Query(nativeQuery = true,
             value = "select * from Answer a where a.status > 0 and a.question_id = :questionId"
-                    + " order by status asc, vote desc, answer_id desc")
+                    + " order by status asc, vote desc, answer_id desc"
+    )
     List<Answer> findAll(long questionId);
 }
