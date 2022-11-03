@@ -88,6 +88,10 @@ public class Question extends Auditable {
     @OneToOne(cascade = {CascadeType.ALL})
     private QuestionVote questionVote;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "actionStatus")
+    private ActionStatus actionStatus = ActionStatus.ACTION_ASKED;
+
     public void update(String title, String problem, String expect) {
         this.title = title;
         this.problem = problem;
@@ -109,5 +113,17 @@ public class Question extends Auditable {
         this.comments = comments;
         this.modifiedAt = modifiedAt;
         this.questionVote = questionVote;
+    }
+
+    public enum ActionStatus {
+        ACTION_ASKED("asked"),
+        ACTION_MODIFIED( "modified");
+
+        @Getter
+        private String actionDescription;
+
+        ActionStatus(String actionDescription) {
+            this.actionDescription = actionDescription;
+        }
     }
 }

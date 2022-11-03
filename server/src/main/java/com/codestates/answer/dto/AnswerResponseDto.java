@@ -25,4 +25,5 @@ public class AnswerResponseDto {
     private List<Comment> comments;
     private UserDto.Response userResponseDto;
     private List<CommentDto.Response> commentsWithUser;
+    private String actionStatus;
 }
