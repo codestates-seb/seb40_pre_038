@@ -3,6 +3,7 @@ package com.codestates.question;
 import com.codestates.answer.entity.Answer;
 import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
+import com.codestates.comment.entity.CommentType;
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
 import org.mapstruct.Mapper;
@@ -12,6 +13,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+//import static com.codestates.comment.entity.CommentType.QUESTION;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
@@ -42,13 +45,15 @@ public interface QuestionMapper {
         List<Comment> comments = question.getComments();
 
         List<CommentDto.Response> commentResponse
-                = comments.stream().map(comment ->
-                new CommentDto.Response(comment.getCommentId(),
-                        userToUserResponseDto(comment.getUser()),
-                        comment.getBody(),
-                        comment.getCreatedAt(),
-                        comment.getModifiedAt(),
-                        comment.getCommentType()))
+                = comments.stream()
+                .filter(a -> a.getCommentType().equals(CommentType.QUESTION))
+                .map(comment ->
+                        new CommentDto.Response(comment.getCommentId(),
+                                userToUserResponseDto(comment.getUser()),
+                                comment.getBody(),
+                                comment.getCreatedAt(),
+                                comment.getModifiedAt(),
+                                comment.getCommentType()))
                 .collect(Collectors.toList());
 
         return QuestionDto.Response.builder()
@@ -77,7 +82,7 @@ public interface QuestionMapper {
         User actionUser = question.getUser();
         String actionStatus = question.getActionStatus().getActionDescription();
         LocalDateTime actionTime = question.getModifiedAt();
-        if(findActionAnswer != null && findActionAnswer.getModifiedAt().compareTo(actionTime) > 0) {
+        if (findActionAnswer != null && findActionAnswer.getModifiedAt().compareTo(actionTime) > 0) {
             actionUser = findActionAnswer.getUser();
             actionStatus = findActionAnswer.getActionStatus().getActionDescription();
             actionTime = findActionAnswer.getModifiedAt();
