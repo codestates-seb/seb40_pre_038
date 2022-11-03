@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { getYearDiff, getMonthDiff, getDateDiff } from '../../util/DateDiff';
 
 const QuestionTitleContainer = styled.div`
   display: flex;
@@ -62,10 +63,16 @@ const QuestionTitle = () => {
   const { data } = state.data;
   const title = data === undefined ? '' : data.title;
   const views = data === undefined ? 0 : data.view;
+  const createdAt = data === undefined ? '' : data.createdAt;
+  const modifiedAt = data === undefined ? '' : data.modifiedAt;
 
-  const handleOnClickAsk = () => {
-    console.log('click!');
-  };
+  const yearDiff = getYearDiff(createdAt);
+  const monthDiff = getMonthDiff(createdAt);
+  const dateDiff = getDateDiff(createdAt);
+
+  const MyearDiff = getYearDiff(modifiedAt);
+  const MmonthDiff = getMonthDiff(modifiedAt);
+  const MdateDiff = getDateDiff(modifiedAt);
 
   return (
     <QuestionTitleContainer>
@@ -73,17 +80,23 @@ const QuestionTitle = () => {
         <div>{title}</div>
         <div>
           <Link to="/questions/ask">
-            <AskQustionBtn onClick={handleOnClickAsk}>
-              Ask Question
-            </AskQustionBtn>
+            <AskQustionBtn>Ask Question</AskQustionBtn>
           </Link>
         </div>
       </TitleInfo>
       <StatInfo>
         <div className="name">Asked</div>
-        <div className="stat">7 years, 10 months ago</div>
+        <div className="stat">
+          {dateDiff === 0
+            ? 'today'
+            : `${yearDiff} years, ${monthDiff} months ago`}
+        </div>
         <div className="name">Modified</div>
-        <div className="stat">today</div>
+        <div className="stat">
+          {MdateDiff === 0
+            ? 'today'
+            : `${MyearDiff} years, ${MmonthDiff} months ago`}
+        </div>
         <div className="name">Viewd</div>
         <div className="stat">{views} times</div>
       </StatInfo>

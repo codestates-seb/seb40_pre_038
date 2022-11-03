@@ -20,7 +20,6 @@ const createDate = (str) => {
 
 const Comments = ({ data, type }) => {
   const [commentData, setcommentData] = useState(data);
-  //console.log(type);
 
   useEffect(() => {
     setcommentData(data);
@@ -34,7 +33,7 @@ const Comments = ({ data, type }) => {
           <Comment
             key={comment.commentId}
             body={comment.body}
-            // nickname={comment.memberResponseDto.nickName}
+            nickname={comment.userResponseDto.nickName}
             date={date}
           ></Comment>
         );
