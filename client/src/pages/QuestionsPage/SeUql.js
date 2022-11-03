@@ -136,7 +136,7 @@ const UqlNav = () => {
       pagerValue,
       pageSizerValue,
     };
-    allQuestions.sortTabValue = dispatch(getAllQuestions(params));
+    dispatch(getAllQuestions(params));
   };
 
   const { Newest, Unanswered, Score } = AllQuestionsSortTabObj;
