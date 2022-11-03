@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import axios from 'axios';
-import { SEARCH_URL } from '../api/requests';
 import { useNavigate } from 'react-router-dom';
 
 const SearchbarContainer = styled.form`

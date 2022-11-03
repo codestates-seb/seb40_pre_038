@@ -35,7 +35,9 @@ export const InputContainer = ({ title, desc, children }) => {
       <label className="inputDesc">{desc}</label>
       {children}
       <div style={{ margin: '10px 0px 0px' }}>
-        <ButtonBlue width="60px">Next</ButtonBlue>
+        <ButtonBlue type="button" width="60px">
+          Next
+        </ButtonBlue>
       </div>
     </InputWrapper>
   );
