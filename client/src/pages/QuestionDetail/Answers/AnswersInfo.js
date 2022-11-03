@@ -55,7 +55,7 @@ const AnswersInfo = ({ answersCnt = 0 }) => {
           <div className="sortedby">Sorted by:</div>
           <div className="reset">Reset to default</div>
         </AnswerSortedby>
-        <AnswerSortSelect defaultValue={'trending'}>
+        <AnswerSortSelect defaultValue={'createdasc'}>
           <option value="scoredesc">Highest score (default)</option>
           <option value="trending">Trending (recent votes count more)</option>
           <option value="modifieddesc">Date modified (newest first)</option>
