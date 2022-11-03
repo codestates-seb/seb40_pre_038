@@ -50,16 +50,20 @@ public class Stub {
                 long rand = (long) (Math.random() * 100) + 1; // 스텁 유저를 위한 랜덤 넘버
 
                 List<String> tagList = new ArrayList<>(); // 태그 리스트 생성
-                tagList.add("TagBody" + i);
-                tagList.add("JavaTagBody" + i);
-                tagList.add("JavaScriptTagBody" + i);
+
+                tagList.add("tagbody" + i);
+                tagList.add("javatagbody" + i);
+                tagList.add("javascripttagbody" + i);
+
 
                 log.info("QUESTION STUB " + // 질문 스텁 생성
                         questionRepository.save(new Question(
                                 "Title " + i,
                                 "Problem " + i + " JavaProblem " + i + "JavaScriptProblem " + i + " SpringProblem " + i + " ReactProblem " + i,
                                 "Expect " + i + " JavaExpect " + i + " JavaScriptExpect " + i + " SpringExpect " + i + " ReactExpect " + i,
-                                "TagBody " + i + ", JavaTagBody " + i + ", JavaScriptTagBody " + i,
+
+                                "tagbody" + i + ", javatagbody" + i + ", javascripttagbody" + i,
+
                                 tagList,
                                 (int) (Math.random() * 1000),
                                 (int) (Math.random() * 1000),
