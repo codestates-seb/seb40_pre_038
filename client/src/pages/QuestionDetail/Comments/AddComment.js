@@ -33,11 +33,22 @@ const AddCommentForm = styled.form`
   padding: 2px;
 `;
 
-const CommentInput = styled(SearchbarInput)`
+const CommentInput = styled.textarea`
   width: 100%;
   height: 65px;
   margin-right: 8px;
-  padding: 2px;
+  padding: 7px 9px;
+  border: 1px solid #babfc4;
+  border-radius: 3px;
+  vertical-align: text-top;
+  &:focus {
+    outline: none;
+    border: 1px solid #6bbbf7;
+    box-shadow: 0px 0px 0px 4px #d8e5f2;
+  }
+  &::placeholder {
+    color: #babfc4;
+  }
 `;
 
 const AddCommentBtn = styled.button`
@@ -62,7 +73,7 @@ const CommentGuideBox = styled.div`
   color: #6a737c;
 `;
 
-const AddComment = ({ setcommentData }) => {
+const AddComment = ({ type }) => {
   const [isBtnClicked, setIsBtnClicked] = useState(false);
   const [commentInput, setCommentInput] = useState('');
   const inputRef = useRef();
@@ -70,6 +81,11 @@ const AddComment = ({ setcommentData }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.questionReducer);
   const question_id = state.question_id;
+
+  const QuestionPlaceholder =
+    'Use comments to reply to other users or notify them of changes. If you are adding new information, edit your post instead of commenting.';
+  const AnswerPlaceholder =
+    'Use comments to ask for more information or suggest improvements. Avoid comments like "+1" or "thanks".';
 
   const handleOnClickAddAComment = () => {
     setIsBtnClicked(true);
@@ -92,9 +108,13 @@ const AddComment = ({ setcommentData }) => {
         <>
           <AddCommentForm>
             <CommentInput
-              type="text"
               onChange={handleOnChangeInput}
               ref={inputRef}
+              placeholder={
+                type === 'answer'
+                  ? `${AnswerPlaceholder}`
+                  : `${QuestionPlaceholder}`
+              }
             />
             <AddCommentBtn onClick={handleOnClickAddComment}>
               Add Comment

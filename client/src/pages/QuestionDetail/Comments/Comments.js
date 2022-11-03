@@ -38,7 +38,7 @@ const Comments = ({ data, type }) => {
           ></Comment>
         );
       })}
-      <AddComment setcommentData={setcommentData} />
+      <AddComment type={type} />
     </CommentsContainer>
   );
 };
