@@ -1,6 +1,11 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { SearchbarInput } from '../../../components/Searchbar';
+import {
+  getQuestion,
+  postQuestionComment,
+} from '../../../_actions/question_action';
 
 const AddCommentContainer = styled.div`
   width: 100%;
@@ -57,10 +62,28 @@ const CommentGuideBox = styled.div`
   color: #6a737c;
 `;
 
-const AddComment = () => {
+const AddComment = ({ setcommentData }) => {
   const [isBtnClicked, setIsBtnClicked] = useState(false);
-  const handleOnClickAddComment = () => {
+  const [commentInput, setCommentInput] = useState('');
+  const inputRef = useRef();
+
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.questionReducer);
+  const question_id = state.question_id;
+
+  const handleOnClickAddAComment = () => {
     setIsBtnClicked(true);
+  };
+
+  const handleOnChangeInput = (e) => {
+    setCommentInput(e.target.value);
+  };
+
+  const handleOnClickAddComment = (e) => {
+    e.preventDefault();
+    dispatch(postQuestionComment(question_id, commentInput));
+    inputRef.current.value = '';
+    setIsBtnClicked(false);
   };
 
   return (
@@ -68,13 +91,19 @@ const AddComment = () => {
       {isBtnClicked ? (
         <>
           <AddCommentForm>
-            <CommentInput type="text" />
-            <AddCommentBtn>Add Comment</AddCommentBtn>
+            <CommentInput
+              type="text"
+              onChange={handleOnChangeInput}
+              ref={inputRef}
+            />
+            <AddCommentBtn onClick={handleOnClickAddComment}>
+              Add Comment
+            </AddCommentBtn>
           </AddCommentForm>
           <CommentGuideBox>Enter at least 15 characters</CommentGuideBox>
         </>
       ) : (
-        <AddACommentBtn onClick={handleOnClickAddComment}>
+        <AddACommentBtn onClick={handleOnClickAddAComment}>
           Add a comment
         </AddACommentBtn>
       )}

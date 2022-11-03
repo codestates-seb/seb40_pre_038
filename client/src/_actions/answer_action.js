@@ -4,6 +4,8 @@ import { QUESTIONS_URL } from '../api/requests';
 export const GET_ANSWERS = 'GET_ANSWERS';
 export const ADD_ANSWER = 'ADD_ANSWER';
 
+export const POST_ANSWER_COMMENT = 'POST_ANSWER_COMMENT';
+
 export const getAnswers = async (question_id) => {
   const payload = await axios
     .get(`${QUESTIONS_URL}/${question_id}/answers`)

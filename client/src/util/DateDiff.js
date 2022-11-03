@@ -1,5 +1,4 @@
 export const getYearDiff = (date) => {
-  console.log(date);
   const d1 = new Date(date.slice(0, 19));
   const d2 = new Date();
 

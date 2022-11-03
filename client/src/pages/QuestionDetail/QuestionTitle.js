@@ -60,11 +60,12 @@ const StatInfo = styled.div`
 
 const QuestionTitle = () => {
   const state = useSelector((state) => state.questionReducer);
-  const { data } = state.data;
-  const title = data === undefined ? '' : data.title;
-  const views = data === undefined ? 0 : data.view;
-  const createdAt = data === undefined ? '' : data.createdAt;
-  const modifiedAt = data === undefined ? '' : data.modifiedAt;
+  const data = state.data;
+
+  const title = Object.keys(data).length === 0 ? '' : data.title;
+  const views = Object.keys(data).length === 0 ? 0 : data.view;
+  const createdAt = Object.keys(data).length === 0 ? '' : data.createdAt;
+  const modifiedAt = Object.keys(data).length === 0 ? '' : data.modifiedAt;
 
   const yearDiff = getYearDiff(createdAt);
   const monthDiff = getMonthDiff(createdAt);

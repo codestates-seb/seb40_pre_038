@@ -40,7 +40,7 @@ const QuestionDetailPage = () => {
   const { question_id } = useParams();
 
   const state = useSelector((state) => state.questionReducer);
-  const { data } = state.data;
+  const data = state.data;
 
   useEffect(() => {
     dispatch(setQuestionId(question_id));
