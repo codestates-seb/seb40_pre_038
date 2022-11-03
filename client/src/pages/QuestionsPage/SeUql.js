@@ -148,19 +148,19 @@ const UqlNav = () => {
           className={sortTabValue === Newest ? 'is-selected' : ''}
           onClick={handleClickButton}
         >
-          {Newest}
+          Newest
         </UqlNavigationButton>
         <UqlNavigationButton
           className={sortTabValue === Unanswered ? 'is-selected' : ''}
           onClick={handleClickButton}
         >
-          {Unanswered}
+          Unanswered
         </UqlNavigationButton>
         <UqlNavigationButton
           className={sortTabValue === Score ? 'is-selected' : ''}
           onClick={handleClickButton}
         >
-          {Score}
+          Score
         </UqlNavigationButton>
       </UqlNavigation>
     </UqlNavWrapper>

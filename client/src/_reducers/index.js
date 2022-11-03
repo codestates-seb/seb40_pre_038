@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { users } from './users_reducer';
-import { questions, allQuestions } from './questions_reducer';
+import { questions, allQuestions, topQuestions } from './questions_reducer';
 import search from './search_reducer';
 import tags from './tags_reducer';
 import { questionReducer } from './question_reducer';
@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
   users,
   questions,
   allQuestions,
+  topQuestions,
   search,
   tags,
   questionReducer,

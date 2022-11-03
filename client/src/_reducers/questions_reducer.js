@@ -1,6 +1,7 @@
 import {
   POST_NEW_QUESTION,
   GET_ALL_QUESTIONS,
+  GET_TOP_QUESTIONS,
 } from '../_actions/questions_action';
 
 export function questions(state = {}, action) {
@@ -24,6 +25,20 @@ const allQuestionsInit = {
 export const allQuestions = (state = allQuestionsInit, action) => {
   switch (action.type) {
     case GET_ALL_QUESTIONS:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+// Home - Top Questions
+const topQuestionsInit = {
+  sortTabValue: 'hot',
+  questionsList: [],
+};
+export const topQuestions = (state = topQuestionsInit, action) => {
+  switch (action.type) {
+    case GET_TOP_QUESTIONS:
       return { ...state, ...action.payload };
     default:
       return state;

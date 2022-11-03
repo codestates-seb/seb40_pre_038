@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PageHeader from './PageHeader';
 import SortTabs from './SortTabs';
 import QuestionListWrapper from '../../../components/QuestionList/QuestionListWrapper';
 import Mainbar from '../../../components/Mainbar';
+import { getTopQuestions } from '../../../_actions/questions_action';
 
 const ClearBr = styled.br`
   clear: both !important;
@@ -18,6 +21,13 @@ const BottomNotice = styled.h2`
 `;
 
 const TopQuestionsPage = () => {
+  const dispatch = useDispatch();
+  const topQuestions = useSelector((state) => state.topQuestions);
+
+  useEffect(() => {
+    dispatch(getTopQuestions(topQuestions.sortTabValue));
+  }, [dispatch]);
+
   return (
     <Mainbar>
       <PageHeader />

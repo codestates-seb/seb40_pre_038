@@ -1,8 +1,13 @@
 import axios from 'axios';
-import { QUESTIONS_ADD_URL, GET_ALL_QUESTIONS_URL } from '../api/requests';
+import {
+  QUESTIONS_ADD_URL,
+  GET_ALL_QUESTIONS_URL,
+  GET_TOP_QUESTIONS_URL,
+} from '../api/requests';
 
 export const POST_NEW_QUESTION = 'POST_NEW_QUESTION';
 export const GET_ALL_QUESTIONS = 'GET_ALL_QUESTIONS';
+export const GET_TOP_QUESTIONS = 'GET_ALL_QUESTIONS';
 
 export const postNewQuestion = (postBody) => {
   const request = axios
@@ -38,6 +43,24 @@ export const getAllQuestions = (params) => {
 
   return {
     type: GET_ALL_QUESTIONS,
+    payload: request,
+  };
+};
+
+// Home - Top Questions
+export const getTopQuestions = (sortTabValue) => {
+  const request = axios
+    .get(`${GET_TOP_QUESTIONS_URL}/${sortTabValue}`)
+    .then((response) => {
+      const { data } = response.data;
+      return {
+        sortTabValue: sortTabValue,
+        questionsList: data,
+      };
+    });
+
+  return {
+    type: GET_TOP_QUESTIONS,
     payload: request,
   };
 };

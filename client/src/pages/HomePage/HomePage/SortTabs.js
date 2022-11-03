@@ -1,4 +1,6 @@
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getTopQuestions } from '../../../_actions/questions_action';
 
 const FlexWrapper = styled.div`
   display: flex !important;
@@ -91,10 +93,21 @@ const Tab = styled.button`
 //   border-radius: 2px;
 // `;
 
+export const TopQuestionsSortTabObj = {
+  Hot: 'hot',
+  Week: 'week',
+  Month: 'month',
+};
+
 const SortTabs = () => {
+  const dispatch = useDispatch();
+  const sortTabValue = useSelector((state) => state.topQuestions.sortTabValue);
+
   const handleClickTab = (e) => {
-    console.log(e.target.textContent);
+    dispatch(getTopQuestions(e.target.textContent.toLowerCase()));
   };
+
+  const { Hot, Week, Month } = TopQuestionsSortTabObj;
 
   return (
     <FlexWrapper>
@@ -111,19 +124,21 @@ const SortTabs = () => {
             <BountyIndicatorSpan>297</BountyIndicatorSpan> Bountied
           </Tab> */}
           <Tab
-            className="is-selected"
+            className={sortTabValue === Hot ? 'is-selected' : ''}
             title="Questions with the most views, most answers, and highest score over the last few days"
             onClick={handleClickTab}
           >
             Hot
           </Tab>
           <Tab
+            className={sortTabValue === Week ? 'is-selected' : ''}
             title="Questions with the most views, most answers, and highest score this week"
             onClick={handleClickTab}
           >
             Week
           </Tab>
           <Tab
+            className={sortTabValue === Month ? 'is-selected' : ''}
             title="Questions with the most views, most answers, and highest score this month"
             onClick={handleClickTab}
           >
