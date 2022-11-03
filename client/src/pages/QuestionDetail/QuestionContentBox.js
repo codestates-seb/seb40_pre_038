@@ -9,11 +9,11 @@ const ContentBoxContainer = styled.div`
   padding-right: 10px;
 `;
 
-const QuestionContentBox = ({ data, type }) => {
+const QuestionContentBox = ({ data, type, answerId }) => {
   return (
     <ContentBoxContainer>
       <QuestionBody data={data} type={type} />
-      <QuestionComments data={data} type={type} />
+      <QuestionComments data={data} type={type} answerId={answerId} />
     </ContentBoxContainer>
   );
 };

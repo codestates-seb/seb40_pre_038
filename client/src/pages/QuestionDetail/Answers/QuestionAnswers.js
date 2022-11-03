@@ -31,7 +31,7 @@ const QuestionAnswers = ({ questionId }) => {
       {answersData.map((el) => {
         return (
           <AnswerConatiner key={el.answerId}>
-            <Answer data={el} type="answer" />
+            <Answer data={el} type="answer" answerId={el.answerId} />
           </AnswerConatiner>
         );
       })}

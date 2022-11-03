@@ -1,14 +1,15 @@
 package com.codestates.question;
 
-import com.codestates.answer.service.AnswerService;
+import com.codestates.answer.entity.Answer;
 import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
-//import com.codestates.tag.Tag;
-//import com.codestates.tag.TagDto;
 import org.mapstruct.Mapper;
+import org.springframework.data.util.Pair;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,8 +64,46 @@ public interface QuestionMapper {
                 .modifiedAt(question.getModifiedAt())
                 .answerCount(question.getAnswers().size())
                 .commentsWithUser(commentResponse)
+                .actionStatus(question.getActionStatus().getActionDescription())
                 .build();
     }
+
+    // Top Questions, All Questions에서 Get Question 대한 Mapper
+    default QuestionDto.ResponseTopAll questionToQuestionResponseTopAll(Question question) {
+        Answer findActionAnswer = question.getAnswers().isEmpty() ? null : question.getAnswers().stream()
+                .max((answer1, answer2) -> answer1.getModifiedAt().compareTo(answer2.getModifiedAt()))
+                .get();
+
+        User actionUser = question.getUser();
+        String actionStatus = question.getActionStatus().getActionDescription();
+        LocalDateTime actionTime = question.getModifiedAt();
+        if(findActionAnswer != null && findActionAnswer.getModifiedAt().compareTo(actionTime) > 0) {
+            actionUser = findActionAnswer.getUser();
+            actionStatus = findActionAnswer.getActionStatus().getActionDescription();
+            actionTime = findActionAnswer.getModifiedAt();
+        }
+
+        return QuestionDto.ResponseTopAll.builder()
+                .questionId(question.getQuestionId())
+                .title(question.getTitle())
+                .problem(question.getProblem())
+                .expect(question.getExpect())
+                .tagList(question.getTagList())
+                .view(question.getView())
+                .vote(question.getVote())
+                .answerCount(question.getAnswers().size())
+                .accepted(
+                        question.getAnswers().stream()
+                                .filter(answer -> answer.getAnswerStatus().getStatusNumber() == 1)
+                                .count() > 0
+                )
+                .status(actionStatus)
+                .actionUser(userToUserResponseDto(actionUser))
+                .actionTime(actionTime)
+                .build();
+    }
+
+    List<QuestionDto.ResponseTopAll> questionsToQuestionResponsesTopAll(List<Question> questions);
 
     UserDto.Response userToUserResponseDto(User user);
 }
