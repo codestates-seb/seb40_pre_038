@@ -62,6 +62,7 @@ public class Answer extends Auditable {
     @OneToOne(cascade = {CascadeType.ALL})
     private AnswerVote answerVote;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "actionStatus")
     private ActionStatus actionStatus = ActionStatus.ACTION_ANSWERED;
 
