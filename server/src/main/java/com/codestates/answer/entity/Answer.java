@@ -62,6 +62,10 @@ public class Answer extends Auditable {
     @OneToOne(cascade = {CascadeType.ALL})
     private AnswerVote answerVote;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "actionStatus")
+    private ActionStatus actionStatus = ActionStatus.ACTION_ANSWERED;
+
     public enum AnswerStatus {
         ANSWER_DELETE(0, "삭제된 답변"),
         ANSWER_BEST(1, "답변 채택"),
@@ -92,5 +96,17 @@ public class Answer extends Auditable {
         this.question = question;
         this.body = body;
         this.comments = comments;
+    }
+
+    public enum ActionStatus {
+        ACTION_ANSWERED("answered"),
+        ACTION_MODIFIED( "modified");
+
+        @Getter
+        private String actionDescription;
+
+        ActionStatus(String actionDescription) {
+            this.actionDescription = actionDescription;
+        }
     }
 }

@@ -200,7 +200,7 @@ public class QuestionController {
         List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.questionsToQuestionResponses(questions), pageQuestions),
+                new MultiResponseDto<>(mapper.questionsToQuestionResponsesTopAll(questions), pageQuestions),
                 HttpStatus.OK);
     }
 
@@ -216,7 +216,7 @@ public class QuestionController {
         List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.questionsToQuestionResponses(questions), pageQuestions),
+                new MultiResponseDto<>(mapper.questionsToQuestionResponsesTopAll(questions), pageQuestions),
                 HttpStatus.OK);
     }
 }

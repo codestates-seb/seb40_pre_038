@@ -55,10 +55,14 @@ public class User extends Auditable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    public User(String nickName, String email, String password) {
+    @Column(nullable = false, name = "reputation")
+    private int reputation = 0;
+
+    public User(String nickName, String email, String password, int reputation) {
         this.nickName = nickName;
         this.email = email;
         this.password = password;
+        this.reputation = reputation;
     }
 
     public User(String email, String password) {

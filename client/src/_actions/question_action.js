@@ -4,6 +4,8 @@ import { QUESTIONS_URL } from '../api/requests';
 export const SET_QUESTION_ID = 'SET_QUESTION_ID';
 export const GET_QUESTION = 'GET_QUESTION';
 
+export const POST_QUESTION_COMMENT = 'POST_QUESTION_COMMENT';
+
 export const setQuestionId = (question_id) => {
   return {
     type: SET_QUESTION_ID,
@@ -18,6 +20,24 @@ export const getQuestion = async (question_id) => {
 
   return {
     type: GET_QUESTION,
+    payload: payload.data,
+  };
+};
+
+//질문 댓글 작성
+export const postQuestionComment = async (question_id, body) => {
+  //우선 1 ~ 100 사이로 userId 설정
+  const userId = Math.floor(Math.random() * 101);
+
+  const payload = await axios
+    .post(`${QUESTIONS_URL}/${question_id}/comments/add`, {
+      userId,
+      body,
+    })
+    .catch((error) => console.error(error));
+
+  return {
+    type: POST_QUESTION_COMMENT,
     payload: payload.data,
   };
 };
