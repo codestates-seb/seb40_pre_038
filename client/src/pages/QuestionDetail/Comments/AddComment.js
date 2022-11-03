@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SearchbarInput } from '../../../components/Searchbar';
-import {
-  getQuestion,
-  postQuestionComment,
-} from '../../../_actions/question_action';
+import { postQuestionComment } from '../../../_actions/question_action';
+import { postAnswerComment } from '../../../_actions/answer_action';
 
 const AddCommentContainer = styled.div`
   width: 100%;
@@ -73,14 +70,14 @@ const CommentGuideBox = styled.div`
   color: #6a737c;
 `;
 
-const AddComment = ({ type }) => {
+const AddComment = ({ type, answerId }) => {
   const [isBtnClicked, setIsBtnClicked] = useState(false);
   const [commentInput, setCommentInput] = useState('');
   const inputRef = useRef();
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.questionReducer);
-  const question_id = state.question_id;
+  const questionState = useSelector((state) => state.questionReducer);
+  const question_id = questionState.question_id;
 
   const QuestionPlaceholder =
     'Use comments to reply to other users or notify them of changes. If you are adding new information, edit your post instead of commenting.';
@@ -95,9 +92,16 @@ const AddComment = ({ type }) => {
     setCommentInput(e.target.value);
   };
 
-  const handleOnClickAddComment = (e) => {
+  const handleOnClickAddQuestionComment = (e) => {
     e.preventDefault();
     dispatch(postQuestionComment(question_id, commentInput));
+    inputRef.current.value = '';
+    setIsBtnClicked(false);
+  };
+
+  const handleOnClickAddAnswerComment = (e) => {
+    e.preventDefault();
+    dispatch(postAnswerComment(question_id, answerId, commentInput));
     inputRef.current.value = '';
     setIsBtnClicked(false);
   };
@@ -116,7 +120,14 @@ const AddComment = ({ type }) => {
                   : `${QuestionPlaceholder}`
               }
             />
-            <AddCommentBtn onClick={handleOnClickAddComment}>
+            <AddCommentBtn
+              //type = question or answer
+              onClick={
+                type === 'question'
+                  ? handleOnClickAddQuestionComment
+                  : handleOnClickAddAnswerComment
+              }
+            >
               Add Comment
             </AddCommentBtn>
           </AddCommentForm>

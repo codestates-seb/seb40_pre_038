@@ -34,3 +34,21 @@ export const addAnswer = async (question_id, body) => {
     payload: payload.data,
   };
 };
+
+export const postAnswerComment = async (question_id, answer_id, body) => {
+  //우선 1 ~ 100 사이로 userId 설정
+  const userId = Math.floor(Math.random() * 101);
+
+  const payload = await axios.post(
+    `${QUESTIONS_URL}/${question_id}/${answer_id}/comments/add`,
+    {
+      userId,
+      body,
+    }
+  );
+
+  return {
+    type: POST_ANSWER_COMMENT,
+    payload: payload.data,
+  };
+};

@@ -18,7 +18,7 @@ const createDate = (str) => {
   )}:${String(date.getMinutes()).padStart(2, '0')}`;
 };
 
-const Comments = ({ data, type }) => {
+const Comments = ({ data, type, answerId }) => {
   const [commentData, setcommentData] = useState(data);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Comments = ({ data, type }) => {
           ></Comment>
         );
       })}
-      <AddComment type={type} />
+      <AddComment type={type} answerId={answerId} />
     </CommentsContainer>
   );
 };
