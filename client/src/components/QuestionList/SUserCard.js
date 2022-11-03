@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { getRandomNumber } from '../../util/util';
 
 const SUserCardMinimal = styled.div`
   display: flex;
@@ -92,15 +93,21 @@ const RelativetimeSpan = styled.span`
   text-decoration: none;
 `;
 
-const SUserCard = () => {
+const SUserCard = ({ question }) => {
+  const {
+    userInformation: { nickName },
+    questionId,
+    createdAt,
+  } = question;
+
   return (
     <SUserCardMinimal>
       <div aria-live="polite">
-        <Link to="/users/#">
+        <Link to="#">
           <SUserCardAvatar>
             <img
-              src="https://lh3.googleusercontent.com/a-/AOh14GiFVj1Ia9lDp-sMV9Fd7h4-cBNQrfQHhN_zuh-LaQ=k-s32"
-              alt="Ryan Avery's user avatar"
+              src={`https://randomuser.me/api/portraits/women/${getRandomNumber()}.jpg`}
+              alt={`${nickName}'s user avatar`}
             />
           </SUserCardAvatar>
         </Link>
@@ -108,11 +115,11 @@ const SUserCard = () => {
 
       <SUserCardInfo>
         <SUserCardLinkWrapper>
-          <SUserCardLink to="/users/#">Ryan Avery</SUserCardLink>
+          <SUserCardLink to="#">{nickName}</SUserCardLink>
         </SUserCardLinkWrapper>
         <SUserCardAwards>
           <SUserCardRep>
-            <span title="reputation score " dir="ltr">
+            <span title="reputation score" dir="ltr">
               {/* 숫자 k,m,b */}
               15
             </span>
@@ -121,10 +128,11 @@ const SUserCard = () => {
       </SUserCardInfo>
 
       <SUserCardIime>
-        <SLinkMuted to="/questions/#">
-          asked
+        <SLinkMuted to={`/questions/${questionId}`}>
+          asked{' '}
           <RelativetimeSpan title="2022-10-25 05:04:43Z">
-            24 secs ago
+            {new Date(createdAt).toISOString()}
+            {/* 24 secs ago */}
           </RelativetimeSpan>
         </SLinkMuted>
       </SUserCardIime>

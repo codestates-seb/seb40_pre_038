@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
 import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ScrollTop from './components/ScrollTop';
 import Header from './components/Header';
@@ -14,6 +15,7 @@ import TagsPage from './pages/TagsPage/TagsPage';
 import UsersPage from './pages/UsersPage/UsersPage';
 import AskQuestionPage from './pages/AskQuestionPage/AskQuestionPage';
 import QuestionDetailPage from './pages/QuestionDetail/QuestionDetailPage';
+import NoMatch from './pages/NoMatch';
 
 const App = () => {
   /**
@@ -49,14 +51,3 @@ const App = () => {
 };
 
 export default App;
-
-const NoMatch = () => {
-  return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
-    </div>
-  );
-};

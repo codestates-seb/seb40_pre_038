@@ -26,9 +26,9 @@ import static com.codestates.comment.entity.CommentType.ANSWER;
 import static com.codestates.comment.entity.CommentType.QUESTION;
 
 @Configuration
-public class QuestionStub {
+public class Stub {
 
-    private static final Logger log = LoggerFactory.getLogger(QuestionStub.class);
+    private static final Logger log = LoggerFactory.getLogger(Stub.class);
 
     @Bean
     CommandLineRunner QuestionInit(QuestionRepository questionRepository, QuestionService questionService,

@@ -1,6 +1,7 @@
 package com.codestates.answer.dto;
 
 import com.codestates.answer.entity.Answer;
+import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import lombok.Builder;
@@ -16,16 +17,12 @@ import java.util.List;
 public class AnswerResponseDto {
     private long answerId;
     private Answer.AnswerStatus answerStatus;
-
     private long questionId;
-
     private String body;
     private int vote;
-
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
     private List<Comment> comments;
-
     private UserDto.Response userResponseDto;
+    private List<CommentDto.Response> commentsWithUser;
 }

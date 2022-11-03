@@ -45,10 +45,11 @@ const SummaryContentTitleLink = styled(Link)`
 `;
 
 const SummaryContentExcerpt = styled.div`
-  margin-top: calc(var(--su2) * -1);
-  margin-bottom: var(--su8);
-  font-family: var(--theme-post-body-font-family);
-  color: var(--fc-medium);
+  margin-top: calc(2px * -1);
+  margin-bottom: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
+    'Segoe UI', 'Liberation Sans', sans-serif;
+  color: #3b4045;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -67,22 +68,21 @@ const SummaryMeta = styled.div`
   row-gap: 8px;
 `;
 
-const SummaryContent = ({ className }) => {
+const SummaryContent = ({ className, question }) => {
+  const { title, expect, questionId } = question;
   return (
     <SummaryContentWrapper>
       <SummaryContentTitle>
-        <SummaryContentTitleLink to="/questions/1">
-          Function not working correctly, x != (y or z)
+        <SummaryContentTitleLink to={`/questions/${questionId}`}>
+          {title}
         </SummaryContentTitleLink>
       </SummaryContentTitle>
       {className !== 'questions' ? null : (
-        <SummaryContentExcerpt>
-          abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
-        </SummaryContentExcerpt>
+        <SummaryContentExcerpt>{expect}</SummaryContentExcerpt>
       )}
       <SummaryMeta>
-        <SMetaTags />
-        <SUserCard />
+        <SMetaTags question={question} />
+        <SUserCard question={question} />
       </SummaryMeta>
     </SummaryContentWrapper>
   );

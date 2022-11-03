@@ -18,7 +18,7 @@ const QuestionBodyBottom = styled.div`
 `;
 
 const QuestionBody = ({ data, type }) => {
-  console.log(data, type);
+  //console.log(data, type);
   const problem = data === undefined ? '' : data.problem;
   const expect = data === undefined ? '' : data.expect;
   const tagList = data === undefined ? [] : data.tagList;

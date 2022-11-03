@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const QuestionVoteContainer = styled.div`
   width: 60px;
-  height: 344px;
+  height: 200px;
   padding-right: 12px;
   display: flex;
   flex-direction: column;
