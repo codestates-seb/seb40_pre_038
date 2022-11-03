@@ -17,12 +17,11 @@ const QuestionSummary = styled.div`
   }
 `;
 
-const QuestionMiniList = ({ className }) => {
-  console.log('className', className);
+const QuestionMiniList = ({ className, question }) => {
   return (
     <QuestionSummary className={className}>
-      <SummaryStats />
-      <SummaryContent className={className} />
+      <SummaryStats question={question} />
+      <SummaryContent className={className} question={question} />
     </QuestionSummary>
   );
 };

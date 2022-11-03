@@ -4,4 +4,5 @@ export const ANSWER_URL = '/api/answer';
 export const SEARCH_URL = '/api/search';
 export const TAGS_URL = '/api/tags';
 
-export const QUESTIONS_ADD_URL = '/api/questions/add';
+export const QUESTIONS_ADD_URL = `${QUESTIONS_URL}/add`;
+export const GET_ALL_QUESTIONS_URL = `${QUESTIONS_URL}/allquestions`;

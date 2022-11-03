@@ -1,4 +1,6 @@
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getAllQuestions } from '../../_actions/questions_action';
 
 const Wrapper = styled.div`
   display: flex !important;
@@ -24,11 +26,15 @@ const QuestionsCount = styled.div`
   }
 `;
 
-const SeUql = ({ questionsCnt = 0 }) => {
+const SeUql = () => {
+  const totalElements = useSelector(
+    (state) => state.allQuestions.totalElements
+  );
+
   return (
     <Wrapper>
       <QuestionsCount>
-        {questionsCnt.toLocaleString()} questions with bounties
+        {totalElements.toLocaleString()} questions with bounties
       </QuestionsCount>
       <UqlNav />
     </Wrapper>
@@ -107,31 +113,54 @@ const UqlNavigationButton = styled.button`
     background-color: #e3e6e8;
     box-shadow: none;
   }
-  &.is-selected:focus {
+  &.is-selected:active {
     box-shadow: 0 0 0 4px #1a232629;
     outline: none;
   }
 `;
 
+export const AllQuestionsSortTabObj = {
+  Newest: 'newest',
+  Unanswered: 'unanswered',
+  Score: 'score',
+};
+
 const UqlNav = () => {
+  const dispatch = useDispatch();
+  const allQuestions = useSelector((state) => state.allQuestions);
+  const { sortTabValue, pagerValue, pageSizerValue } = allQuestions;
+
   const handleClickButton = (e) => {
-    console.log(e.target.textContent);
+    const params = {
+      sortTabValue: e.target.textContent.toLowerCase(),
+      pagerValue,
+      pageSizerValue,
+    };
+    allQuestions.sortTabValue = dispatch(getAllQuestions(params));
   };
+
+  const { Newest, Unanswered, Score } = AllQuestionsSortTabObj;
 
   return (
     <UqlNavWrapper>
       <UqlNavigation>
         <UqlNavigationButton
-          className="is-selected"
+          className={sortTabValue === Newest ? 'is-selected' : ''}
           onClick={handleClickButton}
         >
-          Newest
+          {Newest}
         </UqlNavigationButton>
-        <UqlNavigationButton onClick={handleClickButton}>
-          Unanswered
+        <UqlNavigationButton
+          className={sortTabValue === Unanswered ? 'is-selected' : ''}
+          onClick={handleClickButton}
+        >
+          {Unanswered}
         </UqlNavigationButton>
-        <UqlNavigationButton onClick={handleClickButton}>
-          Score
+        <UqlNavigationButton
+          className={sortTabValue === Score ? 'is-selected' : ''}
+          onClick={handleClickButton}
+        >
+          {Score}
         </UqlNavigationButton>
       </UqlNavigation>
     </UqlNavWrapper>

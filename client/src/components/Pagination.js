@@ -8,12 +8,22 @@ const PagerWrapper = styled.div`
   float: left !important;
 `;
 
-export const Pagination = ({ size, totalPages, currentPage }) => {
+export const Pagination = ({
+  size,
+  totalPages,
+  currentPage,
+  onClickPageSizer,
+  onChangePager,
+}) => {
   return (
     <>
-      <PageSizer size={size} />
+      <PageSizer size={size} onClick={onClickPageSizer} />
       <PagerWrapper>
-        <Pager totalPages={totalPages} currentPage={currentPage} />
+        <Pager
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onChange={onChangePager}
+        />
         {/* <TempPager totalPages={totalPages} currentPage={currentPage} /> */}
       </PagerWrapper>
     </>
@@ -77,10 +87,10 @@ const PageSizerSpan = styled.span`
   background-color: transparent;
 `;
 
-export const PageSizer = ({ size = 15 }) => {
-  const handleClickPagenationButton = (e) => [
-    console.log(e.target.textContent),
-  ];
+export const PageSizer = ({ size = 15, onClick }) => {
+  const handleClickPagenationButton = (e) => {
+    onClick(e.target.textContent);
+  };
 
   return (
     <PageSizerWrapper>
@@ -99,7 +109,7 @@ export const PageSizer = ({ size = 15 }) => {
   );
 };
 
-export const Pager = ({ totalPages = 1, currentPage = 1 }) => {
+export const Pager = ({ totalPages = 1, currentPage = 1, onChange }) => {
   const itemRender = (_, type, originalElement) => {
     if (type === 'prev')
       return currentPage === 1 ? null : (
@@ -115,7 +125,7 @@ export const Pager = ({ totalPages = 1, currentPage = 1 }) => {
   };
 
   const onChangePage = (page) => {
-    console.log(page);
+    onChange(page);
   };
 
   return (

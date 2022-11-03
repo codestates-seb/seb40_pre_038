@@ -27,13 +27,17 @@ const QuestionMiniLists = styled.div`
   }
 `;
 
-const QuestionListWrapper = ({ className }) => {
+const QuestionListWrapper = ({ className, questionsList }) => {
   return (
     <QlistWrapper className={className}>
       <QuestionMiniLists className={className}>
-        <div>
-          <QuestionMiniList className={className} />
-        </div>
+        {questionsList?.map((question) => (
+          <QuestionMiniList
+            key={question.questionId}
+            className={className}
+            question={question}
+          />
+        ))}
       </QuestionMiniLists>
     </QlistWrapper>
   );

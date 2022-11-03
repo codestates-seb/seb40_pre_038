@@ -87,36 +87,37 @@ const HasAcceptedAnswerSvg = styled.svg`
   }
 `;
 
-const SummaryStats = ({
-  votes = 0,
-  answers = 0,
-  hasAccepted = false,
-  views = 0,
-  hasBounty = false,
-  bounty = 0,
-}) => {
+const SummaryStats = ({ question }) => {
+  const {
+    vote,
+    answerCount,
+    hasAccepted = false,
+    view,
+    hasBounty = false,
+    bounty = 0,
+  } = question;
   const [viewsClassName, setViewsClassName] = useState('');
-  const [viewsText, setViewsText] = useState(views);
+  const [viewsText, setViewsText] = useState(view);
 
   useEffect(() => {
     setViewsStats();
-  }, [views]);
+  }, [view]);
 
   const setViewsStats = () => {
-    if (views < 1000) {
+    if (view < 1000) {
       setViewsClassName('');
-      setViewsText(views);
+      setViewsText(view);
       return;
     }
 
-    const k = Math.floor(views / 1000);
-    if (views < 10000) {
+    const k = Math.floor(view / 1000);
+    if (view < 10000) {
       setViewsClassName('is-warm');
       setViewsText(`${k}k`);
       return;
     }
 
-    if (views < 1000000) {
+    if (view < 1000000) {
       setViewsClassName('is-hot');
       setViewsText(`${k}k`);
       return;
@@ -124,7 +125,7 @@ const SummaryStats = ({
 
     setViewsClassName('is-supernova');
     const m = Math.floor(k / 1000);
-    if (views < 1000000000) {
+    if (view < 1000000000) {
       setViewsText(`${m}m`);
       return;
     }
@@ -135,29 +136,29 @@ const SummaryStats = ({
 
   return (
     <SummaryStatsWrapper>
-      <SummaryStatsItem className="emphasized" title={`Score of ${votes}`}>
-        <SummaryStatsItemNumber>{votes}</SummaryStatsItemNumber>
+      <SummaryStatsItem className="emphasized" title={`Score of ${vote}`}>
+        <SummaryStatsItemNumber>{vote}</SummaryStatsItemNumber>
         <SummaryStatsItemUnit>votes</SummaryStatsItemUnit>
       </SummaryStatsItem>
       <SummaryStatsItem
         className={
-          answers <= 0
+          answerCount <= 0
             ? ''
             : hasAccepted
             ? 'has-accepted-answer'
             : 'has-answers'
         }
-        title={`${answers} answers`}
+        title={`${answerCount} answers`}
       >
-        {answers <= 0 ? null : (
+        {answerCount > 0 && hasAccepted ? (
           <HasAcceptedAnswerSvg aria-hidden="true" viewBox="0 0 14 14">
             <path d="M13 3.41 11.59 2 5 8.59 2.41 6 1 7.41l4 4 8-8Z"></path>
           </HasAcceptedAnswerSvg>
-        )}
-        <SummaryStatsItemNumber>{answers}</SummaryStatsItemNumber>
+        ) : null}
+        <SummaryStatsItemNumber>{answerCount}</SummaryStatsItemNumber>
         <SummaryStatsItemUnit>answers</SummaryStatsItemUnit>
       </SummaryStatsItem>
-      <SummaryStatsItem className={viewsClassName} title={`${views} views`}>
+      <SummaryStatsItem className={viewsClassName} title={`${view} views`}>
         <SummaryStatsItemNumber>{viewsText}</SummaryStatsItemNumber>
         <SummaryStatsItemUnit>views</SummaryStatsItemUnit>
       </SummaryStatsItem>
