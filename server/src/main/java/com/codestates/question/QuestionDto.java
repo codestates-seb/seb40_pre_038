@@ -1,7 +1,6 @@
 package com.codestates.question;
 
 import com.codestates.comment.CommentDto;
-import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -84,6 +83,7 @@ public class QuestionDto {
         private LocalDateTime modifiedAt;
         private int answerCount;
         private List<CommentDto.Response> commentsWithUser;
+        private String actionStatus;
     }
 
     @Getter
@@ -118,11 +118,10 @@ public class QuestionDto {
         private List<String> tagList;
         private int view;
         private int vote;
-        //private LocalDateTime createdAt;
-        //private LocalDateTime modifiedAt;
         private int answerCount;
-        //private List<CommentDto.Response> commentsWithUser;
-        private UserDto.Response actionUser;
         private boolean accepted; // 채택된 답변 여부
+        private String status; // asked, answered, modified
+        private UserDto.Response actionUser; // asked, answered, modified에 대한 유저
+        private LocalDateTime actionTime; // asked, answered, modified에 대한 시간
     }
 }

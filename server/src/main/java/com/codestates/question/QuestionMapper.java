@@ -1,5 +1,6 @@
 package com.codestates.question;
 
+import com.codestates.answer.entity.Answer;
 import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
@@ -63,15 +64,24 @@ public interface QuestionMapper {
                 .modifiedAt(question.getModifiedAt())
                 .answerCount(question.getAnswers().size())
                 .commentsWithUser(commentResponse)
+                .actionStatus(question.getActionStatus().getActionDescription())
                 .build();
     }
 
     // Top Questions, All Questions에서 Get Question 대한 Mapper
     default QuestionDto.ResponseTopAll questionToQuestionResponseTopAll(Question question) {
-        Pair<User, LocalDateTime> findActionUser = question.getAnswers().stream()
+        Answer findActionAnswer = question.getAnswers().isEmpty() ? null : question.getAnswers().stream()
                 .max((answer1, answer2) -> answer1.getModifiedAt().compareTo(answer2.getModifiedAt()))
-                .map(answer -> Pair.of(answer.getUser(), answer.getModifiedAt()))
                 .get();
+
+        User actionUser = question.getUser();
+        String actionStatus = question.getActionStatus().getActionDescription();
+        LocalDateTime actionTime = question.getModifiedAt();
+        if(findActionAnswer != null && findActionAnswer.getModifiedAt().compareTo(actionTime) > 0) {
+            actionUser = findActionAnswer.getUser();
+            actionStatus = findActionAnswer.getActionStatus().getActionDescription();
+            actionTime = findActionAnswer.getModifiedAt();
+        }
 
         return QuestionDto.ResponseTopAll.builder()
                 .questionId(question.getQuestionId())
@@ -82,12 +92,14 @@ public interface QuestionMapper {
                 .view(question.getView())
                 .vote(question.getVote())
                 .answerCount(question.getAnswers().size())
-                .actionUser(userToUserResponseDto(findActionUser.getFirst()))
                 .accepted(
                         question.getAnswers().stream()
                                 .filter(answer -> answer.getAnswerStatus().getStatusNumber() == 1)
                                 .count() > 0
                 )
+                .status(actionStatus)
+                .actionUser(userToUserResponseDto(actionUser))
+                .actionTime(actionTime)
                 .build();
     }
 
