@@ -91,7 +91,7 @@ const SummaryStats = ({ question }) => {
   const {
     vote,
     answerCount,
-    hasAccepted = false,
+    accepted,
     view,
     hasBounty = false,
     bounty = 0,
@@ -144,13 +144,13 @@ const SummaryStats = ({ question }) => {
         className={
           answerCount <= 0
             ? ''
-            : hasAccepted
+            : accepted
             ? 'has-accepted-answer'
             : 'has-answers'
         }
         title={`${answerCount} answers`}
       >
-        {answerCount > 0 && hasAccepted ? (
+        {answerCount > 0 && accepted ? (
           <HasAcceptedAnswerSvg aria-hidden="true" viewBox="0 0 14 14">
             <path d="M13 3.41 11.59 2 5 8.59 2.41 6 1 7.41l4 4 8-8Z"></path>
           </HasAcceptedAnswerSvg>
