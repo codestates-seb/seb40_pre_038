@@ -6,7 +6,7 @@ const NavWrapper = styled.nav`
   position: sticky;
   top: 50px;
   width: 164px;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 24px 0px 0px 0px;
   background-color: white;
   @media screen and (min-width: 641px) {
@@ -82,6 +82,7 @@ const navObj = {
   questions: '/questions',
   tags: '/tags',
   users: '/users',
+  search: '/search',
 };
 
 const Nav = ({ pathname = navObj.home }) => {
@@ -101,7 +102,10 @@ const Nav = ({ pathname = navObj.home }) => {
         <StyledLink to={`${navObj.questions}`}>
           <NavContainer
             className={
-              pathname.startsWith(`${navObj.questions}`) ? 'selected' : ''
+              pathname.startsWith(`${navObj.questions}`) ||
+              pathname.startsWith(`${navObj.search}`)
+                ? 'selected'
+                : ''
             }
           >
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18">

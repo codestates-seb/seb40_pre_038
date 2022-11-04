@@ -10,6 +10,9 @@ const PageHeaderHeadline = styled.h1`
   &.mr12 {
     margin-right: 12px !important;
   }
+  &.mb0 {
+    margin-bottom: 0 !important;
+  }
 
   @media (max-width: 640px) {
     font-size: 2rem !important;

@@ -133,9 +133,12 @@ const SearchDropdownBottom = styled.div`
 
 const HeaderSearchbar = ({ handleClickMenu, clickedMenu }) => {
   const navigate = useNavigate();
-  const handleSubmitQuestionForm = () => {
-    navigate('/questions');
+
+  const handleSubmitQuestionForm = (e) => {
+    e.preventDefault();
+    navigate('/search');
   };
+
   return (
     <HeaderSearchbarContainer id="search" onSubmit={handleSubmitQuestionForm}>
       <HeaderSearchbarInput
