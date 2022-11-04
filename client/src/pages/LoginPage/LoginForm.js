@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Popup from '../../components/Modal';
 import { LOGIN_URL } from '../../api/requests';
 

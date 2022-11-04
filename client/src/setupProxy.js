@@ -12,7 +12,7 @@ module.exports = function (app) {
       '/api/comments',
     ],
     createProxyMiddleware({
-      target: 'http://localhost:8080', // 추후 env로 관리
+      target: 'http://localhost:8080',
       changeOrigin: true,
     })
   );

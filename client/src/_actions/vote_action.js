@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../api/axios';
 import { QUESTIONS_URL, ANSWER_URL } from '../api/requests';
 
 export const PATCH_QUESTIONS_VOTE = 'PATCH_QUESTIONS_VOTE';

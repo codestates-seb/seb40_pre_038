@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../api/axios';
 import { QUESTIONS_URL, COMMENTS_URL } from '../api/requests';
 
 export const SET_QUESTION_ID = 'SET_QUESTION_ID';
