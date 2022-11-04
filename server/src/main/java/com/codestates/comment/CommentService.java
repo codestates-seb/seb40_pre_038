@@ -48,11 +48,11 @@ public class CommentService {
         this.userRepository = userRepository;
     }
 
-    public Comment createQuestionComment(Comment comment, long questionId, long userId) {
+    public Comment createQuestionComment(Comment comment, long questionId) {
         Question question = questionService.findQuestion(questionId);
-        User findUser = userService.findVerifiedUser(userId);
+        //User findUser = userService.findVerifiedUser(userId);
         comment.setQuestion(question);
-        comment.setUser(findUser);
+        comment.setUser(userService.getLoginUser()); // 로그인 유저로 작성
         comment.setCommentType(CommentType.QUESTION);
         question.getComments().add(comment);
         questionRepository.save(question);
@@ -60,13 +60,14 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public Comment createAnswerComment(Comment comment, long answerId, long userId) {
+    public Comment createAnswerComment(Comment comment, long answerId) {
 //        Question question = questionService.findQuestion(questionId);
         Answer answer = answerService.findAnswer(answerId);
-        User findUser = userService.findVerifiedUser(userId);
+        //User findUser = userService.findVerifiedUser(userId);
+
         comment.setQuestion(answer.getQuestion());
         comment.setAnswer(answer);
-        comment.setUser(findUser);
+        comment.setUser(userService.getLoginUser()); // 로그인 유저로 작성
         comment.setCommentType(CommentType.ANSWER);
         answer.getComments().add(comment);
         answerRepository.save(answer);
@@ -90,9 +91,13 @@ public class CommentService {
 //            return commentRepository.save(comment);
 //    }
 
-    public Comment updateComment(Comment Comment, long CommentId, long userId) {
+    public Comment updateComment(Comment Comment, long CommentId) {
         Comment findComment = findVerifiedComment(CommentId);
-        verifyUser(userId, findComment);
+        //verifyUser(userId, findComment);
+        
+        User postUser = userService.findVerifiedUser(findComment.getUser().getUserId()); // 작성자
+        if(userService.getLoginUser().getUserId() != postUser.getUserId()) // 로그인 유저 != 작성자
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED); // 수정 권한 없음
 
         Optional.ofNullable(Comment.getBody())
                 .ifPresent(findComment::setBody); // 댓글 수정
@@ -111,8 +116,13 @@ public class CommentService {
     }
 
     public void deleteComment(long CommentId) {
-        Comment Comment = findVerifiedComment(CommentId);
-        commentRepository.delete(Comment);
+        Comment findComment = findVerifiedComment(CommentId);
+        
+        User postUser = userService.findVerifiedUser(findComment.getUser().getUserId()); // 작성자
+        if(userService.getLoginUser().getUserId() != postUser.getUserId()) // 로그인 유저 != 작성자
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED); // 삭제 권한 없음
+        
+        commentRepository.delete(findComment);
     }
 
     public void verifyUser(long userId, Comment comment) {

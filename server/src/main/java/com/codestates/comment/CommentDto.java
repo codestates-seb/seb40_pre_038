@@ -14,10 +14,10 @@ public class CommentDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
+    //@AllArgsConstructor
     public static class Post {
 
-        private long userId;
+        //private long userId;
 
         @NotBlank(message = "공백이 아니어야 합니다.")
         private String body;
@@ -29,7 +29,7 @@ public class CommentDto {
     @AllArgsConstructor
     public static class Patch {
         private long commentId;
-        private long userId;
+        //private long userId;
 
         @NotBlank(message = "공백이 아니어야 합니다.")
         private String body;
