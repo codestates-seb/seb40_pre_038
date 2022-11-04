@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { patchQuestionsVote } from '../../_actions/vote_action';
+// import { useState } from 'react';
 
 const QuestionVoteContainer = styled.div`
   width: 60px;
@@ -51,9 +52,12 @@ const ActivityIcon = styled(SideIcon)`
 
 const QuestionVote = ({ data }) => {
   const dispatch = useDispatch();
-  const vote = useSelector((state) => state.questionReducer.data.vote);
-  console.log(vote);
-
+  // vote = data.vote
+  const vote = useSelector((state) => {
+    console.log(state.questionReducer.data.vote);
+    return state.questionReducer.data.vote;
+  });
+  // const [votes, setVotes] = useState(vote);
   const questionId = data.questionId;
 
   //userId 랜덤 생성을 위한 함수로 추후 삭제될 예정입니다.
@@ -69,6 +73,9 @@ const QuestionVote = ({ data }) => {
       userId: getRandomInt(1, 100),
     };
     dispatch(patchQuestionsVote(questionId, patchBody));
+    // let copy = [...votes];
+    // let plus = copy[0] + 1;
+    // setVotes(plus);
   };
 
   const questionsDownVote = () => {

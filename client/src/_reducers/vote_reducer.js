@@ -3,7 +3,8 @@ import {
   PATCH_ANSWERS_VOTE,
 } from '../_actions/vote_action';
 
-export const voteReducer = (state, action) => {
+export const voteReducer = (state = 0, action) => {
+  console.log(state, action);
   switch (action.type) {
     case PATCH_QUESTIONS_VOTE:
       return action.payload;
