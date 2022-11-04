@@ -28,14 +28,19 @@ public class AnswerService {
     }
 
     public Answer createAnswer(Answer answer) {
-        User findUser = userService.findVerifiedUser(answer.getUser().getUserId());
-        answer.setUser(findUser);
+        /*User findUser = userService.findVerifiedUser(answer.getUser().getUserId());
+        answer.setUser(findUser);*/
+        answer.setUser(userService.getLoginUser()); // 로그인 유저로 작성
 
         return answerRepository.save(answer);
     }
 
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+
+        User postUser = userService.findVerifiedUser(findAnswer.getUser().getUserId()); // 작성자
+        if(userService.getLoginUser().getUserId() != postUser.getUserId()) // 로그인 유저 != 작성자
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED); // 수정 권한 없음
 
         // 내용 변경
         Optional.ofNullable(answer.getBody())
@@ -67,6 +72,11 @@ public class AnswerService {
 
         // 답변을 삭제되었을 경우 기록은 남아 있음
         findAnswer.setAnswerStatus(Answer.AnswerStatus.ANSWER_DELETE);
+
+        User postUser = userService.findVerifiedUser(findAnswer.getUser().getUserId()); // 작성자
+        if(userService.getLoginUser().getUserId() != postUser.getUserId()) // 로그인 유저 != 작성자
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED); // 삭제 권한 없음
+        
         answerRepository.save(findAnswer);
     }
 
