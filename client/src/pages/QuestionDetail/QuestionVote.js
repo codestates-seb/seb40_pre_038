@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { patchQuestionsVote } from '../../_actions/vote_action';
 
 const QuestionVoteContainer = styled.div`
   width: 60px;
@@ -18,6 +20,9 @@ const VoteBtn = styled.button`
   padding: 0;
   &:hover {
     cursor: pointer;
+  }
+  &:active {
+    fill: #f48225;
   }
 `;
 const UpVoteBtn = styled(VoteBtn)``;
@@ -45,17 +50,44 @@ const ActivityIcon = styled(SideIcon)`
 `;
 
 const QuestionVote = ({ data }) => {
-  const vote = data === undefined ? 0 : data.vote;
+  const dispatch = useDispatch();
+  const vote = useSelector((state) => state.questionReducer.data.vote);
+  console.log(vote);
+
+  const questionId = data.questionId;
+
+  //userId 랜덤 생성을 위한 함수로 추후 삭제될 예정입니다.
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  const questionsUpVote = () => {
+    const patchBody = {
+      vote: vote + 1,
+      userId: getRandomInt(1, 100),
+    };
+    dispatch(patchQuestionsVote(questionId, patchBody));
+  };
+
+  const questionsDownVote = () => {
+    const patchBody = {
+      vote: vote - 1,
+      userId: getRandomInt(1, 100),
+    };
+    dispatch(patchQuestionsVote(questionId, patchBody));
+  };
 
   return (
     <QuestionVoteContainer>
-      <UpVoteBtn>
+      <UpVoteBtn onClick={questionsUpVote}>
         <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 25h32L18 9 2 25Z" />
         </svg>
       </UpVoteBtn>
       <VoteStat>{vote}</VoteStat>
-      <DownVoteBtn>
+      <DownVoteBtn onClick={questionsDownVote}>
         <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 11h32L18 27 2 11Z" />
         </svg>

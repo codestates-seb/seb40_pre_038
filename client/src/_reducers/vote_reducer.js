@@ -6,9 +6,9 @@ import {
 export const voteReducer = (state, action) => {
   switch (action.type) {
     case PATCH_QUESTIONS_VOTE:
-      return null;
+      return action.payload;
     case PATCH_ANSWERS_VOTE:
-      return null;
+      return action.payload;
     default:
       return state;
   }

@@ -10,7 +10,7 @@ export const patchQuestionsVote = async (question_id, patchBody) => {
     .catch((error) => console.error(error));
   return {
     type: PATCH_QUESTIONS_VOTE,
-    payload: payload.data,
+    payload: payload.data.data.vote,
   };
 };
 
