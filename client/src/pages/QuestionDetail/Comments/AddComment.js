@@ -106,6 +106,14 @@ const AddComment = ({ type, answerId }) => {
     setIsBtnClicked(false);
   };
 
+  const handleOnKeyPress = (e) => {
+    console.log('엔터!');
+    if (e.key === 'Enter') {
+      if (type === 'question') handleOnClickAddQuestionComment(e);
+      else if (type === 'answer') handleOnClickAddAnswerComment(e);
+    }
+  };
+
   return (
     <AddCommentContainer>
       {isBtnClicked ? (
@@ -119,6 +127,7 @@ const AddComment = ({ type, answerId }) => {
                   ? `${AnswerPlaceholder}`
                   : `${QuestionPlaceholder}`
               }
+              onKeyPress={handleOnKeyPress}
             />
             <AddCommentBtn
               //type = question or answer
