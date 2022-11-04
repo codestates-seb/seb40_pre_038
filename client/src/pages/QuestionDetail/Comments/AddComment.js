@@ -107,7 +107,6 @@ const AddComment = ({ type, answerId }) => {
   };
 
   const handleOnKeyPress = (e) => {
-    console.log('엔터!');
     if (e.key === 'Enter') {
       if (type === 'question') handleOnClickAddQuestionComment(e);
       else if (type === 'answer') handleOnClickAddAnswerComment(e);
