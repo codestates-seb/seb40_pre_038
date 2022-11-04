@@ -32,6 +32,7 @@ const Comments = ({ data, type, answerId }) => {
         return (
           <Comment
             key={comment.commentId}
+            commentId={comment.commentId}
             body={comment.body}
             nickname={comment.userResponseDto.nickName}
             date={date}

@@ -3,6 +3,7 @@ import {
   POST_QUESTION_COMMENT,
   SET_QUESTION_ID,
   DELETE_QUESTION,
+  DELETE_QUESTION_COMMENT,
 } from '../_actions/question_action';
 
 const initialState = {
@@ -24,6 +25,19 @@ export const questionReducer = (state = initialState, action) => {
           commentsWithUser: [
             ...state.data.commentsWithUser,
             action.payload.data,
+          ],
+        },
+      };
+    case DELETE_QUESTION_COMMENT:
+      console.log(action.payload.commentId);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          commentsWithUser: [
+            ...state.data.commentsWithUser.filter((el) => {
+              return el.commentId !== action.payload.commentId;
+            }),
           ],
         },
       };
