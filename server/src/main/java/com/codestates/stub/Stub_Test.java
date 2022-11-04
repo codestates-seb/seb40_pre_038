@@ -1,51 +1,48 @@
-//package com.codestates.stub;
-//
-//import com.codestates.answer.entity.Answer;
-//import com.codestates.answer.repository.AnswerRepository;
-//import com.codestates.answer.service.AnswerService;
-//import com.codestates.comment.CommentRepository;
-//import com.codestates.comment.entity.Comment;
-//import com.codestates.question.Question;
-//import com.codestates.question.QuestionRepository;
-//import com.codestates.question.QuestionService;
-//import com.codestates.user.entity.User;
-//import com.codestates.user.repository.UserRepository;
-//import com.codestates.user.service.UserService;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.boot.CommandLineRunner;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//
-//import java.time.LocalDateTime;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import static com.codestates.answer.entity.Answer.AnswerStatus.ANSWER_NORMAL;
-//import static com.codestates.comment.entity.CommentType.ANSWER;
-//import static com.codestates.comment.entity.CommentType.QUESTION;
-//
-//@Configuration
-//public class Stub {
-//
-//    private static final Logger log = LoggerFactory.getLogger(Stub.class);
-//
-//    @Bean
-//    CommandLineRunner QuestionInit(QuestionRepository questionRepository, QuestionService questionService,
-//                                   UserRepository userRepository, UserService userService,
-//                                   AnswerRepository answerRepository, AnswerService answerService,
-//                                   CommentRepository commentRepository) {
-//
-//        for (long i = 1; i <= 100; i++) { // 스텁 유저 생성
-//            log.info("USER STUB " +
-//                    userRepository.save(new User("Stub_Potato" + i,
-//                            "stub_email_" + i + "@user.com",
-//                            (char) ((Math.random() * 26) + 97) + String.valueOf((int) (Math.random() * 1000000000)),
-//                            (int) (Math.random() * 1000000))));
-//        }
-//
-////        return null;
-//
+package com.codestates.stub;
+
+import com.codestates.answer.entity.Answer;
+import com.codestates.answer.repository.AnswerRepository;
+import com.codestates.answer.service.AnswerService;
+import com.codestates.comment.CommentRepository;
+import com.codestates.comment.entity.Comment;
+import com.codestates.question.Question;
+import com.codestates.question.QuestionRepository;
+import com.codestates.question.QuestionService;
+import com.codestates.user.entity.User;
+import com.codestates.user.repository.UserRepository;
+import com.codestates.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.codestates.answer.entity.Answer.AnswerStatus.ANSWER_NORMAL;
+import static com.codestates.comment.entity.CommentType.ANSWER;
+import static com.codestates.comment.entity.CommentType.QUESTION;
+
+@Configuration
+public class Stub_Test {
+
+    private static final Logger log = LoggerFactory.getLogger(Stub_Test.class);
+
+    @Bean
+    CommandLineRunner QuestionInit(QuestionRepository questionRepository, QuestionService questionService,
+                                   UserRepository userRepository, UserService userService,
+                                   AnswerRepository answerRepository, AnswerService answerService,
+                                   CommentRepository commentRepository) {
+
+                userRepository.save(new User("Stub_Potato",
+                "stub_email_@user.com",
+                "stub_password_1234",
+                1234567890));
+
+        return null;
+
 //        return
 //                args -> {
 //
@@ -129,5 +126,5 @@
 //                                null)));
 //            }
 //        };
-//    }
-//}
+    }
+}

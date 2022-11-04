@@ -1,0 +1,47 @@
+= STACK OVERFLOW
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+Seb40_Pre_038 <serin.b@codestates.com>
+
+v1.0.0, 2022.11.04
+
+// (4)
+***
+== QuestionController
+=== 질문 등록
+.Curl-Request
+include::{snippets}/post-question/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/post-question/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/post-question/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/post-question/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/post-question/response-fields.adoc[]
+
+=== 질문 수정
+.Curl-Request
+include::{snippets}/patch-question/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/patch-question/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/patch-question/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/patch-question/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/patch-question/response-fields.adoc[]
+
+=== 질문 조회

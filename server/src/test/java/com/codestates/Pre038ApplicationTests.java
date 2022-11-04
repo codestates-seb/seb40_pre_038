@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootTest
 class Pre038ApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 

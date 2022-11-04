@@ -1,6 +1,7 @@
 package com.codestates.user.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +31,8 @@ public class UserDto {
 
     @Getter
     @Setter
+    @Builder
+    @AllArgsConstructor
     public static class Response {
         private long userId;
         private String nickName;

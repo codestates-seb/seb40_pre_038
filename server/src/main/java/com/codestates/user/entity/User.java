@@ -80,6 +80,13 @@ public class User extends Auditable {
         this.email = email;
     }
 
+    public User(Long userId, String nickName, String email, int reputation) {
+        this.userId = userId;
+        this.nickName = nickName;
+        this.email = email;
+        this.reputation = reputation;
+    }
+
     public enum UserStatus {
 
         USER_ACTIVE("Active account"),

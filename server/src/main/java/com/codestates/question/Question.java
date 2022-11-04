@@ -98,26 +98,24 @@ public class Question extends Auditable {
         this.expect = expect;
     }
 
-    public Question(String title, String problem, String expect, String tagBody, List<String> tagList,
-                    int view, int vote, User user, List<Answer> answers, List<Comment> comments,
-                    LocalDateTime modifiedAt, QuestionVote questionVote) {
+    public Question(long questionId, User user, String title, String problem, String expect, List<String> tagList, int view, int vote, LocalDateTime createdAt, LocalDateTime modifiedAt, List<Comment> comments, ActionStatus actionStatus) {
+        this.questionId = questionId;
+        this.user = user;
         this.title = title;
         this.problem = problem;
         this.expect = expect;
-        this.tagBody = tagBody;
         this.tagList = tagList;
         this.view = view;
         this.vote = vote;
-        this.user = user;
-        this.answers = answers;
-        this.comments = comments;
+        this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.questionVote = questionVote;
+        this.comments = comments;
+        this.actionStatus = actionStatus;
     }
 
     public enum ActionStatus {
         ACTION_ASKED("asked"),
-        ACTION_MODIFIED( "modified");
+        ACTION_MODIFIED("modified");
 
         @Getter
         private String actionDescription;
