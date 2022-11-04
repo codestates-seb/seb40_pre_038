@@ -18,7 +18,7 @@ const createDate = (str) => {
   )}:${String(date.getMinutes()).padStart(2, '0')}`;
 };
 
-const Comments = ({ data, type }) => {
+const Comments = ({ data }) => {
   const [commentData, setcommentData] = useState(data);
   //console.log(type);
 
