@@ -61,17 +61,9 @@ const AnswerVote = ({ data }) => {
 
   const answerId = data.answerId;
 
-  //userId 랜덤 생성을 위한 함수로 추후 삭제될 예정입니다.
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
   const answersUpVote = () => {
     const patchBody = {
       vote: vote + 1,
-      userId: getRandomInt(1, 100),
     };
     dispatch(patchAnswersVote(answerId, patchBody));
   };
@@ -79,7 +71,6 @@ const AnswerVote = ({ data }) => {
   const answersDownVote = () => {
     const patchBody = {
       vote: vote - 1,
-      userId: getRandomInt(1, 100),
     };
     dispatch(patchAnswersVote(answerId, patchBody));
   };
