@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AnswersInfo from './AnswersInfo';
-import Answer from '../MainQuestion/MainQuestion';
+import Answer from '../Answers/MainAnswer';
 import PostAnswerBox from './PostAnswerBox';
 import { useEffect } from 'react';
 import { getAnswers } from '../../../_actions/answer_action';
