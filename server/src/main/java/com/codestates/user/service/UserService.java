@@ -88,7 +88,7 @@ public class UserService {
                 new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
     }
 
-    public User getLoginUser() { // 로그인된 유저로
+    public User getLoginUser() { // 로그인된 유저 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
