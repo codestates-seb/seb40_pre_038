@@ -7,6 +7,7 @@ import search from './search_reducer';
 import tags from './tags_reducer';
 import { questionReducer } from './question_reducer';
 import { answerReducer } from './answer_reducer';
+import { voteReducer } from './vote_reducer';
 
 const rootReducer = combineReducers({
   users,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   tags,
   questionReducer,
   answerReducer,
+  voteReducer,
 });
 
 export default rootReducer;
