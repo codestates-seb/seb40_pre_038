@@ -106,19 +106,6 @@ function LoginForm() {
     callback: false,
   }); // modal state
 
-  /*
-Logic : API는 POST api/login(수정 전)으로,
-토큰은 Header에 각각 key: Authorization, Refresh / Value: {Access Token}, {Refresh Token} 형식으로 담깁니다.
-
-현재까지 예상되는 로직은
-첫 로그인 : axios를 사용해 Access Token과 Refresh Token을 요청받습니다.
-이후 Refresh Token은 Local Storage에 저장합니다.
-이후 로그인: 저장된 Refresh Token을 header에 담아 Access Token을 요청합니다.
-
-Refresh Token이 만료될 시에, 재발급 API에 Refresh Token을 담아서 요청합니다.
-재발급 API가 따로 존재하지 않을 경우엔 다시 첫 로그인을 반복합니다.
-  */
-
   const navigate = useNavigate();
 
   function isValidEmail(email) {
