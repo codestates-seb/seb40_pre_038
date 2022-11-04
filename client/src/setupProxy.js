@@ -9,6 +9,7 @@ module.exports = function (app) {
       '/api/tags',
       '/api/users',
       '/login',
+      '/api/comments',
     ],
     createProxyMiddleware({
       target: 'http://localhost:8080', // 추후 env로 관리
