@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { QUESTIONS_URL, ANSWERS_URL } from '../api/requests';
+import { QUESTIONS_URL, ANSWER_URL } from '../api/requests';
 
 export const PATCH_QUESTIONS_VOTE = 'PATCH_QUESTIONS_VOTE';
 export const PATCH_ANSWERS_VOTE = 'PATCH_ANSWERS_VOTE';
@@ -16,7 +16,7 @@ export const patchQuestionsVote = async (question_id, patchBody) => {
 
 export const patchAnswersVote = async (answers_id, patchBody) => {
   const payload = await axios
-    .patch(`${ANSWERS_URL}/${answers_id}/vote`, patchBody)
+    .patch(`${ANSWER_URL}/${answers_id}/vote`, patchBody)
     .catch((error) => console.error(error));
   return {
     type: PATCH_ANSWERS_VOTE,
