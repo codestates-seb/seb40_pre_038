@@ -2,6 +2,7 @@ import {
   GET_ANSWERS,
   ADD_ANSWER,
   POST_ANSWER_COMMENT,
+  DELETE_ANSWER,
 } from '../_actions/answer_action';
 
 const initialState = {
@@ -14,6 +15,15 @@ export const answerReducer = (state = initialState, action) => {
       return { ...state, ...action.payload };
     case ADD_ANSWER:
       return { ...state, ...action.payload };
+    case DELETE_ANSWER:
+      return {
+        ...state,
+        data: [
+          ...state.data.filter((el) => {
+            return el.answerId !== action.payload.answer_id;
+          }),
+        ],
+      };
     case POST_ANSWER_COMMENT:
       console.log(action.payload);
       console.log(state.data);

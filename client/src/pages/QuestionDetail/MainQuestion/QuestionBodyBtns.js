@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteQuestion } from '../../../_actions/question_action';
+import { deleteAnswer } from '../../../_actions/answer_action';
 
 const QuestionBodyBtnsContainer = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ const EditBtn = styled(QuestionBtn)``;
 const FollowBtn = styled(QuestionBtn)``;
 const DeleteBtn = styled(QuestionBtn)``;
 
-const QuestionBodyBtns = ({ type }) => {
+const QuestionBodyBtns = ({ type, answerId }) => {
   const questionState = useSelector((state) => state.questionReducer);
   const question_id = questionState.question_id;
 
@@ -38,6 +39,7 @@ const QuestionBodyBtns = ({ type }) => {
   };
   const handleAnswerDelete = () => {
     console.log('answer delete');
+    dispatch(deleteAnswer(answerId));
   };
 
   return (
@@ -45,15 +47,13 @@ const QuestionBodyBtns = ({ type }) => {
       <ShareBtn>Share</ShareBtn>
       <EditBtn>Edit</EditBtn>
       <FollowBtn>Follow</FollowBtn>
-      <Link to="/questions">
-        <DeleteBtn
-          onClick={
-            type === 'question' ? handleQuestionDelete : handleAnswerDelete
-          }
-        >
-          Delete
-        </DeleteBtn>
-      </Link>
+      {type === 'question' ? (
+        <Link to="/questions">
+          <DeleteBtn onClick={handleQuestionDelete}>Delete</DeleteBtn>
+        </Link>
+      ) : (
+        <DeleteBtn onClick={handleAnswerDelete}>Delete</DeleteBtn>
+      )}
     </QuestionBodyBtnsContainer>
   );
 };

@@ -48,6 +48,7 @@ export const deleteQuestion = async (question_id) => {
   await axios
     .delete(`${QUESTIONS_URL}/${question_id}/delete`)
     .catch((error) => console.error(error));
+
   return {
     type: DELETE_QUESTION,
   };

@@ -12,7 +12,7 @@ const ContentBoxContainer = styled.div`
 const QuestionContentBox = ({ data, type, answerId }) => {
   return (
     <ContentBoxContainer>
-      <QuestionBody data={data} type={type} />
+      <QuestionBody data={data} type={type} answerId={answerId} />
       <QuestionComments data={data} type={type} answerId={answerId} />
     </ContentBoxContainer>
   );

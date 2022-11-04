@@ -17,7 +17,7 @@ const QuestionBodyBottom = styled.div`
   justify-content: space-between;
 `;
 
-const QuestionBody = ({ data, type }) => {
+const QuestionBody = ({ data, type, answerId }) => {
   const problem = Object.keys(data).length === 0 ? '' : data.problem;
   const expect = Object.keys(data).length === 0 ? '' : data.expect;
   const tagList = Object.keys(data).length === 0 ? [] : data.tagList;
@@ -43,7 +43,7 @@ const QuestionBody = ({ data, type }) => {
       )}
 
       <QuestionBodyBottom>
-        <QuestionBodyBtns type={type} />
+        <QuestionBodyBtns type={type} answerId={answerId} />
         <QuestionUserinfo
           type={type}
           userName={userName}
