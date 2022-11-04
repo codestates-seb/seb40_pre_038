@@ -25,21 +25,20 @@ export const answerReducer = (state = initialState, action) => {
         ],
       };
     case POST_ANSWER_COMMENT:
-      console.log(action.payload);
-      console.log(state.data);
       changeAnswer = state.data.filter((el) => {
         return el.answerId === action.payload.answer_id;
       });
-      console.log(changeAnswer);
       changeAnswer[0].commentsWithUser.push(action.payload.data.data);
       return {
         ...state,
-        ...state.data.map((el) => {
-          if (el.answerId === action.payload.answer_id) return changeAnswer;
-          else return el;
-        }),
+        data: [
+          ...state.data.map((el) => {
+            if (el.answerId === action.payload.answer_id)
+              return changeAnswer[0];
+            else return el;
+          }),
+        ],
       };
-    //return state;
     default:
       return state;
   }
