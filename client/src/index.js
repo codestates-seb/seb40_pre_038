@@ -4,7 +4,7 @@ import App from './App';
 import store from './_store/store';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import axios from './api/axios';
+import axios from 'axios';
 
 axios.defaults.withCredentials = true; // [login] cookie 받기 위한 설정 추가
 
