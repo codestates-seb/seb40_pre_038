@@ -42,17 +42,15 @@ public class UserService {
         return new ArrayList<>(repository.findAll());
     }
 
-//    public User createOne(User user) {
-//        Optional<User> emailCheck = repository.findByEmail(user.getEmail());
-//        if (emailCheck.isPresent())
-//            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
-//        return user;
-//    }  // old version
-
     public User createOne(User user) {
+        // Email exists exception
         Optional<User> verifiedUser = repository.findByEmail(user.getEmail());
         if (verifiedUser.isPresent())
-            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+            throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
+        // Nickname exists exception
+        Optional<User> verifiedName = repository.findByNickName(user.getNickName());
+        if (verifiedName.isPresent())
+            throw new BusinessLogicException(ExceptionCode.NICKNAME_EXISTS);
 
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);

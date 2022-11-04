@@ -17,7 +17,8 @@ public enum ExceptionCode {
     ANSWER_DELETED(405, "Answer Already Deleted"),
 
     USER_NOT_FOUND(404,"User Not Found"),
-    USER_EXISTS(409, "User Exists"),
+    EMAIL_EXISTS(409, "Email Exists"),
+    NICKNAME_EXISTS(409, "Nickname Exists"),
 
     USER_NOT_ALLOWED(403, "User Not Allowed"),
     USER_CANNOT_CHANGE(403,"User Can Not Be Changed"),

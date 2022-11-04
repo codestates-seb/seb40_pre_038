@@ -23,7 +23,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Page<Question> findAllByTagBodyContaining(String tagBody, Pageable pageable);
 
-    @Query(nativeQuery = true, value = "select * from Question order by " +
+    @Query(nativeQuery = true, value = "select * from question order by " +
             "view + vote" + " desc")
     Page<Question> findAllByQuestionID(Pageable pageable);
 
