@@ -5,30 +5,30 @@ import PageContainer from '../../components/PageContainer';
 import Mainbar from '../../components/Mainbar';
 import QuestionListWrapper from '../../components/QuestionList/QuestionListWrapper';
 import { Pagination } from '../../components/Pagination';
-import { getAllQuestions } from '../../_actions/search_action';
+import { getSearchList } from '../../_actions/search_action';
 import PageHeader from './PageHeader';
-import useQueryString from '../../util/useQueryString';
+// import useQueryString from '../../util/useQueryString';
 
 const ClearBr = styled.br`
   clear: both !important;
 `;
 
 const SearchPage = () => {
-  let query = useQueryString();
-  console.log(query.get('q'));
-
+  // const query = useQueryString();
   const dispatch = useDispatch();
-  const allQuestions = useSelector((state) => state.search.allQuestions);
+  const search = useSelector((state) => state.search);
   const {
+    searchInputValue,
     sortTabValue,
     pageSizerValue,
     pagerValue,
     totalPages,
     questionsList,
-  } = allQuestions;
+  } = search;
+  console.log(searchInputValue);
 
   useEffect(() => {
-    dispatch(getAllQuestions(allQuestions));
+    dispatch(getSearchList(search));
   }, [dispatch]);
 
   const onClickPageSizer = (size) => {
@@ -37,7 +37,7 @@ const SearchPage = () => {
       pagerValue: 1,
       pageSizerValue: size,
     };
-    allQuestions.sortTabValue = dispatch(getAllQuestions(params));
+    search.sortTabValue = dispatch(getSearchList(params));
   };
 
   const onChangePager = (page) => {
@@ -46,7 +46,7 @@ const SearchPage = () => {
       pagerValue: page,
       pageSizerValue,
     };
-    allQuestions.sortTabValue = dispatch(getAllQuestions(params));
+    search.sortTabValue = dispatch(getSearchList(params));
   };
 
   return (

@@ -1,5 +1,8 @@
-import styled from 'styled-components';
+import { useState } from 'react';
+// import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+// import { getSearchList } from '../_actions/search_action';
 
 const SearchbarContainer = styled.form`
   box-sizing: border-box;
@@ -133,10 +136,19 @@ const SearchDropdownBottom = styled.div`
 
 const HeaderSearchbar = ({ handleClickMenu, clickedMenu }) => {
   const navigate = useNavigate();
+  // const dispatch = useDispatch();
+
+  const [searchInputValue, setSearchInputValue] = useState('');
 
   const handleSubmitQuestionForm = (e) => {
     e.preventDefault();
-    navigate('/search');
+    navigate(`/search?q=${encodeURIComponent(searchInputValue)}`);
+    // dispatch(getSearchList(searchInputValue));
+    setSearchInputValue('');
+  };
+
+  const handleChangeSearchValue = (e) => {
+    setSearchInputValue(e.target.value);
   };
 
   return (
@@ -146,6 +158,8 @@ const HeaderSearchbar = ({ handleClickMenu, clickedMenu }) => {
         placeholder="Search..."
         onFocus={() => handleClickMenu('search')}
         onBlur={() => handleClickMenu(null)}
+        onChange={handleChangeSearchValue}
+        value={searchInputValue}
       ></HeaderSearchbarInput>
       <HeaderSearchIcon>
         <svg

@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { GET_ALL_QUESTIONS_URL } from '../api/requests';
 
-export const GET_ALL_QUESTIONS = 'GET_ALL_QUESTIONS';
+export const GET_SEARCH_LIST = 'GET_SEARCH_LIST';
 
-// Questions - All Questions
-export const getAllQuestions = (params) => {
-  const { sortTabValue, pagerValue, pageSizerValue } = params;
+export const getSearchList = (params) => {
+  const { sortTabValue, pagerValue, pageSizerValue, searchInputValue } = params;
   const request = axios
     .get(
       `${GET_ALL_QUESTIONS_URL}/${sortTabValue}?page=${pagerValue}&&size=${pageSizerValue}`
@@ -13,6 +12,7 @@ export const getAllQuestions = (params) => {
     .then((response) => {
       const { pageInfo, data } = response.data;
       return {
+        searchInputValue: searchInputValue,
         sortTabValue: sortTabValue,
         pageSizerValue: pageInfo.size,
         pagerValue: pageInfo.page,
@@ -23,7 +23,7 @@ export const getAllQuestions = (params) => {
     });
 
   return {
-    type: GET_ALL_QUESTIONS,
+    type: GET_SEARCH_LIST,
     payload: request,
   };
 };
