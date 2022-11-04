@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getAllQuestions } from '../../_actions/questions_action';
+import { getAllQuestions } from '../../_actions/question_list_action';
 
 const Wrapper = styled.div`
   display: flex !important;
@@ -28,7 +28,7 @@ const QuestionsCount = styled.div`
 
 const SeUql = () => {
   const totalElements = useSelector(
-    (state) => state.allQuestions.totalElements
+    (state) => state.questionList.allQuestions.totalElements
   );
 
   return (
@@ -127,16 +127,16 @@ export const AllQuestionsSortTabObj = {
 
 const UqlNav = () => {
   const dispatch = useDispatch();
-  const allQuestions = useSelector((state) => state.allQuestions);
-  const { sortTabValue, pagerValue, pageSizerValue } = allQuestions;
+  const allQuestions = useSelector((state) => state.questionList.allQuestions);
+  const { sortTabValue, pageSizerValue } = allQuestions;
 
   const handleClickButton = (e) => {
     const params = {
       sortTabValue: e.target.textContent.toLowerCase(),
-      pagerValue,
+      pagerValue: 1,
       pageSizerValue,
     };
-    allQuestions.sortTabValue = dispatch(getAllQuestions(params));
+    dispatch(getAllQuestions(params));
   };
 
   const { Newest, Unanswered, Score } = AllQuestionsSortTabObj;
@@ -148,19 +148,19 @@ const UqlNav = () => {
           className={sortTabValue === Newest ? 'is-selected' : ''}
           onClick={handleClickButton}
         >
-          {Newest}
+          Newest
         </UqlNavigationButton>
         <UqlNavigationButton
           className={sortTabValue === Unanswered ? 'is-selected' : ''}
           onClick={handleClickButton}
         >
-          {Unanswered}
+          Unanswered
         </UqlNavigationButton>
         <UqlNavigationButton
           className={sortTabValue === Score ? 'is-selected' : ''}
           onClick={handleClickButton}
         >
-          {Score}
+          Score
         </UqlNavigationButton>
       </UqlNavigation>
     </UqlNavWrapper>
