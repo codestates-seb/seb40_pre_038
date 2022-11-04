@@ -1,4 +1,4 @@
-import axios from '../api/axios';
+import axios from 'axios';
 import { QUESTIONS_URL, ANSWER_URL, COMMENTS_URL } from '../api/requests';
 
 export const GET_ANSWERS = 'GET_ANSWERS';
@@ -10,7 +10,9 @@ export const DELETE_ANSWER_COMMENT = 'DELETE_ANSWER_COMMENT';
 
 export const getAnswers = async (question_id) => {
   const payload = await axios
-    .get(`${QUESTIONS_URL}/${question_id}/answers`)
+    .get(`${QUESTIONS_URL}/${question_id}/answers`, {
+      withCredentials: true,
+    })
     .catch((error) => console.error(error));
   payload.data.data.reverse();
   return {
@@ -25,10 +27,18 @@ export const addAnswer = async (question_id, body) => {
   const userId = Math.floor(Math.random() * 101);
 
   const payload = await axios
-    .post(`${QUESTIONS_URL}/${question_id}/answers/add`, {
-      userId,
-      body,
-    })
+    .post(
+      `${QUESTIONS_URL}/${question_id}/answers/add`,
+      {
+        userId,
+        body,
+      },
+      {
+        withCredentials: true,
+        origin:
+          'http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com',
+      }
+    )
     .catch((error) => console.error(error));
 
   return {
@@ -39,7 +49,11 @@ export const addAnswer = async (question_id, body) => {
 
 export const deleteAnswer = async (answer_id) => {
   await axios
-    .delete(`${ANSWER_URL}/${answer_id}/delete`)
+    .delete(`${ANSWER_URL}/${answer_id}/delete`, {
+      withCredentials: true,
+      origin:
+        'http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com',
+    })
     .catch((error) => console.error(error));
 
   return {
@@ -53,10 +67,18 @@ export const postAnswerComment = async (question_id, answer_id, body) => {
   const userId = Math.floor(Math.random() * 101);
 
   const payload = await axios
-    .post(`${ANSWER_URL}/${answer_id}/comments/add`, {
-      userId,
-      body,
-    })
+    .post(
+      `${ANSWER_URL}/${answer_id}/comments/add`,
+      {
+        userId,
+        body,
+      },
+      {
+        withCredentials: true,
+        origin:
+          'http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com',
+      }
+    )
     .catch((error) => console.error(error));
 
   return {
@@ -67,7 +89,11 @@ export const postAnswerComment = async (question_id, answer_id, body) => {
 
 export const deleteAnswerComment = async (answerId, commentId) => {
   await axios
-    .delete(`${COMMENTS_URL}/${commentId}/delete`)
+    .delete(`${COMMENTS_URL}/${commentId}/delete`, {
+      withCredentials: true,
+      origin:
+        'http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com',
+    })
     .catch((error) => console.error(error));
 
   return {

@@ -1,4 +1,4 @@
-import axios from '../api/axios';
+import axios from 'axios';
 import { QUESTIONS_URL, COMMENTS_URL } from '../api/requests';
 
 export const SET_QUESTION_ID = 'SET_QUESTION_ID';
@@ -17,7 +17,9 @@ export const setQuestionId = (question_id) => {
 
 export const getQuestion = async (question_id) => {
   const payload = await axios
-    .get(`${QUESTIONS_URL}/${question_id}`)
+    .get(`${QUESTIONS_URL}/${question_id}`, {
+      withCredentials: true,
+    })
     .catch((error) => console.error(error));
 
   return {
@@ -29,7 +31,11 @@ export const getQuestion = async (question_id) => {
 //질문 삭제
 export const deleteQuestion = async (question_id) => {
   await axios
-    .delete(`${QUESTIONS_URL}/${question_id}/delete`)
+    .delete(`${QUESTIONS_URL}/${question_id}/delete`, {
+      withCredentials: true,
+      origin:
+        'http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com',
+    })
     .catch((error) => console.error(error));
 
   return {
@@ -43,10 +49,18 @@ export const postQuestionComment = async (question_id, body) => {
   const userId = Math.floor(Math.random() * 101);
 
   const payload = await axios
-    .post(`${QUESTIONS_URL}/${question_id}/comments/add`, {
-      userId,
-      body,
-    })
+    .post(
+      `${QUESTIONS_URL}/${question_id}/comments/add`,
+      {
+        userId,
+        body,
+      },
+      {
+        withCredentials: true,
+        origin:
+          'http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com',
+      }
+    )
     .catch((error) => console.error(error));
 
   return {
@@ -57,7 +71,11 @@ export const postQuestionComment = async (question_id, body) => {
 
 export const deleteQuestionComment = async (commentId) => {
   await axios
-    .delete(`${COMMENTS_URL}/${commentId}/delete`)
+    .delete(`${COMMENTS_URL}/${commentId}/delete`, {
+      withCredentials: true,
+      origin:
+        'http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com',
+    })
     .catch((error) => console.error(error));
 
   return {

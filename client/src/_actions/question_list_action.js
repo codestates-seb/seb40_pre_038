@@ -1,4 +1,4 @@
-import axios from '../api/axios';
+import axios from 'axios';
 import { GET_ALL_QUESTIONS_URL, GET_TOP_QUESTIONS_URL } from '../api/requests';
 
 export const GET_ALL_QUESTIONS = 'GET_ALL_QUESTIONS';
@@ -9,7 +9,10 @@ export const getAllQuestions = (params) => {
   const { sortTabValue, pagerValue, pageSizerValue } = params;
   const request = axios
     .get(
-      `${GET_ALL_QUESTIONS_URL}/${sortTabValue}?page=${pagerValue}&&size=${pageSizerValue}`
+      `${GET_ALL_QUESTIONS_URL}/${sortTabValue}?page=${pagerValue}&&size=${pageSizerValue}`,
+      {
+        withCredentials: true,
+      }
     )
     .then((response) => {
       const { pageInfo, data } = response.data;
@@ -32,7 +35,11 @@ export const getAllQuestions = (params) => {
 // Home - Top Questions
 export const getTopQuestions = (sortTabValue) => {
   const request = axios
-    .get(`${GET_TOP_QUESTIONS_URL}/${sortTabValue}`)
+    .get(`${GET_TOP_QUESTIONS_URL}/${sortTabValue}`, {
+      withCredentials: true,
+      origin:
+        'http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com',
+    })
     .then((response) => {
       const { data } = response.data;
       return {

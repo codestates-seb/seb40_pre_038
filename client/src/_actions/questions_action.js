@@ -1,11 +1,13 @@
-import axios from '../api/axios';
+import axios from 'axios';
 import { QUESTIONS_ADD_URL } from '../api/requests';
 
 export const POST_NEW_QUESTION = 'POST_NEW_QUESTION';
 
 export const postNewQuestion = async (postBody) => {
   const request = await axios
-    .post(QUESTIONS_ADD_URL, postBody)
+    .post(QUESTIONS_ADD_URL, postBody, {
+      withCredentials: true,
+    })
     .catch(function (error) {
       console.log(error);
     });

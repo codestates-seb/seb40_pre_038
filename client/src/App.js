@@ -35,11 +35,14 @@ const App = () => {
       <ScrollTop />
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <Routes>
-        <Route path="/" element={isLogin ? <HomePage /> : <Login />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/questions" element={<QuestionsPage />} />
-        <Route path="/questions/ask" element={<AskQuestionPage />} />
+        <Route
+          path="/questions/ask"
+          element={isLogin ? <AskQuestionPage /> : <Login />}
+        />
         <Route
           path="/questions/:question_id"
           element={<QuestionDetailPage />}
