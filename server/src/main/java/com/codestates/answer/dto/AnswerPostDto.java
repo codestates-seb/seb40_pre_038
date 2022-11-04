@@ -12,6 +12,6 @@ public class AnswerPostDto {
     @Size(min = 20, message = "20자 이상 입력하셔야 합니다.")
     private String body;
 
-    @Positive
-    private long userId;
+    /*@Positive
+    private long userId;*/
 }

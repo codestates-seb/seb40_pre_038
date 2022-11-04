@@ -21,8 +21,8 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Post {
 
-        @Positive
-        private long userId;
+        /*@Positive
+        private long userId;*/
 
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
@@ -47,7 +47,7 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Patch {
         private long questionId;
-        private long userId;
+        //private long userId;
 
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
@@ -91,8 +91,8 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Vote {
         private long questionId;
-        @Positive
-        private long userId;
+/*        @Positive
+        private long userId;*/
         private int vote;
 //        private String tag;
     }
