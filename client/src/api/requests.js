@@ -5,6 +5,7 @@ export const SEARCH_URL = '/api/search';
 export const TAGS_URL = '/api/tags';
 export const LOGIN_URL = '/login';
 export const SIGNUP_URL = '/api/users';
+export const COMMENTS_URL = '/api/comments';
 
 export const QUESTIONS_ADD_URL = `${QUESTIONS_URL}/add`;
 export const GET_ALL_QUESTIONS_URL = `${QUESTIONS_URL}/allquestions`;
