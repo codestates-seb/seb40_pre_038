@@ -3,6 +3,7 @@ import { QUESTIONS_URL } from '../api/requests';
 
 export const SET_QUESTION_ID = 'SET_QUESTION_ID';
 export const GET_QUESTION = 'GET_QUESTION';
+export const DELETE_QUESTION = 'DELETE_QUESTION';
 
 export const POST_QUESTION_COMMENT = 'POST_QUESTION_COMMENT';
 
@@ -39,5 +40,15 @@ export const postQuestionComment = async (question_id, body) => {
   return {
     type: POST_QUESTION_COMMENT,
     payload: payload.data,
+  };
+};
+
+//질문 삭제
+export const deleteQuestion = async (question_id) => {
+  await axios
+    .delete(`${QUESTIONS_URL}/${question_id}/delete`)
+    .catch((error) => console.error(error));
+  return {
+    type: DELETE_QUESTION,
   };
 };

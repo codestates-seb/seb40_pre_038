@@ -2,6 +2,7 @@ import {
   GET_QUESTION,
   POST_QUESTION_COMMENT,
   SET_QUESTION_ID,
+  DELETE_QUESTION,
 } from '../_actions/question_action';
 
 const initialState = {
@@ -26,6 +27,8 @@ export const questionReducer = (state = initialState, action) => {
           ],
         },
       };
+    case DELETE_QUESTION:
+      return initialState;
     default:
       return state;
   }

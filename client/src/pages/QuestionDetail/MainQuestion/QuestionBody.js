@@ -43,7 +43,7 @@ const QuestionBody = ({ data, type }) => {
       )}
 
       <QuestionBodyBottom>
-        <QuestionBodyBtns />
+        <QuestionBodyBtns type={type} />
         <QuestionUserinfo
           type={type}
           userName={userName}
