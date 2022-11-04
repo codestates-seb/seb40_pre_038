@@ -44,7 +44,9 @@ public class SearchService {
     }
 
     private Page<Question> findBody(String content, String tab, int page, int size) { // 질문 내용 검색
-        if(tab.equals("score")) return searchRepository.findAllByBody(content, PageRequest.of(page, size, Sort.by("vote").descending()));
-        return searchRepository.findAllByBody(content, PageRequest.of(page, size, Sort.by("question_id").descending()));
+        if(tab.equals("score")) return searchRepository.findAllByTitleContainingOrProblemContainingOrExpectContaining(
+                content, content, content, PageRequest.of(page, size, Sort.by("vote").descending()));
+        return searchRepository.findAllByTitleContainingOrProblemContainingOrExpectContaining(
+                content, content, content, PageRequest.of(page, size, Sort.by("question_id").descending()));
     }
 }

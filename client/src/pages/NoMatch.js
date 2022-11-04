@@ -23,7 +23,7 @@ const Content = styled.div`
   border-left: 0;
   border-right: 0;
   border-radius: 0;
-  border: 1px solid #d6d9dc;
+  /* border: 1px solid #d6d9dc; */
   border-top-width: 0;
   border-bottom-width: 0;
   border-left-width: 1px;

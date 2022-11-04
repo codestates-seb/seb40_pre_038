@@ -55,7 +55,8 @@ const SMetaTags = ({ question }) => {
         {tagList.map((tag) => (
           <TagListsItem key={tag}>
             <TagListsItemLink
-              to={`/questions/tagged/${tag}`}
+              to="#"
+              // to={`/questions/tagged/${tag}`}
               title={`show questions tagged '${tag}'`}
               aria-label={`show questions tagged '${tag}'`}
               rel="tag"

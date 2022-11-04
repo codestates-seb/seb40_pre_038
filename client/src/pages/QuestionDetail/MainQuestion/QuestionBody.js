@@ -18,18 +18,17 @@ const QuestionBodyBottom = styled.div`
 `;
 
 const QuestionBody = ({ data, type }) => {
-  //console.log(data, type);
-  const problem = data === undefined ? '' : data.problem;
-  const expect = data === undefined ? '' : data.expect;
-  const tagList = data === undefined ? [] : data.tagList;
+  const problem = Object.keys(data).length === 0 ? '' : data.problem;
+  const expect = Object.keys(data).length === 0 ? '' : data.expect;
+  const tagList = Object.keys(data).length === 0 ? [] : data.tagList;
   let userName = '';
-  if (data !== undefined && type === 'question') {
+  if (Object.keys(data).length !== 0 && type === 'question') {
     userName = data.userInformation.nickName;
-  } else if (data !== undefined && type === 'answer') {
+  } else if (Object.keys(data).length !== 0 && type === 'answer') {
     userName = data.userResponseDto.nickName;
   }
-  const createdDate = data === undefined ? '' : data.createdAt;
-  const answerbody = data === undefined ? '' : data.body;
+  const createdDate = Object.keys(data).length === 0 ? '' : data.createdAt;
+  const answerbody = Object.keys(data).length === 0 ? '' : data.body;
 
   return (
     <QuestionBodyContainer>
@@ -45,7 +44,11 @@ const QuestionBody = ({ data, type }) => {
 
       <QuestionBodyBottom>
         <QuestionBodyBtns />
-        <QuestionUserinfo userName={userName} createdAt={createdDate} />
+        <QuestionUserinfo
+          type={type}
+          userName={userName}
+          createdAt={createdDate}
+        />
       </QuestionBodyBottom>
     </QuestionBodyContainer>
   );

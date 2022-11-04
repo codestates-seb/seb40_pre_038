@@ -63,6 +63,7 @@ public interface AnswerMapper {
                 .createdAt(answer.getCreatedAt())
                 .modifiedAt(answer.getModifiedAt())
                 .commentsWithUser(commentResponse)
+                .actionStatus(answer.getActionStatus().getActionDescription())
                 .build();
     }
 

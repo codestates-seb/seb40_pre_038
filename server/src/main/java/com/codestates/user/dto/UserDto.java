@@ -33,5 +33,6 @@ public class UserDto {
         private long userId;
         private String nickName;
         private String email;
+        private int reputation;
     }
 }

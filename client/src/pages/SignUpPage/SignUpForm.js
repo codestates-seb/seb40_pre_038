@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Popup from '../../components/Modal';
+import { SIGNUP_URL } from '../../api/requests';
 
 const FormContainer = styled.div`
   max-width: calc(97.2307692rem / 3);
@@ -184,7 +185,7 @@ function SignUpForm() {
   const signupSubmit = async () => {
     await axios
       .post(
-        '/api/users',
+        SIGNUP_URL,
         {
           nickName: nmessage,
           email: emessage,

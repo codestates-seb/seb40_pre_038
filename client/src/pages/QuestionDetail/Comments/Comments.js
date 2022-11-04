@@ -18,9 +18,8 @@ const createDate = (str) => {
   )}:${String(date.getMinutes()).padStart(2, '0')}`;
 };
 
-const Comments = ({ data }) => {
+const Comments = ({ data, type, answerId }) => {
   const [commentData, setcommentData] = useState(data);
-  //console.log(type);
 
   useEffect(() => {
     setcommentData(data);
@@ -34,12 +33,12 @@ const Comments = ({ data }) => {
           <Comment
             key={comment.commentId}
             body={comment.body}
-            // nickname={comment.memberResponseDto.nickName}
+            nickname={comment.userResponseDto.nickName}
             date={date}
           ></Comment>
         );
       })}
-      <AddComment />
+      <AddComment type={type} answerId={answerId} />
     </CommentsContainer>
   );
 };

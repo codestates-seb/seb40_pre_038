@@ -236,4 +236,4 @@ const Searchbar = ({ width, height, placeholder }) => {
   );
 };
 
-export { Searchbar, HeaderSearchbar };
+export { Searchbar, HeaderSearchbar, SearchbarInput };

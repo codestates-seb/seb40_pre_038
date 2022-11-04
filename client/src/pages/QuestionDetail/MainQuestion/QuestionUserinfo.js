@@ -8,6 +8,9 @@ const QuestionUserinfoContainer = styled.div`
   flex-direction: column;
   background-color: #d9eaf7;
   border-radius: 4px;
+  &.answer {
+    background-color: white;
+  }
 `;
 
 const QuestionDate = styled.div`
@@ -53,9 +56,9 @@ const AskedDate = (str) => {
   )}:${String(date.getMinutes()).padStart(2, '0')}`;
 };
 
-const QuestionUserinfo = ({ userName, createdAt }) => {
+const QuestionUserinfo = ({ type, userName, createdAt }) => {
   return (
-    <QuestionUserinfoContainer>
+    <QuestionUserinfoContainer className={type === 'answer' ? 'answer' : null}>
       <QuestionDate>asked {AskedDate(createdAt)}</QuestionDate>
       <UserInfoWrapper>
         <UserIcon>
