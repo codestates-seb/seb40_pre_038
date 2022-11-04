@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../../api/axios';
 import Popup from '../../components/Modal';
 import { LOGIN_URL } from '../../api/requests';
 

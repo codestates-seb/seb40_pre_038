@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { deleteQuestionComment } from '../../../_actions/question_action';
 import {
-  deleteAnswer,
+  // deleteAnswer,
   deleteAnswerComment,
 } from '../../../_actions/answer_action';
 

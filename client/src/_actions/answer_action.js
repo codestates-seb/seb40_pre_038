@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../api/axios';
 import { QUESTIONS_URL, ANSWER_URL, COMMENTS_URL } from '../api/requests';
 
 export const GET_ANSWERS = 'GET_ANSWERS';
