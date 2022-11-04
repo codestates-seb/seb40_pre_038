@@ -40,7 +40,7 @@ public class CommentController {
 //                                    @RequestParam CommentType commentType,
                                     @PathVariable("question_id") @Positive long postId) {
         Comment comment = mapper.commentPostToComment(commentPost);
-        Comment createComment = commentService.createQuestionComment(comment, postId, commentPost.getUserId());
+        Comment createComment = commentService.createQuestionComment(comment, postId);
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
 
         return new ResponseEntity<>(
@@ -55,7 +55,7 @@ public class CommentController {
 //                                      @PathVariable("question_id") @Positive long postId,
                                       @PathVariable("answer_id") @Positive long answerId) {
         Comment comment = mapper.commentPostToComment(commentPost);
-        Comment createComment = commentService.createAnswerComment(comment, answerId, commentPost.getUserId());
+        Comment createComment = commentService.createAnswerComment(comment, answerId);
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
 
         return new ResponseEntity<>(
@@ -68,7 +68,7 @@ public class CommentController {
     public ResponseEntity patchComment(@Valid @RequestBody CommentDto.Patch commentPatch,
                                      @PathVariable("comment_id") @Positive long commentId) {
         Comment comment = mapper.commentPatchToComment(commentPatch);
-        Comment updateComment = commentService.updateComment(comment, commentId, commentPatch.getUserId());
+        Comment updateComment = commentService.updateComment(comment, commentId);
         CommentDto.Response response = mapper.commentToCommentResponse(updateComment);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK

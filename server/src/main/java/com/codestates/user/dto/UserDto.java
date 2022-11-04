@@ -16,6 +16,7 @@ public class UserDto {
     @AllArgsConstructor
     public static class Post {
 
+        @NotBlank(message = "NickName cannot be empty")
         private String nickName;  // "Display name": Optional
 
         @NotBlank(message = "Email cannot be empty.")

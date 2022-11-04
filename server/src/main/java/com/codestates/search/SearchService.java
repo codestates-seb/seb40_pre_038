@@ -47,6 +47,6 @@ public class SearchService {
         if(tab.equals("score")) return searchRepository.findAllByTitleContainingOrProblemContainingOrExpectContaining(
                 content, content, content, PageRequest.of(page, size, Sort.by("vote").descending()));
         return searchRepository.findAllByTitleContainingOrProblemContainingOrExpectContaining(
-                content, content, content, PageRequest.of(page, size, Sort.by("question_id").descending()));
+                content, content, content, PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
 }
