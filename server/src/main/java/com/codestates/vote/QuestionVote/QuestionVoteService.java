@@ -29,7 +29,7 @@ public class QuestionVoteService {
         if(findQuestionVote == null) { // 투표한 적 없음
             findQuestionVote = new QuestionVote();
             findQuestionVote.setQuestion(findQuestion);
-            findQuestionVote.setUserId(questionId);
+            findQuestionVote.setUserId(userId);
             questionVoteRepository.save(findQuestionVote);
         } else { // 이미 투표함
             throw new BusinessLogicException(ExceptionCode.VOTED);

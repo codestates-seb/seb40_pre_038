@@ -10,9 +10,11 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SearchRepository extends JpaRepository<Question, Long> {
 
-    @Query(nativeQuery = true,
-            value = "select * from Question where title ilike %:body% or problem ilike %:body% or expect ilike %:body%")
-    Page<Question> findAllByBody(String body, Pageable pageable);
+    /*@Query(nativeQuery = true,
+            value = "select * from Answer a where a.status > 0 and a.question_id = :questionId"
+                    + " order by status asc, vote desc, answer_id desc"
+    )*/
+    Page<Question> findAllByTitleContainingOrProblemContainingOrExpectContaining(String title, String problem, String expect, Pageable pageable);
 
     Page<Question> findAllByUser(User user, Pageable pageable);
 
