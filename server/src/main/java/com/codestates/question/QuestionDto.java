@@ -1,7 +1,6 @@
 package com.codestates.question;
 
 import com.codestates.comment.CommentDto;
-import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -84,6 +83,7 @@ public class QuestionDto {
         private LocalDateTime modifiedAt;
         private int answerCount;
         private List<CommentDto.Response> commentsWithUser;
+        private String actionStatus;
     }
 
     @Getter
@@ -103,5 +103,25 @@ public class QuestionDto {
     public static class View {
         private long questionId;
         private int view;
+    }
+
+    @Builder
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class ResponseTopAll { // Top Questions와 All Questions에서 사용되는 Response
+        private long questionId;
+        //private UserDto.Response userInformation;
+        private String title;
+        private String problem;
+        private String expect;
+        private List<String> tagList;
+        private int view;
+        private int vote;
+        private int answerCount;
+        private boolean accepted; // 채택된 답변 여부
+        private String status; // asked, answered, modified
+        private UserDto.Response actionUser; // asked, answered, modified에 대한 유저
+        private LocalDateTime actionTime; // asked, answered, modified에 대한 시간
     }
 }

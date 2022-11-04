@@ -1,7 +1,9 @@
 package com.codestates.user.controller;
 
 import com.codestates.user.assembler.UserAssembler;
+import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
+import com.codestates.user.mapper.UserMapper;
 import com.codestates.user.service.UserService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -17,18 +19,21 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/users")
 @Validated
 public class UserController {
 
-    //DI WIP
     private final UserService userService;
     private final UserAssembler assembler;
 
-    public UserController(UserService userService, UserAssembler assembler) {
+    private final UserMapper mapper;
+
+    public UserController(UserService userService, UserAssembler assembler, UserMapper mapper) {
         this.userService = userService;
         this.assembler = assembler;
+        this.mapper = mapper;
     }
 
     @GetMapping("/{id}")
@@ -48,7 +53,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postUser(@Valid @RequestBody User user) {
+    public ResponseEntity<?> postUser(@Valid @RequestBody UserDto.Post requestBody) {
+        // Test - using Mapper
+        User user = mapper.userPostToUser(requestBody);
         EntityModel<User> entityModel = assembler.toModel(userService.createOne(user));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())

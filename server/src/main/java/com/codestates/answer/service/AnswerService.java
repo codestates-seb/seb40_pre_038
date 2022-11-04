@@ -41,11 +41,13 @@ public class AnswerService {
         Optional.ofNullable(answer.getBody())
                 .ifPresent(body -> findAnswer.setBody(body));
 
-        answer.setModifiedAt(LocalDateTime.now()); // 수정 시간 업데이트
+        findAnswer.setModifiedAt(LocalDateTime.now()); // 수정 시간 업데이트
         
         // vote count 변경은 updateVote 메서드에서 진행
         
         // 답변 상태 변경은 updateStatus 메서드에서 진행
+
+        findAnswer.setActionStatus(Answer.ActionStatus.ACTION_MODIFIED); // actionStatus 변경
         
         return answerRepository.save(findAnswer);
     }

@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { QUESTIONS_URL } from '../api/requests';
+import { QUESTIONS_URL, ANSWER_URL } from '../api/requests';
 
 export const GET_ANSWERS = 'GET_ANSWERS';
 export const ADD_ANSWER = 'ADD_ANSWER';
+
+export const POST_ANSWER_COMMENT = 'POST_ANSWER_COMMENT';
 
 export const getAnswers = async (question_id) => {
   const payload = await axios
@@ -30,5 +32,20 @@ export const addAnswer = async (question_id, body) => {
   return {
     type: ADD_ANSWER,
     payload: payload.data,
+  };
+};
+
+export const postAnswerComment = async (question_id, answer_id, body) => {
+  //우선 1 ~ 100 사이로 userId 설정
+  const userId = Math.floor(Math.random() * 101);
+
+  const payload = await axios.post(`${ANSWER_URL}/${answer_id}/comments/add`, {
+    userId,
+    body,
+  });
+
+  return {
+    type: POST_ANSWER_COMMENT,
+    payload: { data: payload.data, question_id, answer_id },
   };
 };
