@@ -11,7 +11,8 @@ module.exports = function (app) {
       '/login',
     ],
     createProxyMiddleware({
-      target: process.env.REACT_APP_API_URL, // 추후 env로 관리
+      target:
+        'http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080', // 추후 env로 관리
       changeOrigin: true,
     })
   );
