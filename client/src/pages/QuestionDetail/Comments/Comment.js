@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { deleteQuestionComment } from '../../../_actions/question_action';
+import {
+  deleteAnswer,
+  deleteAnswerComment,
+} from '../../../_actions/answer_action';
 
 const CommentWrapper = styled.div`
   width: 100%;
@@ -35,12 +39,16 @@ const CommentWrapper = styled.div`
   }
 `;
 
-const Comment = ({ commentId, body, nickname, date }) => {
+const Comment = ({ type, answerId, commentId, body, nickname, date }) => {
   const dispatch = useDispatch();
 
   const handleOnClickDelete = () => {
     console.log('delete!');
-    dispatch(deleteQuestionComment(commentId));
+    if (type === 'question') {
+      dispatch(deleteQuestionComment(commentId));
+    } else if (type === 'answer') {
+      dispatch(deleteAnswerComment(answerId, commentId));
+    }
   };
 
   return (
