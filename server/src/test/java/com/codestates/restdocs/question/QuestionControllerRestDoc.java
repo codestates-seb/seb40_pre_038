@@ -38,7 +38,6 @@ import static com.codestates.util.ApiDocumentUtils.getDocumentRequest;
 import static com.codestates.util.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -85,7 +84,7 @@ public class QuestionControllerRestDoc {
         UserDto.Response userResponse =
                 new UserDto.Response(1L,
                         "Stub_Potato",
-                        "stub_email_@user.com",
+                        "stub_email@user.com",
                         12345);
 
 
@@ -117,7 +116,7 @@ public class QuestionControllerRestDoc {
                 new QuestionDto.Response(1L,
                         userMapper.userToUserResponseDto(new User(1L,
                                 "Stub_Potato",
-                                "stub_email_@user.com",
+                                "stub_email@user.com",
                                 1234567890)),
                         "title",
                         "problem should have more than 20 character",
@@ -214,7 +213,7 @@ public class QuestionControllerRestDoc {
                 new QuestionDto.Response(1L,
                         userMapper.userToUserResponseDto(new User(1L,
                                 "Stub_Potato",
-                                "stub_email_@user.com",
+                                "stub_email@user.com",
                                 1234567890)),
                         "changed title",
                         "changed problem should have more than 20 character",
@@ -300,9 +299,9 @@ public class QuestionControllerRestDoc {
                 new QuestionDto.Response(1L,
                         userMapper.userToUserResponseDto(new User(1L,
                                 "Stub_Potato",
-                                "stub_email_@user.com",
+                                "stub_email@user.com",
                                 1234567890)),
-                        "changed title",
+                        "title",
                         "problem should have more than 20 character",
                         "expect should have more than 20 character",
                         List.of("tag", "body"),
@@ -320,7 +319,7 @@ public class QuestionControllerRestDoc {
 
         ResultActions actions =
                 mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/questions/{questionId}", questionId)
+                        RestDocumentationRequestBuilders.get("/api/questions/{questionId}", questionId)
                                 .accept(MediaType.APPLICATION_JSON)
                 );
 
@@ -337,17 +336,6 @@ public class QuestionControllerRestDoc {
                         getDocumentResponse(),
                         pathParameters(
                                 parameterWithName("questionId").description("질문 번호")
-                        ),
-                        requestFields(
-                                List.of(
-                                        fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("질문 번호"),
-                                        fieldWithPath("userId").type(JsonFieldType.NUMBER).description("유저 번호"),
-                                        fieldWithPath("title").type(JsonFieldType.STRING).description("수정된 제목"),
-                                        fieldWithPath("problem").type(JsonFieldType.STRING).description("수정된 문제"),
-                                        fieldWithPath("expect").type(JsonFieldType.STRING).description("수정된 기대"),
-                                        fieldWithPath("tagBody").type(JsonFieldType.STRING).description("수정된 태그 바디"),
-                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("수정된 태그 리스트")
-                                )
                         ),
                         responseFields(
                                 List.of(
@@ -371,8 +359,7 @@ public class QuestionControllerRestDoc {
                                 )
                         )
                 ));
-
-
     }
+
 
 }

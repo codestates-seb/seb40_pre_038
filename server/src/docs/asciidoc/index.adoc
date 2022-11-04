@@ -27,3 +27,21 @@ include::{snippets}/post-question/http-response.adoc[]
 
 .Response-Fields
 include::{snippets}/post-question/response-fields.adoc[]
+
+=== 질문 수정
+.Curl-Request
+include::{snippets}/patch-question/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/patch-question/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/patch-question/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/patch-question/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/patch-question/response-fields.adoc[]
+
+=== 질문 조회
