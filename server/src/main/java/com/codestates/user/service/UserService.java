@@ -7,6 +7,10 @@ import com.codestates.exception.ExceptionCode;
 import com.codestates.user.entity.User;
 import com.codestates.user.repository.UserRepository;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,5 +86,19 @@ public class UserService {
                 repository.findById(id);
         return optionalUser.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+    }
+
+    public User getLoginUser() { // 로그인된 유저로
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+
+        Optional<User> optionalUser = repository.findByEmail(authentication.getName());
+        User user = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        System.out.println("HERE:"+user.getUserId());
+
+        return user;
     }
 }
