@@ -4,6 +4,7 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.answer.repository.AnswerRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
+import com.codestates.question.Question;
 import com.codestates.user.entity.User;
 import com.codestates.user.service.UserService;
 import org.springframework.data.domain.Page;
@@ -89,8 +90,12 @@ public class AnswerService {
         return answerRepository.save(findAnswer);
     }
 
-    public Answer updateStatus(Answer answer) { // Answer Status만 변경 (채택 or 일반)
+    public Answer updateStatus(Answer answer, Question question) { // Answer Status만 변경 (채택 or 일반)
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+
+        User postUser = userService.findVerifiedUser(question.getUser().getUserId()); // 질문 작성자
+        if(userService.getLoginUser().getUserId() != postUser.getUserId()) // 로그인 유저 != 질문 작성자
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED); // 답변 채택 권한 없음 -> 질문 작성자만 답변을 채택할 수 있음
 
         // Answer Status 변경
         findAnswer.setAnswerStatus(answer.getAnswerStatus());

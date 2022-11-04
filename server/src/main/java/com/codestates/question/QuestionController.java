@@ -178,12 +178,14 @@ public class QuestionController {
     }
 
     // 답변 채택
-    @PatchMapping("/{question_id}/favorite/{answer-id}")
-    public ResponseEntity favoriteAnswer(@PathVariable("answer-id") @Positive long answerId,
+    @PatchMapping("/{question-id}/favorite/{answer-id}")
+    public ResponseEntity favoriteAnswer(@PathVariable("question-id") @Positive long questionId,
+                                         @PathVariable("answer-id") @Positive long answerId,
                                          @Valid @RequestBody AnswerBestDto answerBestDto) {
         answerBestDto.setAnswerId(answerId);
 
-        Answer answer = answerService.updateStatus(answerMapper.answerBestDtoToAnswer(answerBestDto));
+        Question postQuestion = questionService.findQuestion(questionId);
+        Answer answer = answerService.updateStatus(answerMapper.answerBestDtoToAnswer(answerBestDto), postQuestion);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),
