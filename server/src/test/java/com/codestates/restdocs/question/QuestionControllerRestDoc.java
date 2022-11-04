@@ -102,7 +102,7 @@ public class QuestionControllerRestDoc {
     @Test
     void postQuestionTest() throws Exception {
 
-        QuestionDto.Post post = new QuestionDto.Post(1L,
+        QuestionDto.Post post = new QuestionDto.Post(
                 "title",
                 "problem should have more than 20 character",
                 "expect should have more than 20 character"
@@ -137,7 +137,7 @@ public class QuestionControllerRestDoc {
 
         given(questionMapper.questionPostToQuestion(Mockito.any(QuestionDto.Post.class))).willReturn(new Question());
 
-        given(questionService.createQuestion(Mockito.any(Question.class), anyLong())).willReturn(new Question());
+        given(questionService.createQuestion(Mockito.any(Question.class))).willReturn(new Question());
 
         given(questionMapper.questionToQuestionResponse(Mockito.any(Question.class))).willReturn(response);
 
@@ -151,7 +151,7 @@ public class QuestionControllerRestDoc {
 
         actions
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.data.userInformation.userId").value(post.getUserId()))
+//                .andExpect(jsonPath("$.data.userInformation.userId").value(post.getUserId()))
                 .andExpect(jsonPath("$.data.problem").value(post.getProblem()))
                 .andExpect(jsonPath("$.data.expect").value(post.getExpect()))
                 .andExpect(jsonPath("$.data.tagList[0:2]").value(new ArrayList<>(post.getTags())))
@@ -161,7 +161,7 @@ public class QuestionControllerRestDoc {
                         getDocumentResponse(),
                         requestFields(
                                 List.of(
-                                        fieldWithPath("userId").type(JsonFieldType.NUMBER).description("유저 번호"),
+//                                        fieldWithPath("userId").type(JsonFieldType.NUMBER).description("유저 번호"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("제목"),
                                         fieldWithPath("problem").type(JsonFieldType.STRING).description("문제"),
                                         fieldWithPath("expect").type(JsonFieldType.STRING).description("기대"),
@@ -198,7 +198,7 @@ public class QuestionControllerRestDoc {
 
         long questionId = 1;
 
-        QuestionDto.Patch patch = new QuestionDto.Patch(1,
+        QuestionDto.Patch patch = new QuestionDto.Patch(
                 1,
                 "changed title",
                 "changed problem should have more than 20 character",
@@ -229,7 +229,7 @@ public class QuestionControllerRestDoc {
 
         given(questionMapper.questionPatchToQuestion(Mockito.any(QuestionDto.Patch.class))).willReturn(new Question());
 
-        given(questionService.updateQuestion(Mockito.any(Question.class), anyLong())).willReturn(new Question());
+        given(questionService.updateQuestion(Mockito.any(Question.class))).willReturn(new Question());
 
         given(questionMapper.questionToQuestionResponse(Mockito.any(Question.class))).willReturn(response);
 
@@ -244,7 +244,7 @@ public class QuestionControllerRestDoc {
         actions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.questionId").value(patch.getQuestionId()))
-                .andExpect(jsonPath("$.data.userInformation.userId").value(patch.getUserId()))
+//                .andExpect(jsonPath("$.data.userInformation.userId").value(patch.getUserId()))
                 .andExpect(jsonPath("$.data.problem").value(patch.getProblem()))
                 .andExpect(jsonPath("$.data.expect").value(patch.getExpect()))
                 .andExpect(jsonPath("$.data.tagList[0:]").value(new ArrayList<>(patch.getTags())))
@@ -258,7 +258,7 @@ public class QuestionControllerRestDoc {
                         requestFields(
                                 List.of(
                                         fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("질문 번호"),
-                                        fieldWithPath("userId").type(JsonFieldType.NUMBER).description("유저 번호"),
+//                                        fieldWithPath("userId").type(JsonFieldType.NUMBER).description("유저 번호"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("수정된 제목"),
                                         fieldWithPath("problem").type(JsonFieldType.STRING).description("수정된 문제"),
                                         fieldWithPath("expect").type(JsonFieldType.STRING).description("수정된 기대"),
@@ -361,5 +361,41 @@ public class QuestionControllerRestDoc {
                 ));
     }
 
+    @Test
+    void getQuestionsTest() throws Exception {
 
+        Question question1 = new Question(
+                1L,
+                new User(1L,
+                        "Stub_Potato1",
+                        "stub_email1@user.com",
+                        1234567890),
+                "title1",
+                "problem1 should have more than 20 character",
+                "expect1 should have more than 20 character",
+                List.of("tag1", "body1"),
+                0, 0,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                null,
+                Question.ActionStatus.ACTION_ASKED
+        );
+
+        Question question2 = new Question(
+                2L,
+                new User(2L,
+                        "Stub_Potato2",
+                        "stub_email2@user.com",
+                        1234567890),
+                "title2",
+                "problem2 should have more than 20 character",
+                "expect2 should have more than 20 character",
+                List.of("tag2", "body2"),
+                0, 0,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                null,
+                Question.ActionStatus.ACTION_ASKED
+        );
+    }
 }
