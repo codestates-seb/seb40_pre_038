@@ -4,10 +4,7 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.comment.CommentDto;
 import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
 public class AnswerResponseDto {
     private long answerId;
     private UserDto.Response userResponseDto;

@@ -155,7 +155,7 @@ public class CommentControllerRestDoc {
                         ),
                         requestFields(
                                 List.of(
-                                        fieldWithPath("body").type(JsonFieldType.STRING).description("질문 댓글 본대")
+                                        fieldWithPath("body").type(JsonFieldType.STRING).description("질문 댓글 본문")
                                 )
                         ),
                         responseFields(
@@ -166,7 +166,7 @@ public class CommentControllerRestDoc {
                                         fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("댓글 유저 이름"),
                                         fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("댓글 유저 이메일 주소"),
                                         fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
-                                        fieldWithPath("data.body").type(JsonFieldType.STRING).description("댓글 본문"),
+                                        fieldWithPath("data.body").type(JsonFieldType.STRING).description("질문 댓글 본문"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
                                         fieldWithPath("data.commentType").type(JsonFieldType.STRING).description("댓글 타입")
@@ -232,8 +232,8 @@ public class CommentControllerRestDoc {
                                         fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("댓글 유저 번호"),
                                         fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("댓글 유저 이름"),
                                         fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("댓글 유저 이메일 주소"),
-                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
-                                        fieldWithPath("data.body").type(JsonFieldType.STRING).description("댓글 본문"),
+                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("댓글 유저 명성"),
+                                        fieldWithPath("data.body").type(JsonFieldType.STRING).description("질문 댓글 본문"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
                                         fieldWithPath("data.commentType").type(JsonFieldType.STRING).description("댓글 타입")
@@ -320,78 +320,66 @@ public class CommentControllerRestDoc {
                         "Stub_Potato1",
                         "stub_email1@user.com",
                         1234567890),
-                "Question-Comment should not be empty",
+                "Question-Comment1 should not be empty",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 CommentType.QUESTION
         );
 
-        Question question2 = new Question(
+        Comment comment2 = new Comment(
                 2L,
                 new User(2L,
-                        "Stub_Potato2",
-                        "stub_email2@user.com",
+                        "Stub_Potato1",
+                        "stub_email1@user.com",
                         1234567890),
-                "Title2",
-                "Problem2 should have more than 20 characters",
-                "Expect2 should have more than 20 characters",
-                List.of("tag2", "body2"),
-                0, 0,
+                "Question-Comment2 should not be empty",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                null,
-                Question.ActionStatus.ACTION_ASKED
+                CommentType.ANSWER
         );
 
-        List<QuestionDto.Response> responses = List.of(
-
-                new QuestionDto.Response(1L,
-                        userMapper.userToUserResponseDto(new User()),
-                        "Title1",
-                        "Problem1 should have more than 20 characters",
-                        "Expect1 should have more than 20 characters",
-                        List.of("tag1", "body1"),
-                        0, 0,
+        List<CommentDto.Response> responses = List.of(
+                new CommentDto.Response(1L,
+                        new UserDto.Response(1L,
+                                "Stub_Potato1",
+                                "stub_email1@user.com",
+                                1234567890),
+//                        userMapper.userToUserResponseDto(new User()),
+                        "Changed comment should not be empty",
                         LocalDateTime.now(),
                         LocalDateTime.now(),
-                        0,
-                        null,
-                        "asked"
+                        CommentType.QUESTION
                 ),
 
-
-                new QuestionDto.Response(2L,
-                        userMapper.userToUserResponseDto(new User()),
-                        "Title2",
-                        "Problem2 should have more than 20 characters",
-                        "Expect2 should have more than 20 characters",
-                        List.of("tag2", "body2"),
-                        0, 0,
+                new CommentDto.Response(1L,
+                        new UserDto.Response(2L,
+                                "Stub_Potato2",
+                                "stub_email2@user.com",
+                                1234567890),
+//                        userMapper.userToUserResponseDto(new User()),
+                        "Changed comment should not be empty",
                         LocalDateTime.now(),
                         LocalDateTime.now(),
-                        0,
-                        null,
-                        "asked"
+                        CommentType.QUESTION
                 )
-
         );
 
-        Page<Question> memberPage = new PageImpl<>(List.of());
+        Page<Comment> commentPage = new PageImpl<>(List.of());
 
-        given(questionService.findQuestions(Mockito.anyInt(), Mockito.anyInt())).willReturn(memberPage);
+        given(commentService.findComments(Mockito.anyInt(), Mockito.anyInt())).willReturn(commentPage);
 
-        given(questionMapper.questionsToQuestionResponses(Mockito.anyList())).willReturn(responses);
+        given(commentMapper.commentsToCommentResponses(Mockito.anyList())).willReturn(responses);
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/api/questions")
+                        RestDocumentationRequestBuilders.get("/api/comments")
                                 .param("page", "1")
                                 .param("size", "15")
                                 .accept(MediaType.APPLICATION_JSON)
                 );
 
         actions.andExpect(status().isOk())
-                .andDo(document("get-questions",
+                .andDo(document("get-comments",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestParameters(
@@ -401,25 +389,18 @@ public class CommentControllerRestDoc {
                         responseFields(
                                 List.of(
                                         fieldWithPath("data.").type(JsonFieldType.ARRAY).description("결과 데이터"),
-                                        fieldWithPath("data[].questionId").type((JsonFieldType.NUMBER)).description("질문 번호"),
-                                        fieldWithPath("data[].userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
-                                        fieldWithPath("data[].userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
-                                        fieldWithPath("data[].userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-                                        fieldWithPath("data[].userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
-                                        fieldWithPath("data[].title").type(JsonFieldType.STRING).description("제목"),
-                                        fieldWithPath("data[].problem").type(JsonFieldType.STRING).description("문제"),
-                                        fieldWithPath("data[].expect").type(JsonFieldType.STRING).description("기대"),
-                                        fieldWithPath("data[].tagList").type(JsonFieldType.ARRAY).description("태그 리스트"),
-                                        fieldWithPath("data[].view").type(JsonFieldType.NUMBER).description("조회수"),
-                                        fieldWithPath("data[].vote").type(JsonFieldType.NUMBER).description("투표"),
+                                        fieldWithPath("data[].commentId").type((JsonFieldType.NUMBER)).description("댓글 번호"),
+                                        fieldWithPath("data[].userInformation.userId").type((JsonFieldType.NUMBER)).description("댓글 유저 번호"),
+                                        fieldWithPath("data[].userInformation.nickName").type((JsonFieldType.STRING)).description("댓글 유저 이름"),
+                                        fieldWithPath("data[].userInformation.email").type((JsonFieldType.STRING)).description("댓글 유저 이메일 주소"),
+                                        fieldWithPath("data[].userInformation.reputation").type((JsonFieldType.NUMBER)).description("댓글 유저 명성"),
+                                        fieldWithPath("data[].body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
-                                        fieldWithPath("data[].answerCount").type(JsonFieldType.NUMBER).description("답변 개수"),
-                                        fieldWithPath("data[].commentsWithUser").type(JsonFieldType.NULL).description("댓글"),
-                                        fieldWithPath("data[].actionStatus").type(JsonFieldType.STRING).description("질문 상태"),
+                                        fieldWithPath("data[].commentType").type(JsonFieldType.STRING).description("댓글 타입"),
                                         fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지"),
                                         fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
-                                        fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("총 회원 수"),
+                                        fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("총 댓 수"),
                                         fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("총 페이지 수")
                                 )
                         )
@@ -430,20 +411,20 @@ public class CommentControllerRestDoc {
     @Test
     void deleteQuestionTest() throws Exception {
 
-        long questionId = 1L;
+        long commentId = 1L;
 
-        doNothing().when(questionService).deleteQuestion(Mockito.anyLong());
+        doNothing().when(commentService).deleteComment(Mockito.anyLong());
 
         mockMvc.perform(
-                        RestDocumentationRequestBuilders.delete("/api/questions/{questionId}/delete", questionId))
+                        RestDocumentationRequestBuilders.delete("/api/comments/{commentId}/delete", commentId))
                 .andExpect(status().isNoContent())
                 .andDo(
                         document(
-                                "delete-question",
+                                "delete-comment",
                                 getDocumentRequest(),
                                 getDocumentResponse(),
                                 pathParameters(
-                                        parameterWithName("questionId").description("질문 번호")
+                                        parameterWithName("commentId").description("댓글 번호")
                                 )
                         )
                 );

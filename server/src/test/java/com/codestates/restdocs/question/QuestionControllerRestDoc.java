@@ -20,6 +20,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
@@ -50,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @SpringBootTest
+//@WebMvcTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 public class QuestionControllerRestDoc {
@@ -93,13 +95,13 @@ public class QuestionControllerRestDoc {
 
         given(userMapper.userToUserResponseDto(Mockito.any())).willReturn(userResponse);
 
-        CommentDto.Response commentResponse =
-                new CommentDto.Response(1,
-                        userResponse,
-                        "Comment12345123451234512345",
-                        LocalDateTime.now(),
-                        LocalDateTime.now(),
-                        CommentType.QUESTION);
+//        CommentDto.Response commentResponse =
+//                new CommentDto.Response(1,
+//                        userResponse,
+//                        "Comment12345123451234512345",
+//                        LocalDateTime.now(),
+//                        LocalDateTime.now(),
+//                        CommentType.QUESTION);
     }
 
     @Test
@@ -179,7 +181,7 @@ public class QuestionControllerRestDoc {
                                         fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
                                         fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
                                         fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
+                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
                                         fieldWithPath("data.title").type(JsonFieldType.STRING).description("제목"),
                                         fieldWithPath("data.problem").type(JsonFieldType.STRING).description("문제"),
                                         fieldWithPath("data.expect").type(JsonFieldType.STRING).description("기대"),
@@ -276,7 +278,7 @@ public class QuestionControllerRestDoc {
                                         fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
                                         fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
                                         fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
+                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
                                         fieldWithPath("data.title").type(JsonFieldType.STRING).description("수정된 제목"),
                                         fieldWithPath("data.problem").type(JsonFieldType.STRING).description("수정된 문제"),
                                         fieldWithPath("data.expect").type(JsonFieldType.STRING).description("수정된 기대"),
@@ -347,7 +349,7 @@ public class QuestionControllerRestDoc {
                                         fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
                                         fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
                                         fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
+                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
                                         fieldWithPath("data.title").type(JsonFieldType.STRING).description("제목"),
                                         fieldWithPath("data.problem").type(JsonFieldType.STRING).description("문제"),
                                         fieldWithPath("data.expect").type(JsonFieldType.STRING).description("기대"),
@@ -404,7 +406,11 @@ public class QuestionControllerRestDoc {
         List<QuestionDto.Response> responses = List.of(
 
                 new QuestionDto.Response(1L,
-                        userMapper.userToUserResponseDto(new User()),
+                        new UserDto.Response(1L,
+                                "Stub_Potato1",
+                                "stub_email1@user.com",
+                                1234567890),
+//                        userMapper.userToUserResponseDto(new User()),
                         "Title1",
                         "Problem1 should have more than 20 characters",
                         "Expect1 should have more than 20 characters",
@@ -417,10 +423,12 @@ public class QuestionControllerRestDoc {
                         "asked"
                 ),
 
-
-
                 new QuestionDto.Response(2L,
-                        userMapper.userToUserResponseDto(new User()),
+                        new UserDto.Response(2L,
+                                "Stub_Potato2",
+                                "stub_email2@user.com",
+                                1234567890),
+//                        userMapper.userToUserResponseDto(new User()),
                         "Title2",
                         "Problem2 should have more than 20 characters",
                         "Expect2 should have more than 20 characters",
@@ -464,7 +472,7 @@ public class QuestionControllerRestDoc {
                                         fieldWithPath("data[].userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
                                         fieldWithPath("data[].userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
                                         fieldWithPath("data[].userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-                                        fieldWithPath("data[].userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
+                                        fieldWithPath("data[].userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
                                         fieldWithPath("data[].title").type(JsonFieldType.STRING).description("제목"),
                                         fieldWithPath("data[].problem").type(JsonFieldType.STRING).description("문제"),
                                         fieldWithPath("data[].expect").type(JsonFieldType.STRING).description("기대"),
@@ -478,7 +486,7 @@ public class QuestionControllerRestDoc {
                                         fieldWithPath("data[].actionStatus").type(JsonFieldType.STRING).description("질문 상태"),
                                         fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지"),
                                         fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
-                                        fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("총 회원 수"),
+                                        fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("총 질문 수"),
                                         fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("총 페이지 수")
                                 )
                         )
@@ -494,7 +502,7 @@ public class QuestionControllerRestDoc {
         doNothing().when(questionService).deleteQuestion(Mockito.anyLong());
 
         mockMvc.perform(
-                RestDocumentationRequestBuilders.delete("/api/questions/{questionId}/delete", questionId))
+                        RestDocumentationRequestBuilders.delete("/api/questions/{questionId}/delete", questionId))
                 .andExpect(status().isNoContent())
                 .andDo(
                         document(
