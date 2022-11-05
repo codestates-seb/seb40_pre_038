@@ -108,7 +108,6 @@ const AskQuestionPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const postBody = {
-      userId: 2,
       title: titleValue,
       problem: problemValue,
       expect: expectValue,

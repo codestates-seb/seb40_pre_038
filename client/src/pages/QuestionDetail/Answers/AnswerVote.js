@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { patchQuestionsVote } from '../../_actions/vote_action';
+import { patchAnswersVote } from '../../../_actions/vote_action';
 
 const QuestionVoteContainer = styled.div`
   width: 60px;
@@ -49,40 +49,41 @@ const ActivityIcon = styled(SideIcon)`
   margin: 8px 0;
 `;
 
-const QuestionVote = ({ data }) => {
+const AnswerVote = ({ data }) => {
   const dispatch = useDispatch();
   const vote = useSelector((state) => {
-    if (state.voteReducer.questionsVote === 0) {
-      return state.questionReducer.data.vote;
+    if (state.voteReducer.answersVote === 0) {
+      return state.answerReducer.data[0].vote;
     } else {
-      return state.voteReducer.questionsVote;
+      return state.voteReducer.answersVote;
     }
   });
-  const questionId = data.questionId;
 
-  const questionsUpVote = () => {
+  const answerId = data.answerId;
+
+  const answersUpVote = () => {
     const patchBody = {
       vote: vote + 1,
     };
-    dispatch(patchQuestionsVote(questionId, patchBody));
+    dispatch(patchAnswersVote(answerId, patchBody));
   };
 
-  const questionsDownVote = () => {
+  const answersDownVote = () => {
     const patchBody = {
       vote: vote - 1,
     };
-    dispatch(patchQuestionsVote(questionId, patchBody));
+    dispatch(patchAnswersVote(answerId, patchBody));
   };
 
   return (
     <QuestionVoteContainer>
-      <UpVoteBtn onClick={questionsUpVote}>
+      <UpVoteBtn onClick={answersUpVote}>
         <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 25h32L18 9 2 25Z" />
         </svg>
       </UpVoteBtn>
       <VoteStat>{vote}</VoteStat>
-      <DownVoteBtn onClick={questionsDownVote}>
+      <DownVoteBtn onClick={answersDownVote}>
         <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 11h32L18 27 2 11Z" />
         </svg>
@@ -101,4 +102,4 @@ const QuestionVote = ({ data }) => {
   );
 };
 
-export default QuestionVote;
+export default AnswerVote;

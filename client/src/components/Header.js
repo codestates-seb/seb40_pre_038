@@ -494,7 +494,10 @@ const Header = ({ isLogin, setIsLogin }) => {
                     <span
                       className="discription loginout"
                       role="presentation"
-                      onClick={() => setIsLogin(false)}
+                      onClick={() => {
+                        setIsLogin(false);
+                        window.sessionStorage.removeItem('Authorization');
+                      }}
                     >
                       Logout
                     </span>
