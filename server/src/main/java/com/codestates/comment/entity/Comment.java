@@ -94,4 +94,14 @@ public class Comment extends Auditable {
         this.commentType = commentType;
         this.body = body;
     }
+
+    public Comment(long commentId, User user, String body, LocalDateTime createdAt,
+                   LocalDateTime modifiedAt,  CommentType commentType) {
+        this.commentId = commentId;
+        this.commentType = commentType;
+        this.body = body;
+        this.user = user;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+    }
 }

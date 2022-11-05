@@ -12,8 +12,11 @@ v1.0.0, 2022.11.04
 // (4)
 ***
 == QuestionController
+
 === 질문 등록
+
 .Curl-Request
+
 include::{snippets}/post-question/curl-request.adoc[]
 
 .Http-Request
@@ -29,8 +32,12 @@ include::{snippets}/post-question/http-response.adoc[]
 include::{snippets}/post-question/response-fields.adoc[]
 
 === 질문 수정
+
 .Curl-Request
 include::{snippets}/patch-question/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/patch-question/path-parameters.adoc[]
 
 .Http-Request
 include::{snippets}/patch-question/http-request.adoc[]
@@ -45,3 +52,41 @@ include::{snippets}/patch-question/http-response.adoc[]
 include::{snippets}/patch-question/response-fields.adoc[]
 
 === 질문 조회
+
+.Curl-Request
+include::{snippets}/get-question/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/get-question/path-parameters.adoc[]
+
+.Http-Request
+include::{snippets}/get-question/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/get-question/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/get-question/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/get-question/response-fields.adoc[]
+
+=== 질문 전체 조회
+
+.Curl-Request
+include::{snippets}/get-questions/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/get-questions/path-parameters.adoc[]
+
+.Http-Request
+include::{snippets}/get-questions/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/get-questions/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/get-questions/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/get-questions/response-fields.adoc[]

@@ -20,8 +20,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -38,6 +41,7 @@ import static com.codestates.util.ApiDocumentUtils.getDocumentRequest;
 import static com.codestates.util.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -47,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @SpringBootTest
+//@WebMvcTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 public class QuestionControllerRestDoc {
@@ -85,27 +90,27 @@ public class QuestionControllerRestDoc {
                 new UserDto.Response(1L,
                         "Stub_Potato",
                         "stub_email@user.com",
-                        12345);
+                        1234567890);
 
 
         given(userMapper.userToUserResponseDto(Mockito.any())).willReturn(userResponse);
 
-        CommentDto.Response commentResponse =
-                new CommentDto.Response(1,
-                        userResponse,
-                        "comment12345123451234512345",
-                        LocalDateTime.now(),
-                        LocalDateTime.now(),
-                        CommentType.QUESTION);
+//        CommentDto.Response commentResponse =
+//                new CommentDto.Response(1,
+//                        userResponse,
+//                        "Comment12345123451234512345",
+//                        LocalDateTime.now(),
+//                        LocalDateTime.now(),
+//                        CommentType.QUESTION);
     }
 
     @Test
     void postQuestionTest() throws Exception {
 
         QuestionDto.Post post = new QuestionDto.Post(
-                "title",
-                "problem should have more than 20 character",
-                "expect should have more than 20 character"
+                "Title",
+                "Problem should have more than 20 characters",
+                "Expect should have more than 20 characters"
                 , "tag, body"
                 , List.of("tag", "body")
         );
@@ -118,9 +123,9 @@ public class QuestionControllerRestDoc {
                                 "Stub_Potato",
                                 "stub_email@user.com",
                                 1234567890)),
-                        "title",
-                        "problem should have more than 20 character",
-                        "expect should have more than 20 character",
+                        "Title",
+                        "Problem should have more than 20 characters",
+                        "Expect should have more than 20 characters",
                         List.of("tag", "body"),
                         0, 0,
                         LocalDateTime.now(),
@@ -176,7 +181,7 @@ public class QuestionControllerRestDoc {
                                         fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
                                         fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
                                         fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
+                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
                                         fieldWithPath("data.title").type(JsonFieldType.STRING).description("제목"),
                                         fieldWithPath("data.problem").type(JsonFieldType.STRING).description("문제"),
                                         fieldWithPath("data.expect").type(JsonFieldType.STRING).description("기대"),
@@ -200,10 +205,10 @@ public class QuestionControllerRestDoc {
 
         QuestionDto.Patch patch = new QuestionDto.Patch(
                 1,
-                "changed title",
-                "changed problem should have more than 20 character",
-                "changed expect should have more than 20 character",
-                "changed, tag, body",
+                "Changed title",
+                "Changed problem should have more than 20 characters",
+                "Changed expect should have more than 20 characters",
+                "Changed, tag, body",
                 List.of("changed", "tag", "body")
         );
 
@@ -215,9 +220,9 @@ public class QuestionControllerRestDoc {
                                 "Stub_Potato",
                                 "stub_email@user.com",
                                 1234567890)),
-                        "changed title",
-                        "changed problem should have more than 20 character",
-                        "changed expect should have more than 20 character",
+                        "Changed title",
+                        "Changed problem should have more than 20 characters",
+                        "Changed expect should have more than 20 characters",
                         List.of("changed", "tag", "body"),
                         0, 0,
                         LocalDateTime.now(),
@@ -273,7 +278,7 @@ public class QuestionControllerRestDoc {
                                         fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
                                         fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
                                         fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
+                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
                                         fieldWithPath("data.title").type(JsonFieldType.STRING).description("수정된 제목"),
                                         fieldWithPath("data.problem").type(JsonFieldType.STRING).description("수정된 문제"),
                                         fieldWithPath("data.expect").type(JsonFieldType.STRING).description("수정된 기대"),
@@ -301,9 +306,9 @@ public class QuestionControllerRestDoc {
                                 "Stub_Potato",
                                 "stub_email@user.com",
                                 1234567890)),
-                        "title",
-                        "problem should have more than 20 character",
-                        "expect should have more than 20 character",
+                        "Title",
+                        "Problem should have more than 20 characters",
+                        "Expect should have more than 20 characters",
                         List.of("tag", "body"),
                         0, 0,
                         LocalDateTime.now(),
@@ -344,7 +349,7 @@ public class QuestionControllerRestDoc {
                                         fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
                                         fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
                                         fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
+                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
                                         fieldWithPath("data.title").type(JsonFieldType.STRING).description("제목"),
                                         fieldWithPath("data.problem").type(JsonFieldType.STRING).description("문제"),
                                         fieldWithPath("data.expect").type(JsonFieldType.STRING).description("기대"),
@@ -370,9 +375,9 @@ public class QuestionControllerRestDoc {
                         "Stub_Potato1",
                         "stub_email1@user.com",
                         1234567890),
-                "title1",
-                "problem1 should have more than 20 character",
-                "expect1 should have more than 20 character",
+                "Title1",
+                "Problem1 should have more than 20 characters",
+                "Expect1 should have more than 20 characters",
                 List.of("tag1", "body1"),
                 0, 0,
                 LocalDateTime.now(),
@@ -387,9 +392,9 @@ public class QuestionControllerRestDoc {
                         "Stub_Potato2",
                         "stub_email2@user.com",
                         1234567890),
-                "title2",
-                "problem2 should have more than 20 character",
-                "expect2 should have more than 20 character",
+                "Title2",
+                "Problem2 should have more than 20 characters",
+                "Expect2 should have more than 20 characters",
                 List.of("tag2", "body2"),
                 0, 0,
                 LocalDateTime.now(),
@@ -397,5 +402,117 @@ public class QuestionControllerRestDoc {
                 null,
                 Question.ActionStatus.ACTION_ASKED
         );
+
+        List<QuestionDto.Response> responses = List.of(
+
+                new QuestionDto.Response(1L,
+                        new UserDto.Response(1L,
+                                "Stub_Potato1",
+                                "stub_email1@user.com",
+                                1234567890),
+//                        userMapper.userToUserResponseDto(new User()),
+                        "Title1",
+                        "Problem1 should have more than 20 characters",
+                        "Expect1 should have more than 20 characters",
+                        List.of("tag1", "body1"),
+                        0, 0,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
+                        0,
+                        null,
+                        "asked"
+                ),
+
+                new QuestionDto.Response(2L,
+                        new UserDto.Response(2L,
+                                "Stub_Potato2",
+                                "stub_email2@user.com",
+                                1234567890),
+//                        userMapper.userToUserResponseDto(new User()),
+                        "Title2",
+                        "Problem2 should have more than 20 characters",
+                        "Expect2 should have more than 20 characters",
+                        List.of("tag2", "body2"),
+                        0, 0,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
+                        0,
+                        null,
+                        "asked"
+                )
+
+        );
+
+        Page<Question> memberPage = new PageImpl<>(List.of());
+
+        given(questionService.findQuestions(Mockito.anyInt(), Mockito.anyInt())).willReturn(memberPage);
+
+        given(questionMapper.questionsToQuestionResponses(Mockito.anyList())).willReturn(responses);
+
+        ResultActions actions =
+                mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/api/questions")
+                                .param("page", "1")
+                                .param("size", "15")
+                                .accept(MediaType.APPLICATION_JSON)
+                );
+
+        actions.andExpect(status().isOk())
+                .andDo(document("get-questions",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("page").description("페이지"),
+                                parameterWithName("size").description("페이지 크기")
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data.").type(JsonFieldType.ARRAY).description("결과 데이터"),
+                                        fieldWithPath("data[].questionId").type((JsonFieldType.NUMBER)).description("질문 번호"),
+                                        fieldWithPath("data[].userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
+                                        fieldWithPath("data[].userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
+                                        fieldWithPath("data[].userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
+                                        fieldWithPath("data[].userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
+                                        fieldWithPath("data[].title").type(JsonFieldType.STRING).description("제목"),
+                                        fieldWithPath("data[].problem").type(JsonFieldType.STRING).description("문제"),
+                                        fieldWithPath("data[].expect").type(JsonFieldType.STRING).description("기대"),
+                                        fieldWithPath("data[].tagList").type(JsonFieldType.ARRAY).description("태그 리스트"),
+                                        fieldWithPath("data[].view").type(JsonFieldType.NUMBER).description("조회수"),
+                                        fieldWithPath("data[].vote").type(JsonFieldType.NUMBER).description("투표"),
+                                        fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
+                                        fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
+                                        fieldWithPath("data[].answerCount").type(JsonFieldType.NUMBER).description("답변 개수"),
+                                        fieldWithPath("data[].commentsWithUser").type(JsonFieldType.NULL).description("댓글"),
+                                        fieldWithPath("data[].actionStatus").type(JsonFieldType.STRING).description("질문 상태"),
+                                        fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지"),
+                                        fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
+                                        fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("총 질문 수"),
+                                        fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("총 페이지 수")
+                                )
+                        )
+                ));
+
+    }
+
+    @Test
+    void deleteQuestionTest() throws Exception {
+
+        long questionId = 1L;
+
+        doNothing().when(questionService).deleteQuestion(Mockito.anyLong());
+
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.delete("/api/questions/{questionId}/delete", questionId))
+                .andExpect(status().isNoContent())
+                .andDo(
+                        document(
+                                "delete-question",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                pathParameters(
+                                        parameterWithName("questionId").description("질문 번호")
+                                )
+                        )
+                );
     }
 }
