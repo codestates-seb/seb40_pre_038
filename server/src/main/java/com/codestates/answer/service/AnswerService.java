@@ -55,6 +55,8 @@ public class AnswerService {
 
         findAnswer.setActionStatus(Answer.ActionStatus.ACTION_MODIFIED); // actionStatus 변경
         
+        findAnswer.setModifiedAt(LocalDateTime.now()); // 글을 수정할 때만 수정 시간 변경
+        
         return answerRepository.save(findAnswer);
     }
     
