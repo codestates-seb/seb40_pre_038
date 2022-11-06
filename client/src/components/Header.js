@@ -330,7 +330,7 @@ const LoginBtn = styled(ButtonSblue)``;
 const SignupBtn = styled(ButtonBlue)``;
 
 const Header = ({ isLogin, setIsLogin }) => {
-  //search,inbox, achieve, help, community
+  // inbox, achieve, help, community
   const [clickedMenu, setClickedMenu] = useState(null);
 
   const handleClickMenu = (menu) => {
@@ -373,11 +373,7 @@ const Header = ({ isLogin, setIsLogin }) => {
           <ProductsBtnContainer>
             <button className="product_btn">Products</button>
           </ProductsBtnContainer>
-          <HeaderSearchbar
-            onFocus={() => handleClickMenu('search')}
-            handleClickMenu={handleClickMenu}
-            clickedMenu={clickedMenu}
-          ></HeaderSearchbar>
+          <HeaderSearchbar></HeaderSearchbar>
         </Header_Left>
         <Header_Right>
           <MiniSearchBtnContainer>
