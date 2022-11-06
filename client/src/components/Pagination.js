@@ -127,7 +127,7 @@ export const Pager = ({ totalPages = 1, currentPage = 1, onChange }) => {
 
   const prevNextButton = (type) => (
     <PagenationButton
-      title={`Go to prev ${type.toLowerCase()}`}
+      title={`Go to ${type.toLowerCase()} page`}
       onClick={handleClickPrevNextButton}
     >
       {type}
