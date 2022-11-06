@@ -15,6 +15,7 @@ import TagsPage from './pages/TagsPage/TagsPage';
 import UsersPage from './pages/UsersPage/UsersPage';
 import AskQuestionPage from './pages/AskQuestionPage/AskQuestionPage';
 import QuestionDetailPage from './pages/QuestionDetail/QuestionDetailPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 import NoMatch from './pages/NoMatch';
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
           path="/questions/:question_id"
           element={<QuestionDetailPage />}
         />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/tags" element={<TagsPage />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="*" element={<NoMatch />} />
