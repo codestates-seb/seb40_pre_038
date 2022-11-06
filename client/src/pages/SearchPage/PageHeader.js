@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from '../../components/Buttons';
 import { Headline } from '../../components/Headline';
@@ -42,6 +43,8 @@ const BoldSpan = styled.span`
 
 const PageHeader = ({ queryString }) => {
   const navigate = useNavigate();
+  const search = useSelector((state) => state.search);
+  const { searchInputValue } = search;
 
   const [showAdvancedSearchTips, setShowAdvancedSearchTips] = useState(false);
 
@@ -79,7 +82,7 @@ const PageHeader = ({ queryString }) => {
       {queryString ? (
         <>
           <SubWrapper>
-            <div>Results for why javascript</div>
+            <div>Results for {searchInputValue}</div>
             <div>
               Search options <BoldSpan>not deleted</BoldSpan>
             </div>

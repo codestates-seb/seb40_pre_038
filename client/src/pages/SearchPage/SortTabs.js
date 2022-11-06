@@ -91,7 +91,7 @@ export const SortTabObj = {
 const SortTabs = () => {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
-  const { sortTabValue } = search;
+  const { sortTabValue, totalElements } = search;
 
   const handleClickTab = (e) => {
     const params = {
@@ -106,7 +106,7 @@ const SortTabs = () => {
 
   return (
     <FlexWrapper>
-      <Fl1>120,823 results</Fl1>
+      <Fl1>{totalElements.toLocaleString()} results</Fl1>
       <div>
         <Tabs>
           <Tab

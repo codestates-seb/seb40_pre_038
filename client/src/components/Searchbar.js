@@ -154,7 +154,7 @@ const HeaderSearchbar = () => {
 
     navigate(`/search?q=${encodeURIComponent(searchInputValue)}`);
     dispatch(getSearchList({ ...search, searchInputValue, pagerValue: 1 }));
-    setSearchInputValue('');
+    setSearchInputValue(searchInputValue);
     setFocusSearch(false);
   };
 
