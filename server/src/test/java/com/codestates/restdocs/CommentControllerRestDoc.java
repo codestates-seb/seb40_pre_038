@@ -1,4 +1,4 @@
-package com.codestates.restdocs.question;
+package com.codestates.restdocs;
 
 import com.codestates.answer.controller.AnswerController;
 import com.codestates.answer.service.AnswerService;

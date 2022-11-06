@@ -98,6 +98,22 @@ public class Answer {
         this.comments = comments;
     }
 
+    public Answer(Long answerId, User user, AnswerStatus answerStatus,  Question question,
+                  String body, int vote, LocalDateTime createdAt, LocalDateTime modifiedAt,
+                  List<Comment> comments, AnswerVote answerVote, ActionStatus actionStatus) {
+        this.answerId = answerId;
+        this.answerStatus = answerStatus;
+        this.user = user;
+        this.question = question;
+        this.body = body;
+        this.vote = vote;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+        this.comments = comments;
+        this.answerVote = answerVote;
+        this.actionStatus = actionStatus;
+    }
+
     public enum ActionStatus {
         ACTION_ANSWERED("answered"),
         ACTION_MODIFIED( "modified");

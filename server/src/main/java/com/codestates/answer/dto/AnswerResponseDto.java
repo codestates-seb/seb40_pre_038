@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class AnswerResponseDto {
     private long answerId;
-    private UserDto.Response userResponseDto;
+    private UserDto.Response userInformation;
     private Answer.AnswerStatus answerStatus;
     private long questionId;
     private String body;
@@ -25,11 +25,11 @@ public class AnswerResponseDto {
     private List<CommentDto.Response> commentsWithUser;
     private String actionStatus;
 
-    public AnswerResponseDto(long answerId, UserDto.Response userResponseDto, Answer.AnswerStatus answerStatus,
+    public AnswerResponseDto(long answerId, UserDto.Response userInformation, Answer.AnswerStatus answerStatus,
                              long questionId, String body, int vote, LocalDateTime createdAt, LocalDateTime modifiedAt,
                              List<CommentDto.Response> commentsWithUser, String actionStatus) {
         this.answerId = answerId;
-        this.userResponseDto = userResponseDto;
+        this.userInformation = userInformation;
         this.answerStatus = answerStatus;
         this.questionId = questionId;
         this.body = body;
