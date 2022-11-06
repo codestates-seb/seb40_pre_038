@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../components/Buttons';
@@ -42,8 +43,15 @@ const BoldSpan = styled.span`
 const PageHeader = () => {
   const navigate = useNavigate();
 
+  const [showAdvancedSearchTips, setShowAdvancedSearchTips] = useState(false);
+
   const handleClickAskQuestionBtn = () => {
     navigate('/questions/ask');
+  };
+
+  const handleClickAdvancedSearchTips = (e) => {
+    e.preventDefault();
+    setShowAdvancedSearchTips((prev) => !prev);
   };
 
   return (
@@ -51,7 +59,9 @@ const PageHeader = () => {
       <HeadlinkWrapper>
         <Headline className="mb0">Search Results</Headline>
         <HeadLineButtonWrapper>
-          <SearchTipLink to="#">Advanced Search Tips</SearchTipLink>
+          <SearchTipLink to="#" onClick={handleClickAdvancedSearchTips}>
+            Advanced Search Tips
+          </SearchTipLink>
           <Button
             type="primary"
             whiteSpace="nowrap"
@@ -61,7 +71,7 @@ const PageHeader = () => {
           </Button>
         </HeadLineButtonWrapper>
       </HeadlinkWrapper>
-      <SearchTips />
+      {showAdvancedSearchTips ? <SearchTips /> : null}
       <SubWrapper>
         <div>Results for why javascript</div>
         <div>
