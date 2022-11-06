@@ -19,7 +19,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
-        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"})
+        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"}, allowCredentials = "true")
 @RestController
 @Validated
 @RequestMapping("/api")
