@@ -124,14 +124,6 @@ public class QuestionController {
 //        );
 //    }
 
-//    @GetMapping("/search/{tagBody}")
-//    public ResponseEntity getListsByTag(@PathVariable("tagBody") String tagBody) {
-//        List<Integer> pageQuestions = questionService.findListByTagBody(tagBody);
-//
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(pageQuestions), HttpStatus.OK
-//        );
-//    }
 
     @GetMapping("/search/{tagBody}")
     public ResponseEntity getQuestionByTagBody(@PathVariable("tagBody") @NotBlank String tagBody,
