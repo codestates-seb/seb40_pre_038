@@ -31,9 +31,8 @@ public class SearchService {
         long userId = 0;
         List<String> contents = new ArrayList<>();
 
-        System.out.println("all:"+all);
-        all = all.replaceAll( "[^\uAC00-\uD7A30-9a-zA-Z\\[\\]\\s]", ""); // 특수문자 제거
-        System.out.println("all:"+all);
+        //all = all.replaceAll( "[^\uAC00-\uD7A30-9a-zA-Z\\[\\]\\s]", ""); // 특수문자 제거
+
         List<String> findAll = Arrays.asList(all.split(" "));
         for(String find : findAll) {
             if(find.length() >= 3 && find.charAt(0) == '[' && find.charAt(find.length() - 1) == ']') // 태그 검색일 경우
