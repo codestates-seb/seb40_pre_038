@@ -7,14 +7,15 @@ import QuestionListWrapper from '../../components/QuestionList/QuestionListWrapp
 import { Pagination } from '../../components/Pagination';
 import { getSearchList } from '../../_actions/search_action';
 import PageHeader from './PageHeader';
-// import useQueryString from '../../util/useQueryString';
+import useQueryString from '../../util/useQueryString';
 
 const ClearBr = styled.br`
   clear: both !important;
 `;
 
 const SearchPage = () => {
-  // const query = useQueryString();
+  const queryString = useQueryString().get('q');
+
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
   const {
@@ -50,21 +51,25 @@ const SearchPage = () => {
   };
 
   return (
-    <PageContainer nav sidebar footer>
+    <PageContainer nav sidebar={queryString ? true : false} footer>
       <Mainbar>
-        <PageHeader />
-        <QuestionListWrapper
-          className="questions"
-          questionsList={questionsList}
-        />
-        <ClearBr />
-        <Pagination
-          size={pageSizerValue}
-          totalPages={totalPages}
-          currentPage={pagerValue}
-          onClickPageSizer={onClickPageSizer}
-          onChangePager={onChangePager}
-        />
+        <PageHeader queryString={queryString} />
+        {queryString ? (
+          <>
+            <QuestionListWrapper
+              className="questions"
+              questionsList={questionsList}
+            />
+            <ClearBr />
+            <Pagination
+              size={pageSizerValue}
+              totalPages={totalPages}
+              currentPage={pagerValue}
+              onClickPageSizer={onClickPageSizer}
+              onChangePager={onChangePager}
+            />
+          </>
+        ) : null}
       </Mainbar>
     </PageContainer>
   );

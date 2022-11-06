@@ -40,7 +40,7 @@ const BoldSpan = styled.span`
   font-weight: 600 !important;
 `;
 
-const PageHeader = () => {
+const PageHeader = ({ queryString }) => {
   const navigate = useNavigate();
 
   const [showAdvancedSearchTips, setShowAdvancedSearchTips] = useState(false);
@@ -57,11 +57,15 @@ const PageHeader = () => {
   return (
     <>
       <HeadlinkWrapper>
-        <Headline className="mb0">Search Results</Headline>
+        <Headline className="mb0">
+          Search{queryString ? ' Results' : null}
+        </Headline>
         <HeadLineButtonWrapper>
-          <SearchTipLink to="#" onClick={handleClickAdvancedSearchTips}>
-            Advanced Search Tips
-          </SearchTipLink>
+          {queryString ? (
+            <SearchTipLink to="#" onClick={handleClickAdvancedSearchTips}>
+              Advanced Search Tips
+            </SearchTipLink>
+          ) : null}
           <Button
             type="primary"
             whiteSpace="nowrap"
@@ -71,14 +75,18 @@ const PageHeader = () => {
           </Button>
         </HeadLineButtonWrapper>
       </HeadlinkWrapper>
-      {showAdvancedSearchTips ? <SearchTips /> : null}
-      <SubWrapper>
-        <div>Results for why javascript</div>
-        <div>
-          Search options <BoldSpan>not deleted</BoldSpan>
-        </div>
-      </SubWrapper>
-      <SortTabs />
+      {showAdvancedSearchTips || !queryString ? <SearchTips /> : null}
+      {queryString ? (
+        <>
+          <SubWrapper>
+            <div>Results for why javascript</div>
+            <div>
+              Search options <BoldSpan>not deleted</BoldSpan>
+            </div>
+          </SubWrapper>
+          <SortTabs />
+        </>
+      ) : null}
     </>
   );
 };
