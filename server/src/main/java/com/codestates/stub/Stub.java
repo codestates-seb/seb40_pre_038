@@ -44,6 +44,8 @@ public class Stub {
                             (int) (Math.random() * 1000000))));
         }
 
+//        return null;
+
         return
                 args -> {
 
@@ -73,7 +75,7 @@ public class Stub {
                                 null,
                                 null,
                                 LocalDateTime.now(),
-                                null)));
+                                Question.ActionStatus.ACTION_ASKED)));
 
                 log.info("ANSWER STUB " + // 답변 스텁 생성
                         answerRepository.save(new Answer(
@@ -124,7 +126,7 @@ public class Stub {
                                 null,
                                 null,
                                 LocalDateTime.now(),
-                                null)));
+                                Question.ActionStatus.ACTION_ASKED)));
             }
         };
     }

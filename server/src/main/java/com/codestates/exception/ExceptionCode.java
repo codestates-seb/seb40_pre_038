@@ -23,7 +23,9 @@ public enum ExceptionCode {
     USER_NOT_ALLOWED(403, "User Not Allowed"),
     USER_CANNOT_CHANGE(403,"User Can Not Be Changed"),
 
-    VOTED(409, "Already Voted");
+    VOTED(409, "Already Voted"),
+
+    UNAUTHORIZED(401, "Unauthorized");
 
 
     @Getter

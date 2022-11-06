@@ -22,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Question extends Auditable {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,11 +77,11 @@ public class Question extends Auditable {
         comments.add(comment);
     }
 
-    @CreatedDate
+    //@CreatedDate
     @Column(nullable = false, updatable = false, name = "CREATED_AT")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @LastModifiedDate
+    //@LastModifiedDate
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
@@ -98,9 +98,7 @@ public class Question extends Auditable {
         this.expect = expect;
     }
 
-    public Question(String title, String problem, String expect, String tagBody, List<String> tagList,
-                    int view, int vote, User user, List<Answer> answers, List<Comment> comments,
-                    LocalDateTime modifiedAt, QuestionVote questionVote) {
+    public Question(String title, String problem, String expect, String tagBody, List<String> tagList, int view, int vote, User user, List<Answer> answers, List<Comment> comments, LocalDateTime createdAt, ActionStatus actionStatus) {
         this.title = title;
         this.problem = problem;
         this.expect = expect;
@@ -111,13 +109,28 @@ public class Question extends Auditable {
         this.user = user;
         this.answers = answers;
         this.comments = comments;
+        this.createdAt = createdAt;
+        this.actionStatus = actionStatus;
+    }
+
+    public Question(long questionId, User user, String title, String problem, String expect, List<String> tagList, int view, int vote, LocalDateTime createdAt, LocalDateTime modifiedAt, List<Comment> comments, ActionStatus actionStatus) {
+        this.questionId = questionId;
+        this.user = user;
+        this.title = title;
+        this.problem = problem;
+        this.expect = expect;
+        this.tagList = tagList;
+        this.view = view;
+        this.vote = vote;
+        this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.questionVote = questionVote;
+        this.comments = comments;
+        this.actionStatus = actionStatus;
     }
 
     public enum ActionStatus {
         ACTION_ASKED("asked"),
-        ACTION_MODIFIED( "modified");
+        ACTION_MODIFIED("modified");
 
         @Getter
         private String actionDescription;
