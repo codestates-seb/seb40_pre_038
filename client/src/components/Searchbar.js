@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import { getSearchList } from '../_actions/search_action';
+import { getSearchList } from '../_actions/search_action';
 
 const SearchbarContainer = styled.div`
   box-sizing: border-box;
@@ -129,7 +129,8 @@ const SearchDropdownBottom = styled.div`
 const HeaderSearchbar = () => {
   const searchModalRef = useRef();
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.search);
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const [focusSearch, setFocusSearch] = useState(false);
@@ -152,7 +153,7 @@ const HeaderSearchbar = () => {
     if (event.code !== 'Enter') return;
 
     navigate(`/search?q=${encodeURIComponent(searchInputValue)}`);
-    // dispatch(getSearchList(searchInputValue));
+    dispatch(getSearchList({ ...search, searchInputValue, pagerValue: 1 }));
     setSearchInputValue('');
     setFocusSearch(false);
   };

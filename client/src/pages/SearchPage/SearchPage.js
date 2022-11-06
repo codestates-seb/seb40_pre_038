@@ -18,35 +18,20 @@ const SearchPage = () => {
 
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
-  const {
-    searchInputValue,
-    sortTabValue,
-    pageSizerValue,
-    pagerValue,
-    totalPages,
-    questionsList,
-  } = search;
-  console.log(searchInputValue);
+  const { pageSizerValue, pagerValue, totalPages, questionsList } = search;
 
   useEffect(() => {
-    dispatch(getSearchList(search));
+    if (!queryString) return;
+    dispatch(getSearchList({ ...search, searchInputValue: queryString }));
   }, [dispatch]);
 
   const onClickPageSizer = (size) => {
-    const params = {
-      sortTabValue,
-      pagerValue: 1,
-      pageSizerValue: size,
-    };
+    const params = { ...search, pagerValue: 1, pageSizerValue: size };
     search.sortTabValue = dispatch(getSearchList(params));
   };
 
   const onChangePager = (page) => {
-    const params = {
-      sortTabValue,
-      pagerValue: page,
-      pageSizerValue,
-    };
+    const params = { ...search, pagerValue: page };
     search.sortTabValue = dispatch(getSearchList(params));
   };
 

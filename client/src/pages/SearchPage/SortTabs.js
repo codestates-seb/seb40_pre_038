@@ -1,4 +1,6 @@
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getSearchList } from '../../_actions/search_action';
 
 const FlexWrapper = styled.div`
   display: flex !important;
@@ -81,10 +83,26 @@ const Tab = styled.button`
   }
 `;
 
+export const SortTabObj = {
+  Newest: 'newest',
+  Score: 'score',
+};
+
 const SortTabs = () => {
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.search);
+  const { sortTabValue } = search;
+
   const handleClickTab = (e) => {
-    console.log(e.target.textContent);
+    const params = {
+      ...search,
+      sortTabValue: e.target.textContent.toLowerCase(),
+      pagerValue: 1,
+    };
+    dispatch(getSearchList(params));
   };
+
+  const { Newest, Score } = SortTabObj;
 
   return (
     <FlexWrapper>
@@ -92,14 +110,14 @@ const SortTabs = () => {
       <div>
         <Tabs>
           <Tab
-            className="is-selected"
+            className={sortTabValue === Newest ? 'is-selected' : ''}
             title="Questions with the most views, most answers, and highest score over the last few days"
             onClick={handleClickTab}
           >
             Newest
           </Tab>
           <Tab
-            className="is-selected"
+            className={sortTabValue === Score ? 'is-selected' : ''}
             title="Questions with the most views, most answers, and highest score this week"
             onClick={handleClickTab}
           >
