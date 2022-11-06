@@ -119,7 +119,6 @@ public class AnswerControllerRestDoc {
                         LocalDateTime.now(),
                         LocalDateTime.now(),
                         null,
-                        null,
                         "answered"
                 );
 
@@ -168,7 +167,6 @@ public class AnswerControllerRestDoc {
                                         fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
-                                        fieldWithPath("data.comments").type(JsonFieldType.NULL).description("댓글"),
                                         fieldWithPath("data.commentsWithUser").type(JsonFieldType.NULL).description("댓글"),
                                         fieldWithPath("data.actionStatus").type(JsonFieldType.STRING).description("질문 상태")
                                 )
@@ -197,7 +195,6 @@ public class AnswerControllerRestDoc {
                         0,
                         LocalDateTime.now(),
                         LocalDateTime.now(),
-                        null,
                         null,
                         "modified"
                 );
@@ -247,7 +244,6 @@ public class AnswerControllerRestDoc {
                                         fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
-                                        fieldWithPath("data.comments").type(JsonFieldType.NULL).description("댓글"),
                                         fieldWithPath("data.commentsWithUser").type(JsonFieldType.NULL).description("댓글"),
                                         fieldWithPath("data.actionStatus").type(JsonFieldType.STRING).description("질문 상태")
                                 )
@@ -271,7 +267,6 @@ public class AnswerControllerRestDoc {
                         LocalDateTime.now(),
                         LocalDateTime.now(),
                         null,
-                        null,
                         "answered"
                 ),
 
@@ -283,7 +278,6 @@ public class AnswerControllerRestDoc {
                         0,
                         LocalDateTime.now(),
                         LocalDateTime.now(),
-                        null,
                         null,
                         "modified"
                 )
@@ -325,7 +319,6 @@ public class AnswerControllerRestDoc {
                                         fieldWithPath("data[].vote").type(JsonFieldType.NUMBER).description("투표"),
                                         fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
-                                        fieldWithPath("data[].comments").type(JsonFieldType.NULL).description("댓글"),
                                         fieldWithPath("data[].commentsWithUser").type(JsonFieldType.NULL).description("댓글"),
                                         fieldWithPath("data[].actionStatus").type(JsonFieldType.STRING).description("질문 상태")
                                 )
