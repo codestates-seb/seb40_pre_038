@@ -131,26 +131,6 @@ include::{snippets}/patch-answer/http-response.adoc[]
 .Response-Fields
 include::{snippets}/patch-answer/response-fields.adoc[]
 
-=== 답변 조회
-
-.Curl-Request
-include::{snippets}/get-answer/curl-request.adoc[]
-
-.Path-Parameter
-include::{snippets}/get-answer/path-parameters.adoc[]
-
-.Http-Request
-include::{snippets}/get-answer/http-request.adoc[]
-
-.Request-Fields
-include::{snippets}/get-answer/request-fields.adoc[]
-
-.Http-Response
-include::{snippets}/get-answer/http-response.adoc[]
-
-.Response-Fields
-include::{snippets}/get-answer/response-fields.adoc[]
-
 === 답변 전체 조회
 
 .Curl-Request
@@ -174,23 +154,41 @@ include::{snippets}/get-answers/response-fields.adoc[]
 
 == CommentController
 
-=== 댓글 등록
+=== 질문 댓글 등록
 
 .Curl-Request
 
-include::{snippets}/post-comment/curl-request.adoc[]
+include::{snippets}/post-question-comment/curl-request.adoc[]
 
 .Http-Request
-include::{snippets}/post-comment/http-request.adoc[]
+include::{snippets}/post-question-comment/http-request.adoc[]
 
 .Request-Fields
-include::{snippets}/post-comment/request-fields.adoc[]
+include::{snippets}/post-question-comment/request-fields.adoc[]
 
 .Http-Response
-include::{snippets}/post-comment/http-response.adoc[]
+include::{snippets}/post-question-comment/http-response.adoc[]
 
 .Response-Fields
-include::{snippets}/post-comment/response-fields.adoc[]
+include::{snippets}/post-question-comment/response-fields.adoc[]
+
+=== 답변 댓글 등록
+
+.Curl-Request
+
+include::{snippets}/post-answer-comment/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/post-answer-comment/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/post-answer-comment/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/post-answer-comment/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/post-answer-comment/response-fields.adoc[]
 
 === 댓글 수정
 
@@ -211,26 +209,6 @@ include::{snippets}/patch-comment/http-response.adoc[]
 
 .Response-Fields
 include::{snippets}/patch-comment/response-fields.adoc[]
-
-=== 댓글 조회
-
-.Curl-Request
-include::{snippets}/get-comment/curl-request.adoc[]
-
-.Path-Parameter
-include::{snippets}/get-comment/path-parameters.adoc[]
-
-.Http-Request
-include::{snippets}/get-comment/http-request.adoc[]
-
-.Request-Fields
-include::{snippets}/get-comment/request-fields.adoc[]
-
-.Http-Response
-include::{snippets}/get-comment/http-response.adoc[]
-
-.Response-Fields
-include::{snippets}/get-comment/response-fields.adoc[]
 
 === 댓글 전체 조회
 
