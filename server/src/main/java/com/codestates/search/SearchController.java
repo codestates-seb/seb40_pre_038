@@ -30,7 +30,7 @@ public class SearchController {
         this.mapper = mapper;
     }
 
-    @PostMapping(value = {"", "/{tab}"})
+    @GetMapping(value = {"", "/{tab}"})
     public ResponseEntity getSearchResult(@PathVariable(required = false, value = "tab") String tab,
                                           @NotBlank @RequestParam String q,
                                           @Positive @RequestParam(required = false, defaultValue = "1") int page,
