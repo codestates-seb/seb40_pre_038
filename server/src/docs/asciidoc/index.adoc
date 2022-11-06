@@ -7,9 +7,8 @@
 
 Seb40_Pre_038 <serin.b@codestates.com>
 
-v1.0.0, 2022.11.04
+v1.0.5, 2022.11.06
 
-// (4)
 ***
 == QuestionController
 
@@ -90,3 +89,165 @@ include::{snippets}/get-questions/http-response.adoc[]
 
 .Response-Fields
 include::{snippets}/get-questions/response-fields.adoc[]
+
+
+== AnswerController
+
+=== 답변 등록
+
+.Curl-Request
+
+include::{snippets}/post-answer/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/post-answer/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/post-answer/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/post-answer/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/post-answer/response-fields.adoc[]
+
+=== 답변 수정
+
+.Curl-Request
+include::{snippets}/patch-answer/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/patch-answer/path-parameters.adoc[]
+
+.Http-Request
+include::{snippets}/patch-answer/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/patch-answer/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/patch-answer/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/patch-answer/response-fields.adoc[]
+
+=== 답변 조회
+
+.Curl-Request
+include::{snippets}/get-answer/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/get-answer/path-parameters.adoc[]
+
+.Http-Request
+include::{snippets}/get-answer/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/get-answer/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/get-answer/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/get-answer/response-fields.adoc[]
+
+=== 답변 전체 조회
+
+.Curl-Request
+include::{snippets}/get-answers/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/get-answers/path-parameters.adoc[]
+
+.Http-Request
+include::{snippets}/get-answers/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/get-answers/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/get-answers/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/get-answers/response-fields.adoc[]
+
+
+== CommentController
+
+=== 댓글 등록
+
+.Curl-Request
+
+include::{snippets}/post-comment/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/post-comment/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/post-comment/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/post-comment/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/post-comment/response-fields.adoc[]
+
+=== 댓글 수정
+
+.Curl-Request
+include::{snippets}/patch-comment/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/patch-comment/path-parameters.adoc[]
+
+.Http-Request
+include::{snippets}/patch-comment/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/patch-comment/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/patch-comment/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/patch-comment/response-fields.adoc[]
+
+=== 댓글 조회
+
+.Curl-Request
+include::{snippets}/get-comment/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/get-comment/path-parameters.adoc[]
+
+.Http-Request
+include::{snippets}/get-comment/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/get-comment/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/get-comment/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/get-comment/response-fields.adoc[]
+
+=== 댓글 전체 조회
+
+.Curl-Request
+include::{snippets}/get-comments/curl-request.adoc[]
+
+.Path-Parameter
+include::{snippets}/get-comments/path-parameters.adoc[]
+
+.Http-Request
+include::{snippets}/get-comments/http-request.adoc[]
+
+.Request-Fields
+include::{snippets}/get-comments/request-fields.adoc[]
+
+.Http-Response
+include::{snippets}/get-comments/http-response.adoc[]
+
+.Response-Fields
+include::{snippets}/get-comments/response-fields.adoc[]

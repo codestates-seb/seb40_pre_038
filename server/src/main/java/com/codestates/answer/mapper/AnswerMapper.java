@@ -50,7 +50,7 @@ public interface AnswerMapper {
 
         return AnswerResponseDto.builder()
                 .answerId(answer.getAnswerId())
-                .userResponseDto(userToUserResponseDto(user))
+                .userInformation(userToUserResponseDto(user))
                 .answerStatus(answer.getAnswerStatus())
                 .questionId(answer.getQuestion().getQuestionId())
                 .body(answer.getBody())

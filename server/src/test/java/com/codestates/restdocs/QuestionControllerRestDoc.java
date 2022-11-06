@@ -1,4 +1,4 @@
-package com.codestates.restdocs.question;
+package com.codestates.restdocs;
 
 import com.codestates.answer.controller.AnswerController;
 import com.codestates.answer.service.AnswerService;
@@ -443,9 +443,9 @@ public class QuestionControllerRestDoc {
 
         );
 
-        Page<Question> memberPage = new PageImpl<>(List.of());
+        Page<Question> questionPage = new PageImpl<>(List.of());
 
-        given(questionService.findQuestions(Mockito.anyInt(), Mockito.anyInt())).willReturn(memberPage);
+        given(questionService.findQuestions(Mockito.anyInt(), Mockito.anyInt())).willReturn(questionPage);
 
         given(questionMapper.questionsToQuestionResponses(Mockito.anyList())).willReturn(responses);
 

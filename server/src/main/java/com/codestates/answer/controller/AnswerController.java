@@ -33,7 +33,7 @@ public class AnswerController {
         this.answerVoteService = answerVoteService;
     }
 
-    @PostMapping("questions/{question-id}/answers/add") // Answer 생성
+    @PostMapping("/questions/{question-id}/answers/add") // Answer 생성
     public ResponseEntity postAnswer(@PathVariable("question-id") @Positive long questionId,
                                      @Valid @RequestBody AnswerPostDto answerPostDto) {
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(questionId, answerPostDto));
@@ -43,7 +43,7 @@ public class AnswerController {
                 HttpStatus.CREATED);
     }
 
-    @PatchMapping("answers/{answer-id}/edit") // Answer 편집
+    @PatchMapping("/answers/{answer-id}/edit") // Answer 편집
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
                                       @Valid @RequestBody AnswerPatchDto answerPatchDto) {
         answerPatchDto.setAnswerId(answerId);
@@ -55,7 +55,7 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    @PatchMapping("answers/{answer-id}/vote") // Answer Vote
+    @PatchMapping("/answers/{answer-id}/vote") // Answer Vote
     public ResponseEntity voteAnswer(@PathVariable("answer-id") @Positive long answerId,
                                      @Valid @RequestBody AnswerVoteDto answerVoteDto) {
         answerVoteService.postVote(answerId);
@@ -80,7 +80,7 @@ public class AnswerController {
                 HttpStatus.OK);
     }*/
 
-    @GetMapping("questions/{question-id}/answers")
+    @GetMapping("/questions/{question-id}/answers")
     public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId) {
         List<Answer> answers = answerService.findAnswers(questionId);
 
@@ -89,7 +89,7 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("answers/{answer-id}/delete")
+    @DeleteMapping("/answers/{answer-id}/delete")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId) {
         answerService.deleteAnswer(answerId);
 
