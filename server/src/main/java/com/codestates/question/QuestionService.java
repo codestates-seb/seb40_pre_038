@@ -69,6 +69,8 @@ public class QuestionService {
         
         findQuestion.setActionStatus(Question.ActionStatus.ACTION_MODIFIED); // actionStatus 변경
 
+        findQuestion.setModifiedAt(LocalDateTime.now()); // 글을 수정할 때만 수정 시간 변경
+
         Question updatedQuestion = questionRepository.save(findQuestion);
 
         /*System.out.printf("\n회원 번호: " + userId + '\n' +

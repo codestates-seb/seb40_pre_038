@@ -22,7 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Answer extends Auditable {
+public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
@@ -47,11 +47,11 @@ public class Answer extends Auditable {
     @Column(nullable = false, name = "vote")
     private int vote = 0;
 
-    @CreatedDate
+    //@CreatedDate
     @Column(nullable = false, updatable = false, name = "CREATED_AT")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @LastModifiedDate
+    //@LastModifiedDate
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 

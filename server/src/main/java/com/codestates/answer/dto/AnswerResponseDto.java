@@ -22,13 +22,12 @@ public class AnswerResponseDto {
     private int vote;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private List<Comment> comments;
     private List<CommentDto.Response> commentsWithUser;
     private String actionStatus;
 
     public AnswerResponseDto(long answerId, UserDto.Response userResponseDto, Answer.AnswerStatus answerStatus,
                              long questionId, String body, int vote, LocalDateTime createdAt, LocalDateTime modifiedAt,
-                             List<Comment> comments, List<CommentDto.Response> commentsWithUser, String actionStatus) {
+                             List<CommentDto.Response> commentsWithUser, String actionStatus) {
         this.answerId = answerId;
         this.userResponseDto = userResponseDto;
         this.answerStatus = answerStatus;
@@ -37,7 +36,6 @@ public class AnswerResponseDto {
         this.vote = vote;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.comments = comments;
         this.commentsWithUser = commentsWithUser;
         this.actionStatus = actionStatus;
     }
