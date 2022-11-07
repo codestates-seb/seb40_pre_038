@@ -114,7 +114,7 @@ const AskQuestionPage = () => {
       tagBody: tagsValue,
     };
     dispatch(postNewQuestion(postBody));
-    navigate('/', { replace: true });
+    navigate('/questions', { replace: true });
     titleReset();
     problemReset();
     expectReset();
