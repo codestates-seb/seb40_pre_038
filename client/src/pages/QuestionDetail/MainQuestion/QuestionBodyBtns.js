@@ -34,11 +34,9 @@ const QuestionBodyBtns = ({ type, answerId }) => {
   const dispatch = useDispatch();
 
   const handleQuestionDelete = () => {
-    console.log('question delete');
     dispatch(deleteQuestion(question_id));
   };
   const handleAnswerDelete = () => {
-    console.log('answer delete');
     dispatch(deleteAnswer(answerId));
   };
 
