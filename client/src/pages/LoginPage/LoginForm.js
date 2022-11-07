@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import axios from '../../api/axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Popup from '../../components/Modal';
 import { LOGIN_URL } from '../../api/requests';
 
@@ -106,7 +106,7 @@ function LoginForm() {
     callback: false,
   }); // modal state
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   function isValidEmail(email) {
     if (email.length === 0) {
@@ -183,7 +183,7 @@ function LoginForm() {
         // console.log(`액세스 토큰 : ${accessToken}`);
         // console.log(`리프레쉬 토큰 : ${refreshToken}`);
         sessionStorage.setItem('Authorization', accessToken); // 없으면 Access 토큰 로컬스토리지에 저장
-        navigate('/'); // 메인페이지로 옮기기
+        // navigate('/', { replace: true }); // 메인페이지로 옮기기
         window.location.replace('/');
       })
       .catch((e) => {
