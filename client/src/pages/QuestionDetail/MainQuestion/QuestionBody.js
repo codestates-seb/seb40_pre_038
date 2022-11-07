@@ -23,9 +23,11 @@ const QuestionBody = ({ data, type, answerId }) => {
   const tagList = Object.keys(data).length === 0 ? [] : data.tagList;
   let userName = '';
   if (Object.keys(data).length !== 0 && type === 'question') {
+    console.log('question', data);
     userName = data.userInformation.nickName;
   } else if (Object.keys(data).length !== 0 && type === 'answer') {
-    userName = data.userResponseDto.nickName;
+    console.log('answer', data);
+    userName = data.userInformation.nickName;
   }
   const createdDate = Object.keys(data).length === 0 ? '' : data.createdAt;
   const answerbody = Object.keys(data).length === 0 ? '' : data.body;

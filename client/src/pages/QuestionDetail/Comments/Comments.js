@@ -36,7 +36,7 @@ const Comments = ({ data, type, answerId }) => {
             answerId={answerId}
             commentId={comment.commentId}
             body={comment.body}
-            nickname={comment.userResponseDto.nickName}
+            nickname={comment.userInformation.nickName}
             date={date}
           ></Comment>
         );
