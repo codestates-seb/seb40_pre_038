@@ -59,9 +59,9 @@
 - upvote 와 downvote 수가 즉시 합산되어 숫자로 화면에 출력됩니다.
 
 **7. 반응형 화면 구현**
-![38](https://k.kakaocdn.net/dn/bIum4g/btrQCVnO79Y/mwL6YNsf39VakbcMq5EoZ0/img.gif)
+![반응형](https://k.kakaocdn.net/dn/bIum4g/btrQCVnO79Y/mwL6YNsf39VakbcMq5EoZ0/img.gif)
 
-- 500~640px/641~980px/981~1100px 을 기준으로 반응형 웹 페이지를 구현하였습니다.
+- 500px~640px, 641px~980px, 981px~1100px 을 기준으로 반응형 웹 페이지를 구현하였습니다.
 
 ### 🌟Team Members
 
