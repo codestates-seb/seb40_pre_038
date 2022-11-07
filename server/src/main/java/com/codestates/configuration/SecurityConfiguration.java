@@ -82,6 +82,7 @@ public class SecurityConfiguration{
                 "http://seb40-pre-038.vercel.app"));
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
         configuration.setAllowCredentials(true);
 //        configuration.setAllowedOrigins(Arrays.asList("*"));
 //        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
