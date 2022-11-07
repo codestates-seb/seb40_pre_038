@@ -61,7 +61,7 @@
 **7. 반응형 화면 구현**
 ![반응형](https://k.kakaocdn.net/dn/bIum4g/btrQCVnO79Y/mwL6YNsf39VakbcMq5EoZ0/img.gif)
 
-- 500px~640px, 641px~980px, 981px~1100px 을 기준으로 반응형 웹 페이지를 구현하였습니다.
+- 500px-640px, 641px-980px, 981px-1100px 을 기준으로 반응형 웹 페이지를 구현하였습니다.
 
 ### 🌟Team Members
 
