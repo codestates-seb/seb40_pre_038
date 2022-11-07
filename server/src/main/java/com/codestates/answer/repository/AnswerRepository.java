@@ -1,7 +1,6 @@
 package com.codestates.answer.repository;
 
 import com.codestates.answer.entity.Answer;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

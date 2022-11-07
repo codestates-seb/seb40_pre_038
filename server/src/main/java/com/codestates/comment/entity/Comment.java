@@ -1,7 +1,6 @@
 package com.codestates.comment.entity;
 
 import com.codestates.answer.entity.Answer;
-import com.codestates.audit.Auditable;
 import com.codestates.user.entity.User;
 import com.codestates.question.Question;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Comment extends Auditable {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

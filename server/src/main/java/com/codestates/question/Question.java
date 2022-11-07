@@ -1,15 +1,12 @@
 package com.codestates.question;
 
 import com.codestates.answer.entity.Answer;
-import com.codestates.audit.Auditable;
 import com.codestates.user.entity.User;
 import com.codestates.comment.entity.Comment;
 import com.codestates.vote.QuestionVote.QuestionVote;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -77,11 +74,9 @@ public class Question {
         comments.add(comment);
     }
 
-    //@CreatedDate
     @Column(nullable = false, updatable = false, name = "CREATED_AT")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    //@LastModifiedDate
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 

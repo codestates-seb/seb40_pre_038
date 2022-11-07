@@ -1,6 +1,5 @@
 package com.codestates.search;
 
-import com.codestates.user.entity.User;
 import com.codestates.user.service.UserService;
 import com.codestates.question.Question;
 import org.springframework.data.domain.Page;
@@ -10,7 +9,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.codestates.answer.entity;
 
-import com.codestates.audit.Auditable;
 import com.codestates.user.entity.User;
 import com.codestates.question.Question;
 import com.codestates.comment.entity.Comment;
@@ -10,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

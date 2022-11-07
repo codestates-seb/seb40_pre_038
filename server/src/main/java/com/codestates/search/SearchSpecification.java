@@ -1,10 +1,8 @@
 package com.codestates.search;
 
 import com.codestates.question.Question;
-import com.codestates.user.entity.User;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 
 public class SearchSpecification {
