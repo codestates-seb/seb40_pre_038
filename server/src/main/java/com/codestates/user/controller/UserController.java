@@ -52,6 +52,8 @@ public class UserController {
                 .map(mapper::userToUserResponseDto)
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
+        System.out.println(users.getClass());
+        System.out.println(linkTo(methodOn(UserService.class).findAll()).withSelfRel());
 
         return CollectionModel.of(users,
                 linkTo(methodOn(UserService.class).findAll()).withSelfRel());

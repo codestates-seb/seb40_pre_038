@@ -50,7 +50,6 @@ public class CommentService {
 
     public Comment createQuestionComment(Comment comment, long questionId) {
         Question question = questionService.findQuestion(questionId);
-        //User findUser = userService.findVerifiedUser(userId);
         comment.setQuestion(question);
         comment.setUser(userService.getLoginUser()); // 로그인 유저로 작성
         comment.setCommentType(CommentType.QUESTION);
@@ -61,9 +60,7 @@ public class CommentService {
     }
 
     public Comment createAnswerComment(Comment comment, long answerId) {
-//        Question question = questionService.findQuestion(questionId);
         Answer answer = answerService.findAnswer(answerId);
-        //User findUser = userService.findVerifiedUser(userId);
 
         comment.setQuestion(answer.getQuestion());
         comment.setAnswer(answer);
@@ -74,22 +71,6 @@ public class CommentService {
 
         return commentRepository.save(comment);
     }
-//    public Comment createComment(Comment comment, CommentType commentType, long postId) {
-//        if (commentType == CommentType.QUESTION) {
-//            long commentId = comment.getPostId();
-//            Question question = questionService.findQuestion(postId);
-//            comment.setCommentType(CommentType.QUESTION);
-//            question.getComments().add(comment);
-//            questionRepository.save(question);
-//        }
-//        if (commentType == CommentType.ANSWER) {
-//            Answer answer = answerService.findAnswer(postId);
-//            comment.setCommentType(CommentType.ANSWER);
-//            answer.getComments().add(comment);
-//            answerRepository.save(answer);
-//        }
-//            return commentRepository.save(comment);
-//    }
 
     public Comment updateComment(Comment Comment, long CommentId) {
         Comment findComment = findVerifiedComment(CommentId);

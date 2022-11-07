@@ -66,16 +66,6 @@ public class Comment extends Auditable {
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-//    public Long getPostId() {
-//        if(commentType == CommentType.QUESTION) {
-//            return question.getQuestionId();
-//        }
-//        if(commentType == CommentType.ANSWER) return answer.getAnswerId();
-//
-//        throw new UnsupportedOperationException("Unsupported CommentType. CommentType = " + commentType);
-//    }
-
-
     public Comment(CommentType commentType, User user, Question question, String body) {
         this.user = user;
         this.commentType = commentType;

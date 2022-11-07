@@ -26,6 +26,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.hateoas.*;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilderFactory;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -37,7 +39,9 @@ import org.springframework.web.util.UriComponents;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.codestates.util.ApiDocumentUtils.getDocumentRequest;
 import static com.codestates.util.ApiDocumentUtils.getDocumentResponse;
@@ -74,9 +78,6 @@ public class UserControllerRestDoc {
 
     @MockBean
     private UserAssembler userAssembler;
-
-    @MockBean
-    private CollectionModel collectionModel;
 
     @MockBean
     private UserMapper userMapper;
@@ -310,16 +311,10 @@ public class UserControllerRestDoc {
 
         long userId = 1;
 
-        User user = new User(
+        UserDto.Response user = new UserDto.Response(
                 1L,
                 "Stub_Potato",
                 "stub_email@user.com",
-                "e487275780",
-                User.UserStatus.USER_ACTIVE,
-                null,
-                null,
-                null,
-                null,
                 1234567890
         );
 
@@ -329,7 +324,7 @@ public class UserControllerRestDoc {
 
         given(userService.findOne(anyLong())).willReturn(new User());
 
-        given(userAssembler.toModel(Mockito.any(User.class))).willReturn(response);
+        given(userAssembler.toModel(Mockito.any(UserDto.Response.class))).willReturn(response);
 
 
         ResultActions actions =
@@ -349,16 +344,9 @@ public class UserControllerRestDoc {
                         ),
                         responseFields(
                                 List.of(
-//                                        fieldWithPath("data.").type(JsonFieldType.OBJECT).description("결과 데이터"),
                                         fieldWithPath("userId").type((JsonFieldType.NUMBER)).description("유저 번호"),
                                         fieldWithPath("nickName").type((JsonFieldType.STRING)).description("유저 이름"),
                                         fieldWithPath("email").type((JsonFieldType.STRING)).description("유저 이메일 주소"),
-                                        fieldWithPath("password").type((JsonFieldType.STRING)).description("유저 비밀번호"),
-                                        fieldWithPath("userStatus").type((JsonFieldType.STRING)).description("유저 상태"),
-                                        fieldWithPath("roles").type((JsonFieldType.NULL)).description("유저 역할"),
-                                        fieldWithPath("questions").type((JsonFieldType.NULL)).description("유저 질문"),
-                                        fieldWithPath("answers").type((JsonFieldType.NULL)).description("유저 답변"),
-                                        fieldWithPath("comments").type((JsonFieldType.NULL)).description("유저 댓글"),
                                         fieldWithPath("reputation").type((JsonFieldType.NUMBER)).description("유저 명성"),
                                         fieldWithPath("_links").type(JsonFieldType.OBJECT).description("링크"),
                                         fieldWithPath("_links.self.href").type(JsonFieldType.STRING).description("유저 정보 링크"),
@@ -371,53 +359,58 @@ public class UserControllerRestDoc {
 //    @Test
 //    void getUsersTest() throws Exception {
 //
-//        User user1 = new User(
+//        UserDto.Response user1 = new UserDto.Response(
 //                1L,
 //                "Stub_Potato1",
 //                "stub_email1@user.com",
-//                "e487275780",
-//                User.UserStatus.USER_ACTIVE,
-//                null,
-//                null,
-//                null,
-//                null,
 //                1234567890
 //        );
 //
-//        EntityModel userEntityModel1 = EntityModel.of(user1,
-//                Arrays.asList(Link.of("http://localhost:8080/api/users/1", "self"),
-//                        Link.of("http://localhost:8080/api/users", "users")));
+//        EntityModel userEntityModel1 = EntityModel.of(user1
+////                ,Arrays.asList(Link.of("http://localhost:8080/api/users/1", "self"),
+////                        Link.of("http://localhost:8080/api/users", "users"))
+//        );
 //
-//        User user2 = new User(
+//        UserDto.Response user2 = new UserDto.Response(
 //                2L,
 //                "Stub_Potato2",
 //                "stub_email2@user.com",
-//                "e487275780",
-//                User.UserStatus.USER_ACTIVE,
-//                null,
-//                null,
-//                null,
-//                null,
 //                1234567890
 //        );
 //
-//        EntityModel userEntityModel2 = EntityModel.of(user1,
-//                Arrays.asList(Link.of("http://localhost:8080/api/users/2", "self"),
-//                        Link.of("http://localhost:8080/api/users", "users")));
+//        EntityModel userEntityModel2 = EntityModel.of(user2
+//                ,Arrays.asList(Link.of("http://localhost:8080/api/users/2", "self"),
+//                        Link.of("http://localhost:8080/api/users", "users"))
+//        );
 //
-//        List<EntityModel<User>> userList = List.of(userEntityModel1, userEntityModel2);
+//        List<EntityModel<UserDto.Response>> userList = List.of(userEntityModel1, userEntityModel2);
 //
-//        CollectionModel responses = CollectionModel.of(userList,
-//                Arrays.asList(Link.of("http://localhost:8080", "self"))
-//                );
+////        CollectionModel responses = CollectionModel.of(userList,
+////                Arrays.asList(Link.of("http://localhost:8080", "self"))
+////                );
 //
-//        given(userService.findAll()).willReturn(new ArrayList<>());
 //
-//        given(collectionModel.of(Mockito.anyList())).willReturn(responses);
+//        CollectionModel responses = CollectionModel.of(userList
+//                ,Arrays.asList(Link.of("http://localhost:8080", "self"))
+//        );
+//
+//        given(userService.findAll().stream()
+//                .map(userMapper::userToUserResponseDto)
+//                .map(userAssembler::toModel)
+//                .collect(Collectors.toList())).willReturn(new ArrayList<>());
+//
+//        System.out.println(anyList().getClass());
+////        System.out.println(any.getClass());
+//
+//
+//
+//        given(CollectionModel.of(Mockito.any(ArrayList.class),
+//                Mockito.any(Link.class)))
+//                .willReturn(responses);
 //
 //        ResultActions actions =
 //                mockMvc.perform(
-//                        RestDocumentationRequestBuilders.get("/api/questions")
+//                        RestDocumentationRequestBuilders.get("/api/users")
 //                                .accept(MediaType.APPLICATION_JSON)
 //                );
 //
@@ -425,10 +418,6 @@ public class UserControllerRestDoc {
 //                .andDo(document("get-questions",
 //                        getDocumentRequest(),
 //                        getDocumentResponse(),
-//                        requestParameters(
-//                                parameterWithName("page").description("페이지"),
-//                                parameterWithName("size").description("페이지 크기")
-//                        ),
 //                        responseFields(
 //                                List.of(
 //                                        fieldWithPath("data.").type(JsonFieldType.ARRAY).description("결과 데이터"),

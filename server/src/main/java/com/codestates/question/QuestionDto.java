@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,7 +46,6 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Patch {
         private long questionId;
-        //private long userId;
 
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
@@ -91,10 +89,7 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Vote {
         private long questionId;
-/*        @Positive
-        private long userId;*/
         private int vote;
-//        private String tag;
     }
 
     @Getter
@@ -111,7 +106,6 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class ResponseTopAll { // Top Questions와 All Questions에서 사용되는 Response
         private long questionId;
-        //private UserDto.Response userInformation;
         private String title;
         private String problem;
         private String expect;

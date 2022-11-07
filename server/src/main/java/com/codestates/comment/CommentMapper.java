@@ -11,16 +11,6 @@ import java.util.List;
 public interface CommentMapper {
 
     Comment commentPostToComment(CommentDto.Post commentPost);
-    /*default Comment commentPostToComment(CommentDto.Post commentPost) {
-        Comment comment = new Comment();
-        comment.setBody(commentPost.getBody());
-
-        *//*User user = new User();
-        user.setUserId(commentPost.getUserId());
-        comment.setUser(user);*//*
-
-        return comment;
-    }*/
     Comment commentPatchToComment(CommentDto.Patch commentPatch);
 
     default CommentDto.Response commentToCommentResponse(Comment comment) {

@@ -114,19 +114,6 @@ public class QuestionController {
         );
     }
 
-//    @GetMapping("/search")
-//    public ResponseEntity getQuestionsByTag(@Positive @RequestParam int page,
-//                                            @Positive @RequestParam(required = false, defaultValue = "15") int size) {
-//        Page<Question> pageQuestions = questionService.findQuestionsByTagBody(page - 1, size);
-//        List<Question> questions = pageQuestions.getContent();
-//        List<QuestionDto.Response> responses = mapper.questionsToQuestionResponses(questions);
-//
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK
-//        );
-//    }
-
-
     @GetMapping("/search/{tagBody}")
     public ResponseEntity getQuestionByTagBody(@PathVariable("tagBody") @NotBlank String tagBody,
                                                @Positive @RequestParam int page,

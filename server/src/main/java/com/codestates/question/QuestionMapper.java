@@ -7,14 +7,10 @@ import com.codestates.comment.entity.CommentType;
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
 import org.mapstruct.Mapper;
-import org.springframework.data.util.Pair;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
-//import static com.codestates.comment.entity.CommentType.QUESTION;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
@@ -32,10 +28,6 @@ public interface QuestionMapper {
         question.setProblem(questionPost.getProblem());
         question.setExpect(questionPost.getExpect());
         question.setTagBody(questionPost.getTagBody());
-
-        /*User user = new User();
-        user.setUserId(questionPost.getUserId());
-        question.setUser(user);*/
 
         return question;
     }

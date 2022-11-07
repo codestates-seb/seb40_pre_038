@@ -79,6 +79,6 @@ bootJar { // Spring Rest Docs
     }
 }
 
-test {
-    exclude '**/*'
-}
+//test {
+//    exclude '**/*'
+//}
