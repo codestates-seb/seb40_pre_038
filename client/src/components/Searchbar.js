@@ -215,10 +215,10 @@ const HeaderSearchbar = () => {
                 <span className="name">{`"words here"`}</span>
                 <span className="ex">exprect phrase</span>
               </Hint>
-              <Hint>
+              {/* <Hint>
                 <span className="name">{`"collective"`}</span>
                 <span className="ex">collective content</span>
-              </Hint>
+              </Hint> */}
             </SearchDropdownHints>
             <SearchDropdownHints>
               <Hint>
@@ -229,10 +229,10 @@ const HeaderSearchbar = () => {
                 <span className="name">score:3</span>
                 <span className="ex">posts with a 3+ score</span>
               </Hint>
-              <Hint>
+              {/* <Hint>
                 <span className="name">is:question</span>
                 <span className="ex">type of post</span>
-              </Hint>
+              </Hint> */}
               <Hint>
                 <span className="name">isaccepted:yes</span>
                 <span className="ex">search within status</span>
