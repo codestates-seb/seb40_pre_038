@@ -28,8 +28,14 @@ export const getQuestion = async (question_id) => {
 
 //질문 삭제
 export const deleteQuestion = async (question_id) => {
+  const sessionStorage = window.sessionStorage;
+
   await axios
-    .delete(`${QUESTIONS_URL}/${question_id}/delete`)
+    .delete(`${QUESTIONS_URL}/${question_id}/delete`, {
+      headers: {
+        Authorization: sessionStorage.Authorization,
+      },
+    })
     .catch((error) => console.error(error));
 
   return {
@@ -39,14 +45,20 @@ export const deleteQuestion = async (question_id) => {
 
 //질문 댓글 작성
 export const postQuestionComment = async (question_id, body) => {
-  //우선 1 ~ 100 사이로 userId 설정
-  const userId = Math.floor(Math.random() * 101);
+  const sessionStorage = window.sessionStorage;
 
   const payload = await axios
-    .post(`${QUESTIONS_URL}/${question_id}/comments/add`, {
-      userId,
-      body,
-    })
+    .post(
+      `${QUESTIONS_URL}/${question_id}/comments/add`,
+      {
+        body,
+      },
+      {
+        headers: {
+          Authorization: sessionStorage.Authorization,
+        },
+      }
+    )
     .catch((error) => console.error(error));
 
   return {
@@ -56,8 +68,14 @@ export const postQuestionComment = async (question_id, body) => {
 };
 
 export const deleteQuestionComment = async (commentId) => {
+  const sessionStorage = window.sessionStorage;
+
   await axios
-    .delete(`${COMMENTS_URL}/${commentId}/delete`)
+    .delete(`${COMMENTS_URL}/${commentId}/delete`, {
+      headers: {
+        Authorization: sessionStorage.Authorization,
+      },
+    })
     .catch((error) => console.error(error));
 
   return {

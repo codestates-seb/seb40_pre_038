@@ -20,15 +20,20 @@ export const getAnswers = async (question_id) => {
 };
 
 export const addAnswer = async (question_id, body) => {
-  //로그인 기능 완료시 수정
-  //우선 1 ~ 100 사이로 userId 설정
-  const userId = Math.floor(Math.random() * 101);
+  const sessionStorage = window.sessionStorage;
 
   const payload = await axios
-    .post(`${QUESTIONS_URL}/${question_id}/answers/add`, {
-      userId,
-      body,
-    })
+    .post(
+      `${QUESTIONS_URL}/${question_id}/answers/add`,
+      {
+        body,
+      },
+      {
+        headers: {
+          Authorization: sessionStorage.Authorization,
+        },
+      }
+    )
     .catch((error) => console.error(error));
 
   return {
@@ -38,8 +43,14 @@ export const addAnswer = async (question_id, body) => {
 };
 
 export const deleteAnswer = async (answer_id) => {
+  const sessionStorage = window.sessionStorage;
+
   await axios
-    .delete(`${ANSWER_URL}/${answer_id}/delete`)
+    .delete(`${ANSWER_URL}/${answer_id}/delete`, {
+      headers: {
+        Authorization: sessionStorage.Authorization,
+      },
+    })
     .catch((error) => console.error(error));
 
   return {
@@ -49,14 +60,20 @@ export const deleteAnswer = async (answer_id) => {
 };
 
 export const postAnswerComment = async (question_id, answer_id, body) => {
-  //우선 1 ~ 100 사이로 userId 설정
-  const userId = Math.floor(Math.random() * 101);
+  const sessionStorage = window.sessionStorage;
 
   const payload = await axios
-    .post(`${ANSWER_URL}/${answer_id}/comments/add`, {
-      userId,
-      body,
-    })
+    .post(
+      `${ANSWER_URL}/${answer_id}/comments/add`,
+      {
+        body,
+      },
+      {
+        headers: {
+          Authorization: sessionStorage.Authorization,
+        },
+      }
+    )
     .catch((error) => console.error(error));
 
   return {
@@ -66,8 +83,14 @@ export const postAnswerComment = async (question_id, answer_id, body) => {
 };
 
 export const deleteAnswerComment = async (answerId, commentId) => {
+  const sessionStorage = window.sessionStorage;
+
   await axios
-    .delete(`${COMMENTS_URL}/${commentId}/delete`)
+    .delete(`${COMMENTS_URL}/${commentId}/delete`, {
+      headers: {
+        Authorization: sessionStorage.Authorization,
+      },
+    })
     .catch((error) => console.error(error));
 
   return {
