@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Pagination as AntdPagination } from 'antd';
 
 const PagerWrapper = styled.div`
   margin: 20px 0;
@@ -24,7 +23,6 @@ export const Pagination = ({
           currentPage={currentPage}
           onChange={onChangePager}
         />
-        {/* <TempPager totalPages={totalPages} currentPage={currentPage} /> */}
       </PagerWrapper>
     </>
   );
@@ -110,96 +108,92 @@ export const PageSizer = ({ size = 15, onClick }) => {
 };
 
 export const Pager = ({ totalPages = 1, currentPage = 1, onChange }) => {
-  const itemRender = (_, type, originalElement) => {
-    if (type === 'prev')
-      return currentPage === 1 ? null : (
-        <PagenationButton title="Go to prev page">Prev</PagenationButton>
-      );
-    if (type === 'next')
-      return currentPage === totalPages ? null : (
-        <PagenationButton rel="next" title="Go to next page">
-          Next
-        </PagenationButton>
-      );
-    return originalElement;
+  const handleClickPrevNextButton = (e) => {
+    const { textContent } = e.target;
+    if (textContent === 'Prev') {
+      onChange(currentPage - 1);
+      return;
+    }
+    onChange(currentPage + 1);
   };
 
-  const onChangePage = (page) => {
-    onChange(page);
+  const handleClickPageNumberButton = (e) => {
+    onChange(e.target.textContent);
   };
+
+  const ellipsisButton = (
+    <PagenationButton className="clear">…</PagenationButton>
+  );
+
+  const prevNextButton = (type) => (
+    <PagenationButton
+      title={`Go to ${type.toLowerCase()} page`}
+      onClick={handleClickPrevNextButton}
+    >
+      {type}
+    </PagenationButton>
+  );
+
+  const NumberButton = (num) => (
+    <PagenationButton
+      key={num}
+      title={`Go to page ${num}`}
+      onClick={handleClickPageNumberButton}
+      className={currentPage === num ? 'is-selected' : ''}
+    >
+      {num}
+    </PagenationButton>
+  );
+
+  const range = (start, stop, step) =>
+    Array.from(
+      { length: (stop - start) / step + 1 },
+      (_, i) => start + i * step
+    ).map((v) => NumberButton(v));
 
   return (
-    <AntdPagination
-      defaultPageSize={1}
-      defaultCurrent={currentPage}
-      total={totalPages}
-      itemRender={itemRender}
-      onChange={onChangePage}
-      showSizeChanger={false}
-    />
+    <>
+      {currentPage === 1 ? null : <>{prevNextButton('Prev')}</>}
+      {totalPages < 7 ? <>{range(1, totalPages, 1)}</> : null}
+      {totalPages > 6 && totalPages < 9 ? (
+        currentPage >= 1 && currentPage <= 4 ? (
+          <>
+            {range(1, 5, 1)}
+            {ellipsisButton}
+            {NumberButton(totalPages)}
+          </>
+        ) : currentPage >= 5 && currentPage <= totalPages ? (
+          <>
+            {NumberButton(1)}
+            {ellipsisButton}
+            {range(totalPages - 4, totalPages, 1)}
+          </>
+        ) : null
+      ) : null}
+      {totalPages >= 9 ? (
+        currentPage >= 1 && currentPage <= 4 ? (
+          <>
+            {range(1, 5, 1)}
+            {ellipsisButton}
+            {NumberButton(totalPages)}
+          </>
+        ) : currentPage >= totalPages - 3 && currentPage <= totalPages ? (
+          <>
+            {NumberButton(1)}
+            {ellipsisButton}
+            {range(totalPages - 4, totalPages, 1)}
+          </>
+        ) : (
+          <>
+            {NumberButton(1)}
+            {ellipsisButton}
+            {range(currentPage - 2, currentPage + 2, 1)}
+            {ellipsisButton}
+            {NumberButton(totalPages)}
+          </>
+        )
+      ) : null}
+      {currentPage === totalPages ? null : <>{prevNextButton('Next')}</>}
+    </>
   );
 };
-
-/**
- * 미완성 컴포넌트입니다.
- * @param {*} param0
- * @returns
- */
-// const TempPager = ({ totalPages = 1, currentPage = 1 }) => {
-//   console.log(totalPages, currentPage);
-//   const start = currentPage - 2;
-//   const stop = currentPage + 2;
-//   const ellipsisButton = (
-//     <PagenationButton className="clear">…</PagenationButton>
-//   );
-//   const isStartEllipsis = totalPages > 6 && start > 2;
-//   const isStopEllipsis = totalPages > 6 && stop < totalPages - 1;
-//   const siblingCount = isStartEllipsis && isStopEllipsis ? 5 : 0; // stop - start + 1;
-
-//   const handleClickPrevNextButton = (e) => {
-//     console.log(e.target.textContent);
-//   };
-
-//   const handleClickPageNumberButton = (e) => {
-//     console.log(e.target.textContent);
-//   };
-
-//   return (
-//     <>
-//       {currentPage === 1 ? null : (
-//         <PagenationButton
-//           title="Go to prev page"
-//           onClick={handleClickPrevNextButton}
-//         >
-//           Prev
-//         </PagenationButton>
-//       )}
-//       <PagenationButton
-//         title="Go to page 1"
-//         onClick={handleClickPageNumberButton}
-//       >
-//         1
-//       </PagenationButton>
-//       {isStartEllipsis ? ellipsisButton : null}
-//       {Array.from({ length: siblingCount }, (_, i) => start + i)}
-//       {isStopEllipsis ? ellipsisButton : null}
-//       {totalPages === 1 ? null : (
-//         <PagenationButton
-//           className={currentPage === totalPages ? 'is-selected' : ''}
-//           title={`Go to page ${totalPages}`}
-//         >
-//           {totalPages}
-//         </PagenationButton>
-//       )}
-//       {currentPage === totalPages ? null : (
-//         <PagenationButton
-//           rel="next"
-//           title="Go to next page"
-//           onClick={handleClickPrevNextButton}
-//         >
-//           Next
-//         </PagenationButton>
-//       )}
-//     </>
-//   );
-// };

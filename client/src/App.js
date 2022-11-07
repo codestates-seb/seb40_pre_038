@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
-import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ScrollTop from './components/ScrollTop';
