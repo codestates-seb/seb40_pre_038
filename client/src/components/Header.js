@@ -511,7 +511,7 @@ const Header = ({ isLogin, setIsLogin }) => {
           ) : (
             <AccountBtnsWrapper>
               <div className="login">
-                <Link to="/login">
+                <Link to="/users/login">
                   <LoginBtn
                     width="59.45px"
                     height="32px"
