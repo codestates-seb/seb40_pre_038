@@ -202,7 +202,7 @@ function SignUpForm() {
             message:
               'Your account has been successfully confirmed. Please log in now.',
             callback: function () {
-              navigate('/login');
+              navigate('/users/login');
             },
           });
         }

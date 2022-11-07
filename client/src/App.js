@@ -36,7 +36,6 @@ const App = () => {
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <Routes>
         <Route path="/" element={isLogin ? <HomePage /> : <Login />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/questions" element={<QuestionsPage />} />
         <Route path="/questions/ask" element={<AskQuestionPage />} />
@@ -47,6 +46,7 @@ const App = () => {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/tags" element={<TagsPage />} />
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/users/login" element={<Login />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </BrowserRouter>
