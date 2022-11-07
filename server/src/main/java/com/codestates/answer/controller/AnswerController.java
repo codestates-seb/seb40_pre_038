@@ -69,18 +69,6 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    /*@PatchMapping("/{answer-id}/best") // QuestionController에서 동작
-    public ResponseEntity patchStatus(@PathVariable("answer-id") @Positive long answerId,
-                                     @Valid @RequestBody AnswerBestDto answerBestDto) {
-        answerBestDto.setAnswerId(answerId);
-
-        Answer answer = answerService.updateStatus(mapper.answerBestDtoToAnswer(answerBestDto));
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
-                HttpStatus.OK);
-    }*/
-
     @GetMapping("/questions/{question-id}/answers")
     public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId) {
         List<Answer> answers = answerService.findAnswers(questionId);

@@ -8,9 +8,6 @@ import javax.validation.constraints.Positive;
 public class AnswerVoteDto {
     private long answerId;
 
-/*    @Positive
-    private long userId;*/
-
     private int vote;
 
     public void setAnswerId(long answerId) {
