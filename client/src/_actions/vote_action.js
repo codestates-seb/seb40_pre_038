@@ -6,7 +6,11 @@ export const PATCH_ANSWERS_VOTE = 'PATCH_ANSWERS_VOTE';
 
 export const patchQuestionsVote = async (question_id, patchBody) => {
   const payload = await axios
-    .patch(`${QUESTIONS_URL}/${question_id}/vote`, patchBody)
+    .patch(`${QUESTIONS_URL}/${question_id}/vote`, patchBody, {
+      headers: {
+        Authorization: sessionStorage.Authorization,
+      },
+    })
     .then((res) => res)
     .catch((error) => console.error(error));
   return {
@@ -17,7 +21,11 @@ export const patchQuestionsVote = async (question_id, patchBody) => {
 
 export const patchAnswersVote = async (answers_id, patchBody) => {
   const payload = await axios
-    .patch(`${ANSWER_URL}/${answers_id}/vote`, patchBody)
+    .patch(`${ANSWER_URL}/${answers_id}/vote`, patchBody, {
+      headers: {
+        Authorization: sessionStorage.Authorization,
+      },
+    })
     .then((res) => res)
     .catch((error) => console.error(error));
   return {
