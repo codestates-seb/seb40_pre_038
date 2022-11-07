@@ -207,14 +207,29 @@ function SignUpForm() {
           });
         }
       })
-      .catch(() => {
-        setPopup({
-          open: true,
-          title: 'Register denied',
-          message:
-            'Your Display name or email is already in use. Please try other name/email.',
-          //     });
-        });
+      .catch((err) => {
+        if (err.status === 400) {
+          setPopup({
+            open: true,
+            title: 'Register denied',
+            message: 'Invalid Display name or email address.',
+          });
+        }
+        if (err.status === 409) {
+          setPopup({
+            open: true,
+            title: 'Register denied',
+            message:
+              'Your Display name or email is already in use. Please try other name/email.',
+          });
+        } else {
+          setPopup({
+            open: true,
+            title: 'Register denied',
+            message:
+              'Your register has been denied. Please contact administrator.',
+          });
+        }
         // .catch((err) => {
         //   console.log(err);
         //   console.log(err.status);

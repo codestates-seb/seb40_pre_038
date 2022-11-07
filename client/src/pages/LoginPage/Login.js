@@ -84,7 +84,7 @@ function Login() {
     <Wrapper>
       <FlexItem>
         <LogoDiv>
-          <a href="https://stackoverflow.com">
+          <a href="/">
             <svg
               aria-hidden="true"
               className="native svg-icon iconLogoGlyphMd"
@@ -120,7 +120,7 @@ function Login() {
         <LoginForm></LoginForm>
         <ExternalLink>
           {` Don't have an account? `}
-          <a href="https://stackoverflow.com/users/signup?ssrc=head">Sign up</a>
+          <a href="/signup">Sign up</a>
         </ExternalLink>
       </FlexItem>
     </Wrapper>
