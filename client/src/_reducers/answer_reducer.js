@@ -15,7 +15,10 @@ export const answerReducer = (state = initialState, action) => {
     case GET_ANSWERS:
       return { ...state, ...action.payload };
     case ADD_ANSWER:
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        data: [...state.data, action.payload.data],
+      };
     case DELETE_ANSWER:
       return {
         ...state,
