@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FooterContainer = styled.footer`
@@ -304,7 +305,7 @@ const Footer = () => {
           Site design / logo © 2022 Stack Exchange Inc; user contributions
           licensed under{' '}
           <u>
-            <a href="/">CC BY-SA</a>
+            <Link to="/">CC BY-SA</Link>
           </u>
           . rev 2022.10.25.33519
         </CopyrightInfoContainer>

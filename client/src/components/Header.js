@@ -387,9 +387,9 @@ const Header = ({ isLogin, setIsLogin }) => {
           {isLogin ? (
             <>
               <UserIconConatiner>
-                <a href="/">
+                <Link to="/">
                   <UserProfileIcon></UserProfileIcon>
-                </a>
+                </Link>
                 <UserInfo>
                   <span className="user_reputation">1</span>
                   <div className="user_badges">
