@@ -77,7 +77,9 @@ public class SecurityConfiguration{
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com");
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000",
+                "http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
+                "http://seb40-pre-038.vercel.app"));
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);

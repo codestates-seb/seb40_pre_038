@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = {"http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
+@CrossOrigin(origins = {"http://localhost:3000",
+                "http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
+                "http://seb40-pre-038.vercel.app",
         "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"}, allowCredentials = "true")
 @Validated
 @RestController
