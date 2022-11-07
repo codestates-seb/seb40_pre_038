@@ -4,6 +4,8 @@ import {
   POST_ANSWER_COMMENT,
   DELETE_ANSWER,
   DELETE_ANSWER_COMMENT,
+  NO_AUTH_ANSWER,
+  ERROR_ANSWER,
 } from '../_actions/answer_action';
 
 const initialState = {
@@ -15,7 +17,10 @@ export const answerReducer = (state = initialState, action) => {
     case GET_ANSWERS:
       return { ...state, ...action.payload };
     case ADD_ANSWER:
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        data: [...state.data, action.payload.data],
+      };
     case DELETE_ANSWER:
       return {
         ...state,
@@ -57,6 +62,14 @@ export const answerReducer = (state = initialState, action) => {
           }),
         ],
       };
+    case NO_AUTH_ANSWER:
+      alert(
+        'You have to login first.' + 'Or you can only delete what you wrote.'
+      );
+      return state;
+    case ERROR_ANSWER:
+      alert('Error has occurred.');
+      return state;
     default:
       return state;
   }

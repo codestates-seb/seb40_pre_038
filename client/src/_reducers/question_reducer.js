@@ -4,6 +4,8 @@ import {
   SET_QUESTION_ID,
   DELETE_QUESTION,
   DELETE_QUESTION_COMMENT,
+  NO_AUTH_QUESTION,
+  ERROR_QUESTION,
 } from '../_actions/question_action';
 
 const initialState = {
@@ -29,7 +31,6 @@ export const questionReducer = (state = initialState, action) => {
         },
       };
     case DELETE_QUESTION_COMMENT:
-      console.log(action.payload.commentId);
       return {
         ...state,
         data: {
@@ -43,6 +44,14 @@ export const questionReducer = (state = initialState, action) => {
       };
     case DELETE_QUESTION:
       return initialState;
+    case NO_AUTH_QUESTION:
+      alert(
+        'You have to login first.' + 'Or you can only delete what you wrote.'
+      );
+      return state;
+    case ERROR_QUESTION:
+      alert('Error has occurred.');
+      return state;
     default:
       return state;
   }
