@@ -28,32 +28,34 @@ public class SearchService {
 
     public Page<Question> findContent(String all, String tab, int page, int size) {
         String tag = null;
-        long userId = 0;
+        String userNickName = null;
         List<String> contents = new ArrayList<>();
 
         //all = all.replaceAll( "[^\uAC00-\uD7A30-9a-zA-Z\\[\\]\\s]", ""); // 특수문자 제거 ([,] 빼고)
 
         List<String> findAll = Arrays.asList(all.split(" "));
         for(String find : findAll) {
+            System.out.println("find:"+find);
             if(find.length() >= 3 && find.charAt(0) == '[' && find.charAt(find.length() - 1) == ']') // 태그 검색일 경우
                 tag = find.substring(1, find.length() - 1);
             else if (find.length() >= 6 && find.substring(0,5).equals("user:")) // 유저 검색일 경우
-                userId = Long.parseLong(find.substring(5));
+                userNickName = find.substring(5);
             else
                 contents.add(find); // 일반 검색일 경우 keyword로 나누기
         }
+        System.out.println("TAG:"+tag + ",USER:"+userNickName);
 
-        return findTagUserContent(tag, userId, contents, tab, page, size); // 검색
+        return findTagUserContent(tag, userNickName, contents, tab, page, size); // 검색
     }
 
-    private Page<Question> findTagUserContent(String tag, long userId, List<String> contents, String tab, int page, int size) { // 질문 내용 검색
+    private Page<Question> findTagUserContent(String tag, String userNickName, List<String> contents, String tab, int page, int size) { // 질문 내용 검색
         Specification<Question> spec = null;
         if(tag != null) // tag 검색이 있을 경우
             spec = (spec == null? SearchSpecification.containsTag(tag) : spec.and(SearchSpecification.containsTag(tag)));
 
-        if(userId != 0) { // user 검색이 있을 경우
+        if(userNickName != null) { // user 검색이 있을 경우
             //User user = userService.findVerifiedUser(userId);
-            spec = (spec == null ? SearchSpecification.equalToUser(userId) : spec.and(SearchSpecification.equalToUser(userId)));
+            spec = (spec == null ? SearchSpecification.equalToUser(userNickName) : spec.and(SearchSpecification.equalToUser(userNickName)));
         }
 
         if(contents != null) { // 검색어가 있을 경우
