@@ -56,7 +56,12 @@ const AskedDate = (str) => {
   )}:${String(date.getMinutes()).padStart(2, '0')}`;
 };
 
-const QuestionUserinfo = ({ type, userName, createdAt }) => {
+const QuestionUserinfo = ({ type, userName, createdAt, reputation }) => {
+  const rep = reputation < 10000 ? reputation : Math.floor(reputation / 1000);
+  const random = () => {
+    return Math.floor(Math.random() * 101);
+  };
+
   return (
     <QuestionUserinfoContainer className={type === 'answer' ? 'answer' : null}>
       <QuestionDate>asked {AskedDate(createdAt)}</QuestionDate>
@@ -69,7 +74,9 @@ const QuestionUserinfo = ({ type, userName, createdAt }) => {
         </UserIcon>
         <UserStats>
           <div className="username">{userName}</div>
-          <div className="stats">1,201 •2 •9 •6</div>
+          <div className="stats">
+            {`${rep} •${random()} •${random()} •${random()}`}
+          </div>
         </UserStats>
       </UserInfoWrapper>
     </QuestionUserinfoContainer>
