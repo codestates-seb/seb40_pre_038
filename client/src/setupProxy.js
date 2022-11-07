@@ -12,8 +12,7 @@ module.exports = function (app) {
       '/api/comments',
     ],
     createProxyMiddleware({
-      target:
-        'http://ec2-43-201-113-224.ap-northeast-2.compute.amazonaws.com:8080',
+      target: process.env.REACT_APP_HOST,
       changeOrigin: true,
     })
   );
