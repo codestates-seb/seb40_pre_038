@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
 
@@ -84,7 +85,7 @@ function Login() {
     <Wrapper>
       <FlexItem>
         <LogoDiv>
-          <a href="https://stackoverflow.com">
+          <Link to="/">
             <svg
               aria-hidden="true"
               className="native svg-icon iconLogoGlyphMd"
@@ -98,7 +99,7 @@ function Login() {
                 fill="#F48024"
               ></path>
             </svg>
-          </a>
+          </Link>
         </LogoDiv>
         <OauthDivWrapper>
           <OauthGitHub>
@@ -120,7 +121,7 @@ function Login() {
         <LoginForm></LoginForm>
         <ExternalLink>
           {` Don't have an account? `}
-          <a href="https://stackoverflow.com/users/signup?ssrc=head">Sign up</a>
+          <Link to="/signup">Sign up</Link>
         </ExternalLink>
       </FlexItem>
     </Wrapper>
