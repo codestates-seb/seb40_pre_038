@@ -21,14 +21,12 @@ const QuestionBody = ({ data, type, answerId }) => {
   const problem = Object.keys(data).length === 0 ? '' : data.problem;
   const expect = Object.keys(data).length === 0 ? '' : data.expect;
   const tagList = Object.keys(data).length === 0 ? [] : data.tagList;
-  let userName = '';
-  if (Object.keys(data).length !== 0 && type === 'question') {
-    userName = data.userInformation.nickName;
-  } else if (Object.keys(data).length !== 0 && type === 'answer') {
-    userName = data.userInformation.nickName;
-  }
+  const userName =
+    Object.keys(data).length === 0 ? '' : data.userInformation.nickName;
   const createdDate = Object.keys(data).length === 0 ? '' : data.createdAt;
   const answerbody = Object.keys(data).length === 0 ? '' : data.body;
+  const reputation =
+    Object.keys(data).length === 0 ? 0 : data.userInformation.reputation;
 
   return (
     <QuestionBodyContainer>
@@ -48,6 +46,7 @@ const QuestionBody = ({ data, type, answerId }) => {
           type={type}
           userName={userName}
           createdAt={createdDate}
+          reputation={reputation}
         />
       </QuestionBodyBottom>
     </QuestionBodyContainer>
