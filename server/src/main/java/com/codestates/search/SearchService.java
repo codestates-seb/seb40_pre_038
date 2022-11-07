@@ -31,7 +31,7 @@ public class SearchService {
         long userId = 0;
         List<String> contents = new ArrayList<>();
 
-        //all = all.replaceAll( "[^\uAC00-\uD7A30-9a-zA-Z\\[\\]\\s]", ""); // 특수문자 제거
+        //all = all.replaceAll( "[^\uAC00-\uD7A30-9a-zA-Z\\[\\]\\s]", ""); // 특수문자 제거 ([,] 빼고)
 
         List<String> findAll = Arrays.asList(all.split(" "));
         for(String find : findAll) {
