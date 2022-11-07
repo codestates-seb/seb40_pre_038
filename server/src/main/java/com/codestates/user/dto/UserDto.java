@@ -59,6 +59,6 @@ public class UserDto {
         private String nickName;
         private String email;
         private int reputation;
-        private User.UserStatus userStatus;
+//        private User.UserStatus userStatus;
     }
 }
