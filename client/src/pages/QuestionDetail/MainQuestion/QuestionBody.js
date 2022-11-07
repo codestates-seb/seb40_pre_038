@@ -25,7 +25,7 @@ const QuestionBody = ({ data, type, answerId }) => {
   if (Object.keys(data).length !== 0 && type === 'question') {
     userName = data.userInformation.nickName;
   } else if (Object.keys(data).length !== 0 && type === 'answer') {
-    userName = data.userResponseDto.nickName;
+    userName = data.userInformation.nickName;
   }
   const createdDate = Object.keys(data).length === 0 ? '' : data.createdAt;
   const answerbody = Object.keys(data).length === 0 ? '' : data.body;

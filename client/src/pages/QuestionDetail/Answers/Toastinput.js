@@ -52,7 +52,7 @@ const MyEditor = () => {
     if (answerBody.length >= 20) {
       setValidate(true);
       dispatch(addAnswer(questionIdState, answerBody));
-      location.reload(); //새로고침
+      editorRef.current.getInstance().setMarkdown('');
     }
   };
 
