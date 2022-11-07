@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../api/axios';
 import { USERS_URL } from '../api/requests';
 
 export const GET_All_USERS = 'GET_All_USERS';

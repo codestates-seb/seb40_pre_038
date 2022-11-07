@@ -7,6 +7,7 @@ import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
 import com.codestates.question.Question;
+import com.codestates.user.service.UserService;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -14,9 +15,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
-    //Answer answerPostDtoToAnswer(AnswerPostDto answerPostDto);
     Answer answerPatchDtoToAnswer(AnswerPatchDto answerPatchDto);
-    //AnswerResponseDto answerToAnswerResponseDto(Answer answer);
 
     Answer answerVoteDtoToAnswer(AnswerVoteDto answerVoteDto);
 
@@ -27,10 +26,6 @@ public interface AnswerMapper {
     default Answer answerPostDtoToAnswer(long questionId, AnswerPostDto answerPostDto) {
         Answer answer = new Answer();
         answer.setBody(answerPostDto.getBody());
-
-        User user = new User();
-        user.setUserId(answerPostDto.getUserId());
-        answer.setUser(user);
 
         Question question = new Question();
         question.setQuestionId(questionId);
@@ -55,7 +50,7 @@ public interface AnswerMapper {
 
         return AnswerResponseDto.builder()
                 .answerId(answer.getAnswerId())
-                .userResponseDto(userToUserResponseDto(user))
+                .userInformation(userToUserResponseDto(user))
                 .answerStatus(answer.getAnswerStatus())
                 .questionId(answer.getQuestion().getQuestionId())
                 .body(answer.getBody())

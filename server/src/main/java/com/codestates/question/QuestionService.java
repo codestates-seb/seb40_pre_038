@@ -24,10 +24,10 @@ public class QuestionService {
         this.userService = userService;
     }
 
-    public Question createQuestion(Question question, long userId) {
+    public Question createQuestion(Question question) {
 
-        User findUser = userService.findVerifiedUser(userId);
-        question.setUser(findUser);
+        //User findUser = userService.findVerifiedUser(userId);
+        question.setUser(userService.getLoginUser()); // 로그인 유저로 작성
 
         String tagBody = question.getTagBody(); // 태그 생성 부분
 
@@ -37,17 +37,21 @@ public class QuestionService {
 
         Question savedQuestion = questionRepository.save(question);
 
-        System.out.printf("\n회원 번호: " + userId + '\n' +
+        /*System.out.printf("\n회원 번호: " + userId + '\n' +
                 "사용자 이름: " + findUser.getNickName() + '\n' +
-                question.getQuestionId() + "번 질문 등록 완료.\n\n");
+                question.getQuestionId() + "번 질문 등록 완료.\n\n");*/
 
         return savedQuestion;
     }
 
-    public Question updateQuestion(Question question, long userId) {
+    public Question updateQuestion(Question question) {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId()); // 수정할 질문 찾아오기
-        User findUser = userService.findVerifiedUser(userId);
-        verifyUser(userId, findQuestion);
+        /*User findUser = userService.findVerifiedUser(userId);
+        verifyUser(userId, findQuestion);*/
+
+        User postUser = userService.findVerifiedUser(findQuestion.getUser().getUserId()); // 작성자
+        if(userService.getLoginUser().getUserId() != postUser.getUserId()) // 로그인 유저 != 작성자
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED); // 수정 권한 없음
 
         Optional.ofNullable(question.getTitle())
                 .ifPresent(findQuestion::setTitle); // 제목
@@ -65,11 +69,13 @@ public class QuestionService {
         
         findQuestion.setActionStatus(Question.ActionStatus.ACTION_MODIFIED); // actionStatus 변경
 
+        findQuestion.setModifiedAt(LocalDateTime.now()); // 글을 수정할 때만 수정 시간 변경
+
         Question updatedQuestion = questionRepository.save(findQuestion);
 
-        System.out.printf("\n회원 번호: " + userId + '\n' +
+        /*System.out.printf("\n회원 번호: " + userId + '\n' +
                 "사용자 이름: " + findUser.getNickName() + '\n' +
-                question.getQuestionId() + "번 질문 수정 완료.\n\n");
+                question.getQuestionId() + "번 질문 수정 완료.\n\n");*/
 
         return updatedQuestion;
     }
@@ -102,11 +108,16 @@ public class QuestionService {
 
     public void deleteQuestion(long questionId) {
         Question question = findVerifiedQuestion(questionId);
+
+        User postUser = userService.findVerifiedUser(question.getUser().getUserId()); // 작성자
+        if(userService.getLoginUser().getUserId() != postUser.getUserId()) // 로그인 유저 != 작성자
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED); // 삭제 권한 없음
+
         questionRepository.delete(question);
 
-        System.out.printf("\n회원 번호: " + question.getUser().getUserId() + '\n' +
+        /*System.out.printf("\n회원 번호: " + question.getUser().getUserId() + '\n' +
                 "사용자 이름: " + question.getUser().getNickName() + '\n' +
-                question.getQuestionId() + "번 질문 삭제 완료.\n\n");
+                question.getQuestionId() + "번 질문 삭제 완료.\n\n");*/
     }
 
     public void verifyUser(long userId, Question question) {

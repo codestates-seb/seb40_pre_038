@@ -16,7 +16,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = {"http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
+        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"})
 @Validated
 @RestController
 @RequestMapping("/api")
@@ -40,7 +41,7 @@ public class CommentController {
 //                                    @RequestParam CommentType commentType,
                                     @PathVariable("question_id") @Positive long postId) {
         Comment comment = mapper.commentPostToComment(commentPost);
-        Comment createComment = commentService.createQuestionComment(comment, postId, commentPost.getUserId());
+        Comment createComment = commentService.createQuestionComment(comment, postId);
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
 
         return new ResponseEntity<>(
@@ -55,7 +56,7 @@ public class CommentController {
 //                                      @PathVariable("question_id") @Positive long postId,
                                       @PathVariable("answer_id") @Positive long answerId) {
         Comment comment = mapper.commentPostToComment(commentPost);
-        Comment createComment = commentService.createAnswerComment(comment, answerId, commentPost.getUserId());
+        Comment createComment = commentService.createAnswerComment(comment, answerId);
         CommentDto.Response response = mapper.commentToCommentResponse(createComment);
 
         return new ResponseEntity<>(
@@ -68,7 +69,7 @@ public class CommentController {
     public ResponseEntity patchComment(@Valid @RequestBody CommentDto.Patch commentPatch,
                                      @PathVariable("comment_id") @Positive long commentId) {
         Comment comment = mapper.commentPatchToComment(commentPatch);
-        Comment updateComment = commentService.updateComment(comment, commentId, commentPatch.getUserId());
+        Comment updateComment = commentService.updateComment(comment, commentId);
         CommentDto.Response response = mapper.commentToCommentResponse(updateComment);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK

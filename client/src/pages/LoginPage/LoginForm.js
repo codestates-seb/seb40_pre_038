@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
 import Popup from '../../components/Modal';
 import { LOGIN_URL } from '../../api/requests';
 
@@ -105,18 +106,7 @@ function LoginForm() {
     callback: false,
   }); // modal state
 
-  /*
-Logic : API는 POST api/login(수정 전)으로,
-토큰은 Header에 각각 key: Authorization, Refresh / Value: {Access Token}, {Refresh Token} 형식으로 담깁니다.
-
-현재까지 예상되는 로직은
-첫 로그인 : axios를 사용해 Access Token과 Refresh Token을 요청받습니다.
-이후 Refresh Token은 Local Storage에 저장합니다.
-이후 로그인: 저장된 Refresh Token을 header에 담아 Access Token을 요청합니다.
-
-Refresh Token이 만료될 시에, 재발급 API에 Refresh Token을 담아서 요청합니다.
-재발급 API가 따로 존재하지 않을 경우엔 다시 첫 로그인을 반복합니다.
-  */
+  const navigate = useNavigate();
 
   function isValidEmail(email) {
     if (email.length === 0) {
@@ -184,17 +174,20 @@ Refresh Token이 만료될 시에, 재발급 API에 Refresh Token을 담아서 �
       .post(LOGIN_URL, {
         email: emessage,
         password: pmessage,
-      })
+      }) // 받은 이메일과 패스워드로 로그인 POST 요청
       .then((response) => {
-        /// token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
-        axios.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${response.data}`;
-        console.log(`POST RESPONSE : ${response.data}`);
-        return response.data;
+        // console.log(response.status);
+        // console.log(`로그인 성공`);
+        let accessToken = response.headers.get('Authorization'); // Access token
+        // let refreshToken = response.headers.get('Refresh'); // Refresh token
+        // console.log(`액세스 토큰 : ${accessToken}`);
+        // console.log(`리프레쉬 토큰 : ${refreshToken}`);
+        sessionStorage.setItem('Authorization', accessToken); // 없으면 Access 토큰 로컬스토리지에 저장
+        navigate('/'); // 메인페이지로 옮기기
+        window.location.replace('/');
       })
       .catch((e) => {
-        console.log(`ERROR RESPONSE : ${e.response.data}`);
+        console.log(`ERROR RESPONSE : ${e.status}`);
         return 'Email or password is incorrect.';
       });
   };

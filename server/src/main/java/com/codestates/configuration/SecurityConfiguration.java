@@ -55,11 +55,11 @@ public class SecurityConfiguration{
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/users").permitAll()  // Anyone can register
+                        .antMatchers(HttpMethod.POST, "/api/users").permitAll()  // Anyone can register
 //                        .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
 //                        .antMatchers(HttpMethod.GET, "/users/**").hasAnyRole("USER", "ADMIN")
 //                        .antMatchers(HttpMethod.DELETE, "/users/**").hasAnyRole("USER", "ADMIN")  // Commented out for tests
-                        .antMatchers(HttpMethod.PATCH, "/users/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/api/users/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll())
                 .logout(l -> l.logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
                         .logoutSuccessUrl("/").invalidateHttpSession(true).permitAll());  // Redirected to the main page (NEEDS A TEST WITH FRONT)
@@ -74,15 +74,19 @@ public class SecurityConfiguration{
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.addAllowedOrigin("*");
+//        configuration.addAllowedMethod("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.setAllowCredentials(true);
+////        configuration.setAllowedOrigins(Arrays.asList("*"));
+////        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
@@ -91,7 +95,7 @@ public class SecurityConfiguration{
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
-//            jwtAuthenticationFilter.setFilterProcessesUrl("user/login");  // wip
+//            jwtAuthenticationFilter.setFilterProcessesUrl("user/login");  // -> /login
 
             builder
                     .addFilter(jwtAuthenticationFilter)

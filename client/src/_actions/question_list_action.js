@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../api/axios';
 import { GET_ALL_QUESTIONS_URL, GET_TOP_QUESTIONS_URL } from '../api/requests';
 
 export const GET_ALL_QUESTIONS = 'GET_ALL_QUESTIONS';

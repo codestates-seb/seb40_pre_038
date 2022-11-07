@@ -1,10 +1,12 @@
-import axios from 'axios';
-import { QUESTIONS_URL } from '../api/requests';
+import axios from '../api/axios';
+import { QUESTIONS_URL, COMMENTS_URL } from '../api/requests';
 
 export const SET_QUESTION_ID = 'SET_QUESTION_ID';
 export const GET_QUESTION = 'GET_QUESTION';
+export const DELETE_QUESTION = 'DELETE_QUESTION';
 
 export const POST_QUESTION_COMMENT = 'POST_QUESTION_COMMENT';
+export const DELETE_QUESTION_COMMENT = 'DELETE_QUESTION_COMMENT';
 
 export const setQuestionId = (question_id) => {
   return {
@@ -24,6 +26,17 @@ export const getQuestion = async (question_id) => {
   };
 };
 
+//질문 삭제
+export const deleteQuestion = async (question_id) => {
+  await axios
+    .delete(`${QUESTIONS_URL}/${question_id}/delete`)
+    .catch((error) => console.error(error));
+
+  return {
+    type: DELETE_QUESTION,
+  };
+};
+
 //질문 댓글 작성
 export const postQuestionComment = async (question_id, body) => {
   //우선 1 ~ 100 사이로 userId 설정
@@ -39,5 +52,16 @@ export const postQuestionComment = async (question_id, body) => {
   return {
     type: POST_QUESTION_COMMENT,
     payload: payload.data,
+  };
+};
+
+export const deleteQuestionComment = async (commentId) => {
+  await axios
+    .delete(`${COMMENTS_URL}/${commentId}/delete`)
+    .catch((error) => console.error(error));
+
+  return {
+    type: DELETE_QUESTION_COMMENT,
+    payload: { commentId },
   };
 };

@@ -6,8 +6,14 @@ import com.codestates.question.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Transactional
 @Service
@@ -20,33 +26,48 @@ public class SearchService {
         this.userService = userService;
     }
 
-    public Page<Question> findContent(String content, String tab, int page, int size) {
-        if(content.length() >= 3 && content.charAt(0) == '[' && content.charAt(content.length() - 1) == ']') {
-            String substring = content.substring(1, content.length() - 1).replaceAll(" ", ""); // 검색어 공백 제거
-            return findTag(substring.toLowerCase(), tab, page, size);
-        } else if(content.length() >= 6 && content.substring(0,5).equals("user:")) {
-            return findUser(Long.parseLong(content.substring(5)), tab, page, size);
+    public Page<Question> findContent(String all, String tab, int page, int size) {
+        String tag = null;
+        long userId = 0;
+        List<String> contents = new ArrayList<>();
+
+        //all = all.replaceAll( "[^\uAC00-\uD7A30-9a-zA-Z\\[\\]\\s]", ""); // 특수문자 제거
+
+        List<String> findAll = Arrays.asList(all.split(" "));
+        for(String find : findAll) {
+            if(find.length() >= 3 && find.charAt(0) == '[' && find.charAt(find.length() - 1) == ']') // 태그 검색일 경우
+                tag = find.substring(1, find.length() - 1);
+            else if (find.length() >= 6 && find.substring(0,5).equals("user:")) // 유저 검색일 경우
+                userId = Long.parseLong(find.substring(5));
+            else
+                contents.add(find); // 일반 검색일 경우 keyword로 나누기
         }
 
-        return findBody(content, tab, page, size);
+        return findTagUserContent(tag, userId, contents, tab, page, size); // 검색
     }
 
-    private Page<Question> findTag(String tagBody, String tab, int page, int size) { // 태그로 검색
-        if(tab.equals("score"))
-            return searchRepository.findAllByTagList(tagBody, PageRequest.of(page, size, Sort.by("vote").descending()));
-        return searchRepository.findAllByTagList(tagBody, PageRequest.of(page, size, Sort.by("questionId").descending()));
-    }
+    private Page<Question> findTagUserContent(String tag, long userId, List<String> contents, String tab, int page, int size) { // 질문 내용 검색
+        Specification<Question> spec = null;
+        if(tag != null) // tag 검색이 있을 경우
+            spec = (spec == null? SearchSpecification.containsTag(tag) : spec.and(SearchSpecification.containsTag(tag)));
 
-    private Page<Question> findUser(long userId, String tab, int page, int size) { // 유저로 검색
-        User findUser = userService.findVerifiedUser(userId);
-        if(tab.equals("score")) return searchRepository.findAllByUser(findUser, PageRequest.of(page, size, Sort.by("vote").descending()));
-        return searchRepository.findAllByUser(findUser, PageRequest.of(page, size, Sort.by("questionId").descending()));
-    }
+        if(userId != 0) { // user 검색이 있을 경우
+            //User user = userService.findVerifiedUser(userId);
+            spec = (spec == null ? SearchSpecification.equalToUser(userId) : spec.and(SearchSpecification.equalToUser(userId)));
+        }
 
-    private Page<Question> findBody(String content, String tab, int page, int size) { // 질문 내용 검색
-        if(tab.equals("score")) return searchRepository.findAllByTitleContainingOrProblemContainingOrExpectContaining(
-                content, content, content, PageRequest.of(page, size, Sort.by("vote").descending()));
-        return searchRepository.findAllByTitleContainingOrProblemContainingOrExpectContaining(
-                content, content, content, PageRequest.of(page, size, Sort.by("question_id").descending()));
+        if(contents != null) { // 검색어가 있을 경우
+            Specification<Question> contentSpec = null;
+            for(String word : contents) {
+                Specification<Question> wordSpec = SearchSpecification.containsTitleProblemExpect(word);
+                contentSpec = (contentSpec == null ? wordSpec : contentSpec.or(wordSpec));
+            }
+            spec = (spec == null? contentSpec : spec.and(contentSpec));
+        }
+
+        if(tab.equals("score")) // 투표수로 정렬
+           return searchRepository.findAll(spec, PageRequest.of(page, size, Sort.by("vote").descending()));
+
+        return searchRepository.findAll(spec, PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
 }

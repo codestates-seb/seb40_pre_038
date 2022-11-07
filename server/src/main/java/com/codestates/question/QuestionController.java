@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin(origins = {"http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
+        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"})
 @Validated
 @RestController
 @RequestMapping("/api/questions")
@@ -56,7 +57,7 @@ public class QuestionController {
                 .collect(Collectors.joining(", ")));
 
         Question question = mapper.questionPostToQuestion(questionPost);
-        Question createQuestion = questionService.createQuestion(question, questionPost.getUserId());
+        Question createQuestion = questionService.createQuestion(question);
         QuestionDto.Response response = mapper.questionToQuestionResponse(createQuestion);
 
         return new ResponseEntity<>(
@@ -81,7 +82,7 @@ public class QuestionController {
                 .collect(Collectors.joining(", ")));
 
         Question question = mapper.questionPatchToQuestion(questionPatch); // 수정
-        Question updateQuestion = questionService.updateQuestion(question, questionPatch.getUserId()); // DB 업데이트
+        Question updateQuestion = questionService.updateQuestion(question); // DB 업데이트
         QuestionDto.Response response = mapper.questionToQuestionResponse(updateQuestion);
 
         return new ResponseEntity<>(
@@ -123,14 +124,6 @@ public class QuestionController {
 //        );
 //    }
 
-//    @GetMapping("/search/{tagBody}")
-//    public ResponseEntity getListsByTag(@PathVariable("tagBody") String tagBody) {
-//        List<Integer> pageQuestions = questionService.findListByTagBody(tagBody);
-//
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(pageQuestions), HttpStatus.OK
-//        );
-//    }
 
     @GetMapping("/search/{tagBody}")
     public ResponseEntity getQuestionByTagBody(@PathVariable("tagBody") @NotBlank String tagBody,
@@ -160,7 +153,7 @@ public class QuestionController {
     @PatchMapping("/{question-id}/vote") // Question Vote
     public ResponseEntity voteQuestion(@PathVariable("question-id") @Positive long questionId,
                                        @Valid @RequestBody QuestionDto.Vote questionVote) {
-        questionVoteService.postVote(questionId, questionVote.getUserId());
+        questionVoteService.postVote(questionId);
 
         Question question = questionService.updateVote(mapper.questionVoteToQuestion(questionVote), questionId);
 
@@ -178,12 +171,14 @@ public class QuestionController {
     }
 
     // 답변 채택
-    @PatchMapping("/{question_id}/favorite/{answer-id}")
-    public ResponseEntity favoriteAnswer(@PathVariable("answer-id") @Positive long answerId,
+    @PatchMapping("/{question-id}/favorite/{answer-id}")
+    public ResponseEntity favoriteAnswer(@PathVariable("question-id") @Positive long questionId,
+                                         @PathVariable("answer-id") @Positive long answerId,
                                          @Valid @RequestBody AnswerBestDto answerBestDto) {
         answerBestDto.setAnswerId(answerId);
 
-        Answer answer = answerService.updateStatus(answerMapper.answerBestDtoToAnswer(answerBestDto));
+        Question postQuestion = questionService.findQuestion(questionId);
+        Answer answer = answerService.updateStatus(answerMapper.answerBestDtoToAnswer(answerBestDto), postQuestion);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),

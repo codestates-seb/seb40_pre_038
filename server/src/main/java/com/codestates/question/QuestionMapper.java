@@ -33,9 +33,9 @@ public interface QuestionMapper {
         question.setExpect(questionPost.getExpect());
         question.setTagBody(questionPost.getTagBody());
 
-        User user = new User();
+        /*User user = new User();
         user.setUserId(questionPost.getUserId());
-        question.setUser(user);
+        question.setUser(user);*/
 
         return question;
     }
