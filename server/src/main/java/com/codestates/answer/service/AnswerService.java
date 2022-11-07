@@ -7,9 +7,6 @@ import com.codestates.exception.ExceptionCode;
 import com.codestates.question.Question;
 import com.codestates.user.entity.User;
 import com.codestates.user.service.UserService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
