@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { ButtonBlue } from '../../components/Buttons';
+import { useNavigate } from 'react-router-dom';
+import axios from '../../api/axios';
+import Popup from '../../components/Modal';
+import { SIGNUP_URL } from '../../api/requests';
 
 const FormContainer = styled.div`
   max-width: calc(97.2307692rem / 3);
@@ -85,11 +88,40 @@ const PasswordFormFooter = styled.div`
   margin-top: 32px;
 `;
 
+const ButtonBlue = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0995ff;
+  color: #ffffff;
+  font-weight: bold;
+  border: 1px solid #0995ff;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 #ffffff;
+  width: ${(props) => props.width || '100px'};
+  height: ${(props) => props.height || '40px'};
+  font-size: ${(props) => props.fontSize || '14px'};
+  font-weight: ${(props) => props.fontWeight || '700'};
+  :hover {
+    background: #0063bf;
+  }
+`;
+
 function SignUpForm() {
-  const [message, setMessage] = useState('');
-  const [pmessage, setPmessage] = useState('');
-  const [error, setError] = useState(null);
-  const [perror, setPerror] = useState(null);
+  const [emessage, setEmessage] = useState(''); // email
+  const [pmessage, setPmessage] = useState(''); // password
+  const [nmessage, setNmessage] = useState(''); // display name
+  const [error, setError] = useState(null); // email error message state
+  const [perror, setPerror] = useState(null); // password error message state
+  const [popup, setPopup] = useState({
+    open: false,
+    title: '',
+    message: '',
+    callback: false,
+  }); // modal state
+
+  const navigate = useNavigate(); // 얘는 react가 아닌 react-router-dom에서 import해야함
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -103,32 +135,134 @@ function SignUpForm() {
   }
   //삼항연산자 쓰면 안됨
 
-  const handleChange = (event) => {
+  const handleNchange = (event) => {
+    setNmessage(event.target.value);
+  }; // Display name 저장
+
+  const handleEchange = (event) => {
     if (!isValidEmail(event.target.value)) {
       setError(`Not a valid email address.`);
     } else {
       setError(null);
     }
-    setMessage(event.target.value);
-  };
+    setEmessage(event.target.value);
+  }; // 올바른 형식일 때 email 저장
 
   const handlePchange = (event) => {
-    console.log(isValidPassword(event.target.value));
     if (!isValidPassword(event.target.value)) {
       setPerror(`Passwords must contain at least eight characters.`);
     } else {
       setPerror(null);
     }
     setPmessage(event.target.value);
+  }; // 올바른 형식일 때 password 저장
+
+  const handleSubmitButton = (e) => {
+    e.preventDefault(); // 새로고침 방지
+    if (emessage === '') {
+      setPopup({
+        open: true,
+        title: 'Register denied',
+        message: 'Please input your email address.',
+      }); // 이메일 공란이면 모달창
+    } else if (pmessage === '') {
+      setPopup({
+        open: true,
+        title: 'Register denied',
+        message: 'Please input your password.',
+      }); // 패스워드 공란이면 입력창
+    } else if (error !== null || perror !== null) {
+      setPopup({
+        open: true,
+        title: 'Register denied',
+        message: 'Invailed email or password. Please try again.',
+      }); // 이메일이랑 패스워드가 입력은 되어 있는데, 둘 중 하나라도 올바른 형식이 아닐 경우 모달창
+    } else {
+      signupSubmit(); // 전부 만족 시 axios 실행
+    }
+  };
+
+  const signupSubmit = async () => {
+    await axios
+      .post(
+        SIGNUP_URL,
+        {
+          nickName: nmessage,
+          email: emessage,
+          password: pmessage,
+        },
+        { 'Content-type': 'application/json' } // CORS error solve
+      )
+      .then((res) => {
+        if (res.status === 201) {
+          // 201이면 성공했다고 하고 로그인 화면으로 이동
+          setPopup({
+            open: true,
+            title: 'Register confirmed',
+            message:
+              'Your account has been successfully confirmed. Please log in now.',
+            callback: function () {
+              navigate('/login');
+            },
+          });
+        }
+      })
+      .catch(() => {
+        setPopup({
+          open: true,
+          title: 'Register denied',
+          message:
+            'Your Display name or email is already in use. Please try other name/email.',
+          //     });
+        });
+        // .catch((err) => {
+        //   console.log(err);
+        //   console.log(err.status);
+        //   if (err.status === 500) {
+        //     //500으로 오면 닉네임이 중복되었습니다 라고 하고
+        //     setPopup({
+        //       open: true,
+        //       title: 'Register denied',
+        //       message:
+        //         'Your Display name is already in use. Please try other name.',
+        //       callback: function () {
+        //         navigate('/');
+        //       },
+        //     });
+        //   } else if (err.status === 409) {
+        //     //409로 오면 이메일이 중복되었습니다 라고 모달 출력
+        //     setPopup({
+        //       open: true,
+        //       title: 'Register denied',
+        //       message: 'Your Email is already in use. Please try other email.',
+        //       callback: function () {
+        //         navigate('/');
+        //       },
+        //     });
+        //   }
+        // });
+        //! 에러코드 받아서 그거에 따라 따로 모달을 띄우고 싶었는데, 이유는 모르겠고 에러 스테이터스를 못받아와서 일단 에러는 통일
+      });
   };
 
   return (
     <FormContainer>
       <LoginForm>
+        <Popup
+          open={popup.open}
+          setPopup={setPopup}
+          message={popup.message}
+          title={popup.title}
+          callback={popup.callback}
+        />
         <FormContent>
-          <ContentLabel for="displayName">Display name</ContentLabel>
+          <ContentLabel htmlFor="displayName">Display name</ContentLabel>
           <InputDiv>
-            <InputContent id="displayName"></InputContent>
+            <InputContent
+              id="displayName"
+              value={nmessage}
+              onChange={handleNchange}
+            ></InputContent>
           </InputDiv>
         </FormContent>
         <FormContent>
@@ -137,8 +271,8 @@ function SignUpForm() {
             <InputContent
               id="email"
               name="email"
-              value={message}
-              onChange={handleChange}
+              value={emessage}
+              onChange={handleEchange}
             ></InputContent>
             {error && (
               <svg
@@ -178,11 +312,11 @@ function SignUpForm() {
           </InputDiv>
           {perror && <ErrorMessageP>{perror}</ErrorMessageP>}
           <PasswordCaption>
-            {
-              'Passwords must contain at least eight characters, including at least 1 letter and 1 number.'
-            }
+            {'Passwords must contain at least eight characters or numbers.'}
           </PasswordCaption>
-          <ButtonBlue width={'100%'}>Sign up</ButtonBlue>
+          <ButtonBlue width={'100%'} onClick={handleSubmitButton}>
+            Sign up
+          </ButtonBlue>
           <PasswordFormFooter>
             {'By clicking “Sign up”, you agree to our '}
             <a

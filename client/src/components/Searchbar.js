@@ -1,6 +1,10 @@
+import { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { getSearchList } from '../_actions/search_action';
 
-const SearchbarContainer = styled.form`
+const SearchbarContainer = styled.div`
   box-sizing: border-box;
   padding: 0 8px;
   position: relative;
@@ -120,24 +124,66 @@ const SearchDropdownBottom = styled.div`
       cursor: pointer;
     }
   }
-  div {
-    color: #0074cc;
-    font-weight: 600;
-    &:hover {
-      cursor: pointer;
-      color: #0a95ff;
-    }
-  }
 `;
 
-const HeaderSearchbar = ({ handleClickMenu, clickedMenu }) => {
+const HeaderSearchbar = () => {
+  const searchModalRef = useRef();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.search);
+
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [focusSearch, setFocusSearch] = useState(false);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', clickModalOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', clickModalOutside);
+    };
+  });
+
+  const clickModalOutside = (event) => {
+    if (focusSearch && !searchModalRef.current.contains(event.target)) {
+      setFocusSearch(false);
+    }
+  };
+
+  const handleSubmitQuestionForm = (event) => {
+    if (event.code !== 'Enter') return;
+
+    navigate(`/search?q=${encodeURIComponent(searchInputValue)}`);
+    dispatch(getSearchList({ ...search, searchInputValue, pagerValue: 1 }));
+    setSearchInputValue(searchInputValue);
+    setFocusSearch(false);
+  };
+
+  const handleChangeSearchValue = (e) => {
+    setSearchInputValue(e.target.value);
+  };
+
+  const handleClickAskButton = () => {
+    navigate('/questions/ask');
+    setFocusSearch(false);
+  };
+
+  const handleClickSearchBar = () => {
+    setFocusSearch(true);
+  };
+
+  const handleClickSearchHelp = () => {
+    setFocusSearch(false);
+  };
+
   return (
-    <HeaderSearchbarContainer>
+    <HeaderSearchbarContainer id="search">
       <HeaderSearchbarInput
         type="text"
         placeholder="Search..."
-        onFocus={() => handleClickMenu('search')}
-        onBlur={() => handleClickMenu(null)}
+        onClick={handleClickSearchBar}
+        onChange={handleChangeSearchValue}
+        value={searchInputValue}
+        onKeyDown={handleSubmitQuestionForm}
       ></HeaderSearchbarInput>
       <HeaderSearchIcon>
         <svg
@@ -153,8 +199,8 @@ const HeaderSearchbar = ({ handleClickMenu, clickedMenu }) => {
           />
         </svg>
       </HeaderSearchIcon>
-      {clickedMenu === 'search' ? (
-        <SearchDropdown>
+      {focusSearch ? (
+        <SearchDropdown ref={searchModalRef}>
           <HintsWrapper>
             <SearchDropdownHints>
               <Hint>
@@ -194,8 +240,12 @@ const HeaderSearchbar = ({ handleClickMenu, clickedMenu }) => {
             </SearchDropdownHints>
           </HintsWrapper>
           <SearchDropdownBottom>
-            <button className="helpbtn">Ask a question</button>
-            <div>Search help</div>
+            <button className="helpbtn" onClick={handleClickAskButton}>
+              Ask a question
+            </button>
+            <Link to="/search" onClick={handleClickSearchHelp}>
+              Search help
+            </Link>
           </SearchDropdownBottom>
         </SearchDropdown>
       ) : null}
@@ -231,4 +281,4 @@ const Searchbar = ({ width, height, placeholder }) => {
   );
 };
 
-export { Searchbar, HeaderSearchbar };
+export { Searchbar, HeaderSearchbar, SearchbarInput };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Comment from './Comment';
 import AddComment from './AddComment';
 
@@ -12,13 +12,18 @@ const createDate = (str) => {
   const date = new Date(str.slice(0, 19));
   const arr = date.toDateString().split(' ');
 
-  return `${arr[1]} ${arr[2]}, ${
-    arr[3]
-  } at ${date.getHours()}:${date.getMinutes()}`;
+  return `${arr[1]} ${arr[2]}, ${arr[3]} at ${String(date.getHours()).padStart(
+    2,
+    '0'
+  )}:${String(date.getMinutes()).padStart(2, '0')}`;
 };
 
-const Comments = ({ data }) => {
-  const [commentData] = useState(data);
+const Comments = ({ data, type, answerId }) => {
+  const [commentData, setcommentData] = useState(data);
+
+  useEffect(() => {
+    setcommentData(data);
+  }, [data]);
 
   return (
     <CommentsContainer>
@@ -27,13 +32,16 @@ const Comments = ({ data }) => {
         return (
           <Comment
             key={comment.commentId}
+            type={type}
+            answerId={answerId}
+            commentId={comment.commentId}
             body={comment.body}
-            nickname={comment.memberResponseDto.nickName}
+            nickname={comment.userResponseDto.nickName}
             date={date}
           ></Comment>
         );
       })}
-      <AddComment />
+      <AddComment type={type} answerId={answerId} />
     </CommentsContainer>
   );
 };

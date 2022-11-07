@@ -8,7 +8,7 @@ const QuestionSummary = styled.div`
   border-bottom: 1px solid #e3e6e8;
   padding: 16px;
 
-  :last-child {
+  &.question-mini-list:last-child {
     border-bottom-width: 0;
   }
 
@@ -17,11 +17,11 @@ const QuestionSummary = styled.div`
   }
 `;
 
-const QuestionMiniList = () => {
+const QuestionMiniList = ({ className, question }) => {
   return (
-    <QuestionSummary>
-      <SummaryStats />
-      <SummaryContent />
+    <QuestionSummary className={className}>
+      <SummaryStats question={question} />
+      <SummaryContent className={className} question={question} />
     </QuestionSummary>
   );
 };

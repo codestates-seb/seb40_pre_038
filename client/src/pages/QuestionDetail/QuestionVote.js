@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { patchQuestionsVote } from '../../_actions/vote_action';
 
 const QuestionVoteContainer = styled.div`
   width: 60px;
-  height: 344px;
+  height: 200px;
   padding-right: 12px;
   display: flex;
   flex-direction: column;
@@ -18,6 +20,9 @@ const VoteBtn = styled.button`
   padding: 0;
   &:hover {
     cursor: pointer;
+  }
+  &:active {
+    fill: #f48225;
   }
 `;
 const UpVoteBtn = styled(VoteBtn)``;
@@ -45,17 +50,39 @@ const ActivityIcon = styled(SideIcon)`
 `;
 
 const QuestionVote = ({ data }) => {
-  const vote = data === undefined ? 0 : data.vote;
+  const dispatch = useDispatch();
+  const vote = useSelector((state) => {
+    if (state.voteReducer.questionsVote === 0) {
+      return state.questionReducer.data.vote;
+    } else {
+      return state.voteReducer.questionsVote;
+    }
+  });
+  const questionId = data.questionId;
+
+  const questionsUpVote = () => {
+    const patchBody = {
+      vote: vote + 1,
+    };
+    dispatch(patchQuestionsVote(questionId, patchBody));
+  };
+
+  const questionsDownVote = () => {
+    const patchBody = {
+      vote: vote - 1,
+    };
+    dispatch(patchQuestionsVote(questionId, patchBody));
+  };
 
   return (
     <QuestionVoteContainer>
-      <UpVoteBtn>
+      <UpVoteBtn onClick={questionsUpVote}>
         <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 25h32L18 9 2 25Z" />
         </svg>
       </UpVoteBtn>
       <VoteStat>{vote}</VoteStat>
-      <DownVoteBtn>
+      <DownVoteBtn onClick={questionsDownVote}>
         <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 11h32L18 27 2 11Z" />
         </svg>

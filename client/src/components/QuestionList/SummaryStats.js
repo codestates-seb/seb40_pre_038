@@ -44,10 +44,21 @@ const SummaryStatsItem = styled.div`
     border: 1px solid #2f6f44;
   }
   &.has-answers,
-  &.has-accepted-answer,
-  &.has-bounty {
+  &.has-bounty,
+  &.is-deleted,
+  &.is-published,
+  &.is-draft,
+  &.is-review,
+  &.is-closed,
+  &.is-archived,
+  &.is-pinned,
+  &.has-accepted-answer {
     border-radius: 3px;
     padding: 2px 4px;
+  }
+  &.has-bounty {
+    color: #fff;
+    background-color: #0074cc;
   }
   &.is-warm {
     color: #83690b;
@@ -55,9 +66,8 @@ const SummaryStatsItem = styled.div`
   &.is-hot {
     color: #a7510c;
   }
-  &.has-bounty {
-    color: #fff;
-    background-color: #0074cc;
+  &.is-supernova {
+    color: #922024;
   }
 `;
 
@@ -77,72 +87,78 @@ const HasAcceptedAnswerSvg = styled.svg`
   }
 `;
 
-const SummaryStats = ({
-  votes = 0,
-  answers = 0,
-  hasAccepted = false,
-  views = 0,
-  hasBounty = false,
-  bounty = 0,
-}) => {
+const SummaryStats = ({ question }) => {
+  const {
+    vote,
+    answerCount,
+    accepted,
+    view,
+    hasBounty = false,
+    bounty = 0,
+  } = question;
   const [viewsClassName, setViewsClassName] = useState('');
-  const [viewsText, setViewsText] = useState(views);
+  const [viewsText, setViewsText] = useState(view);
 
   useEffect(() => {
-    if (views < 1000) {
+    setViewsStats();
+  }, [view]);
+
+  const setViewsStats = () => {
+    if (view < 1000) {
       setViewsClassName('');
-      setViewsText(views);
+      setViewsText(view);
       return;
     }
 
-    const k = Math.floor(views / 1000);
-    if (views < 10000) {
+    const k = Math.floor(view / 1000);
+    if (view < 10000) {
       setViewsClassName('is-warm');
       setViewsText(`${k}k`);
       return;
     }
 
-    setViewsClassName('is-hot');
-    if (views < 1000000) {
+    if (view < 1000000) {
+      setViewsClassName('is-hot');
       setViewsText(`${k}k`);
       return;
     }
 
+    setViewsClassName('is-supernova');
     const m = Math.floor(k / 1000);
-    if (views < 1000000000) {
+    if (view < 1000000000) {
       setViewsText(`${m}m`);
       return;
     }
 
     const b = Math.floor(m / 1000);
     setViewsText(`${b}b`);
-  }, [views]);
+  };
 
   return (
     <SummaryStatsWrapper>
-      <SummaryStatsItem className="emphasized" title={`Score of ${votes}`}>
-        <SummaryStatsItemNumber>{votes}</SummaryStatsItemNumber>
+      <SummaryStatsItem className="emphasized" title={`Score of ${vote}`}>
+        <SummaryStatsItemNumber>{vote}</SummaryStatsItemNumber>
         <SummaryStatsItemUnit>votes</SummaryStatsItemUnit>
       </SummaryStatsItem>
       <SummaryStatsItem
         className={
-          answers <= 0
+          answerCount <= 0
             ? ''
-            : hasAccepted
+            : accepted
             ? 'has-accepted-answer'
             : 'has-answers'
         }
-        title={`${answers} answers`}
+        title={`${answerCount} answers`}
       >
-        {answers <= 0 ? null : (
+        {answerCount > 0 && accepted ? (
           <HasAcceptedAnswerSvg aria-hidden="true" viewBox="0 0 14 14">
             <path d="M13 3.41 11.59 2 5 8.59 2.41 6 1 7.41l4 4 8-8Z"></path>
           </HasAcceptedAnswerSvg>
-        )}
-        <SummaryStatsItemNumber>{answers}</SummaryStatsItemNumber>
+        ) : null}
+        <SummaryStatsItemNumber>{answerCount}</SummaryStatsItemNumber>
         <SummaryStatsItemUnit>answers</SummaryStatsItemUnit>
       </SummaryStatsItem>
-      <SummaryStatsItem className={viewsClassName} title={`${views} views`}>
+      <SummaryStatsItem className={viewsClassName} title={`${view} views`}>
         <SummaryStatsItemNumber>{viewsText}</SummaryStatsItemNumber>
         <SummaryStatsItemUnit>views</SummaryStatsItemUnit>
       </SummaryStatsItem>

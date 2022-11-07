@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setQuestionId, getQuestion } from '../../_actions/question_action';
 import styled from 'styled-components';
@@ -34,11 +34,13 @@ const MainWrapper = styled.div`
 `;
 
 const QuestionDetailPage = () => {
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const { question_id } = useParams();
 
   const state = useSelector((state) => state.questionReducer);
-  const { data } = state.data;
+  const data = state.data;
 
   useEffect(() => {
     dispatch(setQuestionId(question_id));
@@ -48,13 +50,13 @@ const QuestionDetailPage = () => {
   return (
     <>
       <MainContent>
-        <Nav />
+        <Nav pathname={location.pathname} />
         <QuestionDetailMainContent>
           <QuestionTitle />
           <MainWrapper>
             <div>
-              <MainQuestion data={data} />
-              <QuestionAnswers />
+              <MainQuestion data={data} type="question" />
+              <QuestionAnswers questionId={question_id} />
             </div>
             <Sidebar />
           </MainWrapper>

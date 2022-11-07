@@ -1,4 +1,6 @@
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getTopQuestions } from '../../../_actions/question_list_action';
 
 const FlexWrapper = styled.div`
   display: flex !important;
@@ -74,56 +76,71 @@ const Tab = styled.button`
     background-color: #e3e6e8;
     box-shadow: none;
   }
-  &.is-selected:focus {
+  &.is-selected:active {
     box-shadow: 0 0 0 4px #1a232629;
     outline: none;
   }
 `;
 
-const BountyIndicatorSpan = styled.span`
-  color: #fff;
-  display: inline;
-  background-color: #0074cc;
-  padding: 0.2em 0.5em 0.25em;
-  margin-right: 5px;
-  font-size: 11px;
-  line-height: 1.3;
-  border-radius: 2px;
-`;
+// const BountyIndicatorSpan = styled.span`
+//   color: #fff;
+//   display: inline;
+//   background-color: #0074cc;
+//   padding: 0.2em 0.5em 0.25em;
+//   margin-right: 5px;
+//   font-size: 11px;
+//   line-height: 1.3;
+//   border-radius: 2px;
+// `;
+
+export const TopQuestionsSortTabObj = {
+  Hot: 'hot',
+  Week: 'week',
+  Month: 'month',
+};
 
 const SortTabs = () => {
+  const dispatch = useDispatch();
+  const sortTabValue = useSelector(
+    (state) => state.questionList.topQuestions.sortTabValue
+  );
+
   const handleClickTab = (e) => {
-    console.log(e.target.textContent);
+    dispatch(getTopQuestions(e.target.textContent.toLowerCase()));
   };
+
+  const { Hot, Week, Month } = TopQuestionsSortTabObj;
 
   return (
     <FlexWrapper>
       <Fl1 />
       <div>
         <Tabs>
-          <Tab
-            className="is-selected"
+          {/* <Tab
             title="Questions that may be of interest to you based on your history and tag preference"
             onClick={handleClickTab}
           >
             Interesting
-          </Tab>
-          <Tab title="Questions with an active bounty" onClick={handleClickTab}>
+          </Tab> */}
+          {/* <Tab title="Questions with an active bounty" onClick={handleClickTab}>
             <BountyIndicatorSpan>297</BountyIndicatorSpan> Bountied
-          </Tab>
+          </Tab> */}
           <Tab
+            className={sortTabValue === Hot ? 'is-selected' : ''}
             title="Questions with the most views, most answers, and highest score over the last few days"
             onClick={handleClickTab}
           >
             Hot
           </Tab>
           <Tab
+            className={sortTabValue === Week ? 'is-selected' : ''}
             title="Questions with the most views, most answers, and highest score this week"
             onClick={handleClickTab}
           >
             Week
           </Tab>
           <Tab
+            className={sortTabValue === Month ? 'is-selected' : ''}
             title="Questions with the most views, most answers, and highest score this month"
             onClick={handleClickTab}
           >

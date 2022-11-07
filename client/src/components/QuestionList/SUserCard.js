@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { getRandomUserImgUrl, numberFormatter } from '../../util/util';
 
 const SUserCardMinimal = styled.div`
   display: flex;
@@ -92,38 +94,55 @@ const RelativetimeSpan = styled.span`
   text-decoration: none;
 `;
 
-const SUserCard = () => {
+const SUserCard = ({ question }) => {
+  const {
+    actionUser: { nickName, email, reputation },
+    questionId,
+    actionTime,
+    status,
+  } = question;
+
+  const [userImgUrl, setUserImgUrl] = useState('');
+
+  useEffect(() => {
+    setUserImgUrl(getRandomUserImgUrl(email));
+  }, [question]);
+
   return (
     <SUserCardMinimal>
       <div aria-live="polite">
-        <Link to="/users/#">
+        <Link to="#">
           <SUserCardAvatar>
-            <img
-              src="https://lh3.googleusercontent.com/a-/AOh14GiFVj1Ia9lDp-sMV9Fd7h4-cBNQrfQHhN_zuh-LaQ=k-s32"
-              alt="Ryan Avery's user avatar"
-            />
+            <img src={userImgUrl} alt={`${nickName}'s user avatar`} />
           </SUserCardAvatar>
         </Link>
       </div>
 
       <SUserCardInfo>
         <SUserCardLinkWrapper>
-          <SUserCardLink to="/users/#">Ryan Avery</SUserCardLink>
+          <SUserCardLink to="#">{nickName}</SUserCardLink>
         </SUserCardLinkWrapper>
         <SUserCardAwards>
           <SUserCardRep>
-            <span title="reputation score " dir="ltr">
-              15
+            <span title="reputation score" dir="ltr">
+              {/* 숫자 k,m,b */}
+              {numberFormatter(reputation)}
             </span>
           </SUserCardRep>
         </SUserCardAwards>
       </SUserCardInfo>
 
       <SUserCardIime>
-        <SLinkMuted to="/questions/#">
-          asked
+        <SLinkMuted to={`/questions/${questionId}`}>
+          {status}{' '}
           <RelativetimeSpan title="2022-10-25 05:04:43Z">
-            24 secs ago
+            {new Date(actionTime).toLocaleDateString('en-us', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })}
           </RelativetimeSpan>
         </SLinkMuted>
       </SUserCardIime>

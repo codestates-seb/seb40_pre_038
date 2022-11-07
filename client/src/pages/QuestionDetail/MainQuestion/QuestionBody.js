@@ -13,24 +13,42 @@ const QuestionBodyContainer = styled.div`
 const QuestionBodyBottom = styled.div`
   width: 100%;
   display: flex;
+  margin-top: 30px;
   justify-content: space-between;
 `;
 
-const QuestionBody = ({ data }) => {
-  const problem = data === undefined ? '' : data.problem;
-  const expect = data === undefined ? '' : data.expect;
-  const tagList = data === undefined ? [] : data.tagList;
-  const userName = data === undefined ? '' : data.userResponseDto.nickName;
-  const createdDate = data === undefined ? '' : data.createdAt;
+const QuestionBody = ({ data, type, answerId }) => {
+  const problem = Object.keys(data).length === 0 ? '' : data.problem;
+  const expect = Object.keys(data).length === 0 ? '' : data.expect;
+  const tagList = Object.keys(data).length === 0 ? [] : data.tagList;
+  let userName = '';
+  if (Object.keys(data).length !== 0 && type === 'question') {
+    userName = data.userInformation.nickName;
+  } else if (Object.keys(data).length !== 0 && type === 'answer') {
+    userName = data.userResponseDto.nickName;
+  }
+  const createdDate = Object.keys(data).length === 0 ? '' : data.createdAt;
+  const answerbody = Object.keys(data).length === 0 ? '' : data.body;
 
   return (
     <QuestionBodyContainer>
-      <QuestionBodyTxt text={problem} />
-      <QuestionBodyTxt text={expect} />
-      <QuestionTags tagList={tagList} />
+      {type === 'question' ? (
+        <>
+          <QuestionBodyTxt text={problem} />
+          <QuestionBodyTxt text={expect} />
+          <QuestionTags tagList={tagList} />
+        </>
+      ) : (
+        <QuestionBodyTxt text={answerbody} />
+      )}
+
       <QuestionBodyBottom>
-        <QuestionBodyBtns />
-        <QuestionUserinfo userName={userName} createdAt={createdDate} />
+        <QuestionBodyBtns type={type} answerId={answerId} />
+        <QuestionUserinfo
+          type={type}
+          userName={userName}
+          createdAt={createdDate}
+        />
       </QuestionBodyBottom>
     </QuestionBodyContainer>
   );

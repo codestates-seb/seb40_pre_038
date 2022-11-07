@@ -8,6 +8,8 @@ import com.codestates.question.Question;
 import com.codestates.question.QuestionDto;
 import com.codestates.question.QuestionMapper;
 import com.codestates.question.QuestionService;
+import com.codestates.user.assembler.UserAssembler;
+import com.codestates.user.controller.UserController;
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
 import com.codestates.user.mapper.UserMapper;
@@ -19,10 +21,13 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -36,9 +41,11 @@ import java.util.List;
 
 import static com.codestates.util.ApiDocumentUtils.getDocumentRequest;
 import static com.codestates.util.ApiDocumentUtils.getDocumentResponse;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -48,7 +55,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @SpringBootTest
-//@WebMvcTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 public class UserControllerRestDoc {
@@ -65,8 +71,11 @@ public class UserControllerRestDoc {
     @MockBean
     private AnswerService answerService;
 
-//    @MockBean
-//    private UserService userService;
+    @MockBean
+    private UserService userService;
+
+    @MockBean
+    private UserAssembler userAssembler;
 
     @MockBean
     private UserMapper userMapper;
@@ -105,6 +114,7 @@ public class UserControllerRestDoc {
 
     @Test
     void postQuestionTest() throws Exception {
+
 
         QuestionDto.Post post = new QuestionDto.Post(
                 "Title",
@@ -299,69 +309,106 @@ public class UserControllerRestDoc {
 //
 //        long userId = 1;
 //
-//        User user = new User();
+//        User user = new User(
+//                1L,
+//                "Stub_Potato",
+//                "stub_email@user.com",
+//                "e487275780",
+//                User.UserStatus.USER_ACTIVE,
+//                null,
+//                null,
+//                null,
+//                null,
+//                1234567890
+//        );
 //
-//        QuestionDto.Response response =
-//                new QuestionDto.Response(1L,
-//                        userMapper.userToUserResponseDto(new User(1L,
-//                                "Stub_Potato",
-//                                "stub_email@user.com",
-//                                1234567890)),
-//                        "Title",
-//                        "Problem should have more than 20 characters",
-//                        "Expect should have more than 20 characters",
-//                        List.of("tag", "body"),
-//                        0, 0,
-//                        LocalDateTime.now(),
-//                        LocalDateTime.now(),
-//                        0,
+////        of response = new EntityModel.of(
+////                new User(
+////                        1L,
+////                        "Stub_Potato",
+////                        "stub_email@user.com",
+////                        "e487275780",
+////                        User.UserStatus.USER_ACTIVE,
+////                        null,
+////                        null,
+////                        null,
+////                        null,
+////                        1234567890
+////                ),
+////                "http://localhost:8080/api/users/1",
+////                "http://localhost:8080/api/users"
+////        );
+//
+////        UserDto.Response response =
+////                new UserDto.Response(
+////                        1L,
+////                        "Stub_Potato",
+////                        "stub_email@user.com",
+////                        1234567890
+////                );
+//
+//        given(userService.findOne(anyLong())).willReturn(new User());
+//
+////        given(userAssembler.toModel(Mockito.any(User.class))).willReturn(response);
+//
+////        given(EntityModel.of(Mockito.any(User.class), anyList())).willReturn(user);
+//
+//        given(userAssembler.toModel(Mockito.any(User.class))).willReturn(
+//                new User(
+//                        1L,
+//                        "Stub_Potato",
+//                        "stub_email@user.com",
+//                        "e487275780",
+//                        User.UserStatus.USER_ACTIVE,
 //                        null,
-//                        "asked"
-//                );
+//                        null,
+//                        null,
+//                        null,
+//                        1234567890
+//                ),
+//                ("http://localhost:8080/api/users/1"),
+//                ("http://localhost:8080/api/users")
+//        );
 //
-//        given(questionService.findQuestion(anyLong())).willReturn(new Question());
-//
-//        given(questionMapper.questionToQuestionResponse(Mockito.any(Question.class))).willReturn(response);
 //
 //        ResultActions actions =
 //                mockMvc.perform(
-//                        RestDocumentationRequestBuilders.get("/api/questions/{questionId}", questionId)
+//                        RestDocumentationRequestBuilders.get("/api/users/{userId}", userId)
 //                                .accept(MediaType.APPLICATION_JSON)
 //                );
 //
 //        actions
 //                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.data.questionId").value(response.getQuestionId()))
-//                .andExpect(jsonPath("$.data.userInformation.userId").value(response.getUserInformation().getUserId()))
-//                .andExpect(jsonPath("$.data.problem").value(response.getProblem()))
-//                .andExpect(jsonPath("$.data.expect").value(response.getExpect()))
-//                .andExpect(jsonPath("$.data.tagList[0:]").value(new ArrayList<>(response.getTagList())))
+////                .andExpect(jsonPath("$.data.userId").value(response.getUserId()))
+////                .andExpect(jsonPath("$.data.nickName").value(response.getNickName()))
+////                .andExpect(jsonPath("$.data.email").value(response.getEmail()))
+////                .andExpect(jsonPath("$.data.reputation").value(response.getReputation()))
 //                .andDo(document(
-//                        "get-question",
+//                        "get-user",
 //                        getDocumentRequest(),
 //                        getDocumentResponse(),
 //                        pathParameters(
-//                                parameterWithName("questionId").description("질문 번호")
+//                                parameterWithName("userId").description("회원 번호")
 //                        ),
 //                        responseFields(
 //                                List.of(
-//                                        fieldWithPath("data.").type(JsonFieldType.OBJECT).description("결과 데이터"),
-//                                        fieldWithPath("data.questionId").type((JsonFieldType.NUMBER)).description("질문 번호"),
-//                                        fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
-//                                        fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
-//                                        fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
-//                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
-//                                        fieldWithPath("data.title").type(JsonFieldType.STRING).description("제목"),
-//                                        fieldWithPath("data.problem").type(JsonFieldType.STRING).description("문제"),
-//                                        fieldWithPath("data.expect").type(JsonFieldType.STRING).description("기대"),
-//                                        fieldWithPath("data.tagList").type(JsonFieldType.ARRAY).description("태그 리스트"),
-//                                        fieldWithPath("data.view").type(JsonFieldType.NUMBER).description("조회수"),
-//                                        fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표"),
-//                                        fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
-//                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
-//                                        fieldWithPath("data.answerCount").type(JsonFieldType.NUMBER).description("답변 개수"),
-//                                        fieldWithPath("data.commentsWithUser").type(JsonFieldType.NULL).description("댓글"),
-//                                        fieldWithPath("data.actionStatus").type(JsonFieldType.STRING).description("질문 상태")
+//                                        fieldWithPath("data.").type(JsonFieldType.OBJECT).description("결과 데이터")
+////                                        fieldWithPath("data.questionId").type((JsonFieldType.NUMBER)).description("질문 번호"),
+////                                        fieldWithPath("data.userInformation.userId").type((JsonFieldType.NUMBER)).description("질문 유저 번호"),
+////                                        fieldWithPath("data.userInformation.nickName").type((JsonFieldType.STRING)).description("질문 유저 이름"),
+////                                        fieldWithPath("data.userInformation.email").type((JsonFieldType.STRING)).description("질문 유저 이메일 주소"),
+////                                        fieldWithPath("data.userInformation.reputation").type((JsonFieldType.NUMBER)).description("질문 유저 명성"),
+////                                        fieldWithPath("data.title").type(JsonFieldType.STRING).description("제목"),
+////                                        fieldWithPath("data.problem").type(JsonFieldType.STRING).description("문제"),
+////                                        fieldWithPath("data.expect").type(JsonFieldType.STRING).description("기대"),
+////                                        fieldWithPath("data.tagList").type(JsonFieldType.ARRAY).description("태그 리스트"),
+////                                        fieldWithPath("data.view").type(JsonFieldType.NUMBER).description("조회수"),
+////                                        fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표"),
+////                                        fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
+////                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("마지막 수정 날짜"),
+////                                        fieldWithPath("data.answerCount").type(JsonFieldType.NUMBER).description("답변 개수"),
+////                                        fieldWithPath("data.commentsWithUser").type(JsonFieldType.NULL).description("댓글"),
+////                                        fieldWithPath("data.actionStatus").type(JsonFieldType.STRING).description("질문 상태")
 //                                )
 //                        )
 //                ));

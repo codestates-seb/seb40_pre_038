@@ -47,34 +47,25 @@ const TagListsItemLink = styled(Link)`
   }
 `;
 
-const SMetaTags = () => {
+const SMetaTags = ({ question }) => {
+  const { tagList } = question;
   return (
     <SummaryMetaTagsWrapper>
       <TagList>
-        <TagListsItem>
-          <TagListsItemLink
-            to="/questions/tagged/python"
-            className="js-tagname-python"
-            title="show questions tagged 'python'"
-            aria-label="show questions tagged 'python'"
-            rel="tag"
-            aria-labelledby="python-container"
-          >
-            python
-          </TagListsItemLink>
-        </TagListsItem>
-        <TagListsItem>
-          <TagListsItemLink
-            to="/questions/tagged/variables"
-            className="js-tagname-variables"
-            title="show questions tagged 'variables'"
-            aria-label="show questions tagged 'variables'"
-            rel="tag"
-            aria-labelledby="variables-container"
-          >
-            variables
-          </TagListsItemLink>
-        </TagListsItem>
+        {tagList.map((tag) => (
+          <TagListsItem key={tag}>
+            <TagListsItemLink
+              to="#"
+              // to={`/questions/tagged/${tag}`}
+              title={`show questions tagged '${tag}'`}
+              aria-label={`show questions tagged '${tag}'`}
+              rel="tag"
+              aria-labelledby={`${tag}-container`}
+            >
+              {tag}
+            </TagListsItemLink>
+          </TagListsItem>
+        ))}
       </TagList>
     </SummaryMetaTagsWrapper>
   );

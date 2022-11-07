@@ -1,6 +1,9 @@
 import styled from 'styled-components';
-import { ButtonBlue } from '../../components/Buttons';
 import { useState } from 'react';
+import axios from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
+import Popup from '../../components/Modal';
+import { LOGIN_URL } from '../../api/requests';
 
 const FormContainer = styled.div`
   max-width: calc(97.2307692rem / 4);
@@ -71,17 +74,49 @@ const ErrorMessageP = styled.p`
   font-size: 12px;
 `;
 
+const ButtonBlue = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0995ff;
+  color: #ffffff;
+  font-weight: bold;
+  border: 1px solid #0995ff;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 #ffffff;
+  width: ${(props) => props.width || '100px'};
+  height: ${(props) => props.height || '40px'};
+  font-size: ${(props) => props.fontSize || '14px'};
+  font-weight: ${(props) => props.fontWeight || '700'};
+  :hover {
+    background: #0063bf;
+  }
+`;
+
 function LoginForm() {
-  const [message, setMessage] = useState('');
+  const [emessage, setEmessage] = useState('');
   const [pmessage, setPmessage] = useState('');
   const [error, setError] = useState(null);
   const [perror, setPerror] = useState(null);
+  const [popup, setPopup] = useState({
+    open: false,
+    title: '',
+    message: '',
+    callback: false,
+  }); // modal state
+
+  const navigate = useNavigate();
 
   function isValidEmail(email) {
     if (email.length === 0) {
       return false;
     }
     return true;
+  }
+
+  function isValidEmailForm(email) {
+    return /\S+@\S+\.\S+/.test(email);
   }
 
   function isValidPassword(password) {
@@ -97,11 +132,10 @@ function LoginForm() {
     } else {
       setError(null);
     }
-    setMessage(event.target.value);
+    setEmessage(event.target.value);
   };
 
   const handlePchange = (event) => {
-    console.log(isValidPassword(event.target.value));
     if (!isValidPassword(event.target.value)) {
       setPerror(`Passwords cannot be empty.`);
     } else {
@@ -110,8 +144,63 @@ function LoginForm() {
     setPmessage(event.target.value);
   };
 
+  const handleLoginButton = (e) => {
+    e.preventDefault();
+    if (emessage === '') {
+      setPopup({
+        open: true,
+        title: 'Error',
+        message: 'Please input your email address.',
+      });
+    } else if (pmessage === '') {
+      setPopup({
+        open: true,
+        title: 'Error',
+        message: 'Please input your password.',
+      });
+    } else if (!isValidEmailForm(emessage)) {
+      setPopup({
+        open: true,
+        title: 'Error',
+        message: 'The email is not a valid email address.',
+      });
+    } else {
+      requestLogin();
+    }
+  };
+
+  const requestLogin = async () => {
+    return await axios
+      .post(LOGIN_URL, {
+        email: emessage,
+        password: pmessage,
+      }) // 받은 이메일과 패스워드로 로그인 POST 요청
+      .then((response) => {
+        // console.log(response.status);
+        // console.log(`로그인 성공`);
+        let accessToken = response.headers.get('Authorization'); // Access token
+        // let refreshToken = response.headers.get('Refresh'); // Refresh token
+        // console.log(`액세스 토큰 : ${accessToken}`);
+        // console.log(`리프레쉬 토큰 : ${refreshToken}`);
+        sessionStorage.setItem('Authorization', accessToken); // 없으면 Access 토큰 로컬스토리지에 저장
+        navigate('/'); // 메인페이지로 옮기기
+        window.location.replace('/');
+      })
+      .catch((e) => {
+        console.log(`ERROR RESPONSE : ${e.status}`);
+        return 'Email or password is incorrect.';
+      });
+  };
+
   return (
     <FormContainer>
+      <Popup
+        open={popup.open}
+        setPopup={setPopup}
+        message={popup.message}
+        title={popup.title}
+        callback={popup.callback}
+      />
       <LoginAreaForm>
         <FormContent>
           <ContentLabel htmlFor="email">Email</ContentLabel>
@@ -119,7 +208,7 @@ function LoginForm() {
             <InputContent
               id="email"
               name="email"
-              value={message}
+              value={emessage}
               onChange={handleChange}
             ></InputContent>
             {error && (
@@ -163,7 +252,9 @@ function LoginForm() {
           {perror && <ErrorMessageP>{perror}</ErrorMessageP>}
         </FormContent>
         <div style={{ margin: '6px' }}>
-          <ButtonBlue width={'100%'}>Log in</ButtonBlue>
+          <ButtonBlue width={'100%'} onClick={handleLoginButton}>
+            Log in
+          </ButtonBlue>
         </div>
       </LoginAreaForm>
     </FormContainer>

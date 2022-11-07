@@ -1,4 +1,10 @@
-import { GET_QUESTION, SET_QUESTION_ID } from '../_actions/question_action';
+import {
+  GET_QUESTION,
+  POST_QUESTION_COMMENT,
+  SET_QUESTION_ID,
+  DELETE_QUESTION,
+  DELETE_QUESTION_COMMENT,
+} from '../_actions/question_action';
 
 const initialState = {
   question_id: 1,
@@ -10,7 +16,33 @@ export const questionReducer = (state = initialState, action) => {
     case SET_QUESTION_ID:
       return { ...state, question_id: action.payload };
     case GET_QUESTION:
-      return { ...state, data: action.payload };
+      return { ...state, ...action.payload };
+    case POST_QUESTION_COMMENT:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          commentsWithUser: [
+            ...state.data.commentsWithUser,
+            action.payload.data,
+          ],
+        },
+      };
+    case DELETE_QUESTION_COMMENT:
+      console.log(action.payload.commentId);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          commentsWithUser: [
+            ...state.data.commentsWithUser.filter((el) => {
+              return el.commentId !== action.payload.commentId;
+            }),
+          ],
+        },
+      };
+    case DELETE_QUESTION:
+      return initialState;
     default:
       return state;
   }
