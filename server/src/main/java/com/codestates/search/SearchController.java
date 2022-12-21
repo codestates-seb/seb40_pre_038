@@ -9,15 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
-        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"})
+@CrossOrigin(origins = {"http://localhost:3000",
+                "http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
+                "http://seb40-pre-038.vercel.app",
+        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"}, allowCredentials = "true")
 @RestController
 @Validated
 @RequestMapping("/api/search")

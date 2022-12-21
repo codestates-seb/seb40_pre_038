@@ -7,7 +7,6 @@ import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
 import com.codestates.question.Question;
-import com.codestates.user.service.UserService;
 import org.mapstruct.Mapper;
 
 import java.util.List;

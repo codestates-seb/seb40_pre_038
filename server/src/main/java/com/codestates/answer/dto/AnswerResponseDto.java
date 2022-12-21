@@ -2,7 +2,6 @@ package com.codestates.answer.dto;
 
 import com.codestates.answer.entity.Answer;
 import com.codestates.comment.CommentDto;
-import com.codestates.comment.entity.Comment;
 import com.codestates.user.dto.UserDto;
 import lombok.*;
 

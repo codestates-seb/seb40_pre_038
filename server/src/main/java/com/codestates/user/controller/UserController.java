@@ -19,8 +19,10 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-@CrossOrigin(origins = {"http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
-        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"})
+@CrossOrigin(origins = {"http://localhost:3000",
+                "http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
+                "http://seb40-pre-038.vercel.app",
+        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"}, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/users")
 @Validated
@@ -38,14 +40,16 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<User> getUser(@PathVariable long id) {
+    public EntityModel<UserDto.Response> getUser(@PathVariable long id) {
         User user = userService.findOne(id);
-        return assembler.toModel(user);
+        UserDto.Response response = mapper.userToUserResponseDto(user);
+        return assembler.toModel(response);
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<User>> getUsers() {
-        List<EntityModel<User>> users = userService.findAll().stream()
+    public CollectionModel<EntityModel<UserDto.Response>> getUsers() {
+        List<EntityModel<UserDto.Response>> users = userService.findAll().stream()
+                .map(mapper::userToUserResponseDto)
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
 
@@ -55,17 +59,18 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> postUser(@Valid @RequestBody UserDto.Post requestBody) {
-        // Test - using Mapper
         User user = mapper.userPostToUser(requestBody);
-        EntityModel<User> entityModel = assembler.toModel(userService.createOne(user));
+        UserDto.Response response = mapper.userToUserResponseDto(userService.createOne(user));
+        EntityModel<UserDto.Response> entityModel = assembler.toModel(response);
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> patchUser(@RequestBody User user, @PathVariable long id) {
-        EntityModel<User> entityModel = assembler.toModel(userService.updateOne(user, id));
+    public ResponseEntity<?> patchUser(@Valid @RequestBody UserDto.Patch requestBody, @PathVariable long id) {
+        User user = userService.updateOne(mapper.userPatchDtoToUser(requestBody), id);
+        EntityModel<UserDto.Response> entityModel = assembler.toModel(mapper.userToUserResponseDto(user));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

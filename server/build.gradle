@@ -78,3 +78,7 @@ bootJar { // Spring Rest Docs
         into 'static/docs'
     }
 }
+
+test {
+    exclude '**/*'
+}

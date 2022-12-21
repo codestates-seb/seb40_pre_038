@@ -18,8 +18,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
-        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"})
+@CrossOrigin(origins = {"http://localhost:3000",
+                "http://pre-project-038-client.s3-website.ap-northeast-2.amazonaws.com",
+                "http://seb40-pre-038.vercel.app",
+        "http://ec2-13-125-208-244.ap-northeast-2.compute.amazonaws.com:8080"}, allowCredentials = "true")
 @RestController
 @Validated
 @RequestMapping("/api")
@@ -68,18 +70,6 @@ public class AnswerController {
                 new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
                 HttpStatus.OK);
     }
-
-    /*@PatchMapping("/{answer-id}/best") // QuestionController에서 동작
-    public ResponseEntity patchStatus(@PathVariable("answer-id") @Positive long answerId,
-                                     @Valid @RequestBody AnswerBestDto answerBestDto) {
-        answerBestDto.setAnswerId(answerId);
-
-        Answer answer = answerService.updateStatus(mapper.answerBestDtoToAnswer(answerBestDto));
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
-                HttpStatus.OK);
-    }*/
 
     @GetMapping("/questions/{question-id}/answers")
     public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId) {

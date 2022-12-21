@@ -1,7 +1,6 @@
 package com.codestates.user.entity;
 
 import com.codestates.answer.entity.Answer;
-import com.codestates.audit.Auditable;
 import com.codestates.comment.entity.Comment;
 import com.codestates.question.Question;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "USERS")
-public class User extends Auditable {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
